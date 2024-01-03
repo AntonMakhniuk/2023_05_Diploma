@@ -1,0 +1,101 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class AsteroidSpawner : MonoBehaviour
+{
+    public GameObject asteroidPrefab;
+    [SerializeField]public int numberOfAsteroids = 10;
+    public Vector3 spawnZoneSize = new Vector3(10f, 10f, 10f);
+    [SerializeField]public float spawnInterval = 5f;
+
+   public enum SpawnShape { Rectangle, Circle, Sphere }
+    public SpawnShape spawnShape = SpawnShape.Rectangle;
+    public float circleRadius = 5f;
+    public bool drawGizmos = true;
+
+    [Header("Asteroid Properties")]
+    public float asteroidSpeed = 1f;
+    public float asteroidRotationSpeed = 5f;
+
+    private void Start()
+    {
+        StartCoroutine(SpawnAsteroidsWithDelay());
+    }
+
+    private IEnumerator SpawnAsteroidsWithDelay()
+    {
+        for (int i = 0; i < numberOfAsteroids; i++)
+        {
+            SpawnSingleAsteroid();
+            yield return new WaitForSeconds(spawnInterval);
+        }
+    }
+
+    private void SpawnSingleAsteroid()
+    {
+        Vector3 randomPosition = GetRandomPosition();
+        Quaternion randomRotation = Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360));
+
+        GameObject asteroid = Instantiate(asteroidPrefab, randomPosition, randomRotation);
+        Rigidbody asteroidRb = asteroid.GetComponent<Rigidbody>();
+        asteroidRb.AddForce(Random.onUnitSphere * asteroidSpeed, ForceMode.Impulse);
+        asteroidRb.AddTorque(Random.onUnitSphere * asteroidRotationSpeed, ForceMode.Impulse);
+        
+
+        asteroid.transform.parent = transform;
+    }
+
+    private Vector3 GetRandomPosition()
+    {
+        Vector3 randomPosition = Vector3.zero;
+
+        switch (spawnShape)
+        {
+            case SpawnShape.Rectangle:
+                randomPosition = transform.position + new Vector3(
+                    Random.Range(-spawnZoneSize.x / 2, spawnZoneSize.x / 2),
+                    Random.Range(-spawnZoneSize.y / 2, spawnZoneSize.y / 2),
+                    Random.Range(-spawnZoneSize.z / 2, spawnZoneSize.z / 2)
+                );
+                break;
+
+            case SpawnShape.Circle:
+                float angle = Random.Range(0f, 2f * Mathf.PI);
+                randomPosition = transform.position + new Vector3(
+                    Mathf.Cos(angle) * circleRadius,
+                    Random.Range(-spawnZoneSize.y / 2, spawnZoneSize.y / 2),
+                    Mathf.Sin(angle) * circleRadius
+                );
+                break;
+
+            case SpawnShape.Sphere:
+                randomPosition = transform.position + Random.onUnitSphere * circleRadius;
+                break;
+        }
+
+        return randomPosition;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (!drawGizmos) return;
+
+        Gizmos.color = Color.blue;
+
+        switch (spawnShape)
+        {
+            case SpawnShape.Rectangle:
+                Gizmos.DrawWireCube(transform.position, spawnZoneSize);
+                break;
+
+            case SpawnShape.Circle:
+                Gizmos.DrawWireSphere(transform.position, circleRadius);
+                break;
+
+            case SpawnShape.Sphere:
+                Gizmos.DrawWireSphere(transform.position, circleRadius);
+                break;
+        }
+    }
+}
