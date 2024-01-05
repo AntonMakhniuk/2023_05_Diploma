@@ -14,7 +14,8 @@ public class RandomPointSelector : MonoBehaviour
     private Vector3 randomPoint;
 
     private Color[] colors = new[] { Color.red, Color.green, Color.blue};
-    [SerializeField] private Vector3[] points = new Vector3[3];
+    private Vector3[] points = new Vector3[3];
+    [SerializeField] private List<GameObject> childPoints = new List<GameObject>(); 
 
     private void Start() {
         DrawThreeRandomPoints();
@@ -29,10 +30,14 @@ public class RandomPointSelector : MonoBehaviour
 	}
     
     public void OnDrawGizmos() {
-        foreach (Vector3 point in points) {
-            int index = Array.IndexOf(points, point);
-            Gizmos.color = colors[index];
-            Gizmos.DrawSphere(point, 1f);
+        // foreach (Vector3 point in points) {
+        //     int index = Array.IndexOf(points, point);
+        //     Gizmos.color = colors[index];
+        //     Gizmos.DrawSphere(point, 0.1f);
+        // }
+
+        foreach (var childPoint in childPoints) {
+            Gizmos.DrawSphere(childPoint.transform.position, 0.1f);
         }
     }
 
@@ -57,6 +62,21 @@ public class RandomPointSelector : MonoBehaviour
         // Debug.Log("0 and 2 distance: " + (Vector3.Distance(points[0], points[2]) <= 0.7 * Mathf.Min(scaleValues)));
         // Debug.Log("1 and 2 distance: " + Vector3.Distance(points[1], points[2]));
         // Debug.Log("1 and 2 distance: " + (Vector3.Distance(points[1], points[2]) <= 0.7 *  Mathf.Min(scaleValues)));
+
+        GameObject point0 = new GameObject("point0");
+        point0.transform.position = points[0];
+        point0.transform.parent = transform;
+        childPoints.Add(point0);
+        
+        GameObject point1 = new GameObject("point1");
+        point1.transform.position = points[1];
+        point1.transform.parent = transform;
+        childPoints.Add(point1);
+        
+        GameObject point2 = new GameObject("point2");
+        point2.transform.position = points[2];
+        point2.transform.parent = transform;
+        childPoints.Add(point2);
     }
     
     private Vector3 GetRandomPointOnMesh(Mesh mesh)
