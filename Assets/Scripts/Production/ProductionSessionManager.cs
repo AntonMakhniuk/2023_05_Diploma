@@ -4,10 +4,16 @@ using UnityEngine;
 
 namespace Production
 {
-    public class ProductionStateTracker : MonoBehaviour
+    // meant to be created every time a new production is started, and destroyed afterwards
+    public class ProductionSessionManager : MonoBehaviour
     {
-        private int _criticalFailCount;
+        // TODO: change this to prefab
         [SerializeField] private GeneralBase[] generalChallenges;
+        [SerializeField] private int maxCriticalFails = 3;
+        
+        public Difficulty difficulty;
+        
+        private int _criticalFailCount;
         
         private void Start()
         {
@@ -27,7 +33,7 @@ namespace Production
 
         private void AddCriticalFail()
         {
-            if (_criticalFailCount < 3)
+            if (_criticalFailCount < maxCriticalFails)
             {
                 _criticalFailCount++;
             }
