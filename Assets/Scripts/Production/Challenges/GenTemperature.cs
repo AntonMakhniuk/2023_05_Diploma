@@ -1,18 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 namespace Production.Challenges
 {
     public class GenTemperature : GeneralBase
     {
-        [SerializeField] private int maxTemperature = 1000;
-        [SerializeField] private int minTemperature = 0;
-        [SerializeField] private int baseTemperature = 200;
-        [SerializeField] private int warningThreshold = 500;
-        [SerializeField] private float stepSize = 50;
-        [SerializeField] private float growthSpeed = 40;
-        [SerializeField] private float failureResetTime = 2.5f;
-        
+        [SerializeField] private TemperatureConfig[] configs;
+
+        private TemperatureConfig _config;
+        private ProductionSessionManager _sessionManager;
         private float _currentTemperature;
         private bool _isBeingReset;
         
@@ -21,7 +19,9 @@ namespace Production.Challenges
 
         private void Start()
         {
-            _currentTemperature = baseTemperature;
+            _sessionManager = GetComponentInParent<ProductionSessionManager>();
+            _config = configs.FirstOrDefault(config => config.difficulty == _sessionManager.difficulty);
+            _currentTemperature = _config.baseTemperature;
             _isBeingReset = false;
         }
 
@@ -32,13 +32,13 @@ namespace Production.Challenges
                 return;
             }
             
-            _currentTemperature += growthSpeed * Time.fixedDeltaTime;
+            _currentTemperature += _config.growthSpeed * Time.fixedDeltaTime;
 
-            if (_currentTemperature >= maxTemperature)
+            if (_currentTemperature >= _config.maxTemperature)
             {
                 Fail();
             }
-            else if (_currentTemperature >= warningThreshold)
+            else if (_currentTemperature >= _config.warningThreshold)
             {
                 TemperatureWarningSurpassed?.Invoke();
             }
@@ -51,13 +51,13 @@ namespace Production.Challenges
                 return;
             }
             
-            if (_currentTemperature - stepSize < minTemperature)
+            if (_currentTemperature - _config.stepSize < _config.minTemperature)
             {
-                _currentTemperature = minTemperature;
+                _currentTemperature = _config.minTemperature;
             }
             else
             {
-                _currentTemperature -= stepSize;
+                _currentTemperature -= _config.stepSize;
             }
         }
         
@@ -78,16 +78,28 @@ namespace Production.Challenges
             float currentTime = 0f;
             float temperatureAtResetStart = _currentTemperature;
 
-            while (currentTime < failureResetTime)
+            while (currentTime < _config.failureResetTime)
             {
-                float t = currentTime / failureResetTime;
+                float t = currentTime / _config.failureResetTime;
 
-                _currentTemperature = Mathf.Lerp(temperatureAtResetStart, baseTemperature, t);
+                _currentTemperature = Mathf.Lerp(temperatureAtResetStart, _config.baseTemperature, t);
 
                 yield return null;
             }
 
             _isBeingReset = false;
         }
+    }
+
+    [Serializable]
+    public class TemperatureConfig : ConfigBase
+    {
+        public int maxTemperature = 1000;
+        public int minTemperature = 0;
+        public int baseTemperature = 200;
+        public int warningThreshold = 500;
+        public float stepSize = 50;
+        public float growthSpeed = 40;
+        public float failureResetTime = 2.5f;
     }
 }
