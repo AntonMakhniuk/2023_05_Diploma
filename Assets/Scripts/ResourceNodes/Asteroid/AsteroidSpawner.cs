@@ -41,7 +41,6 @@ public class AsteroidSpawner : MonoBehaviour
         Rigidbody asteroidRb = asteroid.GetComponent<Rigidbody>();
         asteroidRb.AddForce(Random.onUnitSphere * asteroidSpeed, ForceMode.Impulse);
         asteroidRb.AddTorque(Random.onUnitSphere * asteroidRotationSpeed, ForceMode.Impulse);
-        
 
         asteroid.transform.parent = transform;
     }

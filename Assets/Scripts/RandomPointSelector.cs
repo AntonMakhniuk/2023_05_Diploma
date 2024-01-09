@@ -11,8 +11,10 @@ public class RandomPointSelector : MonoBehaviour
     private Vector3[] points = new Vector3[3];
     private List<GameObject> childPoints = new List<GameObject>();
 
-    private void Start()
-    {
+    [SerializeField] private int startCounter = 0;
+
+    private void Start() {
+        startCounter++;
         DrawThreeRandomPoints();
     }
 
@@ -34,13 +36,18 @@ public class RandomPointSelector : MonoBehaviour
     private void DrawThreeRandomPoints()
     {
         points[0] = GetRandomPointOnMesh(lookupCollider.sharedMesh) + lookupCollider.transform.position;
-
         points[1] = GetRandomPointOnMesh(lookupCollider.sharedMesh) + lookupCollider.transform.position;
         points[2] = GetRandomPointOnMesh(lookupCollider.sharedMesh) + lookupCollider.transform.position;
 
         float[] scaleValues = new float[] { transform.localScale.x, transform.localScale.y, transform.localScale.z };
 
         // Your validation logic for point distances here
+        while (Vector3.Distance(points[0], points[1]) <= 0.6 * Mathf.Min(scaleValues))
+                    points[1] = GetRandomPointOnMesh(lookupCollider.sharedMesh) + lookupCollider.transform.position;
+        
+        while (Vector3.Distance(points[0], points[2]) <= 0.6 * Mathf.Min(scaleValues) || 
+               Vector3.Distance(points[1], points[2]) <= 0.6 * Mathf.Min(scaleValues))
+                    points[2] = GetRandomPointOnMesh(lookupCollider.sharedMesh) + lookupCollider.transform.position;
 
         for (int i = 0; i < points.Length; i++)
         {
