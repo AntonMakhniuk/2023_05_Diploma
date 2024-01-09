@@ -8,8 +8,8 @@ namespace Production
     public class ProductionSessionManager : MonoBehaviour
     {
         // TODO: change this to prefab
-        [SerializeField] private GeneralBase[] generalChallenges;
-        [SerializeField] private int maxCriticalFails = 3;
+        private GeneralBase[] _generalChallenges;
+        private readonly int _maxCriticalFails = 3;
         
         public Difficulty difficulty;
         
@@ -17,7 +17,7 @@ namespace Production
         
         private void Start()
         {
-            foreach (GeneralBase general in generalChallenges)
+            foreach (GeneralBase general in _generalChallenges)
             {
                 general.GeneralFailed += AddCriticalFail;
             }
@@ -25,7 +25,7 @@ namespace Production
 
         public void OnDestroy()
         {
-            foreach (GeneralBase general in generalChallenges)
+            foreach (GeneralBase general in _generalChallenges)
             {
                 general.GeneralFailed -= AddCriticalFail;
             }
@@ -33,7 +33,7 @@ namespace Production
 
         private void AddCriticalFail()
         {
-            if (_criticalFailCount < maxCriticalFails)
+            if (_criticalFailCount < _maxCriticalFails)
             {
                 _criticalFailCount++;
             }
