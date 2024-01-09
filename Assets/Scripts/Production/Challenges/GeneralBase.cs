@@ -1,11 +1,10 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Production.Challenges
 {
     public abstract class GeneralBase : MonoBehaviour
     {
-        private void Update()
+        private void FixedUpdate()
         {
             UpdateChallenge();
         }
@@ -15,7 +14,7 @@ namespace Production.Challenges
         public delegate void GeneralFailHandler();
         public event GeneralFailHandler GeneralFailed;
         
-        private void Fail()
+        protected void Fail()
         {
             GeneralFailed?.Invoke();
             Reset();

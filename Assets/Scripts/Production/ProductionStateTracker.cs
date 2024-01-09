@@ -7,11 +7,11 @@ namespace Production
     public class ProductionStateTracker : MonoBehaviour
     {
         private int _criticalFailCount;
-        [SerializeField] private GeneralBase[] _generalChallenges;
+        [SerializeField] private GeneralBase[] generalChallenges;
         
         private void Start()
         {
-            foreach (GeneralBase general in _generalChallenges)
+            foreach (GeneralBase general in generalChallenges)
             {
                 general.GeneralFailed += AddCriticalFail;
             }
@@ -19,7 +19,7 @@ namespace Production
 
         public void OnDestroy()
         {
-            foreach (GeneralBase general in _generalChallenges)
+            foreach (GeneralBase general in generalChallenges)
             {
                 general.GeneralFailed -= AddCriticalFail;
             }
