@@ -44,12 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a8adef4060668145a89f935672c37fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  asteroidPrefab: {fileID: 5937135967291247244, guid: be36eac713c33ac44922e52df2c78e01, type: 3}
-  numberOfAsteroids: 10
+  asteroidPrefab: {fileID: 3380455344778061254, guid: 765aa9d1d1ebc67489e7aa25edafe346, type: 3}
+  numberOfAsteroids: 100
   spawnZoneSize: {x: 20, y: 20, z: 20}
-  spawnInterval: 5
+  spawnInterval: 0
   spawnShape: 0
   circleRadius: 5
   drawGizmos: 1
-  asteroidSpeed: 5
-  asteroidRotationSpeed: 5
+  asteroidSpeed: 1
+  asteroidRotationSpeed: 1
