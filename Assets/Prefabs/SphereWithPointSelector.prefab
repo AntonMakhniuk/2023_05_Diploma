@@ -122,10 +122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lookupCollider: {fileID: 3447407456178272051}
   redrawPoints: 0
-  points:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
+  childPoints: []
 --- !u!54 &263008374762717192
 Rigidbody:
   m_ObjectHideFlags: 0

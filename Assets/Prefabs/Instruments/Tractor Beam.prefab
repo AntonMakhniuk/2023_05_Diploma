@@ -101,13 +101,13 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5000001
+  m_Radius: 10
   m_Height: 2
-  m_Direction: 1
+  m_Direction: 0
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!54 &4325485082912283368
 Rigidbody:
@@ -148,7 +148,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6820499eb7ada9f4aa06fba256bf85ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tractorBeamPrefab: {fileID: 3422952928363310367}
   crosshairTexture: {fileID: 2800000, guid: 3e8d6df6b12c3244e8e70d7482fd6445, type: 3}
   tractorBeamRange: 10
-  tractorSpeed: 5
+  tractorSpeed: 100
