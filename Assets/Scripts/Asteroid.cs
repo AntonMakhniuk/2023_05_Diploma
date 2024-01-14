@@ -1,3 +1,4 @@
+using Assets.Scripts;
 using UnityEngine;
 
 public class Asteroid : MonoBehaviour
@@ -27,12 +28,35 @@ public class Asteroid : MonoBehaviour
 
     void ShatterAsteroid()
     {
-        // Add logic to shatter the entire asteroid into random pieces
-        // This can involve creating new GameObjects representing shattered pieces
-        // and positioning them in a visually appealing manner.
-        Debug.Log("Asteroid shattered!");
+        // Dynamically create a plane using asteroid's geometry
+        Plane slicingPlane = CreateSlicingPlane();
 
-        // Destroy the entire asteroid GameObject
+        // Slice the asteroid with the dynamically created plane
+        GameObject[] slices = Slicer.Slice(slicingPlane, gameObject);
+
+        // Optionally, you can add forces or other effects to the sliced pieces
+
+        // Destroy the original asteroid GameObject
         Destroy(gameObject);
+    }
+
+    private Plane CreateSlicingPlane()
+    {
+        // Get the mesh from the asteroid
+        Mesh mesh = GetComponent<MeshFilter>().mesh;
+
+        // Compute the average position of vertices to get the center
+        Vector3 center = Vector3.zero;
+        foreach (Vector3 vertex in mesh.vertices)
+        {
+            center += vertex;
+        }
+        center /= mesh.vertices.Length;
+
+        // Use the normal of the mesh as the normal of the slicing plane
+        Vector3 normal = transform.TransformDirection(mesh.normals[0]);
+
+        // Create and return the plane
+        return new Plane(normal, center);
     }
 }
