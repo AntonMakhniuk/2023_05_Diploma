@@ -122,7 +122,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lookupCollider: {fileID: 3447407456178272051}
-  asteroidPointPrefab: {fileID: 0}
+  asteroidPointPrefab: {fileID: 1602660667900783703, guid: 2d09d80c112dab24db749923db5f54ba, type: 3}
+  startCounter: 0
 --- !u!54 &263008374762717192
 Rigidbody:
   m_ObjectHideFlags: 0
