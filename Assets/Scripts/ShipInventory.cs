@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TractorBeamSpawner : MonoBehaviour
+public class ShipInventory : MonoBehaviour
 {
     public GameObject tractorBeamPrefab;
     public Transform shipTransform; // Assign the ship's transform in the Inspector

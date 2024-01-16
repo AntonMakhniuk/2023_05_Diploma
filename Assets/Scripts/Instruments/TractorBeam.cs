@@ -59,10 +59,8 @@ public class TractorBeam : MonoBehaviour
         Collider[] hitColliders = Physics.OverlapSphere(transform.parent.position, tractorBeamRange);
         foreach (Collider collider in hitColliders)
         {
-            
-                Vector3 forceDirection = (collider.transform.position - transform.parent.position).normalized;
-                collider.GetComponent<Rigidbody>().AddForce(forceDirection * tractorSpeed, ForceMode.Impulse);
-            
+            Vector3 forceDirection = (collider.transform.position - transform.parent.position).normalized;
+            collider.GetComponent<Rigidbody>().AddForce(forceDirection * tractorSpeed, ForceMode.Impulse);
         }
     }
 
