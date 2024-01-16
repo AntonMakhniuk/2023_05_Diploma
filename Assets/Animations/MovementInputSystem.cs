@@ -225,13 +225,13 @@ public class MovementInputSystem : MonoBehaviour
     private void MoveForward()
     {
         // Move the ship forward directly (kinematic) with adjustable speed
-        transform.Translate(Vector3.forward * Time.deltaTime * forwardSpeed);
+        transform.Translate(Time.deltaTime * forwardSpeed * Vector3.forward);
     }
 
     private void MoveBackward()
     {
         // Move the ship backward directly (kinematic) with adjustable speed
-        transform.Translate(Vector3.back * Time.deltaTime * backwardSpeed);
+        transform.Translate(Time.deltaTime * backwardSpeed * Vector3.back);
     }
 
     private void RotateLeft()
