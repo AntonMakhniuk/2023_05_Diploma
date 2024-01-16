@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Production
+namespace Production.Challenges
 {
     [Serializable]
     public abstract class ConfigBase

@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace Production.Challenges.General.AirlockJam
 {
-    public class AirlockButton
+    public class AirlockButton : MonoBehaviour
     {
         // TODO: Link the necessary visuals to the script
         
-        public bool IsTurnedOn;
+        public bool isTurnedOn;
 
         // The methods are split into normal and silent so that programmatic
         // disabling of the buttons can be done without playing a sound or an
@@ -24,7 +24,7 @@ namespace Production.Challenges.General.AirlockJam
         {
             // TODO: Implement visual turning off
             
-            IsTurnedOn = false;
+            isTurnedOn = false;
         }
 
         public void TurnOn()
@@ -38,7 +38,7 @@ namespace Production.Challenges.General.AirlockJam
         {
             // TODO: Implement visual turning on
 
-            IsTurnedOn = true;
+            isTurnedOn = true;
         }
         
         public IEnumerator Blink(float timePerBlink, int totalBlinkCount)
@@ -49,17 +49,17 @@ namespace Production.Challenges.General.AirlockJam
 
                 while (currentTime < timePerBlink)
                 {
-                    if (currentTime < timePerBlink / 3 && IsTurnedOn == true)
+                    if (currentTime < timePerBlink / 3 && isTurnedOn == true)
                     {
                         TurnOffSilently();
                     }
                     else if (currentTime >= timePerBlink / 3 && 
                              currentTime < timePerBlink / 3 * 2 && 
-                             IsTurnedOn == false)
+                             isTurnedOn == false)
                     {
                         TurnOnSilently();
                     }
-                    else if (currentTime < timePerBlink / 3 && IsTurnedOn == true)
+                    else if (currentTime < timePerBlink / 3 && isTurnedOn == true)
                     {
                         TurnOffSilently();
                     }

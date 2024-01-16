@@ -1,21 +1,23 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Production.Challenges.General.AirlockJam
 {
     public class GenAirlockJam : GeneralBase<AirlockJamConfig>
     {
         public float timePerBlink;
-        [FormerlySerializedAs("blinkCount")] public int totalBlinkCount;
+        public int totalBlinkCount;
         
         private AirlockButton[] _buttons;
         private int _turnedOffButtonsCount;
         private bool _isBeingReset;
+        private bool _isWarning;
         
         public delegate void AirlockJamWarningHandler();
         public event AirlockJamWarningHandler AirlockJamWarningSurpassed;
+        
+        // TODO: Add Start method and instantiation of buttons
         
         protected override void UpdateChallenge()
         {
@@ -26,9 +28,11 @@ namespace Production.Challenges.General.AirlockJam
             
             _turnedOffButtonsCount = 0;
             
+            // TODO: write button disabling logic
+            
             foreach (var airlockButton in _buttons)
             {
-                if (airlockButton.IsTurnedOn == false)
+                if (airlockButton.isTurnedOn == false)
                 {
                     _turnedOffButtonsCount++;
                 }
@@ -40,10 +44,26 @@ namespace Production.Challenges.General.AirlockJam
             }
             else if (_turnedOffButtonsCount >= Config.warningThreshold)
             {
-                AirlockJamWarningSurpassed?.Invoke();
+                if (!_isWarning)
+                {
+                    StartCoroutine(Warn());
+                }
             }
         }
 
+        private IEnumerator Warn()
+        {
+            _isWarning = true;
+            
+            AirlockJamWarningSurpassed?.Invoke();
+
+            yield return new WaitForSeconds(Config.warningLength);
+
+            _isWarning = false;
+            
+            yield return null;
+        }
+        
         protected override void Reset()
         {
             if (_isBeingReset)
@@ -76,5 +96,6 @@ namespace Production.Challenges.General.AirlockJam
     {
         public int warningThreshold = 6;
         public int failThreshold = 12;
+        public float warningLength = 1f;
     }
 }

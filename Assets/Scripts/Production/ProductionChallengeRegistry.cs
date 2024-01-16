@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Production.Challenges;
 using Production.Challenges.General;
 using UnityEngine;
@@ -32,25 +31,19 @@ namespace Production
         {
             foreach (GameObject challengePrefab in generalChallengePrefabs)
             {
-                if (!challengePrefab.GetComponents<Component>()
-                        .Any(comp => comp.GetType().IsGenericType &&
-                                     comp.GetType().GetGenericTypeDefinition() == typeof(GeneralBase<>) &&
-                                     typeof(ConfigBase).IsAssignableFrom(comp.GetType().GetGenericArguments()[0])))
+                if (challengePrefab.GetComponent<IGeneralChallenge>() == null)
                 {
                     throw new ArgumentException("The list of general challenges cannot contain objects" +
-                                                "that do not have a component inheriting from GeneralBase attached.");
+                                                "that do not have a component implementing IGeneralChallenge attached.");
                 }
             }
             
             foreach (GameObject challengePrefab in resourceChallengePrefabs)
             {
-                if (!challengePrefab.GetComponents<Component>()
-                        .Any(comp => comp.GetType().IsGenericType &&
-                                     comp.GetType().GetGenericTypeDefinition() == typeof(ResourceBase<>) &&
-                                     typeof(ConfigBase).IsAssignableFrom(comp.GetType().GetGenericArguments()[0])))
+                if (challengePrefab.GetComponent<IResourceChallenge>() == null)
                 {
                     throw new ArgumentException("The list of resource challenges cannot contain objects" +
-                                                "that do not have a component inheriting from ResourceBase attached.");
+                                                "that do not have a component implementing IResourceChallenge attached.");
                 }
             }
         }

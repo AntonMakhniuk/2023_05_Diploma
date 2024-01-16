@@ -2,7 +2,7 @@
 
 namespace Production.Challenges
 {
-    public abstract class ResourceBase<TConfig> : MonoBehaviour where TConfig : ConfigBase
+    public abstract class ResourceBase<TConfig> : MonoBehaviour, IResourceChallenge where TConfig : ConfigBase
     {
         public ResourceType type;
         
@@ -19,6 +19,11 @@ namespace Production.Challenges
         }
 
         protected abstract void Reset();
+    }
+
+    public interface IResourceChallenge
+    {
+        
     }
 
     public enum ResourceType

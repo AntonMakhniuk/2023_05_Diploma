@@ -8,6 +8,7 @@ namespace Production.Challenges.General
     {
         private float _currentTemperature;
         private bool _isBeingReset;
+        private bool _isWarning;
 
         protected override void Start()
         {
@@ -34,10 +35,26 @@ namespace Production.Challenges.General
             }
             else if (_currentTemperature >= Config.warningThreshold)
             {
-                TemperatureWarningSurpassed?.Invoke();
+                if (!_isWarning)
+                {
+                    StartCoroutine(Warn());
+                }
             }
         }
 
+        private IEnumerator Warn()
+        {
+            _isWarning = true;
+            
+            TemperatureWarningSurpassed?.Invoke();
+
+            yield return new WaitForSeconds(Config.warningLength);
+
+            _isWarning = false;
+            
+            yield return null;
+        }
+        
         public void ReduceTemperature()
         {
             if (_isBeingReset)
@@ -97,5 +114,6 @@ namespace Production.Challenges.General
         public float stepSize = 50;
         public float growthSpeed = 40;
         public float failureResetTime = 2.5f;
+        public float warningLength = 1f;
     }
 }
