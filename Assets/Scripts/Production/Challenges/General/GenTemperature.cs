@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 
-namespace Production.Challenges
+namespace Production.Challenges.General
 {
     public class GenTemperature : GeneralBase<TemperatureConfig>
     {
         private float _currentTemperature;
         private bool _isBeingReset;
-        
-        public delegate void TemperatureWarningHandler();
-        public event TemperatureWarningHandler TemperatureWarningSurpassed;
 
         protected override void Start()
         {
@@ -20,6 +16,9 @@ namespace Production.Challenges
             _isBeingReset = false;
         }
 
+        public delegate void TemperatureWarningHandler();
+        public event TemperatureWarningHandler TemperatureWarningSurpassed;
+        
         protected override void UpdateChallenge()
         {
             if (_isBeingReset)
@@ -79,10 +78,12 @@ namespace Production.Challenges
 
                 _currentTemperature = Mathf.Lerp(temperatureAtResetStart, Config.baseTemperature, t);
 
-                yield return null;
+                currentTime += Time.deltaTime;
             }
 
             _isBeingReset = false;
+
+            yield return null;
         }
     }
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Production.Challenges;
+using Production.Challenges.General;
 using UnityEngine;
 
 namespace Production
@@ -9,6 +9,7 @@ namespace Production
     // meant to be created every time a new production is started, and destroyed afterwards
     public class ProductionSessionManager : MonoBehaviour
     {
+        // prefabs that the manager may use in the production session
         private GameObject[] _generalChallengePrefabs;
         private GameObject[] _resourceChallengePrefabs;
         
@@ -17,6 +18,7 @@ namespace Production
         private readonly int _maxCriticalFails = 3;
         private int _criticalFailCount;
         
+        // currently running instances of session-specific challenges
         private List<GameObject> _generalChallengeInstances;
         private List<GameObject> _resourceChallengeInstances;
         

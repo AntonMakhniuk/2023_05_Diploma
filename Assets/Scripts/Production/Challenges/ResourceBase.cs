@@ -2,8 +2,10 @@
 
 namespace Production.Challenges
 {
-    public abstract class ResourceBase : MonoBehaviour
+    public abstract class ResourceBase<TConfig> : MonoBehaviour where TConfig : ConfigBase
     {
+        public ResourceType type;
+        
         private void FixedUpdate()
         {
             UpdateChallenge();
@@ -17,5 +19,10 @@ namespace Production.Challenges
         }
 
         protected abstract void Reset();
+    }
+
+    public enum ResourceType
+    {
+        Ore, Gas
     }
 }

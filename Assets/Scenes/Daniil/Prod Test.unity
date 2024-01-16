@@ -345,6 +345,22 @@ MonoBehaviour:
     stepSize: 50
     growthSpeed: 40
     failureResetTime: 2.5
+  - difficulty: 1
+    maxTemperature: 1000
+    minTemperature: 0
+    baseTemperature: 200
+    warningThreshold: 500
+    stepSize: 50
+    growthSpeed: 40
+    failureResetTime: 2.5
+  - difficulty: 2
+    maxTemperature: 1000
+    minTemperature: 0
+    baseTemperature: 200
+    warningThreshold: 500
+    stepSize: 50
+    growthSpeed: 40
+    failureResetTime: 2.5
 --- !u!1 &986086662
 GameObject:
   m_ObjectHideFlags: 0

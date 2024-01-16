@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace Production.Challenges
+namespace Production.Challenges.General
 {
     public abstract class GeneralBase<TConfig> : MonoBehaviour, IGeneralChallenge where TConfig : ConfigBase
     {

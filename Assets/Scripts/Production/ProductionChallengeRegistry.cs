@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Production.Challenges;
+using Production.Challenges.General;
 using UnityEngine;
 
 namespace Production
