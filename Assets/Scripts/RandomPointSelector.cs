@@ -11,10 +11,7 @@ public class RandomPointSelector : MonoBehaviour
     private Vector3[] points = new Vector3[3];
     private List<GameObject> childPoints = new List<GameObject>();
 
-    [SerializeField] private int startCounter = 0;
-
     private void Start() {
-        startCounter++;
         DrawThreeRandomPoints();
     }
 
