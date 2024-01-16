@@ -3,7 +3,7 @@
 namespace Production
 {
     [Serializable]
-    public class ConfigBase
+    public abstract class ConfigBase
     {
         public Difficulty difficulty;
     }

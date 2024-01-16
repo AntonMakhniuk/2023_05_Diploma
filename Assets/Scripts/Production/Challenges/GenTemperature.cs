@@ -5,23 +5,18 @@ using UnityEngine;
 
 namespace Production.Challenges
 {
-    public class GenTemperature : GeneralBase
+    public class GenTemperature : GeneralBase<TemperatureConfig>
     {
-        [SerializeField] private TemperatureConfig[] configs;
-
-        private TemperatureConfig _config;
-        private ProductionSessionManager _sessionManager;
         private float _currentTemperature;
         private bool _isBeingReset;
         
         public delegate void TemperatureWarningHandler();
         public event TemperatureWarningHandler TemperatureWarningSurpassed;
 
-        private void Start()
+        protected override void Start()
         {
-            _sessionManager = GetComponentInParent<ProductionSessionManager>();
-            _config = configs.FirstOrDefault(config => config.difficulty == _sessionManager.difficulty);
-            _currentTemperature = _config.baseTemperature;
+            base.Start();
+            _currentTemperature = Config.baseTemperature;
             _isBeingReset = false;
         }
 
@@ -32,13 +27,13 @@ namespace Production.Challenges
                 return;
             }
             
-            _currentTemperature += _config.growthSpeed * Time.fixedDeltaTime;
+            _currentTemperature += Config.growthSpeed * Time.fixedDeltaTime;
 
-            if (_currentTemperature >= _config.maxTemperature)
+            if (_currentTemperature >= Config.maxTemperature)
             {
                 Fail();
             }
-            else if (_currentTemperature >= _config.warningThreshold)
+            else if (_currentTemperature >= Config.warningThreshold)
             {
                 TemperatureWarningSurpassed?.Invoke();
             }
@@ -51,13 +46,13 @@ namespace Production.Challenges
                 return;
             }
             
-            if (_currentTemperature - _config.stepSize < _config.minTemperature)
+            if (_currentTemperature - Config.stepSize < Config.minTemperature)
             {
-                _currentTemperature = _config.minTemperature;
+                _currentTemperature = Config.minTemperature;
             }
             else
             {
-                _currentTemperature -= _config.stepSize;
+                _currentTemperature -= Config.stepSize;
             }
         }
         
@@ -78,11 +73,11 @@ namespace Production.Challenges
             float currentTime = 0f;
             float temperatureAtResetStart = _currentTemperature;
 
-            while (currentTime < _config.failureResetTime)
+            while (currentTime < Config.failureResetTime)
             {
-                float t = currentTime / _config.failureResetTime;
+                float t = currentTime / Config.failureResetTime;
 
-                _currentTemperature = Mathf.Lerp(temperatureAtResetStart, _config.baseTemperature, t);
+                _currentTemperature = Mathf.Lerp(temperatureAtResetStart, Config.baseTemperature, t);
 
                 yield return null;
             }

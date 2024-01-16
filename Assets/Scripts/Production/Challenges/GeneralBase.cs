@@ -1,10 +1,23 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Linq;
+using UnityEngine;
 
 namespace Production.Challenges
 {
-    public abstract class GeneralBase : MonoBehaviour
+    public abstract class GeneralBase<TConfig> : MonoBehaviour, IGeneralChallenge where TConfig : ConfigBase
     {
-        private void FixedUpdate()
+        [SerializeField] protected TConfig[] configs;
+        
+        protected ProductionSessionManager SessionManager;
+        protected TConfig Config;
+
+        protected virtual void Start()
+        {
+            SessionManager = GetComponentInParent<ProductionSessionManager>();
+            Config = configs.FirstOrDefault(config => config.difficulty == SessionManager.difficulty);
+        }
+
+        protected virtual void FixedUpdate()
         {
             UpdateChallenge();
         }
@@ -21,5 +34,26 @@ namespace Production.Challenges
         }
 
         protected abstract void Reset();
+
+        private GeneralFailHandler CreateFailHandler(Action onFailMethod)
+        {
+            return () => onFailMethod.Invoke();
+        }
+        
+        public void AddMethodExecutedOnCriticalFail(Action onFailMethod)
+        {
+            GeneralFailed += CreateFailHandler(onFailMethod);
+        }
+
+        public void RemoveMethodExecutedOnCriticalFail(Action onFailMethod)
+        {
+            GeneralFailed -= CreateFailHandler(onFailMethod);
+        }
+    }
+
+    public interface IGeneralChallenge
+    {
+        void AddMethodExecutedOnCriticalFail(Action onFailMethod);
+        void RemoveMethodExecutedOnCriticalFail(Action onFailMethod);
     }
 }
