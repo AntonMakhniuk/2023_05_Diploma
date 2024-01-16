@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Production.Challenges.General.AirlockJam
 {
@@ -9,40 +11,43 @@ namespace Production.Challenges.General.AirlockJam
         public float timePerBlink;
         public int totalBlinkCount;
         
-        private AirlockButton[] _buttons;
-        private int _turnedOffButtonsCount;
+        private AirlockButton[] _allButtons;
+        private List<AirlockButton> _enabledButtons;
+        private List<AirlockButton> _disabledButtons;
         private bool _isBeingReset;
         private bool _isWarning;
+        private bool _disablingIsOnCooldown;
         
         public delegate void AirlockJamWarningHandler();
         public event AirlockJamWarningHandler AirlockJamWarningSurpassed;
         
         // TODO: Add Start method and instantiation of buttons
-        
+
+        protected override void Start()
+        {
+            base.Start();
+
+            _enabledButtons = new List<AirlockButton>(_allButtons);
+            _disabledButtons = new List<AirlockButton>();
+        }
+
         protected override void UpdateChallenge()
         {
             if (_isBeingReset)
             {
                 return;
             }
-            
-            _turnedOffButtonsCount = 0;
-            
-            // TODO: write button disabling logic
-            
-            foreach (var airlockButton in _buttons)
+
+            if (!_disablingIsOnCooldown)
             {
-                if (airlockButton.isTurnedOn == false)
-                {
-                    _turnedOffButtonsCount++;
-                }
+                StartCoroutine(DisableButtons());
             }
 
-            if (_turnedOffButtonsCount >= Config.failThreshold)
+            if (_disabledButtons.Count >= Config.failThreshold)
             {
                 Fail();
             }
-            else if (_turnedOffButtonsCount >= Config.warningThreshold)
+            else if (_disabledButtons.Count >= Config.warningThreshold)
             {
                 if (!_isWarning)
                 {
@@ -51,6 +56,28 @@ namespace Production.Challenges.General.AirlockJam
             }
         }
 
+        private IEnumerator DisableButtons()
+        {
+            _disablingIsOnCooldown = true;
+            
+            int numberOfDisabledButtons =
+                Random.Range(Config.minDisabledButtonsPerTurn, Config.maxDisabledButtonsPerTurn);
+            
+            for (int i = 0; i < numberOfDisabledButtons; i++)
+            {
+                var chosenButton = _enabledButtons[Random.Range(0, _enabledButtons.Count)];
+                chosenButton.TurnOff();
+                _enabledButtons.Remove(chosenButton);
+                _disabledButtons.Add(chosenButton);
+            }
+
+            yield return new WaitForSeconds(Config.disableCooldown);
+
+            _disablingIsOnCooldown = false;
+
+            yield return null;
+        }
+        
         private IEnumerator Warn()
         {
             _isWarning = true;
@@ -78,7 +105,7 @@ namespace Production.Challenges.General.AirlockJam
         {
             _isBeingReset = true;
 
-            foreach (var airlockButton in _buttons)
+            foreach (var airlockButton in _allButtons)
             {
                 StartCoroutine(airlockButton.Blink(timePerBlink, totalBlinkCount));
             }
@@ -97,5 +124,8 @@ namespace Production.Challenges.General.AirlockJam
         public int warningThreshold = 6;
         public int failThreshold = 12;
         public float warningLength = 1f;
+        public int minDisabledButtonsPerTurn = 2;
+        public int maxDisabledButtonsPerTurn = 4;
+        public float disableCooldown = 2f;
     }
 }
