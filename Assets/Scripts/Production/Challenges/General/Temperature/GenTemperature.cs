@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Production.Challenges.General
+namespace Production.Challenges.General.Temperature
 {
     public class GenTemperature : GeneralBase<TemperatureConfig>
     {
@@ -14,7 +14,6 @@ namespace Production.Challenges.General
         {
             base.Start();
             _currentTemperature = Config.baseTemperature;
-            _isBeingReset = false;
         }
 
         public delegate void TemperatureWarningHandler();

@@ -43,7 +43,7 @@ namespace Production
                          .Select(chal => chal.GetComponent<IGeneralChallenge>())
                          .ToList())
             {
-                generalInstance.AddMethodExecutedOnCriticalFail(AddCriticalFail);
+                generalInstance.SubscribeToOnGeneralFail(AddCriticalFail);
             }
         }
 
@@ -53,7 +53,7 @@ namespace Production
                          .Select(chal => chal.GetComponent<IGeneralChallenge>())
                          .ToList())
             {
-                generalInstance.RemoveMethodExecutedOnCriticalFail(AddCriticalFail);
+                generalInstance.UnsubscribeFromOnGeneralFail(AddCriticalFail);
             }
 
             foreach (GameObject generalInstance in _generalChallengeInstances)
