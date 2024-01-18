@@ -9,38 +9,46 @@ namespace Production.Challenges.General.RodPositioning
     public class RodLever : MonoBehaviour
     {
         private LeverDangerZoneType _dangerZoneType;
-        [Range(0, 1)] private float _currentPosition;
-        [Range(0, 1)] private float _safeRangeStart;
-        [Range(0, 1)] private float _safeRangeEnd;
+        private float _currentPosition;
+        private float _safeRangeStart;
+        private float _safeRangeEnd;
         private float _safeRangeCentre;
-        private bool _isBeingReset;
-        // TODO: instantiation with passing of the config
+        private GenRodPositioning _parentPositioningChallenge;
         private RodPositioningConfig _config;
 
         private void Start()
         {
+            _parentPositioningChallenge = GetComponentInParent<GenRodPositioning>();
+            
+            if (_parentPositioningChallenge == null)
+            {
+                throw new Exception("RodLever object has been instantiated outside of GenRodPositioning");
+            }
+
+            _config = _parentPositioningChallenge.Config;
+
             _dangerZoneType = Utility.GetRandomEnum<LeverDangerZoneType>();
 
             switch (_dangerZoneType)
             {
                 case LeverDangerZoneType.BottomOnly:
                 {
-                    _safeRangeStart = 0;
+                    _safeRangeStart = _config.minRangeValue;
                     _safeRangeEnd = Random.Range(_config.minSafeRangeSize, _config.maxSafeRangeSize);
                     
                     break;
                 }
                 case LeverDangerZoneType.TopOnly:
                 {
-                    _safeRangeStart = 1 - Random.Range(_config.minSafeRangeSize, _config.maxSafeRangeSize);
-                    _safeRangeEnd = 1;
+                    _safeRangeStart = _config.maxRangeValue - Random.Range(_config.minSafeRangeSize, _config.maxSafeRangeSize);
+                    _safeRangeEnd = _config.maxRangeValue;
 
                     break;
                 }
                 case LeverDangerZoneType.Both:
                 {
                     float safeRangeSize = Random.Range(_config.minSafeRangeSize, _config.maxSafeRangeSize);
-                    float freeSpace = 1 - _config.minDangerRangeSize * 2 
+                    float freeSpace = _config.maxRangeValue - _config.minDangerRangeSize * 2 
                                         - _config.failDistanceFromSafeRange * 2 
                                         - safeRangeSize;
                     
@@ -50,12 +58,16 @@ namespace Production.Challenges.General.RodPositioning
                     
                     break;
                 }
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
             _safeRangeCentre = _safeRangeStart + (_safeRangeEnd - +_safeRangeStart) / 2;
             _currentPosition = Random.Range(_safeRangeStart, _safeRangeEnd);
         }
-
+        
+        private bool _isBeingReset;
+        
         public void UpdateCurrentPosition()
         {
             if (_isBeingReset)
@@ -130,9 +142,9 @@ namespace Production.Challenges.General.RodPositioning
             float currentTime = 0f;
             float positionAtReset = _currentPosition;
 
-            while (currentTime < _config.failureResetTime)
+            while (currentTime < _config.resetWaitingTime)
             {
-                float t = currentTime / _config.failureResetTime;
+                float t = currentTime / _config.resetWaitingTime;
 
                 _currentPosition = Mathf.Lerp(positionAtReset, _safeRangeCentre, t);
 

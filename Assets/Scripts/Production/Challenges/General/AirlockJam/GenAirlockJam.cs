@@ -14,14 +14,8 @@ namespace Production.Challenges.General.AirlockJam
         private AirlockButton[] _allButtons;
         private List<AirlockButton> _enabledButtons;
         private List<AirlockButton> _disabledButtons;
-        private bool _isBeingReset;
-        private bool _isWarning;
-        private bool _disablingIsOnCooldown;
         
-        public delegate void AirlockJamWarningHandler();
-        public event AirlockJamWarningHandler AirlockJamWarningSurpassed;
-        
-        // TODO: Add Start method and instantiation of buttons
+        // TODO: Add instantiation of buttons
 
         protected override void Start()
         {
@@ -31,31 +25,26 @@ namespace Production.Challenges.General.AirlockJam
             _disabledButtons = new List<AirlockButton>();
         }
 
-        protected override void UpdateChallenge()
+        protected override bool CheckWarningConditions()
         {
-            if (_isBeingReset)
-            {
-                return;
-            }
+            return _disabledButtons.Count >= Config.warningThreshold;
+        }
 
+        protected override bool CheckFailConditions()
+        {
+            return _disabledButtons.Count >= Config.failThreshold;
+        }
+        
+        private bool _disablingIsOnCooldown;
+        
+        protected override void HandleUpdateLogic()
+        {
             if (!_disablingIsOnCooldown)
             {
                 StartCoroutine(DisableButtons());
             }
-
-            if (_disabledButtons.Count >= Config.failThreshold)
-            {
-                Fail();
-            }
-            else if (_disabledButtons.Count >= Config.warningThreshold)
-            {
-                if (!_isWarning)
-                {
-                    StartCoroutine(Warn());
-                }
-            }
         }
-
+        
         private IEnumerator DisableButtons()
         {
             _disablingIsOnCooldown = true;
@@ -78,54 +67,37 @@ namespace Production.Challenges.General.AirlockJam
             yield return null;
         }
         
-        private IEnumerator Warn()
-        {
-            _isWarning = true;
-            
-            AirlockJamWarningSurpassed?.Invoke();
-
-            yield return new WaitForSeconds(Config.warningLength);
-
-            _isWarning = false;
-            
-            yield return null;
-        }
+        public delegate void AirlockJamWarningHandler();
+        public event AirlockJamWarningHandler OnAirlockJamWarningSurpassed;
         
-        protected override void Reset()
+        protected override void StartWarning()
         {
-            if (_isBeingReset)
-            {
-                return;
-            }
-
-            StartCoroutine(ResetButtons());
+           base.StartWarning();
+            
+            OnAirlockJamWarningSurpassed?.Invoke();
         }
 
-        private IEnumerator ResetButtons()
+        protected override void HandleResetLogic()
         {
-            _isBeingReset = true;
-
             foreach (var airlockButton in _allButtons)
             {
                 StartCoroutine(airlockButton.Blink(timePerBlink, totalBlinkCount));
             }
-            
-            yield return new WaitForSeconds(timePerBlink * totalBlinkCount);
-            
-            _isBeingReset = false;
-
-            yield return null;
         }
     }
 
     [Serializable]
-    public class AirlockJamConfig : ConfigBase
+    public class AirlockJamConfig : GeneralConfigBase
     {
-        public int warningThreshold = 6;
-        public int failThreshold = 12;
-        public float warningLength = 1f;
+        public int totalBlinkCount = 3;
+        public float singleBlinkTime = 0.5f;
         public int minDisabledButtonsPerTurn = 2;
         public int maxDisabledButtonsPerTurn = 4;
         public float disableCooldown = 2f;
+
+        private void Awake()
+        {
+            resetWaitingTime = totalBlinkCount * singleBlinkTime;
+        }
     }
 }

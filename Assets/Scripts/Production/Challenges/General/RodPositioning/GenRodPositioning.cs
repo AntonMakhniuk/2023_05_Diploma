@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using UnityEngine;
 
 namespace Production.Challenges.General.RodPositioning
@@ -7,94 +6,72 @@ namespace Production.Challenges.General.RodPositioning
     public class GenRodPositioning : GeneralBase<RodPositioningConfig>
     {
         private RodLever[] _levers;
-        private bool _isBeingReset;
-        private bool _isWarning;
         
-        public delegate void RodPositioningWarningHandler();
-        public event RodPositioningWarningHandler RodPositioningWarningSurpassed;
+        // TODO: implement start method and instantiate levers
         
-        protected override void UpdateChallenge()
+        protected override void HandleUpdateLogic()
         {
-            if (_isBeingReset)
-            {
-                return;
-            }
-            
             foreach (var rodLever in _levers)
             {
                 rodLever.UpdateCurrentPosition();
-                
-                if (rodLever.PositionIsInSafeRange())
-                {
-                    continue;
-                }
-                
-                if (rodLever.GetAbsoluteDistanceFromSafeRange() >= Config.failDistanceFromSafeRange)
-                {
-                    Fail();
-                }
-                else if (rodLever.GetAbsoluteDistanceFromSafeRange() >= Config.warningDistanceFromSafeRange)
-                {
-                    if (_isWarning)
-                    {
-                        continue;
-                    }
-
-                    StartCoroutine(Warn());
-                }
             }
         }
 
-        private IEnumerator Warn()
+        protected override bool CheckWarningConditions()
         {
-            _isWarning = true;
-            
-            RodPositioningWarningSurpassed?.Invoke();
+            bool anyLeverIsInFailRange = false;
 
-            yield return new WaitForSeconds(Config.warningTime);
-
-            _isWarning = false;
-            
-            yield return null;
-        }
-
-        protected override void Reset()
-        {
-            if (_isBeingReset)
+            foreach (var rodLever in _levers)
             {
-                return;
+                anyLeverIsInFailRange = 
+                    rodLever.GetAbsoluteDistanceFromSafeRange() >= Config.failDistanceFromSafeRange;
             }
 
-            StartCoroutine(ResetLevers());
+            return anyLeverIsInFailRange;
         }
 
-        private IEnumerator ResetLevers()
+        protected override bool CheckFailConditions()
         {
-            _isBeingReset = true;
+            bool anyLeverIsInWarnRange = false;
 
+            foreach (var rodLever in _levers)
+            {
+                anyLeverIsInWarnRange = 
+                    rodLever.GetAbsoluteDistanceFromSafeRange() >= Config.warningDistanceFromSafeRange;
+            }
+
+            return anyLeverIsInWarnRange;
+        }
+
+        public delegate void RodPositioningWarningHandler();
+        public event RodPositioningWarningHandler OnRodPositioningWarningSurpassed;
+        
+        protected override void StartWarning()
+        {
+            base.StartWarning();
+            
+            OnRodPositioningWarningSurpassed?.Invoke();
+        }
+        
+        protected override void HandleResetLogic()
+        {
             foreach (var rodLever in _levers)
             {
                 StartCoroutine(rodLever.ResetLever());
             }
-
-            yield return new WaitForSeconds(Config.failureResetTime);
-            
-            _isBeingReset = false;
-
-            yield return null;
         }
     }
 
     [Serializable]
-    public class RodPositioningConfig : ConfigBase
+    public class RodPositioningConfig : GeneralConfigBase
     {
+        public float maxRangeValue = 1f;
+        public float minRangeValue = 0f;
         [Range(0, 1)] public float minSafeRangeSize = 0.15f;
         [Range(0, 1)] public float maxSafeRangeSize = 0.2f;
         [Range(0, 1)] public float minDangerRangeSize = 0.1f;
         [Range(0, 1)] public float warningDistanceFromSafeRange = 0f;
         [Range(0, 1)] public float failDistanceFromSafeRange = 0.2f;
         [Range(0, 1)] public float maxStepLength = 0.001f;
-        public float warningTime = 1f;
-        public float failureResetTime = 1f;
     }
 }

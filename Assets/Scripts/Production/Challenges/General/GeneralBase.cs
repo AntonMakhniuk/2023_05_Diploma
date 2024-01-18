@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Production.Challenges.General
 {
-    public abstract class GeneralBase<TConfig> : MonoBehaviour, IGeneralChallenge where TConfig : ConfigBase
+    public abstract class GeneralBase<TConfig> : MonoBehaviour, IGeneralChallenge where TConfig : GeneralConfigBase
     {
         [SerializeField] protected TConfig[] configs;
 
@@ -45,8 +45,13 @@ namespace Production.Challenges.General
 
         private void FixedUpdate()
         {
+            if (_isBeingReset)
+            {
+                return;
+            }
+            
             HandlePerformanceConditions();
-            UpdateChallenge();
+            HandleUpdateLogic();
         }
 
         private bool _isBeingReset;
@@ -56,11 +61,6 @@ namespace Production.Challenges.General
         
         private void HandlePerformanceConditions()
         {
-            if (_isBeingReset)
-            {
-                return;
-            }
-            
             _warningConditionsMet = CheckWarningConditions();
             _failConditionsMet = CheckFailConditions();
 
@@ -78,7 +78,7 @@ namespace Production.Challenges.General
             }
         }
 
-        protected abstract void UpdateChallenge();
+        protected abstract void HandleUpdateLogic();
         
         protected abstract bool CheckWarningConditions();
         
@@ -96,9 +96,9 @@ namespace Production.Challenges.General
      
         public delegate void GeneralFailHandler();
         public event GeneralFailHandler OnGeneralFail;
-        
-        
-        protected void Fail()
+
+
+        private void Fail()
         {
             OnGeneralFail?.Invoke();
             
