@@ -104,8 +104,8 @@ namespace Production.Challenges.General.RodPositioning
                 }
             }
         }
-        
-        public bool PositionIsInSafeRange()
+
+        private bool PositionIsInSafeRange()
         {
             return _safeRangeStart <= _currentPosition && _currentPosition <= _safeRangeEnd;
         }

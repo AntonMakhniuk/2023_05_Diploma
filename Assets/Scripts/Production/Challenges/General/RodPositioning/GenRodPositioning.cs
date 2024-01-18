@@ -42,17 +42,21 @@ namespace Production.Challenges.General.RodPositioning
 
             return anyLeverIsInWarnRange;
         }
-
-        public delegate void RodPositioningWarningHandler();
-        public event RodPositioningWarningHandler OnRodPositioningWarningSurpassed;
         
-        protected override void StartWarning()
+        public event EventHandler OnRodPositioningAboveWarningThreshold;
+        
+        protected override void HandleWarningStart()
         {
-            base.StartWarning();
-            
-            OnRodPositioningWarningSurpassed?.Invoke();
+            OnRodPositioningAboveWarningThreshold?.Invoke(this, null);
         }
+
+        public event EventHandler OnRodPositioningBelowWarningThreshold;
         
+        protected override void HandleWarningStop()
+        {
+            OnRodPositioningBelowWarningThreshold?.Invoke(this, null);
+        }
+
         protected override void HandleResetLogic()
         {
             foreach (var rodLever in _levers)
@@ -66,7 +70,7 @@ namespace Production.Challenges.General.RodPositioning
     public class RodPositioningConfig : GeneralConfigBase
     {
         public float maxRangeValue = 1f;
-        public float minRangeValue = 0f;
+        public float minRangeValue;
         [Range(0, 1)] public float minSafeRangeSize = 0.15f;
         [Range(0, 1)] public float maxSafeRangeSize = 0.2f;
         [Range(0, 1)] public float minDangerRangeSize = 0.1f;

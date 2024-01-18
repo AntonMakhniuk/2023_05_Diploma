@@ -50,7 +50,7 @@ namespace Production.Challenges.General
                 return;
             }
             
-            HandlePerformanceConditions();
+            HandlePerformanceConditionsCheck();
             HandleUpdateLogic();
         }
 
@@ -59,7 +59,7 @@ namespace Production.Challenges.General
         private bool _failConditionsMet;
         private bool _isWarning;
         
-        private void HandlePerformanceConditions()
+        private void HandlePerformanceConditionsCheck()
         {
             _warningConditionsMet = CheckWarningConditions();
             _failConditionsMet = CheckFailConditions();
@@ -84,15 +84,23 @@ namespace Production.Challenges.General
         
         protected abstract bool CheckFailConditions();
 
-        protected virtual void StartWarning()
+        private void StartWarning()
         {
             _isWarning = true;
+            
+            HandleWarningStart();
         }
 
-        protected virtual void StopWarning()
+        protected abstract void HandleWarningStart();
+
+        private void StopWarning()
         {
             _isWarning = false;
+            
+            HandleWarningStop();
         }
+
+        protected abstract void HandleWarningStop();
      
         public delegate void GeneralFailHandler();
         public event GeneralFailHandler OnGeneralFail;

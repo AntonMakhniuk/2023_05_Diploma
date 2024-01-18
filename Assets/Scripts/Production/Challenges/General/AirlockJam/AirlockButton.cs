@@ -49,7 +49,7 @@ namespace Production.Challenges.General.AirlockJam
 
                 while (currentTime < timePerBlink)
                 {
-                    if (currentTime < timePerBlink / 3 && isTurnedOn == true)
+                    if (currentTime < timePerBlink / 3 && isTurnedOn)
                     {
                         TurnOffSilently();
                     }
@@ -59,7 +59,7 @@ namespace Production.Challenges.General.AirlockJam
                     {
                         TurnOnSilently();
                     }
-                    else if (currentTime < timePerBlink / 3 && isTurnedOn == true)
+                    else if (currentTime < timePerBlink / 3 && isTurnedOn)
                     {
                         TurnOffSilently();
                     }

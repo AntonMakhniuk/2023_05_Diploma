@@ -73,17 +73,21 @@ namespace Production.Challenges.General.CoreSegmentation
 
             yield return null;
         }
-
-        public delegate void CoreSegmentationWarningHandler();
-        public event CoreSegmentationWarningHandler CoreSegmentationWarningSurpassed;
         
-        protected override void StartWarning()
+        public event EventHandler OnCoreSegmentationAboveWarningThreshold;
+        
+        protected override void HandleWarningStart()
         {
-            base.StartWarning();
-            
-            CoreSegmentationWarningSurpassed?.Invoke();
+            OnCoreSegmentationAboveWarningThreshold?.Invoke(this, null);
         }
 
+        public event EventHandler OnCoreSegmentationBelowWarningThreshold;
+        
+        protected override void HandleWarningStop()
+        {
+            OnCoreSegmentationBelowWarningThreshold?.Invoke(this, null);
+        }
+        
         protected override void HandleResetLogic()
         {
             throw new NotImplementedException();

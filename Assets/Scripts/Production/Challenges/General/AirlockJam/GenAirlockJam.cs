@@ -68,13 +68,18 @@ namespace Production.Challenges.General.AirlockJam
         }
         
         public delegate void AirlockJamWarningHandler();
-        public event AirlockJamWarningHandler OnAirlockJamWarningSurpassed;
+        public event EventHandler OnAirlockJamAboveWarningThreshold;
         
-        protected override void StartWarning()
+        protected override void HandleWarningStart()
         {
-           base.StartWarning();
-            
-            OnAirlockJamWarningSurpassed?.Invoke();
+            OnAirlockJamAboveWarningThreshold?.Invoke(this, null);
+        }
+
+        public event EventHandler OnAirlockJamBelowWarningThreshold;
+        
+        protected override void HandleWarningStop()
+        {
+            OnAirlockJamBelowWarningThreshold?.Invoke(this, null);
         }
 
         protected override void HandleResetLogic()
