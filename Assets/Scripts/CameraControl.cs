@@ -93,12 +93,6 @@ public class CameraControl : MonoBehaviour
             // Smoothly rotate the ship
             StartCoroutine(RotateShipSmoothly(newShipRotation));
 
-            // Ensure the camera is always looking at the target
-            transform.LookAt(target);
-
-            // Keep the camera behind the ship by adjusting its local position
-            Vector3 desiredCameraPosition = -target.forward * 10f; // Adjust the distance as needed
-            transform.localPosition = Vector3.Lerp(transform.localPosition, desiredCameraPosition, Time.deltaTime * shipMoveSpeed);
         }
     }
 }

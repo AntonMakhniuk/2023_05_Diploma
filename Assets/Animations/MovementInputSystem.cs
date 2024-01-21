@@ -28,7 +28,7 @@ public class MovementInputSystem : MonoBehaviour
     private void Awake()
     {
         ship = GetComponent<Rigidbody>();
-        ship.isKinematic = true; // Set Rigidbody to kinematic
+       // ship.isKinematic = true; // Set Rigidbody to kinematic
 
         movementActions = new MovementActions();
         movementActions.Ship.Forward.started += StartMovingForward;
