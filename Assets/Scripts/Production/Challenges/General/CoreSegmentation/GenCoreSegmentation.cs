@@ -88,7 +88,7 @@ namespace Production.Challenges.General.CoreSegmentation
             OnCoreSegmentationBelowWarningThreshold?.Invoke(this, null);
         }
         
-        protected override void HandleResetLogic()
+        protected override IEnumerator HandleResetLogic()
         {
             throw new NotImplementedException();
         }

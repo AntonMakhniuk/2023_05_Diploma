@@ -26,7 +26,7 @@ namespace Production.Challenges.General
             
             // TODO: Change the difficulty to be given by the session manager instead of taken from it
 
-            _difficulty = _sessionManager.difficulty;
+            _difficulty = _sessionManager.Difficulty;
             Config = configs.FirstOrDefault(config => config.difficulty == _difficulty);
 
             if (Config == null)
@@ -113,11 +113,13 @@ namespace Production.Challenges.General
             StartCoroutine(ResetCoroutine());
         }
         
+        // TODO: Fix issue where reset logic is executed over given period of time and then a timer is yielded after
+        
         private IEnumerator ResetCoroutine()
         {
             _isBeingReset = true;
 
-            HandleResetLogic();
+            StartCoroutine(HandleResetLogic());
 
             yield return new WaitForSeconds(Config.resetWaitingTime);
             
@@ -126,7 +128,7 @@ namespace Production.Challenges.General
             yield return null;
         }
 
-        protected abstract void HandleResetLogic();
+        protected abstract IEnumerator HandleResetLogic();
         
         private static GeneralFailHandler CreateFailHandlerDelegate(Action onFailMethod)
         {

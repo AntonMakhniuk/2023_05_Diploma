@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Production.Challenges.General.RodPositioning
@@ -57,11 +58,13 @@ namespace Production.Challenges.General.RodPositioning
             OnRodPositioningBelowWarningThreshold?.Invoke(this, null);
         }
 
-        protected override void HandleResetLogic()
+        protected override IEnumerator HandleResetLogic()
         {
             foreach (var rodLever in _levers)
             {
                 StartCoroutine(rodLever.ResetLever());
+
+                yield return null;
             }
         }
     }

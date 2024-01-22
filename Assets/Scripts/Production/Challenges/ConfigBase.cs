@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Production.Challenges
 {
     [Serializable]
-    public abstract class ConfigBase : MonoBehaviour
+    public abstract class ConfigBase
     {
         public Difficulty difficulty;
     }

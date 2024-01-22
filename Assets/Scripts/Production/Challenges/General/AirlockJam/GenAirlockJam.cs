@@ -8,9 +8,6 @@ namespace Production.Challenges.General.AirlockJam
 {
     public class GenAirlockJam : GeneralBase<AirlockJamConfig>
     {
-        public float timePerBlink;
-        public int totalBlinkCount;
-        
         private AirlockButton[] _allButtons;
         private List<AirlockButton> _enabledButtons;
         private List<AirlockButton> _disabledButtons;
@@ -67,7 +64,6 @@ namespace Production.Challenges.General.AirlockJam
             yield return null;
         }
         
-        public delegate void AirlockJamWarningHandler();
         public event EventHandler OnAirlockJamAboveWarningThreshold;
         
         protected override void HandleWarningStart()
@@ -82,11 +78,13 @@ namespace Production.Challenges.General.AirlockJam
             OnAirlockJamBelowWarningThreshold?.Invoke(this, null);
         }
 
-        protected override void HandleResetLogic()
+        protected override IEnumerator HandleResetLogic()
         {
             foreach (var airlockButton in _allButtons)
             {
-                StartCoroutine(airlockButton.Blink(timePerBlink, totalBlinkCount));
+                StartCoroutine(airlockButton.Blink(Config.singleBlinkTime, Config.totalBlinkCount));
+
+                yield return null;
             }
         }
     }
@@ -99,10 +97,5 @@ namespace Production.Challenges.General.AirlockJam
         public int minDisabledButtonsPerTurn = 2;
         public int maxDisabledButtonsPerTurn = 4;
         public float disableCooldown = 2f;
-
-        private void Awake()
-        {
-            resetWaitingTime = totalBlinkCount * singleBlinkTime;
-        }
     }
 }
