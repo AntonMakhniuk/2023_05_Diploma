@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-namespace Production.Challenges
+namespace Production.Challenges.ResourceSpecific
 {
     public abstract class ResourceBase<TConfig> : MonoBehaviour, IResourceChallenge where TConfig : ConfigBase
     {
-        public ResourceType type;
+        public ResourceType resourceType;
         
         private void FixedUpdate()
         {
@@ -19,11 +19,16 @@ namespace Production.Challenges
         }
 
         protected abstract void Reset();
+
+        public ResourceType GetResourceType()
+        {
+            return resourceType;
+        }
     }
 
     public interface IResourceChallenge
     {
-        
+        public ResourceType GetResourceType();
     }
 
     public enum ResourceType
