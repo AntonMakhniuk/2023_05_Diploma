@@ -13,34 +13,34 @@ namespace Production
         private GameObject[] _generalChallengePrefabs;
         private GameObject[] _resourceChallengePrefabs;
         
-        public Difficulty difficulty;
+        public Difficulty Difficulty { get; private set; }
         
         private readonly int _maxCriticalFails = 3;
         private int _criticalFailCount;
         
         // currently running instances of session-specific challenges
-        private List<GameObject> _generalChallengeInstances;
-        private List<GameObject> _resourceChallengeInstances;
+        private List<GameObject> _generalChallengeInstances = new();
+        private List<GameObject> _resourceChallengeInstances = new();
         
-        private void Start()
+        public void Setup(Difficulty givenDifficulty, 
+            GameObject[] permittedGeneralChallenges, GameObject[] permittedResourceChallenges)
         {
-            // TODO: add logic for fetching challenges from the registry
+            Difficulty = givenDifficulty;
+            _generalChallengePrefabs = permittedGeneralChallenges;
+            _resourceChallengePrefabs = permittedResourceChallenges;
+            
             // TODO: implement logic for choosing difficulty randomly
             
             foreach (GameObject generalPrefab in _generalChallengePrefabs)
             {
-                Instantiate(generalPrefab);
+                Instantiate(generalPrefab, transform);
                 _generalChallengeInstances.Add(generalPrefab);
             }
             
-            foreach (GameObject resourcePrefab in _resourceChallengePrefabs)
-            {
-                Instantiate(resourcePrefab);
-                _resourceChallengeInstances.Add(resourcePrefab);
-            }
+            // TODO: introduce algorithm that spawns challenges over time
             
             foreach (IGeneralChallenge generalInstance in _generalChallengeInstances
-                         .Select(chal => chal.GetComponent<IGeneralChallenge>())
+                         .Select(ch => ch.GetComponent<IGeneralChallenge>())
                          .ToList())
             {
                 generalInstance.SubscribeToOnGeneralFail(AddCriticalFail);
@@ -50,20 +50,10 @@ namespace Production
         public void OnDestroy()
         {
             foreach (IGeneralChallenge generalInstance in _generalChallengeInstances
-                         .Select(chal => chal.GetComponent<IGeneralChallenge>())
+                         .Select(ch => ch.GetComponent<IGeneralChallenge>())
                          .ToList())
             {
                 generalInstance.UnsubscribeFromOnGeneralFail(AddCriticalFail);
-            }
-
-            foreach (GameObject generalInstance in _generalChallengeInstances)
-            {
-                Destroy(generalInstance);
-            }
-            
-            foreach (GameObject resourceInstance in _resourceChallengeInstances)
-            {
-                Destroy(resourceInstance);
             }
         }
 
