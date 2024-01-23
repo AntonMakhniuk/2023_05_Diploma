@@ -3,9 +3,12 @@ using UnityEngine;
 public class ShipInventory : MonoBehaviour
 {
     public GameObject tractorBeamPrefab;
+    public GameObject gasCollectorPrefab;
     public Transform shipTransform; // Assign the ship's transform in the Inspector
 
     private TractorBeam tractorBeamInstance;
+    private GasCollector gasCollectorInstance;
+    
     
     void Update()
     {
@@ -13,6 +16,11 @@ public class ShipInventory : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             ToggleTractorBeam();
+        }
+        // Toggle Gas Collector with the key (3)
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            ToggleGasCollector();
         }
     }
 
@@ -31,6 +39,31 @@ public class ShipInventory : MonoBehaviour
             tractorBeamInstance.DeactivateTractorBeam();
             Destroy(tractorBeamInstance.gameObject);
             tractorBeamInstance = null;
+        }
+    }
+    void ToggleGasCollector()
+    {
+        if (gasCollectorInstance == null)
+        {
+            // Instantiate Gas Collector and set shipTransform as the parent
+            gasCollectorInstance = Instantiate(gasCollectorPrefab, shipTransform).GetComponent<GasCollector>();
+            gasCollectorInstance.transform.localPosition = Vector3.left * gasCollectorInstance.GasCollectorOffset; // Adjust offset to spawn horizontally
+            gasCollectorInstance.ActivateGasCollector();// Activate the gas collector
+        }
+        else
+        {
+            // Deactivate Gas Collector
+            gasCollectorInstance.DeactivateGasCollector();
+            Destroy(gasCollectorInstance.gameObject);
+            gasCollectorInstance = null;
+
+            // show the gas collected in the Gas Collector
+            if (gasCollectorInstance != null)
+            {
+                float collectedGas = gasCollectorInstance.GetCurrentGasStorage();
+                Debug.Log("Collected Gas: " + collectedGas);
+                
+            }
         }
     }
 }
