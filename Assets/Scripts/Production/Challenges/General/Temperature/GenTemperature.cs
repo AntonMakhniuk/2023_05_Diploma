@@ -53,8 +53,6 @@ namespace Production.Challenges.General.Temperature
 
             while (elapsedTime < Config.resetWaitingTime)
             {
-                Debug.Log(elapsedTime);
-                
                 float t = elapsedTime / Config.resetWaitingTime;
 
                 currentTemperature = Mathf.Lerp(temperatureAtResetStart, Config.baseTemperature, t);

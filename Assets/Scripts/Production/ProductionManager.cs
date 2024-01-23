@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using DefaultNamespace;
 using Production.Challenges;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -75,9 +74,18 @@ namespace Production
                         resources
                     )
             );
+
+            _currentManager.OnProductionFailed += DestroyCurrentManager;
+        }
+        
+        private void DestroyCurrentManager(object sender, EventArgs args)
+        {
+            _currentManager.OnProductionFailed -= DestroyCurrentManager;
+            
+            Destroy(_currentManager);
         }
     }
-
+    
     [Serializable]
     public class ProductionManagerConfig : ConfigBase
     {

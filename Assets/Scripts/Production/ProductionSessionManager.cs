@@ -21,10 +21,17 @@ namespace Production
         // currently running instances of session-specific challenges
         private List<GameObject> _generalChallengeInstances = new();
         private List<GameObject> _resourceChallengeInstances = new();
+
+        [SerializeField] private GameObject[] extraPrefabsForInstantiation;
         
         public void Setup(Difficulty givenDifficulty, 
             GameObject[] permittedGeneralChallenges, GameObject[] permittedResourceChallenges)
         {
+            foreach (var extraPrefab in extraPrefabsForInstantiation)
+            {
+                Instantiate(extraPrefab, transform);
+            }
+            
             Difficulty = givenDifficulty;
             _generalChallengePrefabs = permittedGeneralChallenges;
             _resourceChallengePrefabs = permittedResourceChallenges;
@@ -33,8 +40,8 @@ namespace Production
             
             foreach (GameObject generalPrefab in _generalChallengePrefabs)
             {
-                Instantiate(generalPrefab, transform);
-                _generalChallengeInstances.Add(generalPrefab);
+                var instance = Instantiate(generalPrefab, transform);
+                _generalChallengeInstances.Add(instance);
             }
             
             // TODO: introduce algorithm that spawns challenges over time
@@ -57,21 +64,27 @@ namespace Production
             }
         }
 
+        public event EventHandler<int> OnCriticalFailReachedManager;
+        
         private void AddCriticalFail()
         {
-            if (_criticalFailCount < _maxCriticalFails)
-            {
-                _criticalFailCount++;
-            }
-            else
+            _criticalFailCount++;
+            
+            OnCriticalFailReachedManager?.Invoke(this, _criticalFailCount);
+            
+            if (_criticalFailCount >= _maxCriticalFails)
             {
                 FailProduction();
             }
         }
 
+        public event EventHandler OnProductionFailed;
+        
         private void FailProduction()
         {
-            throw new NotImplementedException();
+            gameObject.SetActive(false);
+            
+            OnProductionFailed?.Invoke(this, null);
         }
     }
 }
