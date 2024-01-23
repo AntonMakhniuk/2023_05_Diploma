@@ -84,6 +84,8 @@ namespace Production
         {
             gameObject.SetActive(false);
             
+            // TODO: Send out some kind of struct holding session data in the event?
+            
             OnProductionFailed?.Invoke(this, null);
         }
     }

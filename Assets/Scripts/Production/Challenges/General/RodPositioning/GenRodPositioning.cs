@@ -77,7 +77,7 @@ namespace Production.Challenges.General.RodPositioning
         [Range(0, 1)] public float minSafeRangeSize = 0.15f;
         [Range(0, 1)] public float maxSafeRangeSize = 0.2f;
         [Range(0, 1)] public float minDangerRangeSize = 0.1f;
-        [Range(0, 1)] public float warningDistanceFromSafeRange = 0f;
+        [Range(0, 1)] public float warningDistanceFromSafeRange;
         [Range(0, 1)] public float failDistanceFromSafeRange = 0.2f;
         [Range(0, 1)] public float maxStepLength = 0.001f;
     }

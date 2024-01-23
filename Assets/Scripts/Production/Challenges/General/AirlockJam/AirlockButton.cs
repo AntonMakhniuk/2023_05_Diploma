@@ -20,7 +20,7 @@ namespace Production.Challenges.General.AirlockJam
             TurnOffSilently();
         }
         
-        public void TurnOffSilently()
+        private void TurnOffSilently()
         {
             // TODO: Implement visual turning off
             
@@ -34,7 +34,7 @@ namespace Production.Challenges.General.AirlockJam
             TurnOnSilently();
         }
 
-        public void TurnOnSilently()
+        private void TurnOnSilently()
         {
             // TODO: Implement visual turning on
 

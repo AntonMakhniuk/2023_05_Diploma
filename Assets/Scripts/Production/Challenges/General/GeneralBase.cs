@@ -110,6 +110,8 @@ namespace Production.Challenges.General
         {
             OnGeneralFail?.Invoke();
             
+            // TODO: fix error thrown when this method is called while the session is failed
+            
             StartCoroutine(ResetCoroutine());
         }
         
