@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6014896961965540092}
   - component: {fileID: 1294706696965475496}
   - component: {fileID: 159575635465977897}
+  - component: {fileID: 2349787340537471641}
   m_Layer: 8
   m_Name: GasCollector
   m_TagString: Instrument
@@ -135,3 +136,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2349787340537471641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7359873361432758481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 338d916b6b2f130418d5e8d0daeab7e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gasCloudTag: Gas
+  gatheringSpeed: 1000
+  maxGasStorage: 100

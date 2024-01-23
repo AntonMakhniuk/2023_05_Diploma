@@ -2,15 +2,13 @@ using UnityEngine;
 
 public class GasCollector : MonoBehaviour
 {
-    public GameObject gasCloud;
-    public float gatheringSpeed = 5f;
-    public float maxGasStorage = 100f;
+    [SerializeField]private string gasCloudTag = "Gas"; 
+    [SerializeField]private float gatheringSpeed = 5f;
+    [SerializeField]private float maxGasStorage = 100f;
     public float GasCollectorOffset { get; set; } 
     
-    private float currentGasStorage = 0f;
-    
+    [SerializeField]private float currentGasStorage = 0f;
     private bool isActivated = false;
-   
 
     void Start()
     {
@@ -31,12 +29,13 @@ public class GasCollector : MonoBehaviour
         {
             GatherGas();
         }
-        
     }
+
     void RotateGasCollector()
     {
         transform.rotation = transform.parent.rotation;
     }
+
     void UpdateGasCollectorPosition()
     {
         transform.position = transform.parent.position - transform.parent.up * GasCollectorOffset;
@@ -44,9 +43,12 @@ public class GasCollector : MonoBehaviour
 
     void GatherGas()
     {
-        if (gasCloud != null)
+        // Find gas clouds with the specified tag
+        GameObject[] gasClouds = GameObject.FindGameObjectsWithTag(gasCloudTag);
+
+        foreach (GameObject gasCloud in gasClouds)
         {
-            // Move Gas Collector towards the Gas Cloud 
+            // Move Gas Collector towards the Gas Cloud
             transform.position = Vector3.MoveTowards(transform.position, gasCloud.transform.position, (gatheringSpeed * Time.deltaTime) + GasCollectorOffset);
 
             // Calculate the amount of gas to gather based on the gathering speed
@@ -59,15 +61,13 @@ public class GasCollector : MonoBehaviour
                 currentGasStorage += gasToGather;
 
                 // Decrease gas capacity in the gas cloud
-                UpdateGasCloudCapacity(gasToGather);
+                UpdateGasCloudCapacity(gasCloud, gasToGather);
             }
-            
         }
     }
 
-    void UpdateGasCloudCapacity(float gasGathered)
+    void UpdateGasCloudCapacity(GameObject gasCloud, float gasGathered)
     {
-        
         GasCloudScript gasCloudScript = gasCloud.GetComponent<GasCloudScript>();
 
         if (gasCloudScript != null)
@@ -81,22 +81,19 @@ public class GasCollector : MonoBehaviour
             }
         }
     }
+
     public void ActivateGasCollector()
     {
         isActivated = true;
-        
     }
 
     public void DeactivateGasCollector()
     {
         isActivated = false;
-        
     }
 
     public float GetCurrentGasStorage()
     {
         return currentGasStorage;
     }
-
-    
 }
