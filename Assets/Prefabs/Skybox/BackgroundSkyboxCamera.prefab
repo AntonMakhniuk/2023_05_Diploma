@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &548753305709406466
+--- !u!1 &8257711728351979687
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3397013306170223317}
-  - component: {fileID: 8717417216761951137}
-  - component: {fileID: 1782268808662793801}
-  - component: {fileID: 5309157421037972836}
-  - component: {fileID: 6828804977991572629}
+  - component: {fileID: 6494266198833982320}
+  - component: {fileID: 1008425800181363204}
+  - component: {fileID: 7908106679731159020}
+  - component: {fileID: 4371081684893215937}
+  - component: {fileID: 3152538275571637552}
   m_Layer: 0
-  m_Name: BackgroundCamera
+  m_Name: BackgroundSkyboxCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3397013306170223317
+--- !u!4 &6494266198833982320
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 548753305709406466}
+  m_GameObject: {fileID: 8257711728351979687}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3881894720823744412}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!20 &8717417216761951137
+--- !u!20 &1008425800181363204
 Camera:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 548753305709406466}
+  m_GameObject: {fileID: 8257711728351979687}
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
@@ -86,13 +86,13 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &1782268808662793801
+--- !u!114 &7908106679731159020
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 548753305709406466}
+  m_GameObject: {fileID: 8257711728351979687}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7105b43c1d965284ab1185275f844e3c, type: 3}
@@ -101,57 +101,25 @@ MonoBehaviour:
   _skyboxMaterials:
   - {fileID: 2100000, guid: 81f714daf7144784b8a2f42f1cd30927, type: 2}
   - {fileID: 2100000, guid: 9803600998c48b140b2f7038d0fc2eb1, type: 2}
---- !u!114 &5309157421037972836
+--- !u!114 &4371081684893215937
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 548753305709406466}
+  m_GameObject: {fileID: 8257711728351979687}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1bc59884c9bc28a40ac2e533779d0681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 0}
---- !u!45 &6828804977991572629
+--- !u!45 &3152538275571637552
 Skybox:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 548753305709406466}
+  m_GameObject: {fileID: 8257711728351979687}
   m_Enabled: 1
   m_CustomSkybox: {fileID: 0}
---- !u!1 &5117858190578967162
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3881894720823744412}
-  m_Layer: 0
-  m_Name: ---Background
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3881894720823744412
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5117858190578967162}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 3397013306170223317}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
