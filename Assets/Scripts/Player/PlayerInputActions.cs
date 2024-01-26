@@ -53,6 +53,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""AlignWithCamera"",
+                    ""type"": ""Button"",
+                    ""id"": ""e5de1bfa-6c14-42be-b71f-37d99f8fa03e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -176,6 +185,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""398f6a8d-73ab-4f23-8e8b-60c0333971a9"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AlignWithCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -187,6 +207,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_PlayerShip_MouseCameraMovement = m_PlayerShip.FindAction("MouseCameraMovement", throwIfNotFound: true);
         m_PlayerShip_Rotation = m_PlayerShip.FindAction("Rotation", throwIfNotFound: true);
         m_PlayerShip_Movement = m_PlayerShip.FindAction("Movement", throwIfNotFound: true);
+        m_PlayerShip_AlignWithCamera = m_PlayerShip.FindAction("AlignWithCamera", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -251,6 +272,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerShip_MouseCameraMovement;
     private readonly InputAction m_PlayerShip_Rotation;
     private readonly InputAction m_PlayerShip_Movement;
+    private readonly InputAction m_PlayerShip_AlignWithCamera;
     public struct PlayerShipActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -258,6 +280,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @MouseCameraMovement => m_Wrapper.m_PlayerShip_MouseCameraMovement;
         public InputAction @Rotation => m_Wrapper.m_PlayerShip_Rotation;
         public InputAction @Movement => m_Wrapper.m_PlayerShip_Movement;
+        public InputAction @AlignWithCamera => m_Wrapper.m_PlayerShip_AlignWithCamera;
         public InputActionMap Get() { return m_Wrapper.m_PlayerShip; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -276,6 +299,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
+            @AlignWithCamera.started += instance.OnAlignWithCamera;
+            @AlignWithCamera.performed += instance.OnAlignWithCamera;
+            @AlignWithCamera.canceled += instance.OnAlignWithCamera;
         }
 
         private void UnregisterCallbacks(IPlayerShipActions instance)
@@ -289,6 +315,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
+            @AlignWithCamera.started -= instance.OnAlignWithCamera;
+            @AlignWithCamera.performed -= instance.OnAlignWithCamera;
+            @AlignWithCamera.canceled -= instance.OnAlignWithCamera;
         }
 
         public void RemoveCallbacks(IPlayerShipActions instance)
@@ -311,5 +340,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnMouseCameraMovement(InputAction.CallbackContext context);
         void OnRotation(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
+        void OnAlignWithCamera(InputAction.CallbackContext context);
     }
 }

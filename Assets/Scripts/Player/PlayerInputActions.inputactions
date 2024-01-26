@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "AlignWithCamera",
+                    "type": "Button",
+                    "id": "e5de1bfa-6c14-42be-b71f-37d99f8fa03e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -154,6 +163,17 @@
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "398f6a8d-73ab-4f23-8e8b-60c0333971a9",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AlignWithCamera",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
