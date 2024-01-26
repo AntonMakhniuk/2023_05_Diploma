@@ -4,7 +4,7 @@ public class ShipInventory : MonoBehaviour
 {
     public GameObject tractorBeamPrefab;
     public GameObject gasCollectorPrefab;
-    public Transform shipTransform; // Assign the ship's transform in the Inspector
+    public Transform shipTransform; 
 
     private TractorBeam tractorBeamInstance;
     private GasCollector gasCollectorInstance;

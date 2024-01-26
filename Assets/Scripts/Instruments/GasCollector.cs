@@ -9,12 +9,12 @@ public class GasCollector : MonoBehaviour
     [SerializeField]private float maxGasStorage = 100f;
     public float GasCollectorOffset { get; set; }
 
-    public float currentGasStorage = 0f;
+    private float currentGasStorage = 0f;
     private Rigidbody shipRigidbody; // Reference to the ship's rigidbody
 
     void Start()
     {
-        GasCollectorOffset = 0; // Set the default offset
+        GasCollectorOffset = 0; 
 
         // Get the ship's rigidbody
         shipRigidbody = GetComponentInParent<Rigidbody>();
