@@ -26,6 +26,7 @@ public class GasCollector : MonoBehaviour
 
     void Update()
     {
+        UpdateGasCollectorPosition();
         // Gather gas when the left mouse button is pressed, the gas collector is activated, and the ship is moving
         if (Input.GetMouseButton(0) && IsShipMoving())
         {
@@ -68,7 +69,10 @@ public class GasCollector : MonoBehaviour
             }
         }
     }
-
+    void UpdateGasCollectorPosition()
+    {
+        transform.position = transform.parent.position - transform.parent.up * GasCollectorOffset;
+    }
     void UpdateGasCloudCapacity(float gasGathered)
     {
         GasCloudScript gasCloudScript = gasCloud.GetComponent<GasCloudScript>();

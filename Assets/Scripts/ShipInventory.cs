@@ -5,6 +5,7 @@ public class ShipInventory : MonoBehaviour
     public GameObject tractorBeamPrefab;
     public GameObject gasCollectorPrefab;
     public Transform shipTransform; 
+    
 
     private TractorBeam tractorBeamInstance;
     private GasCollector gasCollectorInstance;
