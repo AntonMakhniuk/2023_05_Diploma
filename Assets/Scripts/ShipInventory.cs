@@ -48,22 +48,21 @@ public class ShipInventory : MonoBehaviour
             // Instantiate Gas Collector and set shipTransform as the parent
             gasCollectorInstance = Instantiate(gasCollectorPrefab, shipTransform).GetComponent<GasCollector>();
             gasCollectorInstance.transform.localPosition = Vector3.left * gasCollectorInstance.GasCollectorOffset; // Adjust offset to spawn horizontally
-            gasCollectorInstance.ActivateGasCollector();// Activate the gas collector
         }
         else
         {
-            // Deactivate Gas Collector
-            gasCollectorInstance.DeactivateGasCollector();
-            Destroy(gasCollectorInstance.gameObject);
-            gasCollectorInstance = null;
-
-            // show the gas collected in the Gas Collector
+            // Show the gas collected in the Gas Collector before deactivating it
             if (gasCollectorInstance != null)
             {
                 float collectedGas = gasCollectorInstance.GetCurrentGasStorage();
                 Debug.Log("Collected Gas: " + collectedGas);
-                
             }
+
+            // Deactivate Gas Collector
+            Destroy(gasCollectorInstance.gameObject);
+            gasCollectorInstance = null;
         }
     }
+
+
 }

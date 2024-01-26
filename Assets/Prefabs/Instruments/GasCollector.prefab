@@ -148,6 +148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 338d916b6b2f130418d5e8d0daeab7e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gasCloudTag: Gas
+  gatherKey: 323
+  gasCloud: {fileID: 6535960872229361336, guid: 3ab2b6732ec46c546a4d5e3d99ac294d, type: 3}
   gatheringSpeed: 1000
   maxGasStorage: 100
+  currentGasStorage: 0

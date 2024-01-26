@@ -2,51 +2,55 @@ using UnityEngine;
 
 public class GasCollector : MonoBehaviour
 {
-    [SerializeField]private string gasCloudTag = "Gas"; 
-    [SerializeField]private float gatheringSpeed = 5f;
-    [SerializeField]private float maxGasStorage = 100f;
-    public float GasCollectorOffset { get; set; } 
-    
-    [SerializeField]private float currentGasStorage = 0f;
-    private bool isActivated = false;
+    public KeyCode gatherKey = KeyCode.Mouse0;
+
+    public GameObject gasCloud;
+    public float gatheringSpeed = 5f;
+    public float maxGasStorage = 100f;
+    public float GasCollectorOffset { get; set; }
+
+    public float currentGasStorage = 0f;
+    private Rigidbody shipRigidbody; // Reference to the ship's rigidbody
 
     void Start()
     {
         GasCollectorOffset = 0; // Set the default offset
+
+        // Get the ship's rigidbody
+        shipRigidbody = GetComponentInParent<Rigidbody>();
+        if (shipRigidbody == null)
+        {
+            Debug.LogError("GasCollector requires a Rigidbody on the parent GameObject (ship).");
+        }
     }
 
     void Update()
     {
-        // Activate Gas Collector
-        if (isActivated)
-        {
-            UpdateGasCollectorPosition();
-            RotateGasCollector();
-        }
-
-        // Gather gas when activated and left mouse button is pressed
-        if (Input.GetMouseButton(0) && isActivated)
+        // Gather gas when the left mouse button is pressed, the gas collector is activated, and the ship is moving
+        if (Input.GetMouseButton(0) && IsShipMoving())
         {
             GatherGas();
         }
     }
-
-    void RotateGasCollector()
+    void OnParticleCollision(GameObject other)
     {
-        transform.rotation = transform.parent.rotation;
-    }
-
-    void UpdateGasCollectorPosition()
-    {
-        transform.position = transform.parent.position - transform.parent.up * GasCollectorOffset;
+        // Check if the collided object is a Gas Cloud particle
+        if (other.CompareTag("GasCloudParticle"))
+        {
+            // Handle the collision, gather gas, etc.
+            // Access GasCloudController script if needed
+            GasCloudScript gasCloudController = other.GetComponentInParent<GasCloudScript>();
+            if (gasCloudController != null)
+            {
+                float gasGathered = 10f; // Example: Gather 10 units of gas
+                gasCloudController.DecreaseGasCapacity(gasGathered);
+            }
+        }
     }
 
     void GatherGas()
     {
-        // Find gas clouds with the specified tag
-        GameObject[] gasClouds = GameObject.FindGameObjectsWithTag(gasCloudTag);
-
-        foreach (GameObject gasCloud in gasClouds)
+        if (gasCloud != null)
         {
             // Move Gas Collector towards the Gas Cloud
             transform.position = Vector3.MoveTowards(transform.position, gasCloud.transform.position, (gatheringSpeed * Time.deltaTime) + GasCollectorOffset);
@@ -61,12 +65,12 @@ public class GasCollector : MonoBehaviour
                 currentGasStorage += gasToGather;
 
                 // Decrease gas capacity in the gas cloud
-                UpdateGasCloudCapacity(gasCloud, gasToGather);
+                UpdateGasCloudCapacity(gasToGather);
             }
         }
     }
 
-    void UpdateGasCloudCapacity(GameObject gasCloud, float gasGathered)
+    void UpdateGasCloudCapacity(float gasGathered)
     {
         GasCloudScript gasCloudScript = gasCloud.GetComponent<GasCloudScript>();
 
@@ -82,14 +86,10 @@ public class GasCollector : MonoBehaviour
         }
     }
 
-    public void ActivateGasCollector()
+    bool IsShipMoving()
     {
-        isActivated = true;
-    }
-
-    public void DeactivateGasCollector()
-    {
-        isActivated = false;
+        // Check if the ship's velocity is above a certain threshold
+        return shipRigidbody.velocity.magnitude > 0.1f;
     }
 
     public float GetCurrentGasStorage()
