@@ -4,9 +4,9 @@ public class GasCollector : MonoBehaviour
 {
     public KeyCode gatherKey = KeyCode.Mouse0;
 
-    public GameObject gasCloud;
-    public float gatheringSpeed = 5f;
-    public float maxGasStorage = 100f;
+    [SerializeField]private GameObject gasCloud;
+    [SerializeField]private float gatheringSpeed = 5f;
+    [SerializeField]private float maxGasStorage = 100f;
     public float GasCollectorOffset { get; set; }
 
     public float currentGasStorage = 0f;
@@ -38,11 +38,10 @@ public class GasCollector : MonoBehaviour
         if (other.CompareTag("GasCloudParticle"))
         {
             // Handle the collision, gather gas, etc.
-            // Access GasCloudController script if needed
             GasCloudScript gasCloudController = other.GetComponentInParent<GasCloudScript>();
             if (gasCloudController != null)
             {
-                float gasGathered = 10f; // Example: Gather 10 units of gas
+                float gasGathered = 10f;
                 gasCloudController.DecreaseGasCapacity(gasGathered);
             }
         }

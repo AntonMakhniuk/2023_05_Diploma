@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GasCloudScript : MonoBehaviour
 {
-    public float gasCapacity = 100f;
+    [SerializeField]private float gasCapacity = 100f;
 
     private ParticleSystem particleSystem;
 
@@ -18,11 +18,7 @@ public class GasCloudScript : MonoBehaviour
         // Ensure that collision is enabled in the Particle System component
         ConfigureParticleCollision();
     }
-
-    void Update()
-    {
-        // Your gas cloud logic goes here (if needed)
-    }
+    
 
     public void DecreaseGasCapacity(float amount)
     {
