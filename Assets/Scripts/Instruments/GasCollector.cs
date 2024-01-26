@@ -4,12 +4,12 @@ public class GasCollector : MonoBehaviour
 {
     public KeyCode gatherKey = KeyCode.Mouse0;
 
-    [SerializeField]private GameObject gasCloud;
-    [SerializeField]private float gatheringSpeed = 5f;
-    [SerializeField]private float maxGasStorage = 100f;
+    [SerializeField] private GameObject gasCloud;
+    [SerializeField] private float gatheringSpeed = 5f;
+    [SerializeField] private float maxGasStorage = 100f;
     public float GasCollectorOffset { get; set; }
 
-    private float currentGasStorage = 0f;
+    [SerializeField] private float currentGasStorage = 0f;
     private Rigidbody shipRigidbody; // Reference to the ship's rigidbody
 
     void Start()
@@ -24,11 +24,12 @@ public class GasCollector : MonoBehaviour
         }
     }
 
-    void Update()
-    {
+    void Update() {
         UpdateGasCollectorPosition();
         // Gather gas when the left mouse button is pressed, the gas collector is activated, and the ship is moving
-        if (Input.GetMouseButton(0) && IsShipMoving())
+        if (Input.GetMouseButton(0) 
+            //&& IsShipMoving()
+            )
         {
             GatherGas();
         }
@@ -36,7 +37,7 @@ public class GasCollector : MonoBehaviour
     void OnParticleCollision(GameObject other)
     {
         // Check if the collided object is a Gas Cloud particle
-        if (other.CompareTag("GasCloudParticle"))
+        if (other.CompareTag("Gas"))
         {
             // Handle the collision, gather gas, etc.
             GasCloudScript gasCloudController = other.GetComponentInParent<GasCloudScript>();
@@ -73,6 +74,7 @@ public class GasCollector : MonoBehaviour
     {
         transform.position = transform.parent.position - transform.parent.up * GasCollectorOffset;
     }
+    
     void UpdateGasCloudCapacity(float gasGathered)
     {
         GasCloudScript gasCloudScript = gasCloud.GetComponent<GasCloudScript>();
@@ -80,20 +82,14 @@ public class GasCollector : MonoBehaviour
         if (gasCloudScript != null)
         {
             gasCloudScript.DecreaseGasCapacity(gasGathered);
-
-            // If the gas capacity reaches 0, make the cloud disappear
-            if (gasCloudScript.GetGasCapacity() <= 0)
-            {
-                Destroy(gasCloud);
-            }
         }
     }
 
-    bool IsShipMoving()
-    {
-        // Check if the ship's velocity is above a certain threshold
-        return shipRigidbody.velocity.magnitude > 0.1f;
-    }
+    // bool IsShipMoving()
+    // {
+    //     // Check if the ship's velocity is above a certain threshold
+    //     return shipRigidbody.velocity.magnitude > 0.1f;
+    // }
 
     public float GetCurrentGasStorage()
     {

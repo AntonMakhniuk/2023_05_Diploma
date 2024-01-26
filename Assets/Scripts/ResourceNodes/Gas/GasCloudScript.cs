@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(ParticleSystem))]
 public class GasCloudScript : MonoBehaviour
 {
     [SerializeField]private float gasCapacity = 100f;
@@ -61,4 +62,6 @@ public class GasCloudScript : MonoBehaviour
            
         }
     }
+    
+    
 }
