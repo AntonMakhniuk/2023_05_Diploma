@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Production.Challenges.General.CoreSegmentation
+namespace Production.Challenges.General.Core_Segmentation
 {
     public class CoreSegment : MonoBehaviour
     {

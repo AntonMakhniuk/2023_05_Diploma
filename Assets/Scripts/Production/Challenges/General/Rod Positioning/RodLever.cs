@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections;
-using DefaultNamespace;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Production.Challenges.General.RodPositioning
+namespace Production.Challenges.General.Rod_Positioning
 {
     public class RodLever : MonoBehaviour
     {

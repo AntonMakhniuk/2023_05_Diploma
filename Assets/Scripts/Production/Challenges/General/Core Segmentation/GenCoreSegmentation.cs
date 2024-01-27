@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Production.Challenges.General.CoreSegmentation
+namespace Production.Challenges.General.Core_Segmentation
 {
     public class GenCoreSegmentation : GeneralBase<CoreSegmentationConfig>
     {

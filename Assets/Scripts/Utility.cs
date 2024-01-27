@@ -1,13 +1,10 @@
-﻿namespace DefaultNamespace
+﻿public class Utility
 {
-    public class Utility
+    public static T GetRandomEnum<T>()
     {
-        public static T GetRandomEnum<T>()
-        {
-            System.Array A = System.Enum.GetValues(typeof(T));
-            T V = (T)A.GetValue(UnityEngine.Random.Range(0,A.Length));
+        System.Array a = System.Enum.GetValues(typeof(T));
+        T v = (T)a.GetValue(UnityEngine.Random.Range(0,a.Length));
             
-            return V;
-        }
+        return v;
     }
 }

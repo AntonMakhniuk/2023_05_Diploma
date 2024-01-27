@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Production.Challenges.General.RodPositioning
+namespace Production.Challenges.General.Rod_Positioning
 {
     public class GenRodPositioning : GeneralBase<RodPositioningConfig>
     {
