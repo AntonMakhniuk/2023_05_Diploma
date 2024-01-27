@@ -2,10 +2,9 @@
 {
     public class CraftingData
     {
-        public Recipe Recipe;
+        public readonly Recipe Recipe;
         public int CraftedQuantity;
-
-        private float _bonusModifier = 100f;
+        public float BonusModifier = 100f;
 
         public CraftingData(Recipe recipe, int craftedQuantity)
         {

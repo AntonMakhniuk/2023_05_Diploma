@@ -37,7 +37,7 @@ namespace Production.Systems
             }
             
             CraftingData = craftingData;
-            Difficulty = craftingData.Recipe.difficulty;
+            Difficulty = craftingData.Recipe.difficultyConfig.difficulty;
             _generalChallengePrefabs = permittedGeneralChallenges;
             _resourceChallengePrefabs = permittedResourceChallenges;
             
@@ -72,6 +72,15 @@ namespace Production.Systems
                 FailProduction();
             }
         }
+        
+        public delegate void OnBonusChangedHandler(float bonusModifier);
+
+        public event OnBonusChangedHandler OnBonusChanged;
+
+        public void ChangeBonus(float bonusModifier)
+        {
+            OnBonusChanged?.Invoke(bonusModifier);
+        }
 
         public event EventHandler OnProductionFailed;
         
@@ -97,6 +106,11 @@ namespace Production.Systems
             // TODO: Send out some kind of struct holding session data in the event arguments?
             
             OnProductionFailed?.Invoke(this, null);
+        }
+
+        public void FinishProduction()
+        {
+            
         }
     }
 }

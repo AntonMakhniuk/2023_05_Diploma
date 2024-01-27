@@ -34,12 +34,13 @@ namespace Production.Systems
         
         public void StartProduction(CraftingData craftingData)
         {
-            _currentConfig = configs.FirstOrDefault(config => config.difficulty == craftingData.Recipe.difficulty);
+            _currentConfig = configs
+                .FirstOrDefault(config => config.difficulty == craftingData.Recipe.difficultyConfig.difficulty);
             
             if (_currentConfig == null)
             {
                 Debug.LogError($"No appropriate config found for {GetType().Name} " +
-                               $"at {craftingData.Recipe.difficulty}. " +
+                               $"at {craftingData.Recipe.difficultyConfig}. " +
                                "Reverting to first available config.");
                 
                 _currentConfig = configs[0];
