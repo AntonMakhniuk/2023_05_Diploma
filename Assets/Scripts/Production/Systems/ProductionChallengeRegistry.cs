@@ -6,7 +6,7 @@ using Production.Challenges.ResourceSpecific;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Production
+namespace Production.Systems
 {
     public class ProductionChallengeRegistry : MonoBehaviour
     {
