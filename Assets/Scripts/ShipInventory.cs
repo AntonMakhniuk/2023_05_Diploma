@@ -8,7 +8,7 @@ public class ShipInventory : MonoBehaviour
     
 
     private TractorBeam tractorBeamInstance;
-    private GasCollector gasCollectorInstance;
+    private GasCollectorv2 gasCollectorInstance;
     
     
     void Update()
@@ -47,7 +47,7 @@ public class ShipInventory : MonoBehaviour
         if (gasCollectorInstance == null)
         {
             // Instantiate Gas Collector and set shipTransform as the parent
-            gasCollectorInstance = Instantiate(gasCollectorPrefab, shipTransform).GetComponent<GasCollector>();
+            gasCollectorInstance = Instantiate(gasCollectorPrefab, shipTransform).GetComponent<GasCollectorv2>();
             gasCollectorInstance.transform.localPosition = Vector3.left * gasCollectorInstance.GasCollectorOffset; // Adjust offset to spawn horizontally
         }
         else

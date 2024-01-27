@@ -12,9 +12,8 @@ GameObject:
   - component: {fileID: 5179002646997500573}
   - component: {fileID: 6014896961965540092}
   - component: {fileID: 1294706696965475496}
-  - component: {fileID: 159575635465977897}
-  - component: {fileID: 2349787340537471641}
-  m_Layer: 8
+  - component: {fileID: 1369450315233396463}
+  m_Layer: 0
   m_Name: GasCollector
   m_TagString: Instrument
   m_Icon: {fileID: 0}
@@ -109,34 +108,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &159575635465977897
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7359873361432758481}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &2349787340537471641
+--- !u!114 &1369450315233396463
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,11 +117,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7359873361432758481}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 338d916b6b2f130418d5e8d0daeab7e1, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d7242e94ca3bd34b808924866c51e75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gatherKey: 323
-  gasCloud: {fileID: 6535960872229361336, guid: 3ab2b6732ec46c546a4d5e3d99ac294d, type: 3}
-  gatheringSpeed: 1000
-  maxGasStorage: 100
-  currentGasStorage: 0
+  gasCapacityMax: 100
+  gasCollectSpeed: 1000
+  gasCapacity: 0
+  isCollecting: 0
+  canCollectGas: 0
