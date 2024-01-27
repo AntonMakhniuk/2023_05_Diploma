@@ -62,6 +62,33 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotateAlongX"",
+                    ""type"": ""Button"",
+                    ""id"": ""20e14b37-b7b0-4820-8f7e-a77e462901f1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotateAlongY"",
+                    ""type"": ""Button"",
+                    ""id"": ""4d9f5733-9df1-4dcb-b328-d24e8011a84d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotateAlongZ"",
+                    ""type"": ""Button"",
+                    ""id"": ""9de35a2d-9a5d-47cb-9cb7-2a34e5948d36"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -196,6 +223,105 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""AlignWithCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Up/Down"",
+                    ""id"": ""c15f978c-efcf-44b6-ac9c-95685c47a1ad"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateAlongX"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""f31702fa-3d26-4b90-8118-669824d83f54"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateAlongX"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""e653d19b-d44c-4a81-b4e5-fa78089d56c0"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateAlongX"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Left/Right"",
+                    ""id"": ""7497a25c-121b-4579-a5ac-667863ad3957"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateAlongY"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""f133044d-e21c-4947-b839-4b9e9306a16c"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateAlongY"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""aa1bdbf1-fd54-4347-9d54-72747c44101c"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateAlongY"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""LeftTilt/RightTilt"",
+                    ""id"": ""c7198939-499a-4fa1-a516-d490a2f636c2"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateAlongZ"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""eba4ecc4-1d6b-4fb8-8c18-01ecab94f1bc"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateAlongZ"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""a11563c6-5314-44fe-86a5-1d8b9b205929"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateAlongZ"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -208,6 +334,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_PlayerShip_Rotation = m_PlayerShip.FindAction("Rotation", throwIfNotFound: true);
         m_PlayerShip_Movement = m_PlayerShip.FindAction("Movement", throwIfNotFound: true);
         m_PlayerShip_AlignWithCamera = m_PlayerShip.FindAction("AlignWithCamera", throwIfNotFound: true);
+        m_PlayerShip_RotateAlongX = m_PlayerShip.FindAction("RotateAlongX", throwIfNotFound: true);
+        m_PlayerShip_RotateAlongY = m_PlayerShip.FindAction("RotateAlongY", throwIfNotFound: true);
+        m_PlayerShip_RotateAlongZ = m_PlayerShip.FindAction("RotateAlongZ", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -273,6 +402,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerShip_Rotation;
     private readonly InputAction m_PlayerShip_Movement;
     private readonly InputAction m_PlayerShip_AlignWithCamera;
+    private readonly InputAction m_PlayerShip_RotateAlongX;
+    private readonly InputAction m_PlayerShip_RotateAlongY;
+    private readonly InputAction m_PlayerShip_RotateAlongZ;
     public struct PlayerShipActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -281,6 +413,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Rotation => m_Wrapper.m_PlayerShip_Rotation;
         public InputAction @Movement => m_Wrapper.m_PlayerShip_Movement;
         public InputAction @AlignWithCamera => m_Wrapper.m_PlayerShip_AlignWithCamera;
+        public InputAction @RotateAlongX => m_Wrapper.m_PlayerShip_RotateAlongX;
+        public InputAction @RotateAlongY => m_Wrapper.m_PlayerShip_RotateAlongY;
+        public InputAction @RotateAlongZ => m_Wrapper.m_PlayerShip_RotateAlongZ;
         public InputActionMap Get() { return m_Wrapper.m_PlayerShip; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -302,6 +437,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @AlignWithCamera.started += instance.OnAlignWithCamera;
             @AlignWithCamera.performed += instance.OnAlignWithCamera;
             @AlignWithCamera.canceled += instance.OnAlignWithCamera;
+            @RotateAlongX.started += instance.OnRotateAlongX;
+            @RotateAlongX.performed += instance.OnRotateAlongX;
+            @RotateAlongX.canceled += instance.OnRotateAlongX;
+            @RotateAlongY.started += instance.OnRotateAlongY;
+            @RotateAlongY.performed += instance.OnRotateAlongY;
+            @RotateAlongY.canceled += instance.OnRotateAlongY;
+            @RotateAlongZ.started += instance.OnRotateAlongZ;
+            @RotateAlongZ.performed += instance.OnRotateAlongZ;
+            @RotateAlongZ.canceled += instance.OnRotateAlongZ;
         }
 
         private void UnregisterCallbacks(IPlayerShipActions instance)
@@ -318,6 +462,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @AlignWithCamera.started -= instance.OnAlignWithCamera;
             @AlignWithCamera.performed -= instance.OnAlignWithCamera;
             @AlignWithCamera.canceled -= instance.OnAlignWithCamera;
+            @RotateAlongX.started -= instance.OnRotateAlongX;
+            @RotateAlongX.performed -= instance.OnRotateAlongX;
+            @RotateAlongX.canceled -= instance.OnRotateAlongX;
+            @RotateAlongY.started -= instance.OnRotateAlongY;
+            @RotateAlongY.performed -= instance.OnRotateAlongY;
+            @RotateAlongY.canceled -= instance.OnRotateAlongY;
+            @RotateAlongZ.started -= instance.OnRotateAlongZ;
+            @RotateAlongZ.performed -= instance.OnRotateAlongZ;
+            @RotateAlongZ.canceled -= instance.OnRotateAlongZ;
         }
 
         public void RemoveCallbacks(IPlayerShipActions instance)
@@ -341,5 +494,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnRotation(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
         void OnAlignWithCamera(InputAction.CallbackContext context);
+        void OnRotateAlongX(InputAction.CallbackContext context);
+        void OnRotateAlongY(InputAction.CallbackContext context);
+        void OnRotateAlongZ(InputAction.CallbackContext context);
     }
 }
