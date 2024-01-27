@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
+using Production.Systems;
 using UnityEngine;
 
 namespace Production.Challenges.General
@@ -52,6 +53,11 @@ namespace Production.Challenges.General
             
             HandlePerformanceConditionsCheck();
             HandleUpdateLogic();
+        }
+
+        private void OnDestroy()
+        {
+            StopAllCoroutines();
         }
 
         private bool _isBeingReset;

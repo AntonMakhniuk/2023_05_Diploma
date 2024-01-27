@@ -4,7 +4,7 @@ using System.Linq;
 using Production.Challenges.General;
 using UnityEngine;
 
-namespace Production
+namespace Production.Systems
 {
     // meant to be created every time a new production is started, and destroyed afterwards
     public class ProductionSessionManager : MonoBehaviour
@@ -54,16 +54,6 @@ namespace Production
             }
         }
 
-        public void OnDestroy()
-        {
-            foreach (IGeneralChallenge generalInstance in _generalChallengeInstances
-                         .Select(ch => ch.GetComponent<IGeneralChallenge>())
-                         .ToList())
-            {
-                generalInstance.UnsubscribeFromOnGeneralFail(AddCriticalFail);
-            }
-        }
-
         public event EventHandler<int> OnCriticalFailReachedManager;
         
         private void AddCriticalFail()
@@ -82,9 +72,24 @@ namespace Production
         
         private void FailProduction()
         {
-            gameObject.SetActive(false);
+            foreach (IGeneralChallenge generalInstance in _generalChallengeInstances
+                         .Select(ch => ch.GetComponent<IGeneralChallenge>())
+                         .ToList())
+            {
+                generalInstance.UnsubscribeFromOnGeneralFail(AddCriticalFail);
+            }
             
-            // TODO: Send out some kind of struct holding session data in the event?
+            foreach (var challengeInstance in _generalChallengeInstances)
+            {
+                Destroy(challengeInstance);
+            }
+
+            foreach (var challengeInstance in _resourceChallengeInstances)
+            {
+                Destroy(challengeInstance);
+            }
+            
+            // TODO: Send out some kind of struct holding session data in the event arguments?
             
             OnProductionFailed?.Invoke(this, null);
         }

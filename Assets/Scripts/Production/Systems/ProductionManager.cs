@@ -4,17 +4,18 @@ using Production.Challenges;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Production
+namespace Production.Systems
 {
     public class ProductionManager : MonoBehaviour
     {
         private static ProductionManager _instance;
         
         [SerializeField] private ProductionChallengeRegistry challengeRegistry;
-        [SerializeField] private ProductionSessionManager sessionManagerPrefab;
-        [SerializeField] private ProductionManagerConfig[] configs; 
-        
-        private ProductionSessionManager _currentManager;
+        [SerializeField] private GameObject sessionManagerPrefab;
+        [SerializeField] private ProductionManagerConfig[] configs;
+
+        private GameObject _currentManagerObject;
+        private ProductionSessionManager _currentManagerScript;
         private ProductionManagerConfig _currentConfig;
         
         private void Awake()
@@ -54,9 +55,10 @@ namespace Production
                 throw new Exception($"No config available for {GetType().Name}. Cannot start production.");
             }
 
-            _currentManager = Instantiate(sessionManagerPrefab, transform);
+            _currentManagerObject = Instantiate(sessionManagerPrefab, transform);
+            _currentManagerScript = _currentManagerObject.GetComponent<ProductionSessionManager>();
             
-            _currentManager.Setup
+            _currentManagerScript.Setup
             (
                 difficulty, 
                 challengeRegistry
@@ -75,14 +77,14 @@ namespace Production
                     )
             );
 
-            _currentManager.OnProductionFailed += DestroyCurrentManager;
+            _currentManagerScript.OnProductionFailed += DestroyCurrentManager;
         }
         
         private void DestroyCurrentManager(object sender, EventArgs args)
         {
-            _currentManager.OnProductionFailed -= DestroyCurrentManager;
+            _currentManagerScript.OnProductionFailed -= DestroyCurrentManager;
             
-            Destroy(_currentManager);
+            Destroy(_currentManagerObject);
         }
     }
     
