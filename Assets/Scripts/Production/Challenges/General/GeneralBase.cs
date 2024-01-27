@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
+using Production.Crafting;
 using Production.Systems;
 using UnityEngine;
 
@@ -44,6 +45,8 @@ namespace Production.Challenges.General
             }
         }
 
+        private bool _isBeingReset;
+        
         private void FixedUpdate()
         {
             if (_isBeingReset)
@@ -59,8 +62,7 @@ namespace Production.Challenges.General
         {
             StopAllCoroutines();
         }
-
-        private bool _isBeingReset;
+        
         private bool _warningConditionsMet;
         private bool _failConditionsMet;
         private bool _isWarning;
@@ -116,12 +118,10 @@ namespace Production.Challenges.General
         {
             OnGeneralFail?.Invoke();
             
-            // TODO: fix error thrown when this method is called while the session is failed
-            
             StartCoroutine(ResetCoroutine());
         }
         
-        // TODO: Fix issue where reset logic is executed over given period of time and then a timer is yielded after
+        // TODO: Fix issue where reset logic can be executed for longer than the resetWaitingTime
         
         private IEnumerator ResetCoroutine()
         {

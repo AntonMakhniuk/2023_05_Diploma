@@ -1,4 +1,5 @@
 ﻿using System;
+using Production.Crafting;
 
 namespace Production.Challenges
 {

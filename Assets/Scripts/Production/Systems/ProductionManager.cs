@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Production.Challenges;
+using Production.Crafting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -30,21 +31,15 @@ namespace Production.Systems
                 Destroy(gameObject);
             }
         }
-
-        public void StartProductionHardcoded()
-        {
-            StartProduction(Difficulty.Normal, new ResourcePlaceholder[]{});
-        }
         
-        // TODO: Add proper resources to method
-        
-        public void StartProduction(Difficulty difficulty, ResourcePlaceholder[] resources)
+        public void StartProduction(CraftingData craftingData)
         {
-            _currentConfig = configs.FirstOrDefault(config => config.difficulty == difficulty);
+            _currentConfig = configs.FirstOrDefault(config => config.difficulty == craftingData.Recipe.difficulty);
             
             if (_currentConfig == null)
             {
-                Debug.LogError($"No appropriate config found for {GetType().Name} at {difficulty}. " +
+                Debug.LogError($"No appropriate config found for {GetType().Name} " +
+                               $"at {craftingData.Recipe.difficulty}. " +
                                "Reverting to first available config.");
                 
                 _currentConfig = configs[0];
@@ -60,7 +55,7 @@ namespace Production.Systems
             
             _currentManagerScript.Setup
             (
-                difficulty, 
+                craftingData,
                 challengeRegistry
                     .GetNumberOfRandomGeneralChallenges
                     (
@@ -73,7 +68,7 @@ namespace Production.Systems
                 challengeRegistry
                     .GetPermittedResourceChallenges
                     (
-                        resources
+                        craftingData.Recipe.resources.Select(res => res.resource).ToArray()
                     )
             );
 

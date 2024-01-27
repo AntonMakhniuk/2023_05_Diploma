@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Production.Challenges.General;
+using Production.Crafting;
 using UnityEngine;
 
 namespace Production.Systems
@@ -9,22 +10,25 @@ namespace Production.Systems
     // meant to be created every time a new production is started, and destroyed afterwards
     public class ProductionSessionManager : MonoBehaviour
     {
+        // TODO: add modifier changes to the CraftingData object
+        
         // prefabs that the manager may use in the production session
         private GameObject[] _generalChallengePrefabs;
         private GameObject[] _resourceChallengePrefabs;
         
         public Difficulty Difficulty { get; private set; }
+        public CraftingData CraftingData;
         
         private readonly int _maxCriticalFails = 3;
         private int _criticalFailCount;
         
         // currently running instances of session-specific challenges
-        private List<GameObject> _generalChallengeInstances = new();
+        private readonly List<GameObject> _generalChallengeInstances = new();
         private List<GameObject> _resourceChallengeInstances = new();
 
         [SerializeField] private GameObject[] extraPrefabsForInstantiation;
         
-        public void Setup(Difficulty givenDifficulty, 
+        public void Setup(CraftingData craftingData,
             GameObject[] permittedGeneralChallenges, GameObject[] permittedResourceChallenges)
         {
             foreach (var extraPrefab in extraPrefabsForInstantiation)
@@ -32,7 +36,8 @@ namespace Production.Systems
                 Instantiate(extraPrefab, transform);
             }
             
-            Difficulty = givenDifficulty;
+            CraftingData = craftingData;
+            Difficulty = craftingData.Recipe.difficulty;
             _generalChallengePrefabs = permittedGeneralChallenges;
             _resourceChallengePrefabs = permittedResourceChallenges;
             
