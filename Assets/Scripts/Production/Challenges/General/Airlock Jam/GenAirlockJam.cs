@@ -16,8 +16,6 @@ namespace Production.Challenges.General.Airlock_Jam
         private List<AirlockButton> _enabledButtons;
         private List<AirlockButton> _disabledButtons;
         private bool _disablingIsOnCooldown;
-        
-        // TODO: Add instantiation of buttons
 
         protected override void Start()
         {
@@ -37,7 +35,7 @@ namespace Production.Challenges.General.Airlock_Jam
             _enabledButtons = new List<AirlockButton>(_allButtons);
 
             // Added so that buttons don't get disabled as soon as the challenge starts
-            StartCoroutine(DelayDisablingStart(Config.disableCooldown));
+            StartCoroutine(DelayButtonDisabling(Config.disableCooldown));
         }
         
         private void ChangeButtonStatusToOff(AirlockButton button)
@@ -52,7 +50,7 @@ namespace Production.Challenges.General.Airlock_Jam
             _enabledButtons.Add(button);
         }
         
-        private IEnumerator DelayDisablingStart(float timeInSeconds)
+        private IEnumerator DelayButtonDisabling(float timeInSeconds)
         {
             _disablingIsOnCooldown = true;
             
@@ -87,22 +85,36 @@ namespace Production.Challenges.General.Airlock_Jam
             }
         }
 
+        private bool _isResetting;
+        
         protected override bool CheckWarningConditions()
         {
+            if (_isResetting)
+            {
+                return false;
+            }
+            
             return _disabledButtons.Count >= Config.warningThreshold;
         }
 
         protected override bool CheckFailConditions()
         {
+            if (_isResetting)
+            {
+                return false;
+            }
+            
             return _disabledButtons.Count >= Config.failThreshold;
         }
         
         protected override void HandleUpdateLogic()
         {
-            if (!_disablingIsOnCooldown)
+            if (_disablingIsOnCooldown || _isResetting)
             {
-                StartCoroutine(DisableButtons());
+                return;
             }
+            
+            StartCoroutine(DisableButtons());
         }
         
         private IEnumerator DisableButtons()
@@ -140,15 +152,26 @@ namespace Production.Challenges.General.Airlock_Jam
         {
             OnAirlockJamBelowWarningThreshold?.Invoke(this, null);
         }
-
+        
         protected override IEnumerator HandleResetLogic()
         {
+            _isResetting = true;
+            
             foreach (var airlockButton in _allButtons)
             {
                 StartCoroutine(airlockButton.Blink(Config.singleBlinkTime, Config.totalBlinkCount));
 
                 yield return null;
             }
+            
+            _disabledButtons.Clear();
+            _enabledButtons = new List<AirlockButton>(_allButtons);
+
+            yield return new WaitForSeconds(Config.resetWaitingTime);
+            
+            _isResetting = false;
+            
+            yield return null;
         }
     }
 

@@ -15,6 +15,7 @@ namespace Production.Challenges.General.Airlock_Jam
         
         public bool isTurnedOn = true;
 
+        private bool _isInteractable = true;
         private GenAirlockJam _airlockJam;
 
         private void Start()
@@ -38,6 +39,11 @@ namespace Production.Challenges.General.Airlock_Jam
 
         public void ChangeState()
         {
+            if (!_isInteractable)
+            {
+                return;
+            }
+            
             switch (isTurnedOn)
             {
                 case true:
@@ -59,7 +65,7 @@ namespace Production.Challenges.General.Airlock_Jam
         {
             // TODO: Implement animations and sound
             
-            if (!isTurnedOn)
+            if (!isTurnedOn || !_isInteractable)
             {
                 return;
             }
@@ -84,7 +90,7 @@ namespace Production.Challenges.General.Airlock_Jam
         {
             // TODO: Implement animations and sound
 
-            if (isTurnedOn)
+            if (isTurnedOn || !_isInteractable)
             {
                 return;
             }
@@ -105,32 +111,42 @@ namespace Production.Challenges.General.Airlock_Jam
         
         public IEnumerator Blink(float timePerBlink, int totalBlinkCount)
         {
-            for (int blinkCount = 0; blinkCount < totalBlinkCount; blinkCount++)
+            _isInteractable = false;
+            
+           var currentBlinkCount = 0;
+            
+            while (currentBlinkCount < totalBlinkCount)
             {
-                float currentTime = 0f;
+                float startTime = Time.time;
 
-                while (currentTime < timePerBlink)
+                while (Time.time - startTime < timePerBlink)
                 {
+                    float currentTime = Time.time - startTime;
+                    
                     if (currentTime < timePerBlink / 3 && isTurnedOn)
                     {
                         TurnOffSilently();
                     }
                     else if (currentTime >= timePerBlink / 3 && 
                              currentTime < timePerBlink / 3 * 2 && 
-                             isTurnedOn == false)
+                             !isTurnedOn)
                     {
                         TurnOnSilently();
                     }
-                    else if (currentTime < timePerBlink / 3 && isTurnedOn)
+                    else if (currentTime >= timePerBlink / 3 * 2 && isTurnedOn)
                     {
                         TurnOffSilently();
                     }
-                    
-                    currentTime += Time.deltaTime;
+
+                    yield return null;
                 }
+
+                currentBlinkCount++;
             }
             
             TurnOnSilently();
+
+            _isInteractable = true;
             
             yield return null;
         }

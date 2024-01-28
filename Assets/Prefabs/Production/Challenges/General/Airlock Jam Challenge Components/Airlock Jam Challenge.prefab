@@ -253,9 +253,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   configs:
   - difficulty: 1
-    resetWaitingTime: 1.5
-    warningThreshold: 12
-    failThreshold: 18
+    resetWaitingTime: 5
+    warningThreshold: 4
+    failThreshold: 6
     gridSize: 6
     totalBlinkCount: 3
     singleBlinkTime: 0.5
