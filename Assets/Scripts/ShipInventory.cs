@@ -1,70 +1,32 @@
+using System;
+using Assets.Scripts.Instruments;
 using UnityEngine;
 
 public class ShipInventory : MonoBehaviour {
-    public GameObject tractorBeamPrefab;
-    public GameObject gasCollectorPrefab;
-    public Transform shipTransform; // Assign the ship's transform in the Inspector
+    [SerializeField] private TractorBeam tractorBeam;
+    [SerializeField] private Drill drill;
+    [SerializeField] private GasCollector gasCollector;
 
-    private TractorBeam tractorBeamInstance;
-    private GasCollector gasCollectorInstance;
-
-    [SerializeField] private GameObject[] instruments;
+    [SerializeField] private Instrument activeInstrument = null;
     private PlayerInputActions playerInputActions;
-    
-    void Update()
-    {
-        // Toggle Tractor Beam with the key (1)
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            ToggleTractorBeam();
-        }
-        // Toggle Gas Collector with the key (3)
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            ToggleGasCollector();
-        }
+
+    private void Awake() {
+        playerInputActions = new PlayerInputActions();
+        playerInputActions.Enable();
+
+        playerInputActions.PlayerShip.ToggleTractorBeam.performed += context => { ToggleInstrument(tractorBeam); };
+        playerInputActions.PlayerShip.ToggleDrill.performed += context => { ToggleInstrument(drill); };
+        playerInputActions.PlayerShip.ToggleGasCollector.performed += context => { ToggleInstrument(gasCollector); };
     }
 
-    void ToggleTractorBeam()
-    {
-        if (tractorBeamInstance == null)
-        {
-            // Instantiate Tractor Beam and set shipTransform as the parent
-            tractorBeamInstance = Instantiate(tractorBeamPrefab, shipTransform).GetComponent<TractorBeam>();
-            tractorBeamInstance.transform.localPosition = Vector3.right * tractorBeamInstance.TractorBeamOffset; // Adjust offset to spawn horizontally
-            tractorBeamInstance.ActivateTractorBeam(); // Activate the tractor beam
+    private void ToggleInstrument(Instrument instr) {
+        if (activeInstrument == null) {
+            instr.Toggle();
+            activeInstrument = instr;
         }
-        else
-        {
-            // Deactivate Tractor Beam
-            tractorBeamInstance.DeactivateTractorBeam();
-            Destroy(tractorBeamInstance.gameObject);
-            tractorBeamInstance = null;
-        }
-    }
-    void ToggleGasCollector()
-    {
-        if (gasCollectorInstance == null)
-        {
-            // Instantiate Gas Collector and set shipTransform as the parent
-            gasCollectorInstance = Instantiate(gasCollectorPrefab, shipTransform).GetComponent<GasCollector>();
-            gasCollectorInstance.transform.localPosition = Vector3.left * gasCollectorInstance.GasCollectorOffset; // Adjust offset to spawn horizontally
-            gasCollectorInstance.ActivateGasCollector();// Activate the gas collector
-        }
-        else
-        {
-            // Deactivate Gas Collector
-            gasCollectorInstance.DeactivateGasCollector();
-            Destroy(gasCollectorInstance.gameObject);
-            gasCollectorInstance = null;
-
-            // show the gas collected in the Gas Collector
-            if (gasCollectorInstance != null)
-            {
-                float collectedGas = gasCollectorInstance.GetCurrentGasStorage();
-                Debug.Log("Collected Gas: " + collectedGas);
-                
-            }
+        else if (activeInstrument == instr) {
+            instr.Toggle();
+            activeInstrument = null;
         }
     }
 }

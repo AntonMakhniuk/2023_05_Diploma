@@ -1,6 +1,7 @@
+using Assets.Scripts.Instruments;
 using UnityEngine;
 
-public class GasCollector : MonoBehaviour
+public class GasCollector : Instrument
 {
     [SerializeField]private string gasCloudTag = "Gas"; 
     [SerializeField]private float gatheringSpeed = 5f;

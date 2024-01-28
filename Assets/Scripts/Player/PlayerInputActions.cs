@@ -89,6 +89,33 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleTractorBeam"",
+                    ""type"": ""Button"",
+                    ""id"": ""0546c9aa-ea63-4dcc-8469-54bf924fb546"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleDrill"",
+                    ""type"": ""Button"",
+                    ""id"": ""eb13f302-d11f-4eed-b75f-da5959c0e791"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleGasCollector"",
+                    ""type"": ""Button"",
+                    ""id"": ""30a32f41-8864-45a9-b2bf-8e92cbd67098"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -322,6 +349,39 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""RotateAlongZ"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""71cc4386-c5e5-411c-969f-63611f2d9ed5"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleDrill"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""da645384-fbff-45ab-9ca9-b4c431cc0d1e"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleGasCollector"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4e09b738-071e-4b68-b10c-9dc2634a031f"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleTractorBeam"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -337,6 +397,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_PlayerShip_RotateAlongX = m_PlayerShip.FindAction("RotateAlongX", throwIfNotFound: true);
         m_PlayerShip_RotateAlongY = m_PlayerShip.FindAction("RotateAlongY", throwIfNotFound: true);
         m_PlayerShip_RotateAlongZ = m_PlayerShip.FindAction("RotateAlongZ", throwIfNotFound: true);
+        m_PlayerShip_ToggleTractorBeam = m_PlayerShip.FindAction("ToggleTractorBeam", throwIfNotFound: true);
+        m_PlayerShip_ToggleDrill = m_PlayerShip.FindAction("ToggleDrill", throwIfNotFound: true);
+        m_PlayerShip_ToggleGasCollector = m_PlayerShip.FindAction("ToggleGasCollector", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -405,6 +468,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerShip_RotateAlongX;
     private readonly InputAction m_PlayerShip_RotateAlongY;
     private readonly InputAction m_PlayerShip_RotateAlongZ;
+    private readonly InputAction m_PlayerShip_ToggleTractorBeam;
+    private readonly InputAction m_PlayerShip_ToggleDrill;
+    private readonly InputAction m_PlayerShip_ToggleGasCollector;
     public struct PlayerShipActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -416,6 +482,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @RotateAlongX => m_Wrapper.m_PlayerShip_RotateAlongX;
         public InputAction @RotateAlongY => m_Wrapper.m_PlayerShip_RotateAlongY;
         public InputAction @RotateAlongZ => m_Wrapper.m_PlayerShip_RotateAlongZ;
+        public InputAction @ToggleTractorBeam => m_Wrapper.m_PlayerShip_ToggleTractorBeam;
+        public InputAction @ToggleDrill => m_Wrapper.m_PlayerShip_ToggleDrill;
+        public InputAction @ToggleGasCollector => m_Wrapper.m_PlayerShip_ToggleGasCollector;
         public InputActionMap Get() { return m_Wrapper.m_PlayerShip; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -446,6 +515,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @RotateAlongZ.started += instance.OnRotateAlongZ;
             @RotateAlongZ.performed += instance.OnRotateAlongZ;
             @RotateAlongZ.canceled += instance.OnRotateAlongZ;
+            @ToggleTractorBeam.started += instance.OnToggleTractorBeam;
+            @ToggleTractorBeam.performed += instance.OnToggleTractorBeam;
+            @ToggleTractorBeam.canceled += instance.OnToggleTractorBeam;
+            @ToggleDrill.started += instance.OnToggleDrill;
+            @ToggleDrill.performed += instance.OnToggleDrill;
+            @ToggleDrill.canceled += instance.OnToggleDrill;
+            @ToggleGasCollector.started += instance.OnToggleGasCollector;
+            @ToggleGasCollector.performed += instance.OnToggleGasCollector;
+            @ToggleGasCollector.canceled += instance.OnToggleGasCollector;
         }
 
         private void UnregisterCallbacks(IPlayerShipActions instance)
@@ -471,6 +549,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @RotateAlongZ.started -= instance.OnRotateAlongZ;
             @RotateAlongZ.performed -= instance.OnRotateAlongZ;
             @RotateAlongZ.canceled -= instance.OnRotateAlongZ;
+            @ToggleTractorBeam.started -= instance.OnToggleTractorBeam;
+            @ToggleTractorBeam.performed -= instance.OnToggleTractorBeam;
+            @ToggleTractorBeam.canceled -= instance.OnToggleTractorBeam;
+            @ToggleDrill.started -= instance.OnToggleDrill;
+            @ToggleDrill.performed -= instance.OnToggleDrill;
+            @ToggleDrill.canceled -= instance.OnToggleDrill;
+            @ToggleGasCollector.started -= instance.OnToggleGasCollector;
+            @ToggleGasCollector.performed -= instance.OnToggleGasCollector;
+            @ToggleGasCollector.canceled -= instance.OnToggleGasCollector;
         }
 
         public void RemoveCallbacks(IPlayerShipActions instance)
@@ -497,5 +584,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnRotateAlongX(InputAction.CallbackContext context);
         void OnRotateAlongY(InputAction.CallbackContext context);
         void OnRotateAlongZ(InputAction.CallbackContext context);
+        void OnToggleTractorBeam(InputAction.CallbackContext context);
+        void OnToggleDrill(InputAction.CallbackContext context);
+        void OnToggleGasCollector(InputAction.CallbackContext context);
     }
 }

@@ -67,6 +67,33 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ToggleTractorBeam",
+                    "type": "Button",
+                    "id": "0546c9aa-ea63-4dcc-8469-54bf924fb546",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ToggleDrill",
+                    "type": "Button",
+                    "id": "eb13f302-d11f-4eed-b75f-da5959c0e791",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ToggleGasCollector",
+                    "type": "Button",
+                    "id": "30a32f41-8864-45a9-b2bf-8e92cbd67098",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -300,6 +327,39 @@
                     "action": "RotateAlongZ",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "71cc4386-c5e5-411c-969f-63611f2d9ed5",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleDrill",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "da645384-fbff-45ab-9ca9-b4c431cc0d1e",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleGasCollector",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4e09b738-071e-4b68-b10c-9dc2634a031f",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleTractorBeam",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
