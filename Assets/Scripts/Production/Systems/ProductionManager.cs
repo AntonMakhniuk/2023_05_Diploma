@@ -9,7 +9,7 @@ namespace Production.Systems
 {
     public class ProductionManager : MonoBehaviour
     {
-        private static ProductionManager _instance;
+        public static ProductionManager Instance;
         
         [SerializeField] private ProductionChallengeRegistry challengeRegistry;
         [SerializeField] private GameObject sessionManagerPrefab;
@@ -21,9 +21,9 @@ namespace Production.Systems
         
         private void Awake()
         {
-            if (_instance == null)
+            if (Instance == null)
             {
-                _instance = this;
+                Instance = this;
                 DontDestroyOnLoad(gameObject);
             }
             else

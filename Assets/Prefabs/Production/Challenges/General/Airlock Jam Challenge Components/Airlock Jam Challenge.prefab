@@ -137,7 +137,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -140, y: -500}
+  m_AnchoredPosition: {x: -139, y: -501}
   m_SizeDelta: {x: 190, y: 190}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2911456470159149673
@@ -161,7 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0.24132253, g: 0.24172124, b: 0.2735849, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -192,9 +192,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding:
     m_Left: 5
-    m_Right: 5
+    m_Right: 3
     m_Top: 5
-    m_Bottom: 5
+    m_Bottom: 3
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
@@ -212,7 +212,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7002557066495759800}
   - component: {fileID: -2622679442471057238}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Airlock Jam Challenge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -254,8 +254,8 @@ MonoBehaviour:
   configs:
   - difficulty: 1
     resetWaitingTime: 5
-    warningThreshold: 4
-    failThreshold: 6
+    warningThreshold: 12
+    failThreshold: 18
     gridSize: 6
     totalBlinkCount: 3
     singleBlinkTime: 0.5

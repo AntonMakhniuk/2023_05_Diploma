@@ -61,8 +61,6 @@ namespace Production.Challenges.General.Airlock_Jam
             yield return null;
         }
         
-        // TODO: restructure so that this component is not responsible for both the logic and buttons?
-        
         private void InstantiateButtons()
         {
             buttonGrid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;

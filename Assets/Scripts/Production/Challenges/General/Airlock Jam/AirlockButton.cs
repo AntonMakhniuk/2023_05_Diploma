@@ -13,10 +13,12 @@ namespace Production.Challenges.General.Airlock_Jam
         
         // TODO: Link the necessary visuals to the script
         
-        public bool isTurnedOn = true;
-
+        private bool _isTurnedOn = true;
         private bool _isInteractable = true;
         private GenAirlockJam _airlockJam;
+
+        private static readonly Color32 OnColor = new(24, 132, 62, 255);
+        private static readonly Color32 OffColor = new(224, 18, 0, 255);
 
         private void Start()
         {
@@ -34,9 +36,10 @@ namespace Production.Challenges.General.Airlock_Jam
         // animation to the player, to avoid overloading the senses
 
         public delegate void ButtonStatusHandler(AirlockButton button);
-        
         public event ButtonStatusHandler OnButtonTurnedOff;
 
+        // TODO: fix this darn structure
+        
         public void ChangeState()
         {
             if (!_isInteractable)
@@ -44,7 +47,7 @@ namespace Production.Challenges.General.Airlock_Jam
                 return;
             }
             
-            switch (isTurnedOn)
+            switch (_isTurnedOn)
             {
                 case true:
                 {
@@ -65,7 +68,7 @@ namespace Production.Challenges.General.Airlock_Jam
         {
             // TODO: Implement animations and sound
             
-            if (!isTurnedOn || !_isInteractable)
+            if (!_isTurnedOn || !_isInteractable)
             {
                 return;
             }
@@ -79,9 +82,9 @@ namespace Production.Challenges.General.Airlock_Jam
         {
             // TODO: Implement visual turning off
             
-            isTurnedOn = false;
+            _isTurnedOn = false;
             
-            assignedImage.color = Color.red;
+            assignedImage.color = OffColor;
         }
 
         public event ButtonStatusHandler OnButtonTurnedOn;
@@ -90,7 +93,7 @@ namespace Production.Challenges.General.Airlock_Jam
         {
             // TODO: Implement animations and sound
 
-            if (isTurnedOn || !_isInteractable)
+            if (_isTurnedOn || !_isInteractable)
             {
                 return;
             }
@@ -104,9 +107,9 @@ namespace Production.Challenges.General.Airlock_Jam
         {
             // TODO: Implement visual turning on
 
-            isTurnedOn = true;
+            _isTurnedOn = true;
             
-            assignedImage.color = Color.white;
+            assignedImage.color = OnColor;
         }
         
         public IEnumerator Blink(float timePerBlink, int totalBlinkCount)
@@ -123,17 +126,17 @@ namespace Production.Challenges.General.Airlock_Jam
                 {
                     float currentTime = Time.time - startTime;
                     
-                    if (currentTime < timePerBlink / 3 && isTurnedOn)
+                    if (currentTime < timePerBlink / 3 && _isTurnedOn)
                     {
                         TurnOffSilently();
                     }
                     else if (currentTime >= timePerBlink / 3 && 
                              currentTime < timePerBlink / 3 * 2 && 
-                             !isTurnedOn)
+                             !_isTurnedOn)
                     {
                         TurnOnSilently();
                     }
-                    else if (currentTime >= timePerBlink / 3 * 2 && isTurnedOn)
+                    else if (currentTime >= timePerBlink / 3 * 2 && _isTurnedOn)
                     {
                         TurnOffSilently();
                     }
