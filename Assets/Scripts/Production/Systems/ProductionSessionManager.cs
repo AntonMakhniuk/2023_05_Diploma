@@ -86,6 +86,15 @@ namespace Production.Systems
         
         private void FailProduction()
         {
+            FinishProduction();
+            
+            // TODO: Send out some kind of struct holding session data in the event arguments?
+            
+            OnProductionFailed?.Invoke(this, null);
+        }
+
+        public void FinishProduction()
+        {
             foreach (IGeneralChallenge generalInstance in _generalChallengeInstances
                          .Select(ch => ch.GetComponent<IGeneralChallenge>())
                          .ToList())
@@ -102,15 +111,6 @@ namespace Production.Systems
             {
                 Destroy(challengeInstance);
             }
-            
-            // TODO: Send out some kind of struct holding session data in the event arguments?
-            
-            OnProductionFailed?.Invoke(this, null);
-        }
-
-        public void FinishProduction()
-        {
-            
         }
     }
 }

@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Production.Challenges.General.Rod_Positioning
 {
     public class GenRodPositioning : GeneralBase<RodPositioningConfig>
     {
-        private RodLever[] _levers;
+        [SerializeField] private List<RodLever> levers = new();
         
         // TODO: implement start method and instantiate levers
-        
+
         protected override void HandleUpdateLogic()
         {
-            foreach (var rodLever in _levers)
+            foreach (var rodLever in levers)
             {
                 rodLever.UpdateCurrentPosition();
             }
@@ -20,28 +21,28 @@ namespace Production.Challenges.General.Rod_Positioning
 
         protected override bool CheckWarningConditions()
         {
-            bool anyLeverIsInFailRange = false;
+            bool anyLeverIsInWarnRange = false;
 
-            foreach (var rodLever in _levers)
+            foreach (var rodLever in levers)
             {
-                anyLeverIsInFailRange = 
+                anyLeverIsInWarnRange = 
                     rodLever.GetAbsoluteDistanceFromSafeRange() >= Config.failDistanceFromSafeRange;
             }
 
-            return anyLeverIsInFailRange;
+            return anyLeverIsInWarnRange;
         }
 
         protected override bool CheckFailConditions()
         {
-            bool anyLeverIsInWarnRange = false;
+            bool anyLeverIsInFailRange = false;
 
-            foreach (var rodLever in _levers)
+            foreach (var rodLever in levers)
             {
-                anyLeverIsInWarnRange = 
+                anyLeverIsInFailRange = 
                     rodLever.GetAbsoluteDistanceFromSafeRange() >= Config.warningDistanceFromSafeRange;
             }
 
-            return anyLeverIsInWarnRange;
+            return anyLeverIsInFailRange;
         }
         
         public event EventHandler OnRodPositioningAboveWarningThreshold;
@@ -60,7 +61,7 @@ namespace Production.Challenges.General.Rod_Positioning
 
         protected override IEnumerator HandleResetLogic()
         {
-            foreach (var rodLever in _levers)
+            foreach (var rodLever in levers)
             {
                 StartCoroutine(rodLever.ResetLever());
 
@@ -80,5 +81,6 @@ namespace Production.Challenges.General.Rod_Positioning
         [Range(0, 1)] public float warningDistanceFromSafeRange;
         [Range(0, 1)] public float failDistanceFromSafeRange = 0.2f;
         [Range(0, 1)] public float maxStepLength = 0.001f;
+        public int leverQuantity;
     }
 }
