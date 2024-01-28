@@ -626,13 +626,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   configs:
   - difficulty: 1
-    resetWaitingTime: 2
+    resetWaitingTime: 0.2
     warningThreshold: 2
     failThreshold: 1000
     minTemperature: 0
     baseTemperature: 200
     stepSize: 50
-    growthSpeed: 150
+    growthSpeed: 600
   currentTemperature: 0
 --- !u!114 &1005224347364677779
 MonoBehaviour:

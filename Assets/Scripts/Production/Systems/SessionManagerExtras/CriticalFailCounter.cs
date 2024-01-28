@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Production
+namespace Production.Systems.SessionManagerExtras
 {
     public class CriticalFailCounter : MonoBehaviour
     {

@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using Production.Challenges.General;
-using Production.Challenges.ResourceSpecific;
+using Production.Challenges.Resource_Specific;
+using Scriptable_Object_Templates;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Production
+namespace Production.Systems
 {
     public class ProductionChallengeRegistry : MonoBehaviour
     {
@@ -62,12 +63,12 @@ namespace Production
             return chosenChallenges.ToArray();
         }
         
-        public GameObject[] GetPermittedResourceChallenges(ResourcePlaceholder[] resources)
+        public GameObject[] GetPermittedResourceChallenges(Resource[] resources)
         {
             return resourceChallengePrefabs
                 .Where(prefab => 
                     resources.Any(res =>
-                        prefab.GetComponent<IResourceChallenge>().GetResourceType() == res.Type))
+                        prefab.GetComponent<IResourceChallenge>().GetResourceType() == res.type))
                 .ToArray();
         }
     }

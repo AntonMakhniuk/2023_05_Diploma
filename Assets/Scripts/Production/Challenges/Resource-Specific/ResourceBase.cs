@@ -3,19 +3,21 @@ using System.Collections;
 using System.Linq;
 using Production.Crafting;
 using Production.Systems;
+using Scriptable_Object_Templates;
 using UnityEngine;
 
-namespace Production.Challenges.General
+namespace Production.Challenges.Resource_Specific
 {
-    public abstract class GeneralBase<TConfig> : MonoBehaviour, IGeneralChallenge where TConfig : GeneralConfigBase
+    public abstract class ResourceBase<TConfig> : MonoBehaviour, IResourceChallenge where TConfig : ConfigBase
     {
         [SerializeField] protected TConfig[] configs;
-
+        
         private ProductionSessionManager _sessionManager;
         private Difficulty _difficulty;
         
+        public ResourceType resourceType;
         public TConfig Config { get; private set; }
-
+        
         protected virtual void Start()
         {
             _sessionManager = GetComponentInParent<ProductionSessionManager>();
@@ -34,7 +36,7 @@ namespace Production.Challenges.General
             if (Config == null)
             {
                 Debug.LogError($"No appropriate config found for {GetType().Name} at {_difficulty}. " +
-                          "Reverting to first available config.");
+                               "Reverting to first available config.");
                 
                 Config = configs[0];
             }
@@ -44,7 +46,7 @@ namespace Production.Challenges.General
                 throw new Exception($"No config available for {GetType().Name}. Cannot start challenge.");
             }
         }
-
+        
         private bool _isBeingReset;
         
         private void FixedUpdate()
@@ -56,11 +58,6 @@ namespace Production.Challenges.General
             
             HandlePerformanceConditionsCheck();
             HandleUpdateLogic();
-        }
-
-        private void OnDestroy()
-        {
-            StopAllCoroutines();
         }
         
         private bool _warningConditionsMet;
@@ -85,13 +82,13 @@ namespace Production.Challenges.General
                 StopWarning();
             }
         }
-
+        
         protected abstract void HandleUpdateLogic();
         
         protected abstract bool CheckWarningConditions();
         
         protected abstract bool CheckFailConditions();
-
+        
         private void StartWarning()
         {
             _isWarning = true;
@@ -109,18 +106,17 @@ namespace Production.Challenges.General
         }
 
         protected abstract void HandleWarningStop();
-     
-        public delegate void GeneralFailHandler();
-        public event GeneralFailHandler OnGeneralFail;
-
-
-        private void Fail()
+        
+        public delegate void ResourceSpecificFailHandler();
+        public event ResourceSpecificFailHandler OnResourceSpecificFail;
+        
+        protected void Fail()
         {
-            OnGeneralFail?.Invoke();
+            OnResourceSpecificFail?.Invoke();
             
             StartCoroutine(ResetCoroutine());
         }
-        
+
         // TODO: Fix issue where reset logic can be executed for longer than the resetWaitingTime
         
         private IEnumerator ResetCoroutine()
@@ -128,35 +124,22 @@ namespace Production.Challenges.General
             _isBeingReset = true;
 
             StartCoroutine(HandleResetLogic());
-
-            yield return new WaitForSeconds(Config.resetWaitingTime);
             
             _isBeingReset = false;
 
             yield return null;
         }
-
+        
         protected abstract IEnumerator HandleResetLogic();
-        
-        private static GeneralFailHandler CreateFailHandlerDelegate(Action onFailMethod)
-        {
-            return onFailMethod.Invoke;
-        }
-        
-        public void SubscribeToOnGeneralFail(Action onFailMethod)
-        {
-            OnGeneralFail += CreateFailHandlerDelegate(onFailMethod);
-        }
 
-        public void UnsubscribeFromOnGeneralFail(Action onFailMethod)
+        public ResourceType GetResourceType()
         {
-            OnGeneralFail -= CreateFailHandlerDelegate(onFailMethod);
+            return resourceType;
         }
     }
 
-    public interface IGeneralChallenge
+    public interface IResourceChallenge
     {
-        void SubscribeToOnGeneralFail(Action onFailMethod);
-        void UnsubscribeFromOnGeneralFail(Action onFailMethod);
+        public ResourceType GetResourceType();
     }
 }

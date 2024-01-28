@@ -1,20 +1,22 @@
 ﻿using System;
 using System.Linq;
 using Production.Challenges;
+using Production.Crafting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Production
+namespace Production.Systems
 {
     public class ProductionManager : MonoBehaviour
     {
         private static ProductionManager _instance;
         
         [SerializeField] private ProductionChallengeRegistry challengeRegistry;
-        [SerializeField] private ProductionSessionManager sessionManagerPrefab;
-        [SerializeField] private ProductionManagerConfig[] configs; 
-        
-        private ProductionSessionManager _currentManager;
+        [SerializeField] private GameObject sessionManagerPrefab;
+        [SerializeField] private ProductionManagerConfig[] configs;
+
+        private GameObject _currentManagerObject;
+        private ProductionSessionManager _currentManagerScript;
         private ProductionManagerConfig _currentConfig;
         
         private void Awake()
@@ -29,21 +31,16 @@ namespace Production
                 Destroy(gameObject);
             }
         }
-
-        public void StartProductionHardcoded()
-        {
-            StartProduction(Difficulty.Normal, new ResourcePlaceholder[]{});
-        }
         
-        // TODO: Add proper resources to method
-        
-        public void StartProduction(Difficulty difficulty, ResourcePlaceholder[] resources)
+        public void StartProduction(CraftingData craftingData)
         {
-            _currentConfig = configs.FirstOrDefault(config => config.difficulty == difficulty);
+            _currentConfig = configs
+                .FirstOrDefault(config => config.difficulty == craftingData.Recipe.difficultyConfig.difficulty);
             
             if (_currentConfig == null)
             {
-                Debug.LogError($"No appropriate config found for {GetType().Name} at {difficulty}. " +
+                Debug.LogError($"No appropriate config found for {GetType().Name} " +
+                               $"at {craftingData.Recipe.difficultyConfig}. " +
                                "Reverting to first available config.");
                 
                 _currentConfig = configs[0];
@@ -54,11 +51,12 @@ namespace Production
                 throw new Exception($"No config available for {GetType().Name}. Cannot start production.");
             }
 
-            _currentManager = Instantiate(sessionManagerPrefab, transform);
+            _currentManagerObject = Instantiate(sessionManagerPrefab, transform);
+            _currentManagerScript = _currentManagerObject.GetComponent<ProductionSessionManager>();
             
-            _currentManager.Setup
+            _currentManagerScript.Setup
             (
-                difficulty, 
+                craftingData,
                 challengeRegistry
                     .GetNumberOfRandomGeneralChallenges
                     (
@@ -71,18 +69,18 @@ namespace Production
                 challengeRegistry
                     .GetPermittedResourceChallenges
                     (
-                        resources
+                        craftingData.Recipe.resources.Select(res => res.resource).ToArray()
                     )
             );
 
-            _currentManager.OnProductionFailed += DestroyCurrentManager;
+            _currentManagerScript.OnProductionFailed += DestroyCurrentManager;
         }
         
         private void DestroyCurrentManager(object sender, EventArgs args)
         {
-            _currentManager.OnProductionFailed -= DestroyCurrentManager;
+            _currentManagerScript.OnProductionFailed -= DestroyCurrentManager;
             
-            Destroy(_currentManager);
+            Destroy(_currentManagerObject);
         }
     }
     

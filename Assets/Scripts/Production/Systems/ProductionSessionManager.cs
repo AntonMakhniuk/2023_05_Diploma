@@ -2,29 +2,33 @@
 using System.Collections.Generic;
 using System.Linq;
 using Production.Challenges.General;
+using Production.Crafting;
 using UnityEngine;
 
-namespace Production
+namespace Production.Systems
 {
     // meant to be created every time a new production is started, and destroyed afterwards
     public class ProductionSessionManager : MonoBehaviour
     {
+        // TODO: add modifier changes to the CraftingData object
+        
         // prefabs that the manager may use in the production session
         private GameObject[] _generalChallengePrefabs;
         private GameObject[] _resourceChallengePrefabs;
         
         public Difficulty Difficulty { get; private set; }
+        public CraftingData CraftingData;
         
         private readonly int _maxCriticalFails = 3;
         private int _criticalFailCount;
         
         // currently running instances of session-specific challenges
-        private List<GameObject> _generalChallengeInstances = new();
+        private readonly List<GameObject> _generalChallengeInstances = new();
         private List<GameObject> _resourceChallengeInstances = new();
 
         [SerializeField] private GameObject[] extraPrefabsForInstantiation;
         
-        public void Setup(Difficulty givenDifficulty, 
+        public void Setup(CraftingData craftingData,
             GameObject[] permittedGeneralChallenges, GameObject[] permittedResourceChallenges)
         {
             foreach (var extraPrefab in extraPrefabsForInstantiation)
@@ -32,7 +36,8 @@ namespace Production
                 Instantiate(extraPrefab, transform);
             }
             
-            Difficulty = givenDifficulty;
+            CraftingData = craftingData;
+            Difficulty = craftingData.Recipe.difficultyConfig.difficulty;
             _generalChallengePrefabs = permittedGeneralChallenges;
             _resourceChallengePrefabs = permittedResourceChallenges;
             
@@ -54,16 +59,6 @@ namespace Production
             }
         }
 
-        public void OnDestroy()
-        {
-            foreach (IGeneralChallenge generalInstance in _generalChallengeInstances
-                         .Select(ch => ch.GetComponent<IGeneralChallenge>())
-                         .ToList())
-            {
-                generalInstance.UnsubscribeFromOnGeneralFail(AddCriticalFail);
-            }
-        }
-
         public event EventHandler<int> OnCriticalFailReachedManager;
         
         private void AddCriticalFail()
@@ -77,16 +72,45 @@ namespace Production
                 FailProduction();
             }
         }
+        
+        public delegate void OnBonusChangedHandler(float bonusModifier);
+
+        public event OnBonusChangedHandler OnBonusChanged;
+
+        public void ChangeBonus(float bonusModifier)
+        {
+            OnBonusChanged?.Invoke(bonusModifier);
+        }
 
         public event EventHandler OnProductionFailed;
         
         private void FailProduction()
         {
-            gameObject.SetActive(false);
+            foreach (IGeneralChallenge generalInstance in _generalChallengeInstances
+                         .Select(ch => ch.GetComponent<IGeneralChallenge>())
+                         .ToList())
+            {
+                generalInstance.UnsubscribeFromOnGeneralFail(AddCriticalFail);
+            }
             
-            // TODO: Send out some kind of struct holding session data in the event?
+            foreach (var challengeInstance in _generalChallengeInstances)
+            {
+                Destroy(challengeInstance);
+            }
+
+            foreach (var challengeInstance in _resourceChallengeInstances)
+            {
+                Destroy(challengeInstance);
+            }
+            
+            // TODO: Send out some kind of struct holding session data in the event arguments?
             
             OnProductionFailed?.Invoke(this, null);
+        }
+
+        public void FinishProduction()
+        {
+            
         }
     }
 }
