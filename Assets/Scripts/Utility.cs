@@ -1,4 +1,4 @@
-﻿public class Utility
+﻿public abstract class Utility
 {
     public static T GetRandomEnum<T>()
     {

@@ -56,8 +56,9 @@ MonoBehaviour:
   sessionManagerPrefab: {fileID: 885985384335834552, guid: 87b525f2dbf26ea4d8a1c8c004794927, type: 3}
   configs:
   - difficulty: 1
-    minGeneralChallengesInSession: 1
+    minGeneralChallengesInSession: 2
     maxGeneralChallengesInSession: 4
+  hardcodedRecipe: {fileID: 0}
 --- !u!223 &7050452295854582066
 Canvas:
   m_ObjectHideFlags: 0
