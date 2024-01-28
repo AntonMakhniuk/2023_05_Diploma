@@ -1,21 +1,29 @@
+using System;
+using System.Collections;
 using Assets.Scripts;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-public class Asteroid : MonoBehaviour
+public class Asteroid : MonoBehaviour 
 {
     private int asteroidPointsCount = 0;
+    [SerializeField] private GameObject spaceOre;
+    [SerializeField] private bool shatter = false;
 
     private void Start()
     {
         // Count the initial number of asteroid points
         asteroidPointsCount = 3;
-        Debug.Log(asteroidPointsCount);
+    }
+
+    private void Update() {
+        if (shatter)
+            ShatterAsteroid();
     }
 
     public void OnAsteroidPointDestroyed()
     {
         // Decrement the count of remaining asteroid points
-        Debug.Log(asteroidPointsCount);
         asteroidPointsCount--;
 
         // Check if all points are destroyed
@@ -35,7 +43,23 @@ public class Asteroid : MonoBehaviour
         GameObject[] slices = Slicer.Slice(slicingPlane, gameObject);
 
         // Optionally, you can add forces or other effects to the sliced pieces
-
+        Vector3 pushVector = new Vector3(0,0,0);
+        pushVector[Random.Range(0, 3)] = Random.Range(250f, 450f);
+        pushVector[Random.Range(0, 3)] = Random.Range(250f, 320f);
+        foreach (GameObject slice in slices) {
+            pushVector *= -1;
+            slice.GetComponent<Rigidbody>().AddRelativeForce(pushVector);
+        }
+        
+        // Spawn ore at center 
+        Vector3 asteroidPosition = transform.position;
+        int oreNumber = Random.Range(1, 6);
+        while (oreNumber > 0) {
+            SpawnOre(asteroidPosition);
+            asteroidPosition[Random.Range(0,3)] += Random.Range(0.51f,0.7f);
+            oreNumber--;
+        }
+        
         // Destroy the original asteroid GameObject
         Destroy(gameObject);
     }
@@ -58,5 +82,9 @@ public class Asteroid : MonoBehaviour
 
         // Create and return the plane
         return new Plane(normal, center);
+    }
+
+    private void SpawnOre(Vector3 position) {
+        Instantiate(spaceOre, position, Quaternion.Euler(Random.Range(200,360), Random.Range(200,360), Random.Range(200,360)));
     }
 }

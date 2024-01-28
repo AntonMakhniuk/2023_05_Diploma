@@ -1,14 +1,15 @@
 using UnityEngine;
 
-public class ShipInventory : MonoBehaviour
-{
+public class ShipInventory : MonoBehaviour {
     public GameObject tractorBeamPrefab;
     public GameObject gasCollectorPrefab;
     public Transform shipTransform; // Assign the ship's transform in the Inspector
 
     private TractorBeam tractorBeamInstance;
     private GasCollector gasCollectorInstance;
-    
+
+    [SerializeField] private GameObject[] instruments;
+    private PlayerInputActions playerInputActions;
     
     void Update()
     {
