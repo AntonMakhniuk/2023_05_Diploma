@@ -8,22 +8,22 @@ namespace Production.Systems.SessionManagerExtras
     {
         [SerializeField] private TMP_Text timerText;
         
-        public ProductionSessionManager sessionManager;
+        private ProductionSessionManager _sessionManager;
 
         private float _currentTimeSeconds;
         private TimeSpan _currentTimeSpan;
         
         private void Start()
         {
-            sessionManager = GetComponentInParent<ProductionSessionManager>();
+            _sessionManager = GetComponentInParent<ProductionSessionManager>();
 
-            if (sessionManager == null)
+            if (_sessionManager == null)
             {
-                throw new Exception($"'{nameof(sessionManager)}' is null. " +
+                throw new Exception($"'{nameof(_sessionManager)}' is null. " +
                                     $"{GetType().Name} has been instantiated outside ProductionSessionManager");
             }
 
-            _currentTimeSeconds = sessionManager.CraftingData.Recipe.difficultyConfig.productionLengthInSeconds;
+            _currentTimeSeconds = _sessionManager.CraftingData.Recipe.difficultyConfig.productionLengthInSeconds;
         }
 
         private void FixedUpdate()
@@ -32,13 +32,16 @@ namespace Production.Systems.SessionManagerExtras
 
             if (_currentTimeSeconds <= 0)
             {
-                OnTimerRanOut?.Invoke(this, null);
+                StopProductionInManager();
             }
 
             _currentTimeSpan = TimeSpan.FromSeconds(_currentTimeSeconds);
             timerText.text = _currentTimeSpan.ToString("mm\\:ss");
         }
-
-        public event EventHandler OnTimerRanOut;
+        
+        private void StopProductionInManager()
+        {
+            _sessionManager.FinishProduction();
+        }
     }
 }
