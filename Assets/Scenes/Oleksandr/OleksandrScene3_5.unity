@@ -383,8 +383,10 @@ MonoBehaviour:
   inventoryPanel: {fileID: 906009390}
   fuelGasText: {fileID: 732710171}
   spaceOreText: {fileID: 492241423}
-  fuelGasObject: {fileID: 11400000, guid: 6a65a2eba87ee994bb5bedf1a8d41a83, type: 2}
-  spaceOreObject: {fileID: 11400000, guid: 33bf864ce9159a346ba6b213131f36db, type: 2}
+  fuelGasResource: {fileID: 11400000, guid: 6a65a2eba87ee994bb5bedf1a8d41a83, type: 2}
+  spaceOreResource: {fileID: 11400000, guid: 33bf864ce9159a346ba6b213131f36db, type: 2}
+  fuelGasQuantity: 0
+  spaceOreQuantity: 0
 --- !u!1 &698374308
 GameObject:
   m_ObjectHideFlags: 0

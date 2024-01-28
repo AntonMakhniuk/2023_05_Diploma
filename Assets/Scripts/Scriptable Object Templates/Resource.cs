@@ -7,6 +7,7 @@ namespace Scriptable_Object_Templates
     {
         public string label;
         public ResourceType type;
+        
     }
 
     public enum ResourceType
