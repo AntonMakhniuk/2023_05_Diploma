@@ -1,4 +1,5 @@
 using Assets.Scripts.Instruments;
+using Cinemachine;
 using UnityEngine;
 
 public class TractorBeam : Instrument
@@ -10,17 +11,25 @@ public class TractorBeam : Instrument
 
     private bool isTractorBeamActive = false;
     
-    private Renderer halfSphereMeshRenderer;
-    private Collider halfSphereCollider;
+    private CinemachineFreeLook tractorBeamAimCamera;
+    private Renderer barrelMeshRenderer;
+    private Collider barrelCollider;
+    private Transform barrelTransform;
+    private Vector3 barrelDefaultPosition;
+
+    private int cameraPriorityDiff = 10;
 
     protected override void Awake() {
         base.Awake();
-        GameObject halfSphere = transform.Find("Half-Sphere (TractorBeam)").gameObject;
-        halfSphereCollider = halfSphere.GetComponent<Collider>();
-        halfSphereMeshRenderer = halfSphere.GetComponent<MeshRenderer>();
+        tractorBeamAimCamera = GetComponentInChildren<CinemachineFreeLook>();
+        GameObject barrel = transform.Find("Barrel (TractorBeam)").gameObject;
+        barrelCollider = barrel.GetComponent<Collider>();
+        barrelMeshRenderer = barrel.GetComponent<MeshRenderer>();
+        barrelTransform = barrel.transform;
+        barrelDefaultPosition = barrelTransform.position;
         
-        halfSphereMeshRenderer.enabled = false;
-        halfSphereCollider.enabled = false;
+        barrelMeshRenderer.enabled = false;
+        barrelCollider.enabled = false;
     }
 
     // void Start()
@@ -77,27 +86,34 @@ public class TractorBeam : Instrument
     //     }
     // }
     //
-    private void OnGUI() {
-        if (isTractorBeamActive)
-        {
-            float size = 20f;
-            GUI.DrawTexture(new Rect((Screen.width - size) / 2, (Screen.height - size) / 2, size, size), crosshairTexture);
-        }
-    }
+    // private void OnGUI() {
+    //     if (isTractorBeamActive)
+    //     {
+    //         float size = 20f;
+    //         GUI.DrawTexture(new Rect((Screen.width - size) / 2, (Screen.height - size) / 2, size, size), crosshairTexture);
+    //     }
+    // }
 
     public override void Toggle() {
         base.Toggle();
-        halfSphereMeshRenderer.enabled = !halfSphereMeshRenderer.enabled;
-        halfSphereCollider.enabled = !halfSphereCollider.enabled;
+        barrelTransform.position = barrelDefaultPosition;
+        barrelMeshRenderer.enabled = !barrelMeshRenderer.enabled;
+        barrelCollider.enabled = !barrelCollider.enabled;
+        ChangeCamera();
     }
-    //
-    // public void ActivateTractorBeam()
-    // {
-    //     isTractorBeamActive = true;
-    // }
-    //
-    // public void DeactivateTractorBeam()
-    // {
-    //     isTractorBeamActive = false;
-    // }
+
+    private void ChangeCamera() {
+        tractorBeamAimCamera.Priority += cameraPriorityDiff;
+        cameraPriorityDiff *= -1;
+    }
+    
+    public void ActivateTractorBeam()
+    {
+        isTractorBeamActive = true;
+    }
+    
+    public void DeactivateTractorBeam()
+    {
+        isTractorBeamActive = false;
+    }
 }
