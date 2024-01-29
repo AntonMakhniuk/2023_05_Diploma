@@ -27,13 +27,16 @@ namespace Production.Systems
         private List<GameObject> _resourceChallengeInstances = new();
 
         [SerializeField] private GameObject[] extraPrefabsForInstantiation;
+
+        private readonly List<GameObject> _extrasInstances = new();
         
         public void Setup(CraftingData craftingData,
             GameObject[] permittedGeneralChallenges, GameObject[] permittedResourceChallenges)
         {
             foreach (var extraPrefab in extraPrefabsForInstantiation)
             {
-                Instantiate(extraPrefab, transform);
+                var instance = Instantiate(extraPrefab, transform);
+                _extrasInstances.Add(instance);
             }
             
             CraftingData = craftingData;
@@ -93,7 +96,7 @@ namespace Production.Systems
             OnProductionFailed?.Invoke(this, null);
         }
 
-        public event EventHandler OnProductionFinished;
+        public static event EventHandler<CraftingData> OnProductionFinished;
         
         public void FinishProduction()
         {
@@ -113,8 +116,13 @@ namespace Production.Systems
             {
                 Destroy(challengeInstance);
             }
+
+            foreach (var extraInstance in _extrasInstances)
+            {
+                Destroy(extraInstance);
+            }
             
-            OnProductionFinished?.Invoke(this, null);
+            OnProductionFinished?.Invoke(this, CraftingData);
         }
     }
 }

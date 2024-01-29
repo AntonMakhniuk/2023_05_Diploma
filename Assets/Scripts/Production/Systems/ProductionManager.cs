@@ -3,6 +3,7 @@ using System.Linq;
 using Production.Challenges;
 using Production.Crafting;
 using UnityEngine;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 namespace Production.Systems
@@ -40,6 +41,8 @@ namespace Production.Systems
             
             StartProduction(data);
         }
+
+        public UnityEvent onProductionStarted;
         
         public void StartProduction(CraftingData craftingData)
         {
@@ -83,6 +86,8 @@ namespace Production.Systems
             );
 
             _currentManagerScript.OnProductionFailed += DestroyCurrentManager;
+            
+            onProductionStarted?.Invoke();
         }
         
         private void DestroyCurrentManager(object sender, EventArgs args)

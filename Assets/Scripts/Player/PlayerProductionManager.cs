@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Production.Crafting;
+using Production.Systems;
 using UnityEngine;
 
 namespace Assets.Scripts.Player {
@@ -10,12 +11,23 @@ public class PlayerProductionManager : MonoBehaviour {
     [SerializeField] private InventoryWindow inventory;
     private GameObject container;
 
+    private void Start()
+    {
+        ProductionSessionManager.OnProductionFinished += SpawnContainer;
+    }
+
     public void SpawnContainer() {
         container = Instantiate(containerPrefab, spawnPoint.position, Quaternion.identity);
         container.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(-10f,0,0), ForceMode.Impulse);
         StartCoroutine(EnableColliderAfterSeconds());
         inventory.DecreaseFuelGasQuantity(200);
         inventory.DecreaseSpaceOreQuantity(10);
+    }
+    
+    public void SpawnContainer(object sender, CraftingData craftingData) {
+        container = Instantiate(containerPrefab, spawnPoint.position, Quaternion.identity);
+        container.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(-10f,0,0), ForceMode.Impulse);
+        StartCoroutine(EnableColliderAfterSeconds());
     }
 
     private IEnumerator EnableColliderAfterSeconds() {

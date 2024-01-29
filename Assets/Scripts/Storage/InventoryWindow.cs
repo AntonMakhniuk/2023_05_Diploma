@@ -60,7 +60,7 @@ public class InventoryWindow : MonoBehaviour
             }
         }
 
-        void ToggleInventoryWindow()
+        public void ToggleInventoryWindow()
         {
             // Toggle the visibility of the inventory panel
             if (inventoryPanel != null)
