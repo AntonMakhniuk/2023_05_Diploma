@@ -17,8 +17,8 @@ namespace Production.Challenges.General.Airlock_Jam
         private bool _isInteractable = true;
         private GenAirlockJam _airlockJam;
 
-        private static readonly Color32 OnColor = new(24, 132, 62, 255);
-        private static readonly Color32 OffColor = new(224, 18, 0, 255);
+        public Color32 onColor;
+        public Color32 offColor;
 
         private void Start()
         {
@@ -84,7 +84,7 @@ namespace Production.Challenges.General.Airlock_Jam
             
             _isTurnedOn = false;
             
-            assignedImage.color = OffColor;
+            assignedImage.color = offColor;
         }
 
         public event ButtonStatusHandler OnButtonTurnedOn;
@@ -109,7 +109,7 @@ namespace Production.Challenges.General.Airlock_Jam
 
             _isTurnedOn = true;
             
-            assignedImage.color = OnColor;
+            assignedImage.color = onColor;
         }
         
         public IEnumerator Blink(float timePerBlink, int totalBlinkCount)
