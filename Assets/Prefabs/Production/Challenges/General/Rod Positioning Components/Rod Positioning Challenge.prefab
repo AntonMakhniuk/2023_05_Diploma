@@ -164,9 +164,12 @@ MonoBehaviour:
     minSafeRangeSize: 0.1
     maxSafeRangeSize: 0.2
     minDangerRangeSize: 0.1
-    warningDistanceFromSafeRange: 0.1
-    failDistanceFromSafeRange: 0.1
-    maxStepLength: 0
+    warningRangeMinForSingle: 0.2
+    warningRangeMaxForSingle: 0.4
+    warningRangeMinForBoth: 0.1
+    warningRangeMaxForBoth: 0.2
+    maxStepLength: 0.001
+    leverQuantity: 4
   levers:
   - {fileID: 1501726535575229683}
   - {fileID: 1972853699214642933}

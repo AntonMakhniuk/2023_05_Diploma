@@ -7,13 +7,16 @@ namespace Production.Challenges.General.Rod_Positioning
 {
     public class RodLever : MonoBehaviour
     {
-        private LeverDangerZoneType _dangerZoneType;
-        private float _currentPosition;
-        private float _safeRangeStart;
-        private float _safeRangeEnd;
         private float _safeRangeCentre;
         private GenRodPositioning _parentPositioningChallenge;
-        private RodPositioningConfig _config;
+        
+        public LeverDangerZoneType dangerZoneType;
+        public float safeRangeStart;
+        public float safeRangeEnd;
+        public float dangerZoneSingleStart;
+        public float dangerZoneBothStart;
+        public float currentPosition;
+        public RodPositioningConfig config;
 
         private void Start()
         {
@@ -24,36 +27,51 @@ namespace Production.Challenges.General.Rod_Positioning
                 throw new Exception("RodLever object has been instantiated outside of GenRodPositioning");
             }
 
-            _config = _parentPositioningChallenge.Config;
+            config = _parentPositioningChallenge.Config;
 
-            _dangerZoneType = Utility.GetRandomEnum<LeverDangerZoneType>();
+            dangerZoneType = Utility.GetRandomEnum<LeverDangerZoneType>();
 
-            switch (_dangerZoneType)
+            switch (dangerZoneType)
             {
-                case LeverDangerZoneType.BottomOnly:
+                case LeverDangerZoneType.TopOnly:
                 {
-                    _safeRangeStart = _config.minRangeValue;
-                    _safeRangeEnd = Random.Range(_config.minSafeRangeSize, _config.maxSafeRangeSize);
+                    safeRangeStart = config.minRangeValue;
+                    safeRangeEnd = Random.Range(config.minSafeRangeSize, config.maxSafeRangeSize);
+
+                    dangerZoneSingleStart = safeRangeEnd +
+                                             Random.Range(config.warningRangeMinForSingle,
+                                                 config.warningRangeMaxForSingle);
                     
                     break;
                 }
-                case LeverDangerZoneType.TopOnly:
+                case LeverDangerZoneType.BottomOnly:
                 {
-                    _safeRangeStart = _config.maxRangeValue - Random.Range(_config.minSafeRangeSize, _config.maxSafeRangeSize);
-                    _safeRangeEnd = _config.maxRangeValue;
+                    safeRangeStart = config.maxRangeValue - Random.Range(config.minSafeRangeSize, config.maxSafeRangeSize);
+                    safeRangeEnd = config.maxRangeValue;
+                    
+                    dangerZoneSingleStart = safeRangeStart -
+                                             Random.Range(config.warningRangeMinForSingle,
+                                                 config.warningRangeMaxForSingle);
 
                     break;
                 }
                 case LeverDangerZoneType.Both:
                 {
-                    float safeRangeSize = Random.Range(_config.minSafeRangeSize, _config.maxSafeRangeSize);
-                    float freeSpace = _config.maxRangeValue - _config.minDangerRangeSize * 2 
-                                        - _config.failDistanceFromSafeRange * 2 
-                                        - safeRangeSize;
-                    
-                    _safeRangeStart = _config.minDangerRangeSize + _config.failDistanceFromSafeRange 
-                                                                 + Random.Range(0, freeSpace);
-                    _safeRangeEnd = _safeRangeStart + safeRangeSize;
+                    float safeRangeSize = Random.Range(config.minSafeRangeSize, config.maxSafeRangeSize);
+                    float topWarningRange = 
+                        Random.Range(config.warningRangeMinForBoth, config.warningRangeMaxForBoth);
+                    float bottomWarningRange = 
+                        Random.Range(config.warningRangeMinForBoth, config.warningRangeMaxForBoth);
+                    float totalNonDangerRange = bottomWarningRange + safeRangeSize + topWarningRange;
+                    float totalFreeDangerRange = 1f - totalNonDangerRange - 2 * config.minDangerRangeSize;
+                    float dangerRangeSplit = Random.Range(0, totalFreeDangerRange);
+                    float bottomDangerSize = config.minDangerRangeSize + dangerRangeSplit;
+                    float topDangerSize = config.minDangerRangeSize + totalFreeDangerRange - dangerRangeSplit;
+
+                    dangerZoneSingleStart = bottomDangerSize;
+                    safeRangeStart = dangerZoneSingleStart + bottomWarningRange;
+                    safeRangeEnd = safeRangeStart + safeRangeSize;
+                    dangerZoneBothStart = 1f - topDangerSize;
                     
                     break;
                 }
@@ -61,8 +79,8 @@ namespace Production.Challenges.General.Rod_Positioning
                     throw new ArgumentOutOfRangeException();
             }
 
-            _safeRangeCentre = _safeRangeStart + (_safeRangeEnd - +_safeRangeStart) / 2;
-            _currentPosition = Random.Range(_safeRangeStart, _safeRangeEnd);
+            _safeRangeCentre = safeRangeStart + (safeRangeEnd - +safeRangeStart) / 2;
+            currentPosition = Random.Range(safeRangeStart, safeRangeEnd);
         }
         
         private bool _isBeingReset;
@@ -74,41 +92,92 @@ namespace Production.Challenges.General.Rod_Positioning
                 return;
             }
             
-            switch (_dangerZoneType)
+            switch (dangerZoneType)
             {
                 case LeverDangerZoneType.BottomOnly:
                 {
-                    _currentPosition += Random.Range(0, _config.maxStepLength);
+                    currentPosition += Random.Range(0, config.maxStepLength);
                     
                     break;
                 }
                 case LeverDangerZoneType.TopOnly:
                 {
-                    _currentPosition -= Random.Range(0, _config.maxStepLength);
+                    currentPosition -= Random.Range(0, config.maxStepLength);
 
                     break;
                 }
                 case LeverDangerZoneType.Both:
                 {
-                    if (_currentPosition >= _safeRangeCentre)
+                    if (currentPosition >= _safeRangeCentre)
                     {
-                        _currentPosition += Random.Range(0, _config.maxStepLength);
+                        currentPosition += Random.Range(0, config.maxStepLength);
                     }
                     else
                     {
-                        _currentPosition -= Random.Range(0, _config.maxStepLength);
+                        currentPosition -= Random.Range(0, config.maxStepLength);
                     }
 
                     break;
+                }
+                default:
+                {
+                    throw new ArgumentOutOfRangeException();
                 }
             }
         }
 
         private bool PositionIsInSafeRange()
         {
-            return _safeRangeStart <= _currentPosition && _currentPosition <= _safeRangeEnd;
+            return safeRangeStart <= currentPosition && currentPosition <= safeRangeEnd;
         }
 
+        public bool PositionIsInWarningRange()
+        {
+            switch (dangerZoneType)
+            {
+                case LeverDangerZoneType.TopOnly:
+                {
+                    return currentPosition > safeRangeEnd && currentPosition < dangerZoneSingleStart;
+                }
+                case LeverDangerZoneType.BottomOnly:
+                {
+                    return currentPosition < safeRangeStart && currentPosition > dangerZoneSingleStart;
+                }
+                case LeverDangerZoneType.Both:
+                {
+                    return (currentPosition > dangerZoneSingleStart && currentPosition < safeRangeStart) 
+                        || (currentPosition > safeRangeEnd && currentPosition < dangerZoneBothStart);
+                }
+                default:
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
+
+        public bool PositionIsInDangerRange()
+        {
+            switch (dangerZoneType)
+            {
+                case LeverDangerZoneType.TopOnly:
+                {
+                    return currentPosition > dangerZoneSingleStart;
+                }
+                case LeverDangerZoneType.BottomOnly:
+                {
+                    return currentPosition < dangerZoneSingleStart;
+                }
+                case LeverDangerZoneType.Both:
+                {
+                    return currentPosition < dangerZoneSingleStart || currentPosition > dangerZoneBothStart;
+                }
+                default:
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
+        
         public float GetAbsoluteDistanceFromSafeRange()
         {
             if (PositionIsInSafeRange())
@@ -116,12 +185,12 @@ namespace Production.Challenges.General.Rod_Positioning
                 return 0f;
             }
             
-            if (Math.Abs(_currentPosition - _safeRangeStart) <= Math.Abs(_currentPosition - _safeRangeEnd))
+            if (Math.Abs(currentPosition - safeRangeStart) <= Math.Abs(currentPosition - safeRangeEnd))
             {
-                return Math.Abs(_currentPosition - _safeRangeStart);
+                return Math.Abs(currentPosition - safeRangeStart);
             }
 
-            return Math.Abs(_currentPosition - _safeRangeEnd);
+            return Math.Abs(currentPosition - safeRangeEnd);
         }
 
         public void ChangeCurrentPosition(float newPosition)
@@ -131,7 +200,7 @@ namespace Production.Challenges.General.Rod_Positioning
                 return;
             }
             
-            _currentPosition = newPosition;
+            currentPosition = newPosition;
         }
 
         public IEnumerator ResetLever()
@@ -139,13 +208,13 @@ namespace Production.Challenges.General.Rod_Positioning
             _isBeingReset = true;
             
             float currentTime = 0f;
-            float positionAtReset = _currentPosition;
+            float positionAtReset = currentPosition;
 
-            while (currentTime < _config.resetWaitingTime)
+            while (currentTime < config.resetWaitingTime)
             {
-                float t = currentTime / _config.resetWaitingTime;
+                float t = currentTime / config.resetWaitingTime;
 
-                _currentPosition = Mathf.Lerp(positionAtReset, _safeRangeCentre, t);
+                currentPosition = Mathf.Lerp(positionAtReset, _safeRangeCentre, t);
 
                 currentTime += Time.deltaTime;
             }

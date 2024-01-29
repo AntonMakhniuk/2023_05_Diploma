@@ -26,7 +26,7 @@ namespace Production.Challenges.General.Rod_Positioning
             foreach (var rodLever in levers)
             {
                 anyLeverIsInWarnRange = 
-                    rodLever.GetAbsoluteDistanceFromSafeRange() >= Config.failDistanceFromSafeRange;
+                    rodLever.PositionIsInWarningRange();
             }
 
             return anyLeverIsInWarnRange;
@@ -38,8 +38,8 @@ namespace Production.Challenges.General.Rod_Positioning
 
             foreach (var rodLever in levers)
             {
-                anyLeverIsInFailRange = 
-                    rodLever.GetAbsoluteDistanceFromSafeRange() >= Config.warningDistanceFromSafeRange;
+                anyLeverIsInFailRange =
+                    rodLever.PositionIsInDangerRange();
             }
 
             return anyLeverIsInFailRange;
@@ -78,8 +78,10 @@ namespace Production.Challenges.General.Rod_Positioning
         [Range(0, 1)] public float minSafeRangeSize = 0.15f;
         [Range(0, 1)] public float maxSafeRangeSize = 0.2f;
         [Range(0, 1)] public float minDangerRangeSize = 0.1f;
-        [Range(0, 1)] public float warningDistanceFromSafeRange;
-        [Range(0, 1)] public float failDistanceFromSafeRange = 0.2f;
+        [Range(0, 1)] public float warningRangeMinForSingle = 0.2f;
+        [Range(0, 1)] public float warningRangeMaxForSingle = 0.4f;
+        [Range(0, 1)] public float warningRangeMinForBoth = 0.1f;
+        [Range(0, 1)] public float warningRangeMaxForBoth = 0.2f;
         [Range(0, 1)] public float maxStepLength = 0.001f;
         public int leverQuantity;
     }
