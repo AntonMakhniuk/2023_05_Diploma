@@ -57,6 +57,9 @@ public class BuildingWindow : MonoBehaviour
         // Instantiate the capsule prefab in front of the ship
         Vector3 spawnPosition = transform.position + transform.forward * 5f;
         currentCapsule = Instantiate(capsulePrefab, spawnPosition, Quaternion.identity);
+        currentCapsule.AddComponent<Blueprint>();
+        currentCapsule.layer = 12;
+        currentCapsule.tag = "Blueprint";
 
         // Set the ship as the parent of the capsule
         currentCapsule.transform.parent = transform;
@@ -70,7 +73,9 @@ public class BuildingWindow : MonoBehaviour
         currentCapsule.transform.parent = null;
 
         // Disable any capsule-specific scripts or components here if needed
-
+        currentCapsule.GetComponent<Blueprint>().enabled = true;
+        currentCapsule.GetComponent<Blueprint>().buildingPrefab = capsulePrefab;
+        
         // Set the capsule as the currentCapsule to null
         currentCapsule = null;
     }
