@@ -96,13 +96,13 @@ namespace Production.Challenges.General.Rod_Positioning
             {
                 case LeverDangerZoneType.BottomOnly:
                 {
-                    currentPosition += Random.Range(0, config.maxStepLength);
+                    currentPosition -= Random.Range(0, config.maxStepLength);
                     
                     break;
                 }
                 case LeverDangerZoneType.TopOnly:
                 {
-                    currentPosition -= Random.Range(0, config.maxStepLength);
+                    currentPosition += Random.Range(0, config.maxStepLength);
 
                     break;
                 }
