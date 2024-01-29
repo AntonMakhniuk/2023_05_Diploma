@@ -26,7 +26,9 @@ public class TractorBeam : Instrument
     [SerializeField] private LayerMask tractorBeamAimLayerMask;
 
     private PlayerInputActions playerInputActions;
+    protected InventoryWindow inventory;
     
+    private BoxCollider boxCollider;
     private Renderer barrelMeshRenderer;
     private Collider barrelCollider;
     private Transform barrelTransform;
@@ -38,6 +40,8 @@ public class TractorBeam : Instrument
         
         tractorBeamAimCamera = GetComponentInChildren<CinemachineFreeLook>();
         mainCamera = Camera.main;
+
+        inventory = GetComponentInParent<InventoryWindow>();
         
         playerInputActions = new PlayerInputActions();
         playerInputActions.Enable();
@@ -49,19 +53,49 @@ public class TractorBeam : Instrument
                 RotateHalfSphere();
             }
         };
+        
+        playerInputActions.PlayerShip.Movement.performed += _ =>
+        {
+            if (barrelMeshRenderer.enabled) {
+                RotateHalfSphere();
+            }
+        };
+        
+        playerInputActions.PlayerShip.RotateAlongX.performed += _ =>
+        {
+            if (barrelMeshRenderer.enabled) {
+                RotateHalfSphere();
+            }
+        };
+        
+        playerInputActions.PlayerShip.RotateAlongY.performed += _ =>
+        {
+            if (barrelMeshRenderer.enabled) {
+                RotateHalfSphere();
+            }
+        };
+        
+        playerInputActions.PlayerShip.RotateAlongZ.performed += _ =>
+        {
+            if (barrelMeshRenderer.enabled) {
+                RotateHalfSphere();
+            }
+        };
 
         playerInputActions.PlayerShip.InstrumentSecondary.performed += _ => { PushObjects(); };
         
         GameObject barrel = transform.Find("Barrel (TractorBeam)").gameObject;
         barrelCollider = barrel.GetComponent<Collider>();
         barrelMeshRenderer = barrel.GetComponent<MeshRenderer>();
+        boxCollider = GetComponent<BoxCollider>();
         
         barrelTransform = barrel.transform;
         barrelDefaultPosition = barrelTransform.localPosition;
         halfSphereDefaultLocalRotation = transform.localRotation;
         
         Debug.Log(halfSphereDefaultLocalRotation.eulerAngles);
-        
+
+        boxCollider.enabled = false;
         barrelMeshRenderer.enabled = false;
         barrelCollider.enabled = false;
         crosshairCanvas.enabled = false;
@@ -69,8 +103,6 @@ public class TractorBeam : Instrument
 
     private void Update() {
         if (barrelMeshRenderer.enabled) {
-            
-            
             Vector2 crosshairPoint = new Vector2(Screen.width / 2f, Screen.height / 2f + 80);
             Ray ray = mainCamera.ScreenPointToRay(crosshairPoint);
         
@@ -102,9 +134,10 @@ public class TractorBeam : Instrument
         barrelMeshRenderer.enabled = !barrelMeshRenderer.enabled;
         barrelCollider.enabled = !barrelCollider.enabled;
         crosshairCanvas.enabled = !crosshairCanvas.enabled;
+        boxCollider.enabled = !boxCollider.enabled;
         
-        barrelTransform.localPosition = barrelDefaultPosition;
-        transform.localRotation = halfSphereDefaultLocalRotation;
+        //barrelTransform.localPosition = barrelDefaultPosition;
+        //transform.localRotation = halfSphereDefaultLocalRotation;
         
         ChangeCamera();
     }
@@ -138,6 +171,13 @@ public class TractorBeam : Instrument
             (transform.localRotation, 
                 targetRotation, 
                 halfSphereRotationSpeed * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if (other.CompareTag("Resource")) {
+            inventory.IncreaseSpaceOreQuantity(1);
+            Destroy(other.gameObject);
+        }
     }
 
     // TODO: Figure out how to make this work

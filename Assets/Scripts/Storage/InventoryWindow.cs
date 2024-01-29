@@ -63,6 +63,7 @@ public class InventoryWindow : MonoBehaviour
         {
             spaceOreQuantity += amount;
         }
+        
         public void DecreaseFuelGasQuantity(int amount)
         {
             fuelGasQuantity -= amount;
