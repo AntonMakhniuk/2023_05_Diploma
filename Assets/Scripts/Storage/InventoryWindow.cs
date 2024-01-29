@@ -11,8 +11,8 @@ public class InventoryWindow : MonoBehaviour
         public Resource fuelGasResource; // Reference to the Fuel Gas Scriptable Object
         public Resource spaceOreResource; // Reference to the Space Ore Scriptable Object
 
-        public int fuelGasQuantity; // Quantity not in Scriptable Object
-        public int spaceOreQuantity; // Quantity not in Scriptable Object
+        public float fuelGasQuantity; // Quantity not in Scriptable Object
+        public float spaceOreQuantity; // Quantity not in Scriptable Object
 
         void Start()
         {
@@ -53,13 +53,13 @@ public class InventoryWindow : MonoBehaviour
         }
 
         
-        public void IncreaseFuelGasQuantity(int amount)
+        public void IncreaseFuelGasQuantity(float amount)
         {
             fuelGasQuantity += amount;
         }
 
         
-        public void IncreaseSpaceOreQuantity(int amount)
+        public void IncreaseSpaceOreQuantity(float amount)
         {
             spaceOreQuantity += amount;
         }

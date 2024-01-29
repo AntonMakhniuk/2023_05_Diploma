@@ -1834,7 +1834,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tractorBeam: {fileID: 3564137744409306324}
   drill: {fileID: 4252711719720281664}
-  gasCollector: {fileID: 8824069401080970437}
+  gasCollector: {fileID: 0}
   activeInstrument: {fileID: 0}
 --- !u!138 &8869959374997030591
 FixedJoint:
@@ -2106,22 +2106,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: GasCollector
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1316530941155346858, guid: 130aafd81937fd04780a922ea7168048, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 130aafd81937fd04780a922ea7168048, type: 3}
---- !u!114 &8824069401080970437 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1316530941155346858, guid: 130aafd81937fd04780a922ea7168048, type: 3}
-  m_PrefabInstance: {fileID: 7507542034517013871}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 338d916b6b2f130418d5e8d0daeab7e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &9011585984282729588 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1531135917605824795, guid: 130aafd81937fd04780a922ea7168048, type: 3}

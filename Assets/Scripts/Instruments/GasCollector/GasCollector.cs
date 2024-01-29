@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class GasCollector : MonoBehaviour
@@ -52,7 +53,9 @@ public class GasCollector : MonoBehaviour
         }
     }
 
-    
+    private void OnParticleTrigger() {
+        
+    }
 
     void UpdateGasCollectorPosition()
     {

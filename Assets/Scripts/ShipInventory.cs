@@ -5,7 +5,7 @@ using UnityEngine;
 public class ShipInventory : MonoBehaviour {
     [SerializeField] private TractorBeam tractorBeam;
     [SerializeField] private Drill drill;
-    [SerializeField] private GasCollector gasCollector;
+    [SerializeField] private GasCollectorV3 gasCollector;
 
     [SerializeField] private Instrument activeInstrument = null;
     private PlayerInputActions playerInputActions;

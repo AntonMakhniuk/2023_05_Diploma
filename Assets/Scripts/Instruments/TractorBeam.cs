@@ -8,10 +8,7 @@ public class TractorBeam : Instrument
 {
     [SerializeField] private float tractorBeamRange = 10f;
     private RaycastHit lastRaycastHit;
-    public float tractorSpeed = 5f;
-    public float TractorBeamOffset { get; private set; }
-
-    private bool isTractorBeamActive = false;
+    [SerializeField] private float tractorSpeed = 5f;
     
     private CinemachineFreeLook tractorBeamAimCamera;
     private Camera mainCamera;
