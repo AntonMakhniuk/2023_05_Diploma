@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49a00b759a874f6f8c1e57e54c34ae0f, type: 3}
   m_Name: Fuel
   m_EditorClassIdentifier: 
-  difficulty: 0
-  resources: []
+  difficultyConfig:
+    difficulty: 0
+    productionLengthInSeconds: 0
+  resources:
+  - resource: {fileID: 11400000, guid: 6a65a2eba87ee994bb5bedf1a8d41a83, type: 2}
+    quantity: 10

@@ -83,6 +83,7 @@ namespace Production.Challenges.General.Temperature
     [Serializable]
     public class TemperatureConfig : GeneralConfigBase
     {
+        public int maxTemperature;
         public int minTemperature;
         public int baseTemperature = 200;
         public float stepSize = 50;

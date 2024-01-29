@@ -9,7 +9,6 @@ namespace Production.Systems.SessionManagerExtras
         [SerializeField] private TMP_Text bonusText;
         
         private ProductionSessionManager _sessionManager;
-
         private float _currentBonus;
         
         private void Start()
@@ -24,7 +23,7 @@ namespace Production.Systems.SessionManagerExtras
 
             _sessionManager.OnBonusChanged += AdjustBonusUsingModifier;
             
-            _currentBonus = _sessionManager.CraftingData.BonusModifier;
+            AdjustBonusUsingModifier(_sessionManager.CraftingData.BonusModifier);
         }
 
         private void AdjustBonusUsingModifier(float bonusModifier)
