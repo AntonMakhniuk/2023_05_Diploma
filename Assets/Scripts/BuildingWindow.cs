@@ -7,6 +7,15 @@ public class BuildingWindow : MonoBehaviour
 
     private GameObject currentCapsule; // Reference to the currently spawned capsule
 
+    void Start()
+    {
+        // Ensure the inventory panel is initially hidden
+        if (buildingWindow != null)
+        {
+            buildingWindow.SetActive(false);
+        }
+    }
+    
     void Update()
     {
         // Check for the "B" key press to toggle the building window
