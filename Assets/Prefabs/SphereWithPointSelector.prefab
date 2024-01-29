@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 4119281116094988782}
   - component: {fileID: 263008374762717192}
   - component: {fileID: 6469106451349965662}
-  - component: {fileID: -5875758150602427838}
   - component: {fileID: -953948292407617157}
   m_Layer: 0
   m_Name: SphereWithPointSelector
@@ -125,7 +124,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lookupCollider: {fileID: 3447407456178272051}
   asteroidPointPrefab: {fileID: 1602660667900783703, guid: 2d09d80c112dab24db749923db5f54ba, type: 3}
-  startCounter: 0
 --- !u!54 &263008374762717192
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -134,7 +132,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3380455344778061254}
   serializedVersion: 4
-  m_Mass: 3
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -154,18 +152,6 @@ Rigidbody:
   m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &6469106451349965662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3380455344778061254}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3311926a1470dac408632ca762a23f07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-5875758150602427838
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
