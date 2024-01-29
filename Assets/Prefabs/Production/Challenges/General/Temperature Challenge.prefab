@@ -267,7 +267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8584906, g: 0.376602, b: 0.376602, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -627,8 +627,9 @@ MonoBehaviour:
   configs:
   - difficulty: 1
     resetWaitingTime: 0.2
-    warningThreshold: 2
-    failThreshold: 1000
+    warningThreshold: 400
+    failThreshold: 850
+    maxTemperature: 1000
     minTemperature: 0
     baseTemperature: 200
     stepSize: 50
@@ -648,6 +649,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   associatedChallenge: {fileID: -1620824080652555867}
   associatedSlider: {fileID: 7886017075895300443}
+  sliderBackground: {fileID: 5007332473066320230}
+  dangerZoneColor:
+    serializedVersion: 2
+    rgba: 4278195430
+  warningZoneColor:
+    serializedVersion: 2
+    rgba: 4278236134
+  safeZoneColor:
+    serializedVersion: 2
+    rgba: 4278245647
 --- !u!1 &7183464292330645947
 GameObject:
   m_ObjectHideFlags: 0
