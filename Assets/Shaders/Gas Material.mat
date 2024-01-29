@@ -27,8 +27,14 @@ Material:
     m_Floats:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
+    - _DistordScale: 60
+    - _GasAlpha: 2.22
+    - _GasPower: 0.63
     - _GasScale: 120
+    - _VertexOffset: 0.05
     m_Colors:
+    - _DistordSpeed: {r: 0.12, g: 0.27, b: 0, a: 0}
+    - _GasColor: {r: 0.1009303, g: 0.6037736, b: 0.03797312, a: 0.43137255}
     - _GasSpeed: {r: 0, g: 0.05, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &8229026529960514113
