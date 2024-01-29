@@ -93,6 +93,8 @@ namespace Production.Systems
             OnProductionFailed?.Invoke(this, null);
         }
 
+        public event EventHandler OnProductionFinished;
+        
         public void FinishProduction()
         {
             foreach (IGeneralChallenge generalInstance in _generalChallengeInstances
@@ -111,6 +113,8 @@ namespace Production.Systems
             {
                 Destroy(challengeInstance);
             }
+            
+            OnProductionFinished?.Invoke(this, null);
         }
     }
 }
