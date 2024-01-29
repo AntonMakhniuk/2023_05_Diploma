@@ -116,6 +116,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""InstrumentPrimary"",
+                    ""type"": ""Button"",
+                    ""id"": ""06370757-8d74-438c-a5fc-234cf5f42477"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""InstrumentSecondary"",
+                    ""type"": ""Button"",
+                    ""id"": ""b2505daa-6e37-4b97-b0f0-9b1bbd690924"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -382,6 +400,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""ToggleTractorBeam"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""169f05d3-c038-47c4-ae33-d1d2626bb92a"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InstrumentPrimary"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""12e15f89-592b-4bca-8f66-9946a559425b"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InstrumentSecondary"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -400,6 +440,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_PlayerShip_ToggleTractorBeam = m_PlayerShip.FindAction("ToggleTractorBeam", throwIfNotFound: true);
         m_PlayerShip_ToggleDrill = m_PlayerShip.FindAction("ToggleDrill", throwIfNotFound: true);
         m_PlayerShip_ToggleGasCollector = m_PlayerShip.FindAction("ToggleGasCollector", throwIfNotFound: true);
+        m_PlayerShip_InstrumentPrimary = m_PlayerShip.FindAction("InstrumentPrimary", throwIfNotFound: true);
+        m_PlayerShip_InstrumentSecondary = m_PlayerShip.FindAction("InstrumentSecondary", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -471,6 +513,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerShip_ToggleTractorBeam;
     private readonly InputAction m_PlayerShip_ToggleDrill;
     private readonly InputAction m_PlayerShip_ToggleGasCollector;
+    private readonly InputAction m_PlayerShip_InstrumentPrimary;
+    private readonly InputAction m_PlayerShip_InstrumentSecondary;
     public struct PlayerShipActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -485,6 +529,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @ToggleTractorBeam => m_Wrapper.m_PlayerShip_ToggleTractorBeam;
         public InputAction @ToggleDrill => m_Wrapper.m_PlayerShip_ToggleDrill;
         public InputAction @ToggleGasCollector => m_Wrapper.m_PlayerShip_ToggleGasCollector;
+        public InputAction @InstrumentPrimary => m_Wrapper.m_PlayerShip_InstrumentPrimary;
+        public InputAction @InstrumentSecondary => m_Wrapper.m_PlayerShip_InstrumentSecondary;
         public InputActionMap Get() { return m_Wrapper.m_PlayerShip; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -524,6 +570,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @ToggleGasCollector.started += instance.OnToggleGasCollector;
             @ToggleGasCollector.performed += instance.OnToggleGasCollector;
             @ToggleGasCollector.canceled += instance.OnToggleGasCollector;
+            @InstrumentPrimary.started += instance.OnInstrumentPrimary;
+            @InstrumentPrimary.performed += instance.OnInstrumentPrimary;
+            @InstrumentPrimary.canceled += instance.OnInstrumentPrimary;
+            @InstrumentSecondary.started += instance.OnInstrumentSecondary;
+            @InstrumentSecondary.performed += instance.OnInstrumentSecondary;
+            @InstrumentSecondary.canceled += instance.OnInstrumentSecondary;
         }
 
         private void UnregisterCallbacks(IPlayerShipActions instance)
@@ -558,6 +610,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @ToggleGasCollector.started -= instance.OnToggleGasCollector;
             @ToggleGasCollector.performed -= instance.OnToggleGasCollector;
             @ToggleGasCollector.canceled -= instance.OnToggleGasCollector;
+            @InstrumentPrimary.started -= instance.OnInstrumentPrimary;
+            @InstrumentPrimary.performed -= instance.OnInstrumentPrimary;
+            @InstrumentPrimary.canceled -= instance.OnInstrumentPrimary;
+            @InstrumentSecondary.started -= instance.OnInstrumentSecondary;
+            @InstrumentSecondary.performed -= instance.OnInstrumentSecondary;
+            @InstrumentSecondary.canceled -= instance.OnInstrumentSecondary;
         }
 
         public void RemoveCallbacks(IPlayerShipActions instance)
@@ -587,5 +645,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnToggleTractorBeam(InputAction.CallbackContext context);
         void OnToggleDrill(InputAction.CallbackContext context);
         void OnToggleGasCollector(InputAction.CallbackContext context);
+        void OnInstrumentPrimary(InputAction.CallbackContext context);
+        void OnInstrumentSecondary(InputAction.CallbackContext context);
     }
 }

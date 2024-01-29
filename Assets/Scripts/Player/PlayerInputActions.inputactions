@@ -94,6 +94,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "InstrumentPrimary",
+                    "type": "Button",
+                    "id": "06370757-8d74-438c-a5fc-234cf5f42477",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "InstrumentSecondary",
+                    "type": "Button",
+                    "id": "b2505daa-6e37-4b97-b0f0-9b1bbd690924",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -358,6 +376,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "ToggleTractorBeam",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "169f05d3-c038-47c4-ae33-d1d2626bb92a",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InstrumentPrimary",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "12e15f89-592b-4bca-8f66-9946a559425b",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InstrumentSecondary",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
