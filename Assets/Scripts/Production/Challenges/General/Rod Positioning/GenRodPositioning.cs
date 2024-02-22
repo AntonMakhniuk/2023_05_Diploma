@@ -64,9 +64,9 @@ namespace Production.Challenges.General.Rod_Positioning
             foreach (var rodLever in levers)
             {
                 StartCoroutine(rodLever.ResetLever());
-
-                yield return null;
             }
+
+            yield return null;
         }
     }
 

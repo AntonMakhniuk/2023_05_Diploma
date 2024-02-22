@@ -46,6 +46,7 @@ namespace Production.Challenges.General
         }
 
         private bool _isBeingReset;
+        protected bool UpdateLogicIsPaused;
         
         private void FixedUpdate()
         {
@@ -55,6 +56,12 @@ namespace Production.Challenges.General
             }
             
             HandlePerformanceConditionsCheck();
+
+            if (UpdateLogicIsPaused)
+            {
+                return;
+            }
+            
             HandleUpdateLogic();
         }
 
@@ -127,16 +134,21 @@ namespace Production.Challenges.General
         {
             _isBeingReset = true;
 
-            StartCoroutine(HandleResetLogic());
-
-            yield return new WaitForSeconds(Config.resetWaitingTime);
+            yield return HandleResetLogic();
             
             _isBeingReset = false;
-
-            yield return null;
         }
 
         protected abstract IEnumerator HandleResetLogic();
+
+        protected IEnumerator PauseUpdateForSeconds(float timeInSeconds)
+        {
+            UpdateLogicIsPaused = true;
+            
+            yield return new WaitForSeconds(timeInSeconds);
+
+            UpdateLogicIsPaused = false;
+        }
         
         private static GeneralFailHandler CreateFailHandlerDelegate(Action onFailMethod)
         {

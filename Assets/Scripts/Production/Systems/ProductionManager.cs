@@ -32,16 +32,7 @@ namespace Production.Systems
                 Destroy(gameObject);
             }
         }
-
-        public Recipe hardcodedRecipe;
         
-        public void StartProductionHardcoded()
-        {
-            CraftingData data = new CraftingData(hardcodedRecipe, 1);
-            
-            StartProduction(data);
-        }
-
         public UnityEvent onProductionStarted;
         
         public void StartProduction(CraftingData craftingData)

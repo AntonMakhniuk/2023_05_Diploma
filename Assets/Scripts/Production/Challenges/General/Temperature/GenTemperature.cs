@@ -63,8 +63,6 @@ namespace Production.Challenges.General.Temperature
             }
 
             currentTemperature = Config.baseTemperature;
-
-            yield return null;
         }
 
         public void ReduceTemperature()
