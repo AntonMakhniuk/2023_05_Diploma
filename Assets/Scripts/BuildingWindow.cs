@@ -3,12 +3,18 @@ using UnityEngine;
 public class BuildingWindow : MonoBehaviour
 {
     public GameObject buildingWindow; // Reference to the building window Panel
-    public GameObject capsulePrefab; // Reference to the capsule prefab
+    public GameObject teleporterPrefab; // Reference to the capsule prefab
+    public GameObject acceleratorPrefab; // Reference to the accelerator prefab
 
-    private GameObject currentCapsule; // Reference to the currently spawned capsule
+    private GameObject currentObject; // Reference to the currently spawned object
 
     void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.B) && currentObject != null && !buildingWindow.activeSelf)
+        {
+            DetachObject();
+        }
         // Check for the "B" key press to toggle the building window
         if (Input.GetKeyDown(KeyCode.B))
         {
@@ -16,16 +22,18 @@ public class BuildingWindow : MonoBehaviour
         }
 
         // Check for left mouse button press
-        if (Input.GetMouseButtonDown(0) && currentCapsule != null)
+        if (Input.GetMouseButtonDown(0) && currentObject != null)
         {
-            FixateCapsule();
+            FixateObject();
         }
 
-        if (Input.GetMouseButtonDown(1) && currentCapsule != null && !buildingWindow.activeSelf)
+        // Check for right mouse button press
+        if (Input.GetMouseButtonDown(1) && currentObject != null && !buildingWindow.activeSelf)
         {
-            DetachCapsule();
+            DetachObject();
             ToggleBuildingWindow();
         }
+
     }
 
     void ToggleBuildingWindow()
@@ -33,76 +41,96 @@ public class BuildingWindow : MonoBehaviour
         // Toggle the visibility of the building window
         buildingWindow.SetActive(!buildingWindow.activeSelf);
 
-        // If the window is closed, detach the current capsule
-        if (!buildingWindow.activeSelf && currentCapsule != null)
+        // If the window is closed, detach the current object
+        if (!buildingWindow.activeSelf && currentObject != null)
         {
-            DetachCapsule();
+            DetachObject();
         }
     }
 
     // Method to handle the Capsule button click
     public void BuildCapsule()
     {
-
+        // Toggle the building window
         buildingWindow.SetActive(!buildingWindow.activeSelf);
-        // Instantiate the capsule prefab in front of the ship
+
+        // Instantiate the capsule or accelerator prefab in front of the ship
         Vector3 spawnPosition = transform.position + transform.forward * 5f;
-        currentCapsule = Instantiate(capsulePrefab, spawnPosition, Quaternion.identity);
+        currentObject = Instantiate(teleporterPrefab, spawnPosition, transform.rotation);
 
-        // Set the ship as the parent of the capsule
-        currentCapsule.transform.parent = transform;
-        SetCapsuleOpacity(currentCapsule, 0.3f);
+        // Set the ship as the parent of the object
+        currentObject.transform.parent = transform;
+
+        // Set opacity if needed
+        SetObjectOpacity(currentObject, 0.3f);
     }
 
-    // Method to fixate the capsule position and rotation and detach it from the ship
-    void FixateCapsule()
+    // Method to handle the Accelerator button click
+    public void BuildAccelerator()
     {
-        // Detach the capsule from the ship
-        currentCapsule.transform.parent = null;
+        // Toggle the building window
+        buildingWindow.SetActive(!buildingWindow.activeSelf);
 
-        // Disable any capsule-specific scripts or components here if needed
+        // Instantiate the accelerator prefab in front of the ship
+        Vector3 spawnPosition = transform.position + transform.forward * 5f;
+        currentObject = Instantiate(acceleratorPrefab, spawnPosition, transform.rotation);
 
-        // Set the capsule as the currentCapsule to null
-        currentCapsule = null;
+        // Set the ship as the parent of the object
+        currentObject.transform.parent = transform;
+
+        // Set opacity if needed
+        SetObjectOpacity(currentObject, 0.3f);
     }
 
-    // Method to detach the current capsule from the ship
-    void DetachCapsule()
+    // Method to fixate the object position and rotation and detach it from the ship
+    void FixateObject()
     {
-        // Detach the capsule from the ship
-        currentCapsule.transform.parent = null;
+        // Detach the object from the ship
+        currentObject.transform.parent = null;
 
-        // Disable any capsule-specific scripts or components here if needed
+        // Disable any object-specific scripts or components here if needed
 
-        // Destroy the capsule
-        Destroy(currentCapsule);
-
-        // Set the currentCapsule to null
-        currentCapsule = null;
+        // Set the object reference to null
+        currentObject = null;
     }
 
-    void SetCapsuleOpacity(GameObject capsule, float opacity)
+    // Method to detach the current object from the ship
+    void DetachObject()
     {
-        Renderer capsuleRenderer = capsule.GetComponent<Renderer>();
-        if (capsuleRenderer != null)
+        // Detach the object from the ship
+        currentObject.transform.parent = null;
+
+        // Disable any object-specific scripts or components here if needed
+
+        // Destroy the object
+        Destroy(currentObject);
+
+        // Set the object reference to null
+        currentObject = null;
+    }
+
+    void SetObjectOpacity(GameObject obj, float opacity)
+    {
+        Renderer objRenderer = obj.GetComponent<Renderer>();
+        if (objRenderer != null)
         {
-            // Get the current material of the capsule
-            Material capsuleMaterial = capsuleRenderer.material;
+            // Get the current material of the object
+            Material objMaterial = objRenderer.material;
 
             // Set the alpha (transparency) of the material
-            Color materialColor = capsuleMaterial.color;
+            Color materialColor = objMaterial.color;
             materialColor.a = opacity;
-            capsuleMaterial.color = materialColor;
+            objMaterial.color = materialColor;
 
             // Enable alpha blending for transparency
-            capsuleMaterial.SetFloat("_Mode", 3);
-            capsuleMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-            capsuleMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-            capsuleMaterial.SetInt("_ZWrite", 0);
-            capsuleMaterial.DisableKeyword("_ALPHATEST_ON");
-            capsuleMaterial.EnableKeyword("_ALPHABLEND_ON");
-            capsuleMaterial.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-            capsuleMaterial.renderQueue = 3000; // or another value depending on your needs
+            objMaterial.SetFloat("_Mode", 3);
+            objMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+            objMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+            objMaterial.SetInt("_ZWrite", 0);
+            objMaterial.DisableKeyword("_ALPHATEST_ON");
+            objMaterial.EnableKeyword("_ALPHABLEND_ON");
+            objMaterial.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+            objMaterial.renderQueue = 3000; // or another value depending on your needs
         }
     }
 }

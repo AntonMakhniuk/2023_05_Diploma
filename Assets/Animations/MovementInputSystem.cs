@@ -36,6 +36,47 @@ public class MovementInputSystem : MonoBehaviour
     [SerializeField] private float rotateAlongZSpeed = 50f;
     [SerializeField] private float deceleration = 50f;
 
+    [SerializeField] private float speedBoostMultiplier = 2f;
+    [SerializeField] private float speedBoostDuration = 10f;
+    private bool isSpeedBoosted = false;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Accelerator"))
+        {
+            StartCoroutine(ApplySpeedBoost());
+            // You may want to disable the accelerator object after it's been used.
+            other.gameObject.SetActive(false);
+        }
+    }
+
+    private IEnumerator ApplySpeedBoost()
+    {
+        if (!isSpeedBoosted)
+        {
+            // Apply speed boost
+            forwardSpeed *= speedBoostMultiplier;
+            backwardSpeed *= speedBoostMultiplier;
+            rotationSpeed *= speedBoostMultiplier;
+            turnSpeed *= speedBoostMultiplier;
+            rotateAlongZSpeed *= speedBoostMultiplier;
+
+            isSpeedBoosted = true;
+
+            // Wait for the duration of the speed boost
+            yield return new WaitForSeconds(speedBoostDuration);
+
+            // Remove speed boost
+            forwardSpeed /= speedBoostMultiplier;
+            backwardSpeed /= speedBoostMultiplier;
+            rotationSpeed /= speedBoostMultiplier;
+            turnSpeed /= speedBoostMultiplier;
+            rotateAlongZSpeed /= speedBoostMultiplier;
+
+            isSpeedBoosted = false;
+        }
+    }
+
     private void Awake()
     {
         ship = GetComponent<Rigidbody>();
