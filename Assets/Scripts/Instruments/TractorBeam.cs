@@ -58,12 +58,12 @@ public class TractorBeam : Instrument
             }
         };
         
-        playerInputActions.PlayerShip.RotateAlongX.performed += _ =>
-        {
-            if (barrelMeshRenderer.enabled) {
-                RotateHalfSphere();
-            }
-        };
+        // playerInputActions.PlayerShip.RotateAlongX.performed += _ =>
+        // {
+        //     if (barrelMeshRenderer.enabled) {
+        //         RotateHalfSphere();
+        //     }
+        // };
         
         playerInputActions.PlayerShip.RotateAlongY.performed += _ =>
         {
