@@ -3,6 +3,7 @@
 namespace Assets.Scripts.Instruments {
 [RequireComponent(typeof(MeshRenderer), typeof(Collider))]
 public class Instrument : MonoBehaviour {
+    protected bool isActiveTool = false;
     private Renderer meshRenderer;
     private Collider instrumentCollider;
 
@@ -20,6 +21,12 @@ public class Instrument : MonoBehaviour {
     public virtual void Toggle() {
         meshRenderer.enabled = !meshRenderer.enabled;
         instrumentCollider.enabled = !instrumentCollider.enabled;
+    }
+    
+    // Set the instrument as the active tool
+    public void SetActiveTool(bool active)
+    {
+        isActiveTool = active;
     }
 }
 }

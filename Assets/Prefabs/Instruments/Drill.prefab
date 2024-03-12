@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5904371608397705123}
   m_Layer: 8
   m_Name: Drill
-  m_TagString: Instrument
+  m_TagString: Drill
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -119,3 +119,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b22ff0e79608c8f4d909d6dd57abb8f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drillingTime: 5
+  drillModel: {fileID: 4159955472413279731}
+  asteroidGameObject: {fileID: 8355541431971491255, guid: cc76008e9d7be1549aad98ec1eaf8142, type: 3}

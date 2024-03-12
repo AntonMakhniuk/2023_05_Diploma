@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 1952961255424001428}
   m_Layer: 6
   m_Name: AsteroidSphere
-  m_TagString: ResourceNode
+  m_TagString: Asteroid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -164,6 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spaceOre: {fileID: 2091035745197971742, guid: 60c3cb11648c8ab4792073d25edaeeb4, type: 3}
+  shatter: 0
 --- !u!114 &1952961255424001428
 MonoBehaviour:
   m_ObjectHideFlags: 0
