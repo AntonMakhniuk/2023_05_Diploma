@@ -1,76 +1,43 @@
 using Assets.Scripts.Instruments;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Drill : Instrument
 {
-    [SerializeField] private float drillingTime = 5f;
+    [SerializeField] private float drillingTime = 2f;
     [SerializeField] private Transform drillModel;
-    [SerializeField] private GameObject asteroidGameObject;
+    [SerializeField] private GameObject sliderCanvasPrefab;
+    private Slider timerSlider;
 
     private bool isDrilling = false;
+    private bool isDrillingFinished = false;
     private float currentDrillingTime = 0f;
-    private Coroutine drillingCoroutine;
-    private Slider timerSlider;
 
     protected override void Awake()
     {
         base.Awake();
-        // Create the timer slider
-        CreateTimerSlider();
-    }
+        // Ensure that the sliderCanvasPrefab reference is not null
+        if (sliderCanvasPrefab == null)
+        {
+            Debug.LogError("Slider Canvas Prefab reference is not set.");
+            enabled = false; // Disable the script to prevent errors
+            return;
+        }
 
-    private void CreateTimerSlider()
-    {
-        // Create a canvas if one doesn't exist
-        GameObject canvasObject = new GameObject("SliderCanvas");
-        canvasObject.AddComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
-        canvasObject.AddComponent<CanvasScaler>();
-        canvasObject.AddComponent<GraphicRaycaster>();
-        canvasObject.tag = "Slider";
-        canvasObject.layer = 5;
-
-        // Create the slider GameObject
-        GameObject sliderObject = new GameObject("TimerSlider");
-        sliderObject.transform.SetParent(canvasObject.transform);
-
-        // Add Slider component
-        timerSlider = sliderObject.AddComponent<Slider>();
-
-        // Set slider properties
-        timerSlider.minValue = 0f;
-        timerSlider.maxValue = 1f;
-        timerSlider.value = 0f;
-
-        // Set slider position and size
-        RectTransform rectTransform = timerSlider.GetComponent<RectTransform>();
-        rectTransform.sizeDelta = new Vector2(200f, 20f);
-        rectTransform.anchoredPosition = new Vector2(0f, 0f);
-
-        // Add slider background
-        GameObject background = new GameObject("Background");
-        background.transform.SetParent(sliderObject.transform);
-        Image backgroundImage = background.AddComponent<Image>();
-        backgroundImage.color = Color.gray;
-
-        // Add slider fill area
-        GameObject fillArea = new GameObject("Fill Area");
-        fillArea.transform.SetParent(sliderObject.transform);
-        RectTransform fillAreaTransform = fillArea.AddComponent<RectTransform>();
-        fillAreaTransform.anchorMin = new Vector2(0f, 0f);
-        fillAreaTransform.anchorMax = new Vector2(1f, 1f);
-        fillAreaTransform.sizeDelta = Vector2.zero;
-
-        // Add fill
-        GameObject fill = new GameObject("Fill");
-        fill.transform.SetParent(fillArea.transform);
-        Image fillImage = fill.AddComponent<Image>();
-        fillImage.color = Color.green;
-
-        // Hide the timer slider initially
-        timerSlider.gameObject.SetActive(false);
+        // Instantiate the Slider Canvas as a child of the player
+        GameObject sliderCanvasInstance = Instantiate(sliderCanvasPrefab, transform);
+        // Find the Slider component in the instantiated canvas
+        timerSlider = sliderCanvasInstance.GetComponentInChildren<Slider>();
+        if (timerSlider != null)
+        {
+            // Hide the slider initially
+            timerSlider.gameObject.SetActive(false);
+        }
+        else
+        {
+            Debug.LogError("Slider component not found in the Slider Canvas prefab.");
+        }
     }
 
     private void Update()
@@ -98,7 +65,7 @@ public class Drill : Instrument
         timerSlider.gameObject.SetActive(true);
         isDrilling = true;
         // Start the drilling coroutine
-        drillingCoroutine = StartCoroutine(DrillingCoroutine());
+        StartCoroutine(DrillingCoroutine());
     }
 
     private void StopDrilling()
@@ -108,11 +75,6 @@ public class Drill : Instrument
         isDrilling = false;
         // Reset the drilling time
         currentDrillingTime = 0f;
-        // Stop the drilling coroutine if it's running
-        if (drillingCoroutine != null)
-        {
-            StopCoroutine(drillingCoroutine);
-        }
     }
 
     private IEnumerator DrillingCoroutine()
@@ -126,17 +88,11 @@ public class Drill : Instrument
             // If drilling time exceeds the total drilling time, break the asteroid
             if (currentDrillingTime >= drillingTime)
             {
-                BreakAsteroid();
+                isDrillingFinished = true;
                 break;
             }
             yield return null;
         }
-    }
-
-    private void BreakAsteroid()
-    {
-        // Destroy the asteroid
-        Destroy(asteroidGameObject);
     }
 
     private void LateUpdate()
@@ -164,6 +120,20 @@ public class Drill : Instrument
         {
             // Start drilling when the drill comes into contact with the asteroid
             StartDrilling();
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        // Check if the collided object is an asteroid
+        if (other.CompareTag("Asteroid"))
+        {
+            // If drilling finished, destroy the asteroid
+            if (isDrillingFinished)
+            {
+                Destroy(other.gameObject);
+                isDrillingFinished = false; // Reset flag
+            }
         }
     }
 
