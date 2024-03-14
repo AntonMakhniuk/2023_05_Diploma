@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Miscellaneous;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,14 +10,15 @@ namespace Production.Challenges.General.Rod_Positioning
     {
         private float _safeRangeCentre;
         private GenRodPositioning _parentPositioningChallenge;
+        private RodPositioningConfig _config;
         
-        public LeverDangerZoneType dangerZoneType;
-        public float safeRangeStart;
-        public float safeRangeEnd;
-        public float dangerZoneSingleStart;
-        public float dangerZoneBothStart;
-        public float currentPosition;
-        public RodPositioningConfig config;
+        [HideInInspector] public LeverDangerZoneType dangerZoneType;
+        [HideInInspector] public float safeRangeStart;
+        [HideInInspector] public float safeRangeEnd;
+        [HideInInspector] public float dangerZoneSingleStart;
+        [HideInInspector] public float dangerZoneBothStart;
+        [HideInInspector] public float currentPosition;
+        [HideInInspector] public bool isInteractable;
 
         private void Start()
         {
@@ -27,7 +29,7 @@ namespace Production.Challenges.General.Rod_Positioning
                 throw new Exception("RodLever object has been instantiated outside of GenRodPositioning");
             }
 
-            config = _parentPositioningChallenge.Config;
+            _config = _parentPositioningChallenge.Config;
 
             dangerZoneType = Utility.GetRandomEnum<LeverDangerZoneType>();
 
@@ -35,38 +37,38 @@ namespace Production.Challenges.General.Rod_Positioning
             {
                 case LeverDangerZoneType.TopOnly:
                 {
-                    safeRangeStart = config.minRangeValue;
-                    safeRangeEnd = Random.Range(config.minSafeRangeSize, config.maxSafeRangeSize);
+                    safeRangeStart = _config.minRangeValue;
+                    safeRangeEnd = Random.Range(_config.minSafeRangeSize, _config.maxSafeRangeSize);
 
                     dangerZoneSingleStart = safeRangeEnd +
-                                             Random.Range(config.warningRangeMinForSingle,
-                                                 config.warningRangeMaxForSingle);
+                                             Random.Range(_config.warningRangeMinForSingle,
+                                                 _config.warningRangeMaxForSingle);
                     
                     break;
                 }
                 case LeverDangerZoneType.BottomOnly:
                 {
-                    safeRangeStart = config.maxRangeValue - Random.Range(config.minSafeRangeSize, config.maxSafeRangeSize);
-                    safeRangeEnd = config.maxRangeValue;
+                    safeRangeStart = _config.maxRangeValue - Random.Range(_config.minSafeRangeSize, _config.maxSafeRangeSize);
+                    safeRangeEnd = _config.maxRangeValue;
                     
                     dangerZoneSingleStart = safeRangeStart -
-                                             Random.Range(config.warningRangeMinForSingle,
-                                                 config.warningRangeMaxForSingle);
+                                             Random.Range(_config.warningRangeMinForSingle,
+                                                 _config.warningRangeMaxForSingle);
 
                     break;
                 }
                 case LeverDangerZoneType.Both:
                 {
-                    float safeRangeSize = Random.Range(config.minSafeRangeSize, config.maxSafeRangeSize);
+                    float safeRangeSize = Random.Range(_config.minSafeRangeSize, _config.maxSafeRangeSize);
                     float topWarningRange = 
-                        Random.Range(config.warningRangeMinForBoth, config.warningRangeMaxForBoth);
+                        Random.Range(_config.warningRangeMinForBoth, _config.warningRangeMaxForBoth);
                     float bottomWarningRange = 
-                        Random.Range(config.warningRangeMinForBoth, config.warningRangeMaxForBoth);
+                        Random.Range(_config.warningRangeMinForBoth, _config.warningRangeMaxForBoth);
                     float totalNonDangerRange = bottomWarningRange + safeRangeSize + topWarningRange;
-                    float totalFreeDangerRange = 1f - totalNonDangerRange - 2 * config.minDangerRangeSize;
+                    float totalFreeDangerRange = 1f - totalNonDangerRange - 2 * _config.minDangerRangeSize;
                     float dangerRangeSplit = Random.Range(0, totalFreeDangerRange);
-                    float bottomDangerSize = config.minDangerRangeSize + dangerRangeSplit;
-                    float topDangerSize = config.minDangerRangeSize + totalFreeDangerRange - dangerRangeSplit;
+                    float bottomDangerSize = _config.minDangerRangeSize + dangerRangeSplit;
+                    float topDangerSize = _config.minDangerRangeSize + totalFreeDangerRange - dangerRangeSplit;
 
                     dangerZoneSingleStart = bottomDangerSize;
                     safeRangeStart = dangerZoneSingleStart + bottomWarningRange;
@@ -81,13 +83,12 @@ namespace Production.Challenges.General.Rod_Positioning
 
             _safeRangeCentre = safeRangeStart + (safeRangeEnd - +safeRangeStart) / 2;
             currentPosition = Random.Range(safeRangeStart, safeRangeEnd);
+            isInteractable = true;
         }
-        
-        private bool _isBeingReset;
         
         public void UpdateCurrentPosition()
         {
-            if (_isBeingReset)
+            if (!isInteractable)
             {
                 return;
             }
@@ -96,13 +97,13 @@ namespace Production.Challenges.General.Rod_Positioning
             {
                 case LeverDangerZoneType.BottomOnly:
                 {
-                    currentPosition -= Random.Range(0, config.maxStepLength);
+                    currentPosition -= Random.Range(0, _config.maxStepLength);
                     
                     break;
                 }
                 case LeverDangerZoneType.TopOnly:
                 {
-                    currentPosition += Random.Range(0, config.maxStepLength);
+                    currentPosition += Random.Range(0, _config.maxStepLength);
 
                     break;
                 }
@@ -110,11 +111,11 @@ namespace Production.Challenges.General.Rod_Positioning
                 {
                     if (currentPosition >= _safeRangeCentre)
                     {
-                        currentPosition += Random.Range(0, config.maxStepLength);
+                        currentPosition += Random.Range(0, _config.maxStepLength);
                     }
                     else
                     {
-                        currentPosition -= Random.Range(0, config.maxStepLength);
+                        currentPosition -= Random.Range(0, _config.maxStepLength);
                     }
 
                     break;
@@ -195,7 +196,7 @@ namespace Production.Challenges.General.Rod_Positioning
 
         public void ChangeCurrentPosition(float newPosition)
         {
-            if (_isBeingReset)
+            if (!isInteractable)
             {
                 return;
             }
@@ -205,23 +206,26 @@ namespace Production.Challenges.General.Rod_Positioning
 
         public IEnumerator ResetLever()
         {
-            _isBeingReset = true;
+            isInteractable = false;
             
-            float currentTime = 0f;
+            float startTime = Time.time;
+            float elapsedTime = 0f;
             float positionAtReset = currentPosition;
 
-            while (currentTime < config.resetWaitingTime)
+            while (elapsedTime < _config.resetWaitingTime)
             {
-                float t = currentTime / config.resetWaitingTime;
+                float t = elapsedTime / _config.resetWaitingTime;
 
                 currentPosition = Mathf.Lerp(positionAtReset, _safeRangeCentre, t);
 
-                currentTime += Time.deltaTime;
+                elapsedTime = Time.time - startTime;
+                
+                yield return null;
             }
 
-            _isBeingReset = false;
+            currentPosition = _safeRangeCentre;
             
-            yield return null;
+            isInteractable = true;
         }
     }
 
