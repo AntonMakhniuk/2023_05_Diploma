@@ -10,11 +10,16 @@ namespace Production.Challenges.General
     public abstract class GeneralBase<TConfig> : MonoBehaviour, IGeneralChallenge where TConfig : GeneralConfigBase
     {
         [SerializeField] protected TConfig[] configs;
-
+        [SerializeField] protected GeneralType challengeType;
+        
         private ProductionSessionManager _sessionManager;
         private Difficulty _difficulty;
         
         public TConfig Config { get; private set; }
+        public float updateRate = 0.03333f;
+        
+        protected bool UpdateIsPaused;
+        private bool _isBeingReset;
 
         protected virtual void Start()
         {
@@ -43,111 +48,88 @@ namespace Production.Challenges.General
             {
                 throw new Exception($"No config available for {GetType().Name}. Cannot start challenge.");
             }
+            
+            InvokeRepeating(nameof(UpdateChallenge), 0, updateRate);
         }
-
-        private bool _isBeingReset;
-        protected bool UpdateLogicIsPaused;
         
-        private void FixedUpdate()
+        private void UpdateChallenge()
         {
             if (_isBeingReset)
             {
                 return;
             }
             
-            HandlePerformanceConditionsCheck();
+            CheckFailConditions();
+            CheckWarningConditions();
 
-            if (UpdateLogicIsPaused)
+            if (UpdateIsPaused)
             {
                 return;
             }
             
-            HandleUpdateLogic();
+            UpdateChallengeElements();
         }
 
-        private void OnDestroy()
-        {
-            StopAllCoroutines();
-        }
-        
-        private bool _warningConditionsMet;
-        private bool _failConditionsMet;
-        private bool _isWarning;
-        
-        private void HandlePerformanceConditionsCheck()
-        {
-            _warningConditionsMet = CheckWarningConditions();
-            _failConditionsMet = CheckFailConditions();
+        public delegate void GeneralElementEventHandler(int numberOfFails, GeneralType generalType);
 
-            if (_failConditionsMet)
+        public event GeneralElementEventHandler OnGeneralElementFail;
+        
+        private void CheckFailConditions()
+        {
+            int numOfFails = GetNumberOfFails();
+            
+            if (numOfFails >= Config.failThreshold)
             {
                 Fail();
             }
-            else if (!_isWarning && _warningConditionsMet)
-            {
-                StartWarning();
-            }
-            else if (_isWarning && !_warningConditionsMet)
-            {
-                StopWarning();
-            }
-        }
 
-        protected abstract void HandleUpdateLogic();
+            OnGeneralElementFail?.Invoke(numOfFails, challengeType);
+        }
         
-        protected abstract bool CheckWarningConditions();
+        protected abstract int GetNumberOfFails();
         
-        protected abstract bool CheckFailConditions();
-
-        private void StartWarning()
-        {
-            _isWarning = true;
-            
-            HandleWarningStart();
-        }
-
-        protected abstract void HandleWarningStart();
-
-        private void StopWarning()
-        {
-            _isWarning = false;
-            
-            HandleWarningStop();
-        }
-
-        protected abstract void HandleWarningStop();
-     
         public delegate void GeneralFailHandler();
         public event GeneralFailHandler OnGeneralFail;
-
-
+        public event EventHandler OnGeneralReset;
+        
         private void Fail()
         {
             OnGeneralFail?.Invoke();
             
+            _isBeingReset = true;
+            
             StartCoroutine(ResetCoroutine());
         }
-        
-        // TODO: Fix issue where reset logic can be executed for longer than the resetWaitingTime
-        
+
         private IEnumerator ResetCoroutine()
         {
-            _isBeingReset = true;
+            yield return StartCoroutine(ResetLogicCoroutine());
 
-            yield return HandleResetLogic();
+            OnGeneralReset?.Invoke(this, EventArgs.Empty);
             
             _isBeingReset = false;
         }
 
-        protected abstract IEnumerator HandleResetLogic();
+        protected abstract IEnumerator ResetLogicCoroutine();
+
+        public event GeneralElementEventHandler OnGeneralElementWarning;
+        
+        private void CheckWarningConditions()
+        {
+            OnGeneralElementWarning?.Invoke(GetNumberOfWarnings(), challengeType);
+        }
+        
+        protected abstract int GetNumberOfWarnings();
+        
+        protected abstract void UpdateChallengeElements();
 
         protected IEnumerator PauseUpdateForSeconds(float timeInSeconds)
         {
-            UpdateLogicIsPaused = true;
+            UpdateIsPaused = true;
             
             yield return new WaitForSeconds(timeInSeconds);
 
-            UpdateLogicIsPaused = false;
+            UpdateIsPaused = false;
         }
         
         private static GeneralFailHandler CreateFailHandlerDelegate(Action onFailMethod)
@@ -164,11 +146,21 @@ namespace Production.Challenges.General
         {
             OnGeneralFail -= CreateFailHandlerDelegate(onFailMethod);
         }
+        
+        private void OnDestroy()
+        {
+            StopAllCoroutines();
+        }
     }
 
     public interface IGeneralChallenge
     {
         void SubscribeToOnGeneralFail(Action onFailMethod);
         void UnsubscribeFromOnGeneralFail(Action onFailMethod);
+    }
+
+    public enum GeneralType
+    {
+        Temperature, RodPositioning, AirlockJam, CoreSegmentation
     }
 }
