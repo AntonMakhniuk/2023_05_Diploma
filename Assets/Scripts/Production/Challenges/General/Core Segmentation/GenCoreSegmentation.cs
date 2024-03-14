@@ -10,11 +10,16 @@ namespace Production.Challenges.General.Core_Segmentation
     public class GenCoreSegmentation : GeneralBase<CoreSegmentationConfig>
     {
         public float failZoneRadius;
+        public float stabilizerOrbitRadius;
         
+        [HideInInspector] public Stabilizer stabilizer;
         [HideInInspector] public float warningZoneRadiusScaled;
         [HideInInspector] public float failZoneRadiusScaled;
         
         [SerializeField] private GameObject segmentPrefab;
+        [SerializeField] private GameObject stabilizerPrefab;
+        
+        public GameObject childCanvas;
         
         private List<CoreSegment> _allSegments;
         private List<CoreSegment> _stableSegments;
@@ -34,13 +39,14 @@ namespace Production.Challenges.General.Core_Segmentation
             _unstableSegments = new List<CoreSegment>();
             _warningSegments = new List<CoreSegment>();
             
-            InstantiateSegments();
+            InstantiateElements();
             
             foreach (var segment in _allSegments)
             {
                 segment.OnSegmentEnteredFailZone += MarkSegmentAsUnstable;
                 segment.OnSegmentEnteredWarningZone += MarkSegmentAsWarning;
-                segment.OnSegmentEnteredSafeZone += MarkSegmentAsStable;
+                segment.OnSegmentLeftCenter += MarkSegmentAsLeftCenter;
+                segment.OnSegmentEnteredCenter += MarkSegmentEnteredCenter;
             }
 
             _stableSegments = new List<CoreSegment>(_allSegments);
@@ -56,13 +62,6 @@ namespace Production.Challenges.General.Core_Segmentation
             _unstableSegments.Add(segment);
         }
         
-        private void MarkSegmentAsStable(object sender, CoreSegment segment)
-        {
-            _stableSegments.Add(segment);
-            _warningSegments.Remove(segment);
-            _unstableSegments.Remove(segment);
-        }
-
         private void MarkSegmentAsWarning(object sender, CoreSegment segment)
         {
             _stableSegments.Remove(segment);
@@ -70,9 +69,23 @@ namespace Production.Challenges.General.Core_Segmentation
             _unstableSegments.Remove(segment);
         }
         
-        private void InstantiateSegments()
+        private void MarkSegmentAsLeftCenter(object sender, CoreSegment segment)
         {
-            var parentTransform = transform;
+            _stableSegments.Remove(segment);
+            _warningSegments.Remove(segment);
+            _unstableSegments.Remove(segment);
+        }
+        
+        private void MarkSegmentEnteredCenter(object sender, CoreSegment segment)
+        {
+            _stableSegments.Add(segment);
+            _warningSegments.Remove(segment);
+            _unstableSegments.Remove(segment);
+        }
+        
+        private void InstantiateElements()
+        {
+            var canvasTransform = childCanvas.transform;
             var rotation = segmentPrefab.transform.rotation;
             
             for (int i = 0; i < Config.numOfSegments; i++)
@@ -80,73 +93,75 @@ namespace Production.Challenges.General.Core_Segmentation
                 var newSegment = Instantiate
                 (
                     segmentPrefab,
-                    parentTransform.position,
+                    canvasTransform.position,
                     rotation * Quaternion.Euler(0, 0, 360f / Config.numOfSegments * i),
-                    parentTransform
+                    canvasTransform
                 );
                 
                 _allSegments.Add(newSegment.GetComponent<CoreSegment>());
             }
+
+            var stabilizerObject = Instantiate
+            (
+                stabilizerPrefab,
+                canvasTransform.position + new Vector3(0, stabilizerOrbitRadius, 0),
+                rotation,
+                canvasTransform
+            );
+
+            stabilizer = stabilizerObject.GetComponent<Stabilizer>();
         }
         
-        protected override bool CheckWarningConditions()
+        protected override int GetNumberOfWarnings()
         {
-            return _warningSegments.Count >= Config.warningThreshold;
+            return _warningSegments.Count;
         }
         
-        protected override bool CheckFailConditions()
+        protected override int GetNumberOfFails()
         {
-            return _unstableSegments.Count >= Config.failThreshold;
+            return _unstableSegments.Count;
         }
-        
-        protected override void HandleUpdateLogic()
+
+        protected override void UpdateChallengeElements()
         {
-            StartCoroutine(DestabilizeSegments());
+                StartCoroutine(DestabilizeSegments());
         }
 
         private IEnumerator DestabilizeSegments()
         {
-            UpdateLogicIsPaused = true;
+            UpdateIsPaused = true;
             
             int numOfDestabilizations = Random.Range(Config.minDestabilizationCount, Config.maxDestabilizationCount);
             
             for (int i = 0; i < numOfDestabilizations; i++)
             {
+                if (_stableSegments.Count == 0)
+                {
+                    break;
+                }
+                
                 var nextSegment = _stableSegments[Random.Range(0, _stableSegments.Count)];
+                
+                _stableSegments.Remove(nextSegment);
+                
                 nextSegment.InterruptAndMoveOut(Config.destabilizationTravelTime);
             }
             
             yield return new WaitForSeconds(Random.Range(Config.minDisableCooldown, Config.maxDisableCooldown));
-            
-            UpdateLogicIsPaused = false;
-        }
-        
-        public event EventHandler OnCoreSegmentationAboveWarningThreshold;
-        
-        protected override void HandleWarningStart()
-        {
-            OnCoreSegmentationAboveWarningThreshold?.Invoke(this, null);
-        }
 
-        public event EventHandler OnCoreSegmentationBelowWarningThreshold;
-        
-        protected override void HandleWarningStop()
-        {
-            OnCoreSegmentationBelowWarningThreshold?.Invoke(this, null);
+            UpdateIsPaused = false;
         }
         
-        protected override IEnumerator HandleResetLogic()
+        protected override IEnumerator ResetLogicCoroutine()
         {
-            UpdateLogicIsPaused = false;
-            
-            StopAllCoroutines();
-            
             foreach (var segment in _allSegments)
             {
-                yield return StartCoroutine(segment.MoveOutAndBackForReset());
+                StartCoroutine(segment.MoveOutAndBack());
             }
 
-            UpdateLogicIsPaused = true;
+            StartCoroutine(stabilizer.SpeedUpAndReset(Config.resetWaitingTime * 2));
+
+            yield return new WaitForSeconds(Config.resetWaitingTime * 2);
         }
     }
 

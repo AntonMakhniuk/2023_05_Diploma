@@ -40,6 +40,12 @@ namespace Production.Challenges.General.Core_Segmentation
                     
                     break;
                 }
+                case ZoneType.StabilizerOrbit:
+                {
+                    GeneratePoints(segmentationChallenge.stabilizerOrbitRadius);
+
+                    break;
+                }
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -65,6 +71,6 @@ namespace Production.Challenges.General.Core_Segmentation
 
     enum ZoneType
     {
-        Warning, Fail
+        Warning, Fail, StabilizerOrbit
     }
 }

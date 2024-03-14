@@ -7,12 +7,13 @@ namespace Production.Challenges.General.Core_Segmentation
 {
     public class CoreSegment : MonoBehaviour
     {
-        [SerializeField] private Transform edgePointTransform;
+        private SegmentState _currentState;
+        
+        public Transform edgePointTransform;
         
         private GenCoreSegmentation _segmentationChallenge;
         private Transform _transform;
-        private Vector3 _basePosition;
-        private SegmentState _currentState;
+        private Vector3 _centerPosition;
         private Coroutine _travelCoroutine;
 
         private void Start()
@@ -26,44 +27,62 @@ namespace Production.Challenges.General.Core_Segmentation
             }
             
             _transform = transform;
-            _basePosition = _transform.position;
+            _centerPosition = _transform.position;
             _currentState = SegmentState.Stable;
             
-            InvokeRepeating(nameof(HandleStateChecks), 0, 0.1f);
+            InvokeRepeating(nameof(HandleStateChecks), 0, _segmentationChallenge.updateRate);
         }
-        
-        public event EventHandler<CoreSegment> OnSegmentEnteredFailZone;
-        public event EventHandler<CoreSegment> OnSegmentEnteredWarningZone;
-        public event EventHandler<CoreSegment> OnSegmentEnteredSafeZone;
+
+        public event EventHandler<CoreSegment> OnSegmentEnteredFailZone,
+            OnSegmentEnteredWarningZone,
+            OnSegmentLeftCenter,
+            OnSegmentEnteredCenter;
         
         private void HandleStateChecks()
         {
-            float distanceFromBase = Vector3.Distance(_basePosition, edgePointTransform.position);
+            float distanceFromBase = Vector3.Distance(_centerPosition, edgePointTransform.position);
 
-            if (distanceFromBase >= _segmentationChallenge.failZoneRadiusScaled
-                && _currentState != SegmentState.Unstable)
+            if (_currentState != SegmentState.Unstable
+                && distanceFromBase >= _segmentationChallenge.failZoneRadiusScaled)
             {
                 OnSegmentEnteredFailZone?.Invoke(this, this);
 
                 _currentState = SegmentState.Unstable;
+                
+                Debug.Log("Unstable");
             }
-            else if (distanceFromBase >= _segmentationChallenge.warningZoneRadiusScaled
-                     && _currentState != SegmentState.Warning)
+            else if (_currentState != SegmentState.Warning
+                     && distanceFromBase < _segmentationChallenge.failZoneRadiusScaled
+                     && distanceFromBase >= _segmentationChallenge.warningZoneRadiusScaled)
             {
                 OnSegmentEnteredWarningZone?.Invoke(this, this);
 
                 _currentState = SegmentState.Warning;
+                
+                Debug.Log("Warning");
             }
-            else if (distanceFromBase < _segmentationChallenge.warningZoneRadiusScaled
-                     && _currentState != SegmentState.Stable)
+            else if (_currentState != SegmentState.LeavingCenter
+                     && distanceFromBase < _segmentationChallenge.warningZoneRadiusScaled
+                     && transform.position != _centerPosition)
             {
-                OnSegmentEnteredSafeZone?.Invoke(this, this);
+                OnSegmentLeftCenter?.Invoke(this, this);
+                
+                _currentState = SegmentState.LeavingCenter;
+                
+                Debug.Log("Leaving Center");
+            }
+            else if (_currentState != SegmentState.Stable
+                     && transform.position == _centerPosition)
+            {
+                OnSegmentEnteredCenter?.Invoke(this, this);
                 
                 _currentState = SegmentState.Stable;
+                
+                Debug.Log("Stable");
             }
         }
 
-        public IEnumerator MoveOutAndBackForReset()
+        public IEnumerator MoveOutAndBack()
         {
             InterruptAndMoveOut(_segmentationChallenge.Config.resetTravelTime);
 
@@ -88,23 +107,25 @@ namespace Production.Challenges.General.Core_Segmentation
             
             Vector3 direction = new Vector3(Mathf.Cos(angleInRadians), Mathf.Sin(angleInRadians), 0f);
             
-            // Multiplied by 0.75f in order to make the pieces not fly all the way beyond the rim,
-            // and by the localScale in order to account for the difference in aspect ratios
-            Vector3 newPosition = _basePosition + direction * (_segmentationChallenge.failZoneRadiusScaled * 0.75f);
+            Vector3 newPosition = _centerPosition + direction 
+                * (_segmentationChallenge.failZoneRadiusScaled 
+                   - Vector3.Distance(edgePointTransform.position, _transform.position) * 0.8f);
             
             _travelCoroutine = StartCoroutine(TravelCoroutine(newPosition, timeToTravel));
         }
 
-        private void InterruptAndPutBack(float timeToTravel)
+        public void InterruptAndPutBack(float timeToTravel)
         {
             if (_travelCoroutine != null)
             {
                 StopCoroutine(_travelCoroutine);
             }
             
-            _travelCoroutine = StartCoroutine(TravelCoroutine(_basePosition, timeToTravel));
+            _travelCoroutine = StartCoroutine(TravelCoroutine(_centerPosition, timeToTravel));
         }
         
+        
+        // TODO: use utility version
         private IEnumerator TravelCoroutine(Vector3 newPosition, float timeToTravel)
         {
             float startTime = Time.time;
@@ -128,6 +149,6 @@ namespace Production.Challenges.General.Core_Segmentation
 
     public enum SegmentState
     {
-        Unstable, Warning, Stable
+        Unstable, Warning, Stable, LeavingCenter
     }
 }
