@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -12,41 +13,16 @@ namespace Production.Challenges.General.Airlock_Jam
         [SerializeField] private GridLayoutGroup buttonGrid;
         [SerializeField] private GameObject buttonPrefab;
         
-        private List<AirlockButton> _allButtons;
-        private List<AirlockButton> _enabledButtons;
-        private List<AirlockButton> _disabledButtons;
+        private readonly List<AirlockButton> _allButtons = new();
 
         protected override void Start()
         {
             base.Start();
-
-            _allButtons = new List<AirlockButton>();
-            _disabledButtons = new List<AirlockButton>();
             
             InstantiateButtons();
 
-            foreach (var airlockButton in _allButtons)
-            {
-                airlockButton.OnButtonTurnedOff += ChangeButtonStatusToOff;
-                airlockButton.OnButtonTurnedOn += ChangeButtonStatusToOn;
-            }
-            
-            _enabledButtons = new List<AirlockButton>(_allButtons);
-
             // Added so that buttons don't get disabled as soon as the challenge starts
             StartCoroutine(PauseUpdateForSeconds(Config.disableCooldown));
-        }
-        
-        private void ChangeButtonStatusToOff(AirlockButton button)
-        {
-            _enabledButtons.Remove(button);
-            _disabledButtons.Add(button);
-        }
-
-        private void ChangeButtonStatusToOn(AirlockButton button)
-        {
-            _disabledButtons.Remove(button);
-            _enabledButtons.Add(button);
         }
         
         private void InstantiateButtons()
@@ -71,64 +47,52 @@ namespace Production.Challenges.General.Airlock_Jam
             }
         }
         
-        protected override bool CheckWarningConditions()
+        protected override int GetNumberOfWarnings()
         {
-            return _disabledButtons.Count >= Config.warningThreshold;
+            return _allButtons.Count(b => b.isTurnedOn == false);
         }
 
-        protected override bool CheckFailConditions()
+        // As there is no middle state for buttons, in this challenge
+        // the count of disabled ones goes for both warnings and fails
+        protected override int GetNumberOfFails()
         {
-            return _disabledButtons.Count >= Config.failThreshold;
+            return _allButtons.Count(b => b.isTurnedOn == false);
         }
-        
-        protected override void HandleUpdateLogic()
+
+        protected override void UpdateChallengeElements()
         {
             StartCoroutine(DisableButtons());
         }
         
         private IEnumerator DisableButtons()
         {
-            UpdateLogicIsPaused = true;
+            UpdateIsPaused = true;
             
             int numberOfDisabledButtons =
                 Random.Range(Config.minDisabledButtonsPerTurn, Config.maxDisabledButtonsPerTurn);
+
+            int numberOfEnabledButtons = _allButtons.Count(b => b.isTurnedOn);
             
             for (int i = 0; i < numberOfDisabledButtons; i++)
             {
-                var chosenButton = _enabledButtons[Random.Range(0, _enabledButtons.Count)];
+                var enabledButtons = _allButtons.Where(b => b.isTurnedOn).ToList();
+                var chosenButton = enabledButtons[Random.Range(0, numberOfEnabledButtons--)];
                 chosenButton.TurnOffSilently();
-                _enabledButtons.Remove(chosenButton);
-                _disabledButtons.Add(chosenButton);
             }
 
             yield return new WaitForSeconds(Config.disableCooldown);
 
-            UpdateLogicIsPaused = false;
+            UpdateIsPaused = false;
         }
         
-        public event EventHandler OnAirlockJamAboveWarningThreshold;
-        
-        protected override void HandleWarningStart()
-        {
-            OnAirlockJamAboveWarningThreshold?.Invoke(this, null);
-        }
-
-        public event EventHandler OnAirlockJamBelowWarningThreshold;
-        
-        protected override void HandleWarningStop()
-        {
-            OnAirlockJamBelowWarningThreshold?.Invoke(this, null);
-        }
-        
-        protected override IEnumerator HandleResetLogic()
+        protected override IEnumerator ResetLogicCoroutine()
         {
             foreach (var airlockButton in _allButtons)
             {
-                yield return StartCoroutine(airlockButton.Blink(Config.singleBlinkTime, Config.totalBlinkCount));
+                StartCoroutine(airlockButton.Blink(Config.singleBlinkTime, Config.totalBlinkCount));
             }
-            
-            _disabledButtons.Clear();
-            _enabledButtons = new List<AirlockButton>(_allButtons);
+
+            yield return new WaitForSeconds(Config.singleBlinkTime * Config.totalBlinkCount);
         }
     }
 

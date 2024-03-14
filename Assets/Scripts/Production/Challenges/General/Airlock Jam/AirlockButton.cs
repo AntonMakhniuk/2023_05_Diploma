@@ -7,13 +7,14 @@ namespace Production.Challenges.General.Airlock_Jam
 {
     public class AirlockButton : MonoBehaviour
     {
+        public bool isTurnedOn = true;
+        
         // TODO: Change the visuals to more than just the color 
 
         [SerializeField] private Image assignedImage;
         
         // TODO: Link the necessary visuals to the script
         
-        private bool _isTurnedOn = true;
         private bool _isInteractable = true;
         private GenAirlockJam _airlockJam;
 
@@ -35,9 +36,6 @@ namespace Production.Challenges.General.Airlock_Jam
         // disabling of the buttons can be done without playing a sound or an
         // animation to the player, to avoid overloading the senses
 
-        public delegate void ButtonStatusHandler(AirlockButton button);
-        public event ButtonStatusHandler OnButtonTurnedOff;
-
         // TODO: fix this darn structure
         
         public void ChangeState()
@@ -47,20 +45,13 @@ namespace Production.Challenges.General.Airlock_Jam
                 return;
             }
             
-            switch (_isTurnedOn)
+            if (isTurnedOn)
             {
-                case true:
-                {
-                    TurnOff();
-                    
-                    break;
-                }
-                case false:
-                {
-                    TurnOn();
-
-                    break;
-                }
+                TurnOff();
+            }
+            else
+            {
+                TurnOn();
             }
         }
         
@@ -68,46 +59,40 @@ namespace Production.Challenges.General.Airlock_Jam
         {
             // TODO: Implement animations and sound
             
-            if (!_isTurnedOn || !_isInteractable)
+            if (!isTurnedOn || !_isInteractable)
             {
                 return;
             }
             
             TurnOffSilently();
-            
-            OnButtonTurnedOff?.Invoke(this);
         }
         
         public void TurnOffSilently()
         {
             // TODO: Implement visual turning off
             
-            _isTurnedOn = false;
+            isTurnedOn = false;
             
             assignedImage.color = offColor;
         }
-
-        public event ButtonStatusHandler OnButtonTurnedOn;
         
         public void TurnOn()
         {
             // TODO: Implement animations and sound
 
-            if (_isTurnedOn || !_isInteractable)
+            if (isTurnedOn || !_isInteractable)
             {
                 return;
             }
             
             TurnOnSilently();
-            
-            OnButtonTurnedOn?.Invoke(this);
         }
 
         public void TurnOnSilently()
         {
             // TODO: Implement visual turning on
 
-            _isTurnedOn = true;
+            isTurnedOn = true;
             
             assignedImage.color = onColor;
         }
@@ -115,6 +100,8 @@ namespace Production.Challenges.General.Airlock_Jam
         public IEnumerator Blink(float timePerBlink, int totalBlinkCount)
         {
             _isInteractable = false;
+            
+            // TODO: the phase lengths are unequal?
             
            var currentBlinkCount = 0;
             
@@ -126,17 +113,17 @@ namespace Production.Challenges.General.Airlock_Jam
                 {
                     float currentTime = Time.time - startTime;
                     
-                    if (currentTime < timePerBlink / 3 && _isTurnedOn)
+                    if (currentTime < timePerBlink / 3 && isTurnedOn)
                     {
                         TurnOffSilently();
                     }
                     else if (currentTime >= timePerBlink / 3 && 
                              currentTime < timePerBlink / 3 * 2 && 
-                             !_isTurnedOn)
+                             !isTurnedOn)
                     {
                         TurnOnSilently();
                     }
-                    else if (currentTime >= timePerBlink / 3 * 2 && _isTurnedOn)
+                    else if (currentTime >= timePerBlink / 3 * 2 && isTurnedOn)
                     {
                         TurnOffSilently();
                     }
@@ -150,8 +137,6 @@ namespace Production.Challenges.General.Airlock_Jam
             TurnOnSilently();
 
             _isInteractable = true;
-            
-            yield return null;
         }
     }
 }
