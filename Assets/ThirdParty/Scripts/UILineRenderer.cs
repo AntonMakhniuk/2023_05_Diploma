@@ -90,5 +90,10 @@ namespace ThirdParty.Scripts
         {
             return Mathf.Atan2(target.y - vertex.y, target.x - vertex.x) * (180 / Mathf.PI);
         }
+
+        public void ForceRedraw()
+        {
+            SetVerticesDirty();
+        }
 }
 }
