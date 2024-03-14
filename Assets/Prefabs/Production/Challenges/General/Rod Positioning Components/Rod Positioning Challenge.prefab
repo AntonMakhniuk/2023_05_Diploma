@@ -37,9 +37,9 @@ RectTransform:
   - {fileID: 5189083593735655348}
   m_Father: {fileID: 8171507951013095717}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 48, y: 414}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!223 &1087963294842313255
@@ -115,7 +115,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8171507951013095717}
   - component: {fileID: 4203950949890733759}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Rod Positioning Challenge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,15 +132,15 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8970346297572908092}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -863, y: 298}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchorMin: {x: 0, y: 0.35}
+  m_AnchorMax: {x: 0, y: 0.35}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4203950949890733759
 MonoBehaviour:
@@ -163,13 +163,15 @@ MonoBehaviour:
     minRangeValue: 0
     minSafeRangeSize: 0.1
     maxSafeRangeSize: 0.2
-    minDangerRangeSize: 0.1
-    warningRangeMinForSingle: 0.2
-    warningRangeMaxForSingle: 0.4
-    warningRangeMinForBoth: 0.1
-    warningRangeMaxForBoth: 0.2
-    maxStepLength: 0.001
+    minDangerRangeSize: 0.05
+    warningRangeMinForSingle: 0.35
+    warningRangeMaxForSingle: 0.6
+    warningRangeMinForBoth: 0.15
+    warningRangeMaxForBoth: 0.35
+    maxStepLength: 0.0005
     leverQuantity: 4
+  challengeType: 1
+  updateRate: 0.03333
   levers:
   - {fileID: 1501726535575229683}
   - {fileID: 1972853699214642933}

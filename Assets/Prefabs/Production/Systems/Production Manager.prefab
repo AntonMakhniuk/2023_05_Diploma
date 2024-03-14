@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7864775786076954737}
   - component: {fileID: 50544358898024590}
-  - component: {fileID: 7050452295854582066}
-  - component: {fileID: 708467380834274718}
-  - component: {fileID: 4340080164037561892}
+  - component: {fileID: -2017889227278904842}
+  - component: {fileID: 421981588241053705}
+  - component: {fileID: 4860236369558343846}
   m_Layer: 0
   m_Name: Production Manager
   m_TagString: Untagged
@@ -29,17 +29,17 @@ RectTransform:
   m_GameObject: {fileID: 792829121781111128}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3884231399657091554}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &50544358898024590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,8 +58,10 @@ MonoBehaviour:
   - difficulty: 1
     minGeneralChallengesInSession: 2
     maxGeneralChallengesInSession: 4
-  hardcodedRecipe: {fileID: 0}
---- !u!223 &7050452295854582066
+  onProductionStarted:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!223 &-2017889227278904842
 Canvas:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -68,7 +70,7 @@ Canvas:
   m_GameObject: {fileID: 792829121781111128}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -82,7 +84,7 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &708467380834274718
+--- !u!114 &421981588241053705
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -105,7 +107,7 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 0
---- !u!114 &4340080164037561892
+--- !u!114 &4860236369558343846
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

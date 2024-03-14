@@ -318,9 +318,9 @@ RectTransform:
   - {fileID: 3226041960440219908}
   m_Father: {fileID: 7002557066495759800}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -49, y: 313}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!223 &1847962136987232565
@@ -572,7 +572,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -20, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &6024575847664676853
 GameObject:
@@ -607,11 +607,11 @@ RectTransform:
   - {fileID: 6993180760295206742}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 913, y: 149}
+  m_AnchorMin: {x: 1, y: 0.35}
+  m_AnchorMax: {x: 1, y: 0.35}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0}
 --- !u!114 &-1620824080652555867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -626,14 +626,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   configs:
   - difficulty: 1
-    resetWaitingTime: 0.2
-    warningThreshold: 400
-    failThreshold: 850
+    resetWaitingTime: 2
+    warningThreshold: 1
+    failThreshold: 1
     maxTemperature: 1000
+    failTemperature: 850
+    warningTemperature: 400
     minTemperature: 0
     baseTemperature: 200
     stepSize: 50
     growthSpeed: 40
+  challengeType: 0
+  updateRate: 0.03333
   currentTemperature: 0
 --- !u!114 &1005224347364677779
 MonoBehaviour:
@@ -916,6 +920,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -5, y: 0}
-  m_SizeDelta: {x: -20, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

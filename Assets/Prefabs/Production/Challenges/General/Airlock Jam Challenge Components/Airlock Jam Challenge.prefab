@@ -34,9 +34,9 @@ RectTransform:
   - {fileID: 7672951916276031367}
   m_Father: {fileID: 7002557066495759800}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -189, y: 189}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!223 &1847962136987232565
@@ -137,7 +137,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -139, y: -501}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 190, y: 190}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2911456470159149673
@@ -234,9 +234,9 @@ RectTransform:
   - {fileID: 6993180760295206742}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 912, y: 149}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &-2622679442471057238
@@ -262,5 +262,7 @@ MonoBehaviour:
     minDisabledButtonsPerTurn: 1
     maxDisabledButtonsPerTurn: 4
     disableCooldown: 2.5
+  challengeType: 2
+  updateRate: 0.03333
   buttonGrid: {fileID: 6186789464313890225}
   buttonPrefab: {fileID: 7304079430483837314, guid: 5820e3bc5b447544db63b51760e1b45e, type: 3}
