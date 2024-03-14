@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Miscellaneous;
 using ThirdParty.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,7 +22,7 @@ namespace Production.Challenges.General.Temperature
         {
             _config = associatedChallenge.Config;
 
-            associatedSlider.maxValue = _config.failThreshold;
+            associatedSlider.maxValue = _config.failTemperature;
             associatedSlider.minValue = _config.minTemperature;
             associatedSlider.value = _config.baseTemperature;
 
@@ -29,19 +30,21 @@ namespace Production.Challenges.General.Temperature
             
             colorKeys.Add(new CustomGradientKey(safeZoneColor, 0f));
             colorKeys.Add(new CustomGradientKey(safeZoneColor, 
-                (float)_config.warningThreshold / _config.maxTemperature));
+                (float)_config.warningTemperature / _config.maxTemperature));
             colorKeys.Add(new CustomGradientKey(warningZoneColor, 
-                (float)_config.warningThreshold / _config.maxTemperature + 0.001f));
+                (float)_config.warningTemperature / _config.maxTemperature + 0.001f));
             colorKeys.Add(new CustomGradientKey(warningZoneColor,
-                (float)_config.failThreshold / _config.maxTemperature));
+                (float)_config.failTemperature / _config.maxTemperature));
             colorKeys.Add(new CustomGradientKey(dangerZoneColor,
-                (float)_config.failThreshold / _config.maxTemperature + 0.001f));
+                (float)_config.failTemperature / _config.maxTemperature + 0.001f));
             colorKeys.Add(new CustomGradientKey(dangerZoneColor, 1f));
             
             Utility.CreateGradientSpriteAndApplyToSlider(associatedSlider, sliderBackground, colorKeys.ToArray());
+            
+            InvokeRepeating(nameof(UpdateSlider), 0, associatedChallenge.updateRate);
         }
 
-        private void FixedUpdate()
+        private void UpdateSlider()
         {
             associatedSlider.value = associatedChallenge.currentTemperature;
         }

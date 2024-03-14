@@ -16,36 +16,22 @@ namespace Production.Challenges.General.Temperature
             currentTemperature = Config.baseTemperature;
         }
         
-        protected override void HandleUpdateLogic()
+        protected override void UpdateChallengeElements()
         {
-            currentTemperature += Config.growthSpeed * Time.fixedDeltaTime;
+            currentTemperature += Config.growthSpeed * updateRate;
         }
 
-        protected override bool CheckWarningConditions()
+        protected override int GetNumberOfWarnings()
         {
-            return currentTemperature >= Config.warningThreshold;
+            return currentTemperature >= Config.warningTemperature ? 1 : 0;
         }
 
-        protected override bool CheckFailConditions()
+        protected override int GetNumberOfFails()
         {
-            return currentTemperature >= Config.failThreshold;
-        }
-        
-        public event EventHandler OnTemperatureAboveWarningThreshold;
-        
-        protected override void HandleWarningStart()
-        {
-            OnTemperatureAboveWarningThreshold?.Invoke(this, null);
-        }
-        
-        public event EventHandler OnTemperatureBelowWarningThreshold;
-        
-        protected override void HandleWarningStop()
-        {
-            OnTemperatureBelowWarningThreshold?.Invoke(this, null);
+            return currentTemperature >= Config.failTemperature ? 1 : 0;
         }
 
-        protected override IEnumerator HandleResetLogic()
+        protected override IEnumerator ResetLogicCoroutine()
         {
             float startTime = Time.time;
             float elapsedTime = 0f;
@@ -82,6 +68,8 @@ namespace Production.Challenges.General.Temperature
     public class TemperatureConfig : GeneralConfigBase
     {
         public int maxTemperature;
+        public int failTemperature;
+        public int warningTemperature;
         public int minTemperature;
         public int baseTemperature = 200;
         public float stepSize = 50;
