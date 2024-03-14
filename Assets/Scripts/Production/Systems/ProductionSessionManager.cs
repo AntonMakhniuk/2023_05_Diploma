@@ -16,12 +16,12 @@ namespace Production.Systems
         private GameObject[] _generalChallengePrefabs;
         private GameObject[] _resourceChallengePrefabs;
         
+        [HideInInspector] public int criticalFailCount;
+        
         public Difficulty Difficulty { get; private set; }
         public CraftingData CraftingData;
-        
-        private readonly int _maxCriticalFails = 3;
-        private int _criticalFailCount;
-        
+        public int maxCriticalFails = 3;
+
         // currently running instances of session-specific challenges
         private readonly List<GameObject> _generalChallengeInstances = new();
         private List<GameObject> _resourceChallengeInstances = new();
@@ -66,11 +66,11 @@ namespace Production.Systems
         
         private void AddCriticalFail()
         {
-            _criticalFailCount++;
+            criticalFailCount++;
             
-            OnCriticalFailReachedManager?.Invoke(this, _criticalFailCount);
+            OnCriticalFailReachedManager?.Invoke(this, criticalFailCount);
             
-            if (_criticalFailCount >= _maxCriticalFails)
+            if (criticalFailCount >= maxCriticalFails)
             {
                 FailProduction();
             }
@@ -89,16 +89,23 @@ namespace Production.Systems
         
         private void FailProduction()
         {
-            FinishProduction();
+            OnProductionFailed?.Invoke(this, null);
+            
+            EndProduction();
             
             // TODO: Send out some kind of struct holding session data in the event arguments?
+        }
+
+        public void FinishProductionSuccessfully()
+        {
+            OnProductionFinished?.Invoke(this, CraftingData);
             
-            OnProductionFailed?.Invoke(this, null);
+            EndProduction();
         }
 
         public static event EventHandler<CraftingData> OnProductionFinished;
         
-        public void FinishProduction()
+        private void EndProduction()
         {
             foreach (IGeneralChallenge generalInstance in _generalChallengeInstances
                          .Select(ch => ch.GetComponent<IGeneralChallenge>())
@@ -122,7 +129,7 @@ namespace Production.Systems
                 Destroy(extraInstance);
             }
             
-            OnProductionFinished?.Invoke(this, CraftingData);
+            Destroy(this);
         }
     }
 }

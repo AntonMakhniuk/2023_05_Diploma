@@ -10,6 +10,8 @@ namespace Production.Systems
 {
     public class ProductionManager : MonoBehaviour
     {
+        // TODO: Make the attached game object be disabled until it is needed for performance (it has a canvas)
+        
         public static ProductionManager Instance;
         
         [SerializeField] private ProductionChallengeRegistry challengeRegistry;
