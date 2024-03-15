@@ -48,8 +48,6 @@ namespace Production.Challenges.General.Core_Segmentation
                 OnSegmentEnteredFailZone?.Invoke(this, this);
 
                 _currentState = SegmentState.Unstable;
-                
-                Debug.Log("Unstable");
             }
             else if (_currentState != SegmentState.Warning
                      && distanceFromBase < _segmentationChallenge.failZoneRadiusScaled
@@ -58,8 +56,6 @@ namespace Production.Challenges.General.Core_Segmentation
                 OnSegmentEnteredWarningZone?.Invoke(this, this);
 
                 _currentState = SegmentState.Warning;
-                
-                Debug.Log("Warning");
             }
             else if (_currentState != SegmentState.LeavingCenter
                      && distanceFromBase < _segmentationChallenge.warningZoneRadiusScaled
@@ -68,8 +64,6 @@ namespace Production.Challenges.General.Core_Segmentation
                 OnSegmentLeftCenter?.Invoke(this, this);
                 
                 _currentState = SegmentState.LeavingCenter;
-                
-                Debug.Log("Leaving Center");
             }
             else if (_currentState != SegmentState.Stable
                      && transform.position == _centerPosition)
@@ -77,8 +71,6 @@ namespace Production.Challenges.General.Core_Segmentation
                 OnSegmentEnteredCenter?.Invoke(this, this);
                 
                 _currentState = SegmentState.Stable;
-                
-                Debug.Log("Stable");
             }
         }
 

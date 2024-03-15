@@ -14,13 +14,15 @@ namespace Production.Systems
         
         public static ProductionManager Instance;
         
+        [HideInInspector] public ProductionSessionManager currentManager;
+        
+        public ProductionManagerConfig Config { get; private set; }
+        
         [SerializeField] private ProductionChallengeRegistry challengeRegistry;
         [SerializeField] private GameObject sessionManagerPrefab;
         [SerializeField] private ProductionManagerConfig[] configs;
 
         private GameObject _currentManagerObject;
-        private ProductionSessionManager _currentManagerScript;
-        private ProductionManagerConfig _currentConfig;
         
         private void Awake()
         {
@@ -39,27 +41,27 @@ namespace Production.Systems
         
         public void StartProduction(CraftingData craftingData)
         {
-            _currentConfig = configs
+            Config = configs
                 .FirstOrDefault(config => config.difficulty == craftingData.Recipe.difficultyConfig.difficulty);
             
-            if (_currentConfig == null)
+            if (Config == null)
             {
                 Debug.LogError($"No appropriate config found for {GetType().Name} " +
                                $"at {craftingData.Recipe.difficultyConfig}. " +
                                "Reverting to first available config.");
                 
-                _currentConfig = configs[0];
+                Config = configs[0];
             }
 
-            if (_currentConfig == null)
+            if (Config == null)
             {
                 throw new Exception($"No config available for {GetType().Name}. Cannot start production.");
             }
 
             _currentManagerObject = Instantiate(sessionManagerPrefab, transform);
-            _currentManagerScript = _currentManagerObject.GetComponent<ProductionSessionManager>();
+            currentManager = _currentManagerObject.GetComponent<ProductionSessionManager>();
             
-            _currentManagerScript.Setup
+            currentManager.Setup
             (
                 craftingData,
                 challengeRegistry
@@ -67,8 +69,8 @@ namespace Production.Systems
                     (
                         Random.Range
                         (
-                            _currentConfig.minGeneralChallengesInSession, 
-                            _currentConfig.maxGeneralChallengesInSession
+                            Config.minGeneralChallengesInSession, 
+                            Config.maxGeneralChallengesInSession
                         )
                     ),
                 challengeRegistry
@@ -77,17 +79,8 @@ namespace Production.Systems
                         craftingData.Recipe.resources.Select(res => res.resource).ToArray()
                     )
             );
-
-            _currentManagerScript.OnProductionFailed += DestroyCurrentManager;
             
             onProductionStarted?.Invoke();
-        }
-        
-        private void DestroyCurrentManager(object sender, EventArgs args)
-        {
-            _currentManagerScript.OnProductionFailed -= DestroyCurrentManager;
-            
-            Destroy(_currentManagerObject);
         }
     }
     

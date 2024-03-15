@@ -19,7 +19,7 @@ namespace Production.Challenges.General
         public float updateRate = 0.03333f;
         
         protected bool UpdateIsPaused;
-        private bool _isBeingReset;
+        private bool _isBeingReset, _productionHasEnded;
 
         protected virtual void Start()
         {
@@ -48,13 +48,15 @@ namespace Production.Challenges.General
             {
                 throw new Exception($"No config available for {GetType().Name}. Cannot start challenge.");
             }
+
+            _sessionManager.OnProductionFailed += ForceResetAndStop;
             
             InvokeRepeating(nameof(UpdateChallenge), 0, updateRate);
         }
         
         private void UpdateChallenge()
         {
-            if (_isBeingReset)
+            if (_isBeingReset || _productionHasEnded)
             {
                 return;
             }
@@ -94,6 +96,11 @@ namespace Production.Challenges.General
         
         private void Fail()
         {
+            if (_productionHasEnded)
+            {
+                return;
+            }
+            
             OnGeneralFail?.Invoke();
             
             _isBeingReset = true;
@@ -101,6 +108,16 @@ namespace Production.Challenges.General
             StartCoroutine(ResetCoroutine());
         }
 
+        private void ForceResetAndStop(object sender, EventArgs e)
+        {
+            _productionHasEnded = true;
+            
+            if (!_isBeingReset)
+            {
+                StartCoroutine(ResetCoroutine());
+            }
+        }
+        
         private IEnumerator ResetCoroutine()
         {
             yield return StartCoroutine(ResetLogicCoroutine());

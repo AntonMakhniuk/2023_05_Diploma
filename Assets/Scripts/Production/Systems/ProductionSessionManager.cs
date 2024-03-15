@@ -19,8 +19,9 @@ namespace Production.Systems
         [HideInInspector] public int criticalFailCount;
         
         public Difficulty Difficulty { get; private set; }
-        public CraftingData CraftingData;
+        [HideInInspector] public CraftingData CraftingData;
         public int maxCriticalFails = 3;
+        [HideInInspector] public bool productionIsOver;
 
         // currently running instances of session-specific challenges
         private readonly List<GameObject> _generalChallengeInstances = new();
@@ -86,26 +87,24 @@ namespace Production.Systems
         }
 
         public event EventHandler OnProductionFailed;
-        
+
         private void FailProduction()
         {
             OnProductionFailed?.Invoke(this, null);
-            
-            EndProduction();
-            
-            // TODO: Send out some kind of struct holding session data in the event arguments?
+
+            productionIsOver = true;
         }
 
         public void FinishProductionSuccessfully()
         {
             OnProductionFinished?.Invoke(this, CraftingData);
-            
-            EndProduction();
+
+            productionIsOver = true;
         }
 
         public static event EventHandler<CraftingData> OnProductionFinished;
         
-        private void EndProduction()
+        public void EndProduction()
         {
             foreach (IGeneralChallenge generalInstance in _generalChallengeInstances
                          .Select(ch => ch.GetComponent<IGeneralChallenge>())

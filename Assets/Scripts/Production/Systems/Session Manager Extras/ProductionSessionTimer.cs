@@ -30,9 +30,14 @@ namespace Production.Systems.Session_Manager_Extras
 
         private void UpdateTimer()
         {
+            if (ProductionManager.Instance.currentManager.productionIsOver)
+            {
+                return;
+            }
+            
             _currentTimeSeconds -= updateRate;
 
-            if (_currentTimeSeconds <= 0)
+            if (_currentTimeSeconds <= 0 && !ProductionManager.Instance.currentManager.productionIsOver)
             {
                 StopProductionInManager();
             }

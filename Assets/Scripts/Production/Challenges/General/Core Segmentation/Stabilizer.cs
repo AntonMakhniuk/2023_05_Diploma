@@ -151,6 +151,13 @@ namespace Production.Challenges.General.Core_Segmentation
                 yield return null;
             }
 
+            if (ProductionManager.Instance.currentManager.productionIsOver)
+            {
+                CancelInvoke();
+
+                yield break;
+            }
+            
             StartCoroutine(InvertResetStateAfterTime(rayMovementTime));
             
             currentEnumerator = Utility.LerpFloat

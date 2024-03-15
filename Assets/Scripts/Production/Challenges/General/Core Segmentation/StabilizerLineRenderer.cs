@@ -44,6 +44,7 @@ namespace Production.Challenges.General.Core_Segmentation
             stabilizer.OnStabilizerTrajectoryUpdated += UpdateLine;
             _segmentationChallenge.OnGeneralFail += HandleChallengeFail;
             _segmentationChallenge.OnGeneralReset += HandleChallengeReset;
+            ProductionManager.Instance.currentManager.OnProductionFailed += HandleProductionEnd;
         }
 
         private void GenerateLine()
@@ -97,6 +98,14 @@ namespace Production.Challenges.General.Core_Segmentation
                 uiLineRenderer.points[0].x, retractCurve, stabilizer.rayMovementTime));
         }
 
+        private void HandleProductionEnd(object sender, EventArgs e)
+        {
+            _segmentationChallenge.OnGeneralFail -= HandleChallengeFail;
+            _segmentationChallenge.OnGeneralReset -= HandleChallengeReset;
+            
+            HandleChallengeFail();
+        }
+        
         private IEnumerator MoveRayCoroutine(bool isReturning, float startPosition, 
             float endPosition, AnimationCurve stabilizerCurve, float timeToMoveBack)
         {
