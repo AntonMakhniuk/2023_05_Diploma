@@ -7,16 +7,10 @@ public class MovementInputSystem : MonoBehaviour
 {
     private Rigidbody ship;
     private MovementActions movementActions;
+    private FuelSystem fuelSystem;
 
-    // Fuel variables
-    [SerializeField] private float maxFuelCapacity = 100f;
-    private float currentFuelLevel;
     private float fuelConsumptionRate = 0.5f; // Adjust as needed
 
-    // Fuel indicator
-    public Text fuelText;
-    public Color lowFuelColor = Color.red;
-    private float lowFuelThreshold = 0.33f;
 
     // Movement variables
     private bool isMovingForward = false;
@@ -82,7 +76,9 @@ public class MovementInputSystem : MonoBehaviour
         ship = GetComponent<Rigidbody>();
 
         // Initialize fuel level
-        currentFuelLevel = maxFuelCapacity;
+        //currentFuelLevel = maxFuelCapacity;
+        fuelSystem = GetComponent<FuelSystem>(); // Get the FuelSystem component attached to the player ship
+
 
         // Initialize movement actions
         movementActions = new MovementActions();
@@ -126,34 +122,41 @@ public class MovementInputSystem : MonoBehaviour
             // Consume fuel when moving
             if (isMovingForward || isMovingBackward)
             {
-                currentFuelLevel -= fuelConsumptionRate * Time.deltaTime;
-                UpdateFuelIndicator();
-
-                // Check if fuel is low
-                if (currentFuelLevel <= maxFuelCapacity * lowFuelThreshold)
+                fuelSystem.ConsumeFuel(fuelConsumptionRate * Time.deltaTime);
+                bool remainingFuel = fuelSystem.GetLowFuelThreshold();
+                if (!remainingFuel)
                 {
-                  
-                    forwardSpeed = 2.5f;
-                    backwardSpeed = 2.5f;
-                    rotationSpeed = 25f;
-                    turnSpeed = 25f;
-                    rotateAlongZSpeed = 25f;
+                    UpdateMovementSpeedsForLowFuel();
+                } else {
+                    forwardSpeed = 5f;
+                    backwardSpeed = 5f;
+                    rotationSpeed = 50f;
+                    turnSpeed = 50f;
+                    rotateAlongZSpeed = 50f;
                 }
             }
         }
     }
-
-    void UpdateFuelIndicator()
+    public void UpdateMovementSpeedsForLowFuel()
     {
-        // Ensure fuel level does not exceed limits
-        currentFuelLevel = Mathf.Clamp(currentFuelLevel, 0f, maxFuelCapacity);
-
-        // Update fuel text
-        fuelText.text = "Fuel Level: " + Mathf.Round(currentFuelLevel) + "%" ;
-
-        // Change text color if fuel is low
-        fuelText.color = currentFuelLevel <= maxFuelCapacity * lowFuelThreshold ? lowFuelColor : Color.white;
+        forwardSpeed = 2.5f;
+        backwardSpeed = 2.5f;
+        rotationSpeed = 25f;
+        turnSpeed = 25f;
+        rotateAlongZSpeed = 25f;
     }
+
+    // void UpdateFuelIndicator()
+    // {
+    // Ensure fuel level does not exceed limits
+    //   currentFuelLevel = Mathf.Clamp(currentFuelLevel, 0f, maxFuelCapacity);
+
+    // Update fuel text
+    // fuelText.text = "Fuel Level: " + Mathf.Round(currentFuelLevel) + "%" ;
+
+    // Change text color if fuel is low
+    //fuelText.color = currentFuelLevel <= maxFuelCapacity * lowFuelThreshold ? lowFuelColor : Color.white;
+    //}
 
 
 
