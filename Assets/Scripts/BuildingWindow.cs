@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BuildingWindow : MonoBehaviour
 {
     public GameObject buildingWindow; // Reference to the building window Panel
     public GameObject teleporterPrefab; // Reference to the capsule prefab
     public GameObject acceleratorPrefab; // Reference to the accelerator prefab
+    public GameObject refillStationPrefab; // Reference to the refill station prefab
 
     private GameObject currentObject; // Reference to the currently spawned object
 
@@ -54,7 +56,7 @@ public class BuildingWindow : MonoBehaviour
         // Toggle the building window
         buildingWindow.SetActive(!buildingWindow.activeSelf);
 
-        // Instantiate the capsule or accelerator prefab in front of the ship
+        // Instantiate the capsule prefab in front of the ship
         Vector3 spawnPosition = transform.position + transform.forward * 5f;
         currentObject = Instantiate(teleporterPrefab, spawnPosition, transform.rotation);
 
@@ -74,6 +76,23 @@ public class BuildingWindow : MonoBehaviour
         // Instantiate the accelerator prefab in front of the ship
         Vector3 spawnPosition = transform.position + transform.forward * 5f;
         currentObject = Instantiate(acceleratorPrefab, spawnPosition, transform.rotation);
+
+        // Set the ship as the parent of the object
+        currentObject.transform.parent = transform;
+
+        // Set opacity if needed
+        SetObjectOpacity(currentObject, 0.3f);
+    }
+
+    // Method to handle the Refill Station button click
+    public void BuildRefillStation()
+    {
+        // Toggle the building window
+        buildingWindow.SetActive(!buildingWindow.activeSelf);
+
+        // Instantiate the refill station prefab in front of the ship
+        Vector3 spawnPosition = transform.position + transform.forward * 5f;
+        currentObject = Instantiate(refillStationPrefab, spawnPosition, transform.rotation);
 
         // Set the ship as the parent of the object
         currentObject.transform.parent = transform;
@@ -108,7 +127,6 @@ public class BuildingWindow : MonoBehaviour
         // Set the object reference to null
         currentObject = null;
     }
-
     void SetObjectOpacity(GameObject obj, float opacity)
     {
         Renderer objRenderer = obj.GetComponent<Renderer>();

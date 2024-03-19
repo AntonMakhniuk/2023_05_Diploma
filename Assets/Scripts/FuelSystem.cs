@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class FuelSystem : MonoBehaviour
 {
-    private MovementInputSystem movementInputSystem; // Reference to the MovementInputSystem component
+    private MovementInputSystem movementInputSystem;
 
     [SerializeField] private float maxFuelCapacity = 100f;
     private float currentFuelLevel;

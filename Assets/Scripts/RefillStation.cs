@@ -5,7 +5,7 @@ public class RefillStation : MonoBehaviour
 {
     [SerializeField] private float refillRate = 1f; // Rate of fuel generation per second
     [SerializeField] private float maxFuelCapacity = 100f; // Maximum fuel capacity of the station
-    [SerializeField] private Text refillPromptText; // Reference to the UI Text for refill prompt
+   // [SerializeField] private Text refillPromptText; // Reference to the UI Text for refill prompt
 
     private float currentFuelLevel; // Current fuel level of the station
     private bool isRefilling; // Flag to track if the station is currently refilling a player
@@ -32,9 +32,9 @@ public class RefillStation : MonoBehaviour
             Debug.Log("Player entered refill station trigger area.");
 
             // Show UI prompt to refill fuel
-            if (refillPromptText != null)
+           // if (refillPromptText != null)
             {
-                refillPromptText.gameObject.SetActive(true);
+              //  refillPromptText.gameObject.SetActive(true);
             }
 
             // Refill player's fuel
@@ -42,17 +42,17 @@ public class RefillStation : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
+  //  private void OnTriggerExit(Collider other)
+    //{
+      //  if (other.CompareTag("Player"))
+        //{
             // Hide UI prompt when player leaves the refill station trigger area
-            if (refillPromptText != null)
-            {
-                refillPromptText.gameObject.SetActive(false);
-            }
-        }
-    }
+          //  if (refillPromptText != null)
+            //{
+              //  refillPromptText.gameObject.SetActive(false);
+            //}
+        //}
+    //}
 
     private void RefillFuel(GameObject player)
     {
