@@ -1,12 +1,18 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class MovementInputSystem : MonoBehaviour
 {
     private Rigidbody ship;
     private MovementActions movementActions;
+    private FuelSystem fuelSystem;
 
+    private float fuelConsumptionRate = 0.5f; // Adjust as needed
+
+
+    // Movement variables
     private bool isMovingForward = false;
     private bool isMovingBackward = false;
     private bool isRotatingLeft = false;
@@ -16,20 +22,65 @@ public class MovementInputSystem : MonoBehaviour
     private bool isRotatingAlongZLeft = false;
     private bool isRotatingAlongZRight = false;
 
-    // Declare movement speed variables
-
+    // Movement speed variables
     [SerializeField] private float forwardSpeed = 5f;
     [SerializeField] private float backwardSpeed = 5f;
-    [SerializeField] private float rotationSpeed = 500f;
-    [SerializeField] private float turnSpeed = 500f;
-    [SerializeField] private float rotateAlongZSpeed = 500f;
-    [SerializeField] private float deceleration = 5f;
+    [SerializeField] private float rotationSpeed = 25f;
+    [SerializeField] private float turnSpeed = 50f;
+    [SerializeField] private float rotateAlongZSpeed = 50f;
+    [SerializeField] private float deceleration = 50f;
+
+    [SerializeField] private float speedBoostMultiplier = 2f;
+    [SerializeField] private float speedBoostDuration = 10f;
+    private bool isSpeedBoosted = false;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Accelerator"))
+        {
+            StartCoroutine(ApplySpeedBoost());
+            // You may want to disable the accelerator object after it's been used.
+            other.gameObject.SetActive(false);
+        }
+    }
+
+    private IEnumerator ApplySpeedBoost()
+    {
+        if (!isSpeedBoosted)
+        {
+            // Apply speed boost
+            forwardSpeed *= speedBoostMultiplier;
+            backwardSpeed *= speedBoostMultiplier;
+            rotationSpeed *= speedBoostMultiplier;
+            turnSpeed *= speedBoostMultiplier;
+            rotateAlongZSpeed *= speedBoostMultiplier;
+
+            isSpeedBoosted = true;
+
+            // Wait for the duration of the speed boost
+            yield return new WaitForSeconds(speedBoostDuration);
+
+            // Remove speed boost
+            forwardSpeed /= speedBoostMultiplier;
+            backwardSpeed /= speedBoostMultiplier;
+            rotationSpeed /= speedBoostMultiplier;
+            turnSpeed /= speedBoostMultiplier;
+            rotateAlongZSpeed /= speedBoostMultiplier;
+
+            isSpeedBoosted = false;
+        }
+    }
 
     private void Awake()
     {
         ship = GetComponent<Rigidbody>();
-       // ship.isKinematic = true; // Set Rigidbody to kinematic
 
+        // Initialize fuel level
+        //currentFuelLevel = maxFuelCapacity;
+        fuelSystem = GetComponent<FuelSystem>(); // Get the FuelSystem component attached to the player ship
+
+
+        // Initialize movement actions
         movementActions = new MovementActions();
         movementActions.Ship.Forward.started += StartMovingForward;
         movementActions.Ship.Forward.canceled += StopMovingForward;
@@ -48,7 +99,8 @@ public class MovementInputSystem : MonoBehaviour
         movementActions.Ship.RotateAlongZRight.started += StartRotatingAlongZRight;
         movementActions.Ship.RotateAlongZRight.canceled += StopRotatingAlongZRight;
 
-        StartCoroutine(DecelerateCoroutine());
+        // Start the fuel consumption coroutine
+        StartCoroutine(ConsumeFuel());
     }
 
     private void OnEnable()
@@ -60,6 +112,53 @@ public class MovementInputSystem : MonoBehaviour
     {
         movementActions.Disable();
     }
+
+    private IEnumerator ConsumeFuel()
+    {
+        while (true)
+        {
+            yield return null;
+
+            // Consume fuel when moving
+            if (isMovingForward || isMovingBackward)
+            {
+                fuelSystem.ConsumeFuel(fuelConsumptionRate * Time.deltaTime);
+                bool remainingFuel = fuelSystem.GetLowFuelThreshold();
+                if (!remainingFuel)
+                {
+                    UpdateMovementSpeedsForLowFuel();
+                } else {
+                    forwardSpeed = 5f;
+                    backwardSpeed = 5f;
+                    rotationSpeed = 50f;
+                    turnSpeed = 50f;
+                    rotateAlongZSpeed = 50f;
+                }
+            }
+        }
+    }
+    public void UpdateMovementSpeedsForLowFuel()
+    {
+        forwardSpeed = 2.5f;
+        backwardSpeed = 2.5f;
+        rotationSpeed = 25f;
+        turnSpeed = 25f;
+        rotateAlongZSpeed = 25f;
+    }
+
+    // void UpdateFuelIndicator()
+    // {
+    // Ensure fuel level does not exceed limits
+    //   currentFuelLevel = Mathf.Clamp(currentFuelLevel, 0f, maxFuelCapacity);
+
+    // Update fuel text
+    // fuelText.text = "Fuel Level: " + Mathf.Round(currentFuelLevel) + "%" ;
+
+    // Change text color if fuel is low
+    //fuelText.color = currentFuelLevel <= maxFuelCapacity * lowFuelThreshold ? lowFuelColor : Color.white;
+    //}
+
+
 
     private void StartMovingForward(InputAction.CallbackContext ctx)
     {
@@ -139,44 +238,6 @@ public class MovementInputSystem : MonoBehaviour
     private void StopRotatingAlongZRight(InputAction.CallbackContext ctx)
     {
         isRotatingAlongZRight = false;
-    }
-
-    private IEnumerator DecelerateCoroutine()
-    {
-        while (true)
-        {
-            yield return null;
-
-            // Gradually decelerate forward movement
-            if (!isMovingForward && ship.velocity.magnitude > 0)
-            {
-                ship.velocity -= ship.transform.forward * deceleration * Time.deltaTime;
-            }
-
-            // Gradually decelerate backward movement
-            if (!isMovingBackward && ship.velocity.magnitude > 0)
-            {
-                ship.velocity += ship.transform.forward * deceleration * Time.deltaTime;
-            }
-
-            // Gradually decelerate rotation
-            if (!isRotatingLeft && !isRotatingRight && ship.angularVelocity.magnitude > 0)
-            {
-                ship.angularVelocity -= ship.angularVelocity * deceleration * Time.deltaTime;
-            }
-
-            // Gradually decelerate turning
-            if (!isTurningUp && !isTurningDown && ship.angularVelocity.magnitude > 0)
-            {
-                ship.angularVelocity -= ship.angularVelocity * deceleration * Time.deltaTime;
-            }
-
-            // Gradually decelerate rotation along Z-axis
-            if (!isRotatingAlongZLeft && !isRotatingAlongZRight && ship.angularVelocity.magnitude > 0)
-            {
-                ship.angularVelocity -= ship.angularVelocity * deceleration * Time.deltaTime;
-            }
-        }
     }
 
     private void Update()
