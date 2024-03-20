@@ -34,6 +34,22 @@ namespace Production.Challenges.General.Rod_Positioning
             return numOfLeversInWarnRange;
         }
 
+        protected override void ChangeInteractive(bool newState)
+        {
+            foreach (var element in interactiveElementsParents)
+            {
+                element.SetActive(false);
+            }
+            
+            if (newState)
+            {
+                for (int i = 0; i < Config.leverQuantity; i++)
+                {
+                    interactiveElementsParents[i].SetActive(true);
+                }
+            }
+        }
+
         protected override int GetNumberOfFails()
         {
             int numOfLeversInFailRange = 0;

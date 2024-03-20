@@ -15,16 +15,24 @@ namespace Production.Challenges.General.Airlock_Jam
         
         private readonly List<AirlockButton> _allButtons = new();
 
-        protected override void Start()
+        public override void Setup()
         {
-            base.Start();
+            base.Setup();
             
             InstantiateButtons();
 
             // Added so that buttons don't get disabled as soon as the challenge starts
             StartCoroutine(PauseUpdateForSeconds(Config.disableCooldown));
         }
-        
+
+        protected override void ChangeInteractive(bool newState)
+        {
+            foreach (var element in interactiveElementsParents)
+            {
+                element.SetActive(newState);
+            }
+        }
+
         private void InstantiateButtons()
         {
             buttonGrid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;

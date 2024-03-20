@@ -26,9 +26,9 @@ namespace Production.Challenges.General.Core_Segmentation
         private List<CoreSegment> _unstableSegments;
         private List<CoreSegment> _warningSegments;
 
-        protected override void Start()
+        public override void Setup()
         {
-            base.Start();
+            base.Setup();
             
             // TODO: Unexpected behaviour WILL happen if the aspect ratio is changed mid-production, as its Start-only
             var managerScale = ProductionManager.Instance.transform.localScale;
@@ -54,7 +54,15 @@ namespace Production.Challenges.General.Core_Segmentation
             // Added so that segments don't get destabilized as soon as the challenge starts
             StartCoroutine(PauseUpdateForSeconds(Config.maxDisableCooldown));
         }
-        
+
+        protected override void ChangeInteractive(bool newState)
+        {
+            foreach (var element in interactiveElementsParents)
+            {
+                element.SetActive(newState);
+            }
+        }
+
         private void MarkSegmentAsUnstable(object sender, CoreSegment segment)
         {
             _stableSegments.Remove(segment);

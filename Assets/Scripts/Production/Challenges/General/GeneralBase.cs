@@ -9,6 +9,7 @@ namespace Production.Challenges.General
 {
     public abstract class GeneralBase<TConfig> : MonoBehaviour, IGeneralChallenge where TConfig : GeneralConfigBase
     {
+        [SerializeField] protected GameObject[] interactiveElementsParents;
         [SerializeField] protected TConfig[] configs;
         [SerializeField] protected GeneralType challengeType;
         
@@ -17,11 +18,13 @@ namespace Production.Challenges.General
         
         public TConfig Config { get; private set; }
         public float updateRate = 0.03333f;
+        public bool isActive;
         
         protected bool UpdateIsPaused;
-        private bool _isBeingReset, _productionHasEnded;
+        
+        private bool _isBeingReset;
 
-        protected virtual void Start()
+        public virtual void Setup()
         {
             _sessionManager = GetComponentInParent<ProductionSessionManager>();
 
@@ -39,7 +42,7 @@ namespace Production.Challenges.General
             if (Config == null)
             {
                 Debug.LogError($"No appropriate config found for {GetType().Name} at {_difficulty}. " +
-                          "Reverting to first available config.");
+                               "Reverting to first available config.");
                 
                 Config = configs[0];
             }
@@ -49,14 +52,35 @@ namespace Production.Challenges.General
                 throw new Exception($"No config available for {GetType().Name}. Cannot start challenge.");
             }
 
-            _sessionManager.OnProductionFailed += ForceResetAndStop;
+            isActive = true;
+            
+            ChangeInteractive(true);
+            
+            _sessionManager.OnProductionFinished += ForceResetAndStop;
             
             InvokeRepeating(nameof(UpdateChallenge), 0, updateRate);
         }
+
+        public void SetupAsInactive()
+        {
+            _sessionManager = GetComponentInParent<ProductionSessionManager>();
+
+            if (_sessionManager == null)
+            {
+                throw new Exception($"'{nameof(_sessionManager)}' is null. " +
+                                    $"{GetType().Name} has been instantiated outside ProductionSessionManager");
+            }
+            
+            isActive = false;
+            
+            ChangeInteractive(false);
+        }
+
+        protected abstract void ChangeInteractive(bool newState);
         
         private void UpdateChallenge()
         {
-            if (_isBeingReset || _productionHasEnded)
+            if (_isBeingReset || _sessionManager.productionIsOver)
             {
                 return;
             }
@@ -96,7 +120,7 @@ namespace Production.Challenges.General
         
         private void Fail()
         {
-            if (_productionHasEnded)
+            if (_sessionManager.productionIsOver)
             {
                 return;
             }
@@ -108,10 +132,8 @@ namespace Production.Challenges.General
             StartCoroutine(ResetCoroutine());
         }
 
-        private void ForceResetAndStop(object sender, EventArgs e)
+        private void ForceResetAndStop(object sender, CraftingData craftingData)
         {
-            _productionHasEnded = true;
-            
             if (!_isBeingReset)
             {
                 StartCoroutine(ResetCoroutine());
@@ -166,6 +188,8 @@ namespace Production.Challenges.General
         
         private void OnDestroy()
         {
+            _sessionManager.OnProductionFinished -= ForceResetAndStop;
+            
             StopAllCoroutines();
         }
     }
@@ -174,6 +198,10 @@ namespace Production.Challenges.General
     {
         void SubscribeToOnGeneralFail(Action onFailMethod);
         void UnsubscribeFromOnGeneralFail(Action onFailMethod);
+
+        void Setup();
+
+        void SetupAsInactive();
     }
 
     public enum GeneralType

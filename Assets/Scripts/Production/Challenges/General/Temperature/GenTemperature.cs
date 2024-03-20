@@ -9,13 +9,21 @@ namespace Production.Challenges.General.Temperature
     {
         public float currentTemperature;
 
-        protected override void Start()
+        public override void Setup()
         {
-            base.Start();
+            base.Setup();
             
             currentTemperature = Config.baseTemperature;
         }
-        
+
+        protected override void ChangeInteractive(bool newState)
+        {
+            foreach (var element in interactiveElementsParents)
+            {
+                element.SetActive(newState);
+            }
+        }
+
         protected override void UpdateChallengeElements()
         {
             currentTemperature += Config.growthSpeed * updateRate;
