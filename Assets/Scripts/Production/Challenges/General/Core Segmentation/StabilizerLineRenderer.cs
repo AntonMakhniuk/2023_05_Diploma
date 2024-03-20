@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Miscellaneous;
+using Production.Crafting;
 using Production.Systems;
 using ThirdParty.Scripts;
 using UnityEngine;
@@ -44,7 +45,7 @@ namespace Production.Challenges.General.Core_Segmentation
             stabilizer.OnStabilizerTrajectoryUpdated += UpdateLine;
             _segmentationChallenge.OnGeneralFail += HandleChallengeFail;
             _segmentationChallenge.OnGeneralReset += HandleChallengeReset;
-            ProductionManager.Instance.currentManager.OnProductionFailed += HandleProductionEnd;
+            ProductionManager.Instance.currentManager.OnProductionFinished += HandleProductionEnd;
         }
 
         private void GenerateLine()
@@ -98,7 +99,7 @@ namespace Production.Challenges.General.Core_Segmentation
                 uiLineRenderer.points[0].x, retractCurve, stabilizer.rayMovementTime));
         }
 
-        private void HandleProductionEnd(object sender, EventArgs e)
+        private void HandleProductionEnd(object sender, CraftingData craftingData)
         {
             _segmentationChallenge.OnGeneralFail -= HandleChallengeFail;
             _segmentationChallenge.OnGeneralReset -= HandleChallengeReset;

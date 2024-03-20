@@ -1,4 +1,5 @@
 ﻿using System;
+using Production.Crafting;
 using TMPro;
 using UnityEngine;
 
@@ -23,14 +24,14 @@ namespace Production.Systems.Session_Manager_Extras
 
             _sessionManager.OnBonusChanged += AdjustBonusUsingModifier;
             
-            AdjustBonusUsingModifier(_sessionManager.CraftingData.BonusModifier);
+            AdjustBonusUsingModifier(CraftingData.StartingBonusModifier);
         }
 
         private void AdjustBonusUsingModifier(float bonusModifier)
         {
             _currentBonus += bonusModifier;
 
-            bonusText.text = $"{_currentBonus}%";
+            bonusText.SetText($"{_currentBonus}%");
         }
     }
 }
