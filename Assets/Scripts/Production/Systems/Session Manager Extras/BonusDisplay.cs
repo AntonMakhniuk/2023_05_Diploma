@@ -1,8 +1,9 @@
 ﻿using System;
+using Production.Crafting;
 using TMPro;
 using UnityEngine;
 
-namespace Production.Systems.SessionManagerExtras
+namespace Production.Systems.Session_Manager_Extras
 {
     public class BonusDisplay : MonoBehaviour
     {
@@ -23,14 +24,14 @@ namespace Production.Systems.SessionManagerExtras
 
             _sessionManager.OnBonusChanged += AdjustBonusUsingModifier;
             
-            AdjustBonusUsingModifier(_sessionManager.CraftingData.BonusModifier);
+            AdjustBonusUsingModifier(CraftingData.StartingBonusModifier);
         }
 
         private void AdjustBonusUsingModifier(float bonusModifier)
         {
             _currentBonus += bonusModifier;
 
-            bonusText.text = $"{_currentBonus}%";
+            bonusText.SetText($"{_currentBonus}%");
         }
     }
 }

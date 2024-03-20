@@ -10,15 +10,19 @@ namespace Production.Systems
 {
     public class ProductionManager : MonoBehaviour
     {
+        // TODO: Make the attached game object be disabled until it is needed for performance (it has a canvas)
+        
         public static ProductionManager Instance;
+        
+        [HideInInspector] public ProductionSessionManager currentManager;
+        
+        public ProductionManagerConfig Config { get; private set; }
         
         [SerializeField] private ProductionChallengeRegistry challengeRegistry;
         [SerializeField] private GameObject sessionManagerPrefab;
         [SerializeField] private ProductionManagerConfig[] configs;
 
         private GameObject _currentManagerObject;
-        private ProductionSessionManager _currentManagerScript;
-        private ProductionManagerConfig _currentConfig;
         
         private void Awake()
         {
@@ -32,50 +36,41 @@ namespace Production.Systems
                 Destroy(gameObject);
             }
         }
-
-        public Recipe hardcodedRecipe;
         
-        public void StartProductionHardcoded()
-        {
-            CraftingData data = new CraftingData(hardcodedRecipe, 1);
-            
-            StartProduction(data);
-        }
-
         public UnityEvent onProductionStarted;
         
         public void StartProduction(CraftingData craftingData)
         {
-            _currentConfig = configs
+            Config = configs
                 .FirstOrDefault(config => config.difficulty == craftingData.Recipe.difficultyConfig.difficulty);
             
-            if (_currentConfig == null)
+            if (Config == null)
             {
                 Debug.LogError($"No appropriate config found for {GetType().Name} " +
                                $"at {craftingData.Recipe.difficultyConfig}. " +
                                "Reverting to first available config.");
                 
-                _currentConfig = configs[0];
+                Config = configs[0];
             }
 
-            if (_currentConfig == null)
+            if (Config == null)
             {
                 throw new Exception($"No config available for {GetType().Name}. Cannot start production.");
             }
 
             _currentManagerObject = Instantiate(sessionManagerPrefab, transform);
-            _currentManagerScript = _currentManagerObject.GetComponent<ProductionSessionManager>();
+            currentManager = _currentManagerObject.GetComponent<ProductionSessionManager>();
             
-            _currentManagerScript.Setup
+            currentManager.Setup
             (
                 craftingData,
                 challengeRegistry
-                    .GetNumberOfRandomGeneralChallenges
+                    .GetActiveAndRestingGeneralChallenges
                     (
                         Random.Range
                         (
-                            _currentConfig.minGeneralChallengesInSession, 
-                            _currentConfig.maxGeneralChallengesInSession
+                            Config.minGeneralChallengesInSession, 
+                            Config.maxGeneralChallengesInSession
                         )
                     ),
                 challengeRegistry
@@ -84,17 +79,8 @@ namespace Production.Systems
                         craftingData.Recipe.resources.Select(res => res.resource).ToArray()
                     )
             );
-
-            _currentManagerScript.OnProductionFailed += DestroyCurrentManager;
             
             onProductionStarted?.Invoke();
-        }
-        
-        private void DestroyCurrentManager(object sender, EventArgs args)
-        {
-            _currentManagerScript.OnProductionFailed -= DestroyCurrentManager;
-            
-            Destroy(_currentManagerObject);
         }
     }
     
@@ -103,5 +89,8 @@ namespace Production.Systems
     {
         public int minGeneralChallengesInSession;
         public int maxGeneralChallengesInSession;
+        [Range(-1, -99)] public int firstFailBonusLoss;
+        [Range(-1, -99)] public int secondFailBonusLoss;
+        [Range(1, 3)] public int maxFailCount;
     }
 }

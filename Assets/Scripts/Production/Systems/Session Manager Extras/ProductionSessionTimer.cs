@@ -2,14 +2,14 @@
 using TMPro;
 using UnityEngine;
 
-namespace Production.Systems.SessionManagerExtras
+namespace Production.Systems.Session_Manager_Extras
 {
     public class ProductionSessionTimer : MonoBehaviour
     {
         [SerializeField] private TMP_Text timerText;
+        [SerializeField] private float updateRate = 0.0333f;
         
         private ProductionSessionManager _sessionManager;
-
         private float _currentTimeSeconds;
         private TimeSpan _currentTimeSpan;
         
@@ -24,13 +24,20 @@ namespace Production.Systems.SessionManagerExtras
             }
 
             _currentTimeSeconds = _sessionManager.CraftingData.Recipe.difficultyConfig.productionLengthInSeconds;
+            
+            InvokeRepeating(nameof(UpdateTimer), 0, updateRate);
         }
 
-        private void FixedUpdate()
+        private void UpdateTimer()
         {
-            _currentTimeSeconds -= Time.fixedDeltaTime;
+            if (ProductionManager.Instance.currentManager.productionIsOver)
+            {
+                return;
+            }
+            
+            _currentTimeSeconds -= updateRate;
 
-            if (_currentTimeSeconds <= 0)
+            if (_currentTimeSeconds <= 0 && !ProductionManager.Instance.currentManager.productionIsOver)
             {
                 StopProductionInManager();
             }
@@ -41,7 +48,7 @@ namespace Production.Systems.SessionManagerExtras
         
         private void StopProductionInManager()
         {
-            _sessionManager.FinishProduction();
+            _sessionManager.FinishProductionSuccessfully();
         }
     }
 }

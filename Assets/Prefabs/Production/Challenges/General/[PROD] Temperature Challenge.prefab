@@ -318,9 +318,9 @@ RectTransform:
   - {fileID: 3226041960440219908}
   m_Father: {fileID: 7002557066495759800}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -49, y: 313}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!223 &1847962136987232565
@@ -417,7 +417,6 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1727127843758951533}
-  - {fileID: 1593108306296578216}
   m_Father: {fileID: 6993180760295206742}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -572,7 +571,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -20, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &6024575847664676853
 GameObject:
@@ -586,7 +585,7 @@ GameObject:
   - component: {fileID: -1620824080652555867}
   - component: {fileID: 1005224347364677779}
   m_Layer: 5
-  m_Name: Temperature Challenge
+  m_Name: '[PROD] Temperature Challenge'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -607,11 +606,11 @@ RectTransform:
   - {fileID: 6993180760295206742}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 913, y: 149}
+  m_AnchorMin: {x: 1, y: 0.35}
+  m_AnchorMax: {x: 1, y: 0.35}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0}
 --- !u!114 &-1620824080652555867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -624,16 +623,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91f875174a6b46c6be83637dc34beb58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactiveElementsParents:
+  - {fileID: 7183464292330645947}
   configs:
   - difficulty: 1
-    resetWaitingTime: 0.2
-    warningThreshold: 400
-    failThreshold: 850
+    resetWaitingTime: 2
+    warningThreshold: 1
+    failThreshold: 1
     maxTemperature: 1000
+    failTemperature: 850
+    warningTemperature: 400
     minTemperature: 0
     baseTemperature: 200
     stepSize: 50
     growthSpeed: 40
+  challengeType: 0
+  updateRate: 0.03333
   currentTemperature: 0
 --- !u!114 &1005224347364677779
 MonoBehaviour:
@@ -691,6 +696,7 @@ RectTransform:
   - {fileID: 7837269346558725016}
   - {fileID: 3826884417799809694}
   - {fileID: 2329976735834651094}
+  - {fileID: 1593108306296578216}
   m_Father: {fileID: 3226041960440219908}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -775,17 +781,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7335271240957137997}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 172477002613341774}
-  m_Father: {fileID: 3226041960440219908}
+  m_Father: {fileID: 1727127843758951533}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -80}
+  m_AnchoredPosition: {x: -100.00001, y: 0.000022888184}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6391641357072899412
@@ -916,6 +922,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -5, y: 0}
-  m_SizeDelta: {x: -20, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

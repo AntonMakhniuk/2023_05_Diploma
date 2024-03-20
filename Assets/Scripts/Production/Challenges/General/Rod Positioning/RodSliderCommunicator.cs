@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Miscellaneous;
 using ThirdParty.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,8 +17,19 @@ namespace Production.Challenges.General.Rod_Positioning
         public Color32 warningZoneColor;
         public Color32 safeZoneColor;
 
+        private GenRodPositioning _associatedChallenge;
+
         private void Start()
         {
+            _associatedChallenge = GetComponentInParent<GenRodPositioning>();
+            
+            if (_associatedChallenge == null)
+            {
+                throw new Exception("RodSliderCommunicator has been instantiated outside of GenRodPositioning");
+            }
+            
+            // TODO: figure out why this is here
+            
             associatedSlider.maxValue = 1f;
             associatedSlider.minValue = 0f;
             associatedSlider.value = associatedLever.currentPosition;
@@ -84,9 +96,13 @@ namespace Production.Challenges.General.Rod_Positioning
             }
             
             Utility.CreateGradientSpriteAndApplyToSlider(associatedSlider, sliderBackground, colorKeys.ToArray());
+            
+            InvokeRepeating(nameof(UpdateSlider), 0, _associatedChallenge.updateRate);
         }
 
-        private void FixedUpdate()
+        // TODO: Potentially expensive method?
+        
+        private void UpdateSlider()
         {
             associatedSlider.value = associatedLever.currentPosition;
         }

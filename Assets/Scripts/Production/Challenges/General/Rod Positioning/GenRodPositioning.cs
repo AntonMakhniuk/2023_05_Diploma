@@ -11,7 +11,7 @@ namespace Production.Challenges.General.Rod_Positioning
         
         // TODO: implement start method and instantiate levers
 
-        protected override void HandleUpdateLogic()
+        protected override void UpdateChallengeElements()
         {
             foreach (var rodLever in levers)
             {
@@ -19,54 +19,60 @@ namespace Production.Challenges.General.Rod_Positioning
             }
         }
 
-        protected override bool CheckWarningConditions()
+        protected override int GetNumberOfWarnings()
         {
-            bool anyLeverIsInWarnRange = false;
+            int numOfLeversInWarnRange = 0;
 
             foreach (var rodLever in levers)
             {
-                anyLeverIsInWarnRange = 
-                    rodLever.PositionIsInWarningRange();
+                if (rodLever.PositionIsInWarningRange())
+                {
+                    numOfLeversInWarnRange++;
+                }
             }
 
-            return anyLeverIsInWarnRange;
+            return numOfLeversInWarnRange;
         }
 
-        protected override bool CheckFailConditions()
+        protected override void ChangeInteractive(bool newState)
         {
-            bool anyLeverIsInFailRange = false;
+            foreach (var element in interactiveElementsParents)
+            {
+                element.SetActive(false);
+            }
+            
+            if (newState)
+            {
+                for (int i = 0; i < Config.leverQuantity; i++)
+                {
+                    interactiveElementsParents[i].SetActive(true);
+                }
+            }
+        }
+
+        protected override int GetNumberOfFails()
+        {
+            int numOfLeversInFailRange = 0;
 
             foreach (var rodLever in levers)
             {
-                anyLeverIsInFailRange =
-                    rodLever.PositionIsInDangerRange();
+                if (rodLever.PositionIsInDangerRange())
+                {
+                    numOfLeversInFailRange++;
+                }
             }
 
-            return anyLeverIsInFailRange;
-        }
-        
-        public event EventHandler OnRodPositioningAboveWarningThreshold;
-        
-        protected override void HandleWarningStart()
-        {
-            OnRodPositioningAboveWarningThreshold?.Invoke(this, null);
+            return numOfLeversInFailRange;
         }
 
-        public event EventHandler OnRodPositioningBelowWarningThreshold;
-        
-        protected override void HandleWarningStop()
-        {
-            OnRodPositioningBelowWarningThreshold?.Invoke(this, null);
-        }
-
-        protected override IEnumerator HandleResetLogic()
+        protected override IEnumerator ResetLogicCoroutine()
         {
             foreach (var rodLever in levers)
             {
                 StartCoroutine(rodLever.ResetLever());
-
-                yield return null;
             }
+
+            yield return new WaitForSeconds(Config.resetWaitingTime);
         }
     }
 

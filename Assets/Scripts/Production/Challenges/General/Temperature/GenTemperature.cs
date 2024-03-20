@@ -9,43 +9,37 @@ namespace Production.Challenges.General.Temperature
     {
         public float currentTemperature;
 
-        protected override void Start()
+        public override void Setup()
         {
-            base.Start();
+            base.Setup();
             
             currentTemperature = Config.baseTemperature;
         }
-        
-        protected override void HandleUpdateLogic()
+
+        protected override void ChangeInteractive(bool newState)
         {
-            currentTemperature += Config.growthSpeed * Time.fixedDeltaTime;
+            foreach (var element in interactiveElementsParents)
+            {
+                element.SetActive(newState);
+            }
         }
 
-        protected override bool CheckWarningConditions()
+        protected override void UpdateChallengeElements()
         {
-            return currentTemperature >= Config.warningThreshold;
+            currentTemperature += Config.growthSpeed * updateRate;
         }
 
-        protected override bool CheckFailConditions()
+        protected override int GetNumberOfWarnings()
         {
-            return currentTemperature >= Config.failThreshold;
-        }
-        
-        public event EventHandler OnTemperatureAboveWarningThreshold;
-        
-        protected override void HandleWarningStart()
-        {
-            OnTemperatureAboveWarningThreshold?.Invoke(this, null);
-        }
-        
-        public event EventHandler OnTemperatureBelowWarningThreshold;
-        
-        protected override void HandleWarningStop()
-        {
-            OnTemperatureBelowWarningThreshold?.Invoke(this, null);
+            return currentTemperature >= Config.warningTemperature ? 1 : 0;
         }
 
-        protected override IEnumerator HandleResetLogic()
+        protected override int GetNumberOfFails()
+        {
+            return currentTemperature >= Config.failTemperature ? 1 : 0;
+        }
+
+        protected override IEnumerator ResetLogicCoroutine()
         {
             float startTime = Time.time;
             float elapsedTime = 0f;
@@ -63,8 +57,6 @@ namespace Production.Challenges.General.Temperature
             }
 
             currentTemperature = Config.baseTemperature;
-
-            yield return null;
         }
 
         public void ReduceTemperature()
@@ -84,6 +76,8 @@ namespace Production.Challenges.General.Temperature
     public class TemperatureConfig : GeneralConfigBase
     {
         public int maxTemperature;
+        public int failTemperature;
+        public int warningTemperature;
         public int minTemperature;
         public int baseTemperature = 200;
         public float stepSize = 50;

@@ -40,8 +40,10 @@ namespace Production.Systems
             }
         }
 
-        public GameObject[] GetNumberOfRandomGeneralChallenges(int numberOfChallenges)
+        public GeneralChallengeData GetActiveAndRestingGeneralChallenges(int numberOfChallenges)
         {
+            GeneralChallengeData challengeData = new();
+            
             var availableChallenges = new List<GameObject>(generalChallengePrefabs);
 
             if (numberOfChallenges > availableChallenges.Count)
@@ -60,7 +62,10 @@ namespace Production.Systems
                 availableChallenges.RemoveAt(randomIndex);
             }
 
-            return chosenChallenges.ToArray();
+            challengeData.ActiveGeneralChallengePrefabs = chosenChallenges.ToArray();
+            challengeData.RestingGeneralChallengePrefabs = availableChallenges.ToArray();
+
+            return challengeData;
         }
         
         public GameObject[] GetPermittedResourceChallenges(Resource[] resources)
@@ -70,6 +75,12 @@ namespace Production.Systems
                     resources.Any(res =>
                         prefab.GetComponent<IResourceChallenge>().GetResourceType() == res.type))
                 .ToArray();
+        }
+
+        public class GeneralChallengeData
+        {
+            public GameObject[] ActiveGeneralChallengePrefabs;
+            public GameObject[] RestingGeneralChallengePrefabs;
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using Production.Systems;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
@@ -8,13 +7,14 @@ namespace Production.Challenges.General.Core_Segmentation
 {
     public class CoreSegment : MonoBehaviour
     {
-        private Vector3 _basePosition;
-        private bool _isStable = true;
-        private bool _isInteractable = true;
+        private SegmentState _currentState;
+        
+        public Transform edgePointTransform;
+        
         private GenCoreSegmentation _segmentationChallenge;
-        private Transform _objectTransform;
-        private Quaternion _objectRotation;
-        private float _lengthOfSide;
+        private Transform _transform;
+        private Vector3 _centerPosition;
+        private Coroutine _travelCoroutine;
 
         private void Start()
         {
@@ -25,124 +25,122 @@ namespace Production.Challenges.General.Core_Segmentation
                 throw new Exception($"'{nameof(_segmentationChallenge)}' is null. " +
                                     $"{GetType().Name} has been instantiated outside GenSegmentationChallenge");
             }
-
-            _objectTransform = transform;
-            _objectRotation = _objectTransform.rotation;
-            _basePosition = _objectTransform.position;
             
-            // TODO: Remove this ugly behavior
+            _transform = transform;
+            _centerPosition = _transform.position;
+            _currentState = SegmentState.Stable;
             
-            _lengthOfSide = GetComponent<RectTransform>().rect.width * _objectTransform.localScale.x;
+            InvokeRepeating(nameof(HandleStateChecks), 0, _segmentationChallenge.updateRate);
         }
 
-        public IEnumerator MoveOutAndBackForReset()
+        public event EventHandler<CoreSegment> OnSegmentEnteredFailZone,
+            OnSegmentEnteredWarningZone,
+            OnSegmentLeftCenter,
+            OnSegmentEnteredCenter;
+        
+        private void HandleStateChecks()
         {
-            _isInteractable = false;
-            
-            MoveOut(_segmentationChallenge.Config.resetTravelTime);
+            float distanceFromBase = Vector3.Distance(_centerPosition, edgePointTransform.position);
+
+            if (_currentState != SegmentState.Unstable
+                && distanceFromBase >= _segmentationChallenge.failZoneRadiusScaled)
+            {
+                OnSegmentEnteredFailZone?.Invoke(this, this);
+
+                _currentState = SegmentState.Unstable;
+            }
+            else if (_currentState != SegmentState.Warning
+                     && distanceFromBase < _segmentationChallenge.failZoneRadiusScaled
+                     && distanceFromBase >= _segmentationChallenge.warningZoneRadiusScaled)
+            {
+                OnSegmentEnteredWarningZone?.Invoke(this, this);
+
+                _currentState = SegmentState.Warning;
+            }
+            else if (_currentState != SegmentState.LeavingCenter
+                     && distanceFromBase < _segmentationChallenge.warningZoneRadiusScaled
+                     && transform.position != _centerPosition)
+            {
+                OnSegmentLeftCenter?.Invoke(this, this);
+                
+                _currentState = SegmentState.LeavingCenter;
+            }
+            else if (_currentState != SegmentState.Stable
+                     && transform.position == _centerPosition)
+            {
+                OnSegmentEnteredCenter?.Invoke(this, this);
+                
+                _currentState = SegmentState.Stable;
+            }
+        }
+
+        public IEnumerator MoveOutAndBack()
+        {
+            InterruptAndMoveOut(_segmentationChallenge.Config.resetTravelTime);
 
             yield return new WaitForSeconds(_segmentationChallenge.Config.resetTravelTime);
 
-            PutBack(_segmentationChallenge.Config.resetTravelTime);
+            InterruptAndPutBack(_segmentationChallenge.Config.resetTravelTime);
 
             yield return new WaitForSeconds(_segmentationChallenge.Config.resetTravelTime);
-            
-            _isInteractable = true;
-
-            yield return null;
         }
         
-        public delegate void SegmentStatusHandler(CoreSegment segment);
-        public event SegmentStatusHandler OnSegmentInFailZone;
-        
-        public void MoveOut(float timeToTravel)
+        public void InterruptAndMoveOut(float timeToTravel)
         {
-            if (!_isStable || !_isInteractable)
+            if (_travelCoroutine != null)
             {
-                return;
+                StopCoroutine(_travelCoroutine);
             }
-            float angleInDegrees = _objectRotation.eulerAngles.z;
             
-            // Normalizing and adding an extra half segment degrees so that it moves in the center of the segment
-            angleInDegrees = (angleInDegrees + 360f) % 360f;
-            angleInDegrees -= 360f / _segmentationChallenge.Config.numOfSegments / 2;
+            // 90f added to offset for the orientation of the prefab
+            float angleInRadians = (_transform.rotation.eulerAngles.z + 90f
+                                    - _segmentationChallenge.Config.numOfSegments / 2f)
+                                   * Mathf.Deg2Rad;
             
-            // TODO: fix weird bug with some segments floating out further than others
+            Vector3 direction = new Vector3(Mathf.Cos(angleInRadians), Mathf.Sin(angleInRadians), 0f);
             
-            float angleInRadians = Mathf.Deg2Rad * angleInDegrees;
-            float failColliderRadius = _segmentationChallenge.failCollider.segmentationCircleCollider.radius;
-
-            // Scaling by the Production Manager as it is the canvas and as such its scale
-            // will directly affect how far this position would end up
-            Vector3 newPosition = _objectTransform.position 
-                                  + new Vector3(Mathf.Cos(angleInRadians), Mathf.Sin(angleInRadians), 0f) 
-                                  * ((failColliderRadius - _lengthOfSide * 0.6f) * ProductionManager.Instance.transform.localScale.x);
+            Vector3 newPosition = _centerPosition + direction 
+                * (_segmentationChallenge.failZoneRadiusScaled 
+                   - Vector3.Distance(edgePointTransform.position, _transform.position) * 0.8f);
             
-            StartCoroutine(TravelCoroutine(newPosition, timeToTravel));
+            _travelCoroutine = StartCoroutine(TravelCoroutine(newPosition, timeToTravel));
         }
 
-        public event SegmentStatusHandler OnSegmentStabilized;
-
-        public void PutBack(float timeToTravel)
+        public void InterruptAndPutBack(float timeToTravel)
         {
-            if (_isStable || !_isInteractable)
+            if (_travelCoroutine != null)
             {
-                return;
+                StopCoroutine(_travelCoroutine);
             }
-
-            StartCoroutine(TravelCoroutine(_basePosition, timeToTravel));
+            
+            _travelCoroutine = StartCoroutine(TravelCoroutine(_centerPosition, timeToTravel));
         }
         
+        
+        // TODO: use utility version
         private IEnumerator TravelCoroutine(Vector3 newPosition, float timeToTravel)
         {
             float startTime = Time.time;
             float elapsedTime = 0f;
-            Vector3 positionAtPutBackStart = _objectTransform.position;
+            Vector3 positionAtStart = _transform.position;
             
             while (elapsedTime < timeToTravel)
             {
                 float t = elapsedTime / timeToTravel;
 
-                _objectTransform.position = Vector3.Lerp(positionAtPutBackStart, newPosition, t);
+                _transform.position = Vector3.Lerp(positionAtStart, newPosition, t);
 
                 elapsedTime = Time.time - startTime;
 
                 yield return null;
             }
             
-            _objectTransform.position = newPosition;
-            _isStable = !_isStable;
-
-            yield return null;
+            _transform.position = newPosition;
         }
+    }
 
-        public event SegmentStatusHandler OnSegmentInWarningZone;
-        public event SegmentStatusHandler OnSegmentInSafeZone;
-        
-        private void OnTriggerExit2D(Collider2D other)
-        {
-            if (other == _segmentationChallenge.warningCollider.segmentationCircleCollider)
-            {
-                OnSegmentInWarningZone?.Invoke(this);
-            }
-
-            if (other == _segmentationChallenge.failCollider.segmentationCircleCollider)
-            {
-                OnSegmentInFailZone?.Invoke(this);
-            }
-        }
-
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other == _segmentationChallenge.warningCollider.segmentationCircleCollider)
-            {
-                OnSegmentInSafeZone?.Invoke(this);
-            }
-
-            if (other == _segmentationChallenge.failCollider.segmentationCircleCollider)
-            {
-                OnSegmentStabilized?.Invoke(this);
-            }
-        }
+    public enum SegmentState
+    {
+        Unstable, Warning, Stable, LeavingCenter
     }
 }

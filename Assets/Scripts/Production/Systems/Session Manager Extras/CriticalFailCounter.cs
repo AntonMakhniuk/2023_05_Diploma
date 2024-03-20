@@ -2,7 +2,7 @@
 using UnityEngine;
 using Image = UnityEngine.UI.Image;
 
-namespace Production.Systems.SessionManagerExtras
+namespace Production.Systems.Session_Manager_Extras
 {
     public class CriticalFailCounter : MonoBehaviour
     {

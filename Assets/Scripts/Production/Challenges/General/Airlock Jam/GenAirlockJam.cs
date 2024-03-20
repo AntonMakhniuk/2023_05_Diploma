@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -12,55 +13,26 @@ namespace Production.Challenges.General.Airlock_Jam
         [SerializeField] private GridLayoutGroup buttonGrid;
         [SerializeField] private GameObject buttonPrefab;
         
-        private List<AirlockButton> _allButtons;
-        private List<AirlockButton> _enabledButtons;
-        private List<AirlockButton> _disabledButtons;
-        private bool _disablingIsOnCooldown;
+        private readonly List<AirlockButton> _allButtons = new();
 
-        protected override void Start()
+        public override void Setup()
         {
-            base.Start();
-
-            _allButtons = new List<AirlockButton>();
-            _disabledButtons = new List<AirlockButton>();
+            base.Setup();
             
             InstantiateButtons();
 
-            foreach (var airlockButton in _allButtons)
-            {
-                airlockButton.OnButtonTurnedOff += ChangeButtonStatusToOff;
-                airlockButton.OnButtonTurnedOn += ChangeButtonStatusToOn;
-            }
-            
-            _enabledButtons = new List<AirlockButton>(_allButtons);
-
             // Added so that buttons don't get disabled as soon as the challenge starts
-            StartCoroutine(DelayButtonDisabling(Config.disableCooldown));
-        }
-        
-        private void ChangeButtonStatusToOff(AirlockButton button)
-        {
-            _enabledButtons.Remove(button);
-            _disabledButtons.Add(button);
+            StartCoroutine(PauseUpdateForSeconds(Config.disableCooldown));
         }
 
-        private void ChangeButtonStatusToOn(AirlockButton button)
+        protected override void ChangeInteractive(bool newState)
         {
-            _disabledButtons.Remove(button);
-            _enabledButtons.Add(button);
+            foreach (var element in interactiveElementsParents)
+            {
+                element.SetActive(newState);
+            }
         }
-        
-        private IEnumerator DelayButtonDisabling(float timeInSeconds)
-        {
-            _disablingIsOnCooldown = true;
-            
-            yield return new WaitForSeconds(timeInSeconds);
 
-            _disablingIsOnCooldown = false;
-
-            yield return null;
-        }
-        
         private void InstantiateButtons()
         {
             buttonGrid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
@@ -82,94 +54,53 @@ namespace Production.Challenges.General.Airlock_Jam
                 _allButtons.Add(newButton.GetComponent<AirlockButton>());
             }
         }
-
-        private bool _isResetting;
         
-        protected override bool CheckWarningConditions()
+        protected override int GetNumberOfWarnings()
         {
-            if (_isResetting)
-            {
-                return false;
-            }
-            
-            return _disabledButtons.Count >= Config.warningThreshold;
+            return _allButtons.Count(b => b.isTurnedOn == false);
         }
 
-        protected override bool CheckFailConditions()
+        // As there is no middle state for buttons, in this challenge
+        // the count of disabled ones goes for both warnings and fails
+        protected override int GetNumberOfFails()
         {
-            if (_isResetting)
-            {
-                return false;
-            }
-            
-            return _disabledButtons.Count >= Config.failThreshold;
+            return _allButtons.Count(b => b.isTurnedOn == false);
         }
-        
-        protected override void HandleUpdateLogic()
+
+        protected override void UpdateChallengeElements()
         {
-            if (_disablingIsOnCooldown || _isResetting)
-            {
-                return;
-            }
-            
             StartCoroutine(DisableButtons());
         }
         
         private IEnumerator DisableButtons()
         {
-            _disablingIsOnCooldown = true;
+            UpdateIsPaused = true;
             
             int numberOfDisabledButtons =
                 Random.Range(Config.minDisabledButtonsPerTurn, Config.maxDisabledButtonsPerTurn);
+
+            int numberOfEnabledButtons = _allButtons.Count(b => b.isTurnedOn);
             
             for (int i = 0; i < numberOfDisabledButtons; i++)
             {
-                var chosenButton = _enabledButtons[Random.Range(0, _enabledButtons.Count)];
+                var enabledButtons = _allButtons.Where(b => b.isTurnedOn).ToList();
+                var chosenButton = enabledButtons[Random.Range(0, numberOfEnabledButtons--)];
                 chosenButton.TurnOffSilently();
-                _enabledButtons.Remove(chosenButton);
-                _disabledButtons.Add(chosenButton);
             }
 
             yield return new WaitForSeconds(Config.disableCooldown);
 
-            _disablingIsOnCooldown = false;
-
-            yield return null;
+            UpdateIsPaused = false;
         }
         
-        public event EventHandler OnAirlockJamAboveWarningThreshold;
-        
-        protected override void HandleWarningStart()
+        protected override IEnumerator ResetLogicCoroutine()
         {
-            OnAirlockJamAboveWarningThreshold?.Invoke(this, null);
-        }
-
-        public event EventHandler OnAirlockJamBelowWarningThreshold;
-        
-        protected override void HandleWarningStop()
-        {
-            OnAirlockJamBelowWarningThreshold?.Invoke(this, null);
-        }
-        
-        protected override IEnumerator HandleResetLogic()
-        {
-            _isResetting = true;
-            
             foreach (var airlockButton in _allButtons)
             {
                 StartCoroutine(airlockButton.Blink(Config.singleBlinkTime, Config.totalBlinkCount));
-
-                yield return null;
             }
-            
-            _disabledButtons.Clear();
-            _enabledButtons = new List<AirlockButton>(_allButtons);
 
-            yield return new WaitForSeconds(Config.resetWaitingTime);
-            
-            _isResetting = false;
-            
-            yield return null;
+            yield return new WaitForSeconds(Config.singleBlinkTime * Config.totalBlinkCount);
         }
     }
 

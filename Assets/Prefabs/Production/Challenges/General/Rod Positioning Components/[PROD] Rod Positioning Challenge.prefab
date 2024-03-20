@@ -37,9 +37,9 @@ RectTransform:
   - {fileID: 5189083593735655348}
   m_Father: {fileID: 8171507951013095717}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 48, y: 414}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!223 &1087963294842313255
@@ -115,8 +115,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8171507951013095717}
   - component: {fileID: 4203950949890733759}
-  m_Layer: 0
-  m_Name: Rod Positioning Challenge
+  m_Layer: 5
+  m_Name: '[PROD] Rod Positioning Challenge'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -132,15 +132,15 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8970346297572908092}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -863, y: 298}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchorMin: {x: 0, y: 0.35}
+  m_AnchorMax: {x: 0, y: 0.35}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4203950949890733759
 MonoBehaviour:
@@ -154,6 +154,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05c31d5a9291413ca28c5da751f5bc8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactiveElementsParents:
+  - {fileID: 2030692925919250020}
+  - {fileID: 1412362106168974434}
+  - {fileID: 6448665080950739433}
+  - {fileID: 3017809869418295609}
   configs:
   - difficulty: 1
     resetWaitingTime: 2
@@ -163,13 +168,15 @@ MonoBehaviour:
     minRangeValue: 0
     minSafeRangeSize: 0.1
     maxSafeRangeSize: 0.2
-    minDangerRangeSize: 0.1
-    warningRangeMinForSingle: 0.2
-    warningRangeMaxForSingle: 0.4
-    warningRangeMinForBoth: 0.1
-    warningRangeMaxForBoth: 0.2
-    maxStepLength: 0.001
+    minDangerRangeSize: 0.05
+    warningRangeMinForSingle: 0.35
+    warningRangeMaxForSingle: 0.6
+    warningRangeMinForBoth: 0.15
+    warningRangeMaxForBoth: 0.35
+    maxStepLength: 0.0005
     leverQuantity: 4
+  challengeType: 1
+  updateRate: 0.03333
   levers:
   - {fileID: 1501726535575229683}
   - {fileID: 1972853699214642933}
@@ -183,6 +190,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8970346297572908092}
     m_Modifications:
+    - target: {fileID: 2909501759816662732, guid: dc86b3ad8a6b8f242983900980948f63, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4475047530618108802, guid: dc86b3ad8a6b8f242983900980948f63, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -291,6 +302,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76bfa6b9fbde439d8d717c2ce7a32c62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &3017809869418295609 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2909501759816662732, guid: dc86b3ad8a6b8f242983900980948f63, type: 3}
+  m_PrefabInstance: {fileID: 108590487633825781}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &5189083593735655348 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5296970316605374529, guid: dc86b3ad8a6b8f242983900980948f63, type: 3}
@@ -412,6 +428,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76bfa6b9fbde439d8d717c2ce7a32c62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2030692925919250020 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2909501759816662732, guid: dc86b3ad8a6b8f242983900980948f63, type: 3}
+  m_PrefabInstance: {fileID: 3769187546256259240}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &9064697572301699305 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5296970316605374529, guid: dc86b3ad8a6b8f242983900980948f63, type: 3}
@@ -522,6 +543,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc86b3ad8a6b8f242983900980948f63, type: 3}
+--- !u!1 &1412362106168974434 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2909501759816662732, guid: dc86b3ad8a6b8f242983900980948f63, type: 3}
+  m_PrefabInstance: {fileID: 4321511384456258222}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1972853699214642933 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2349168481826729051, guid: dc86b3ad8a6b8f242983900980948f63, type: 3}
@@ -659,3 +685,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76bfa6b9fbde439d8d717c2ce7a32c62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &6448665080950739433 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2909501759816662732, guid: dc86b3ad8a6b8f242983900980948f63, type: 3}
+  m_PrefabInstance: {fileID: 8151201788410081061}
+  m_PrefabAsset: {fileID: 0}
