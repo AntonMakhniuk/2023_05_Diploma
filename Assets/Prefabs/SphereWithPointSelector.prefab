@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: -953948292407617157}
   m_Layer: 0
   m_Name: SphereWithPointSelector
-  m_TagString: Untagged
+  m_TagString: Asteroid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -163,6 +163,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3311926a1470dac408632ca762a23f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spaceOre: {fileID: 0}
+  shatter: 0
 --- !u!114 &-953948292407617157
 MonoBehaviour:
   m_ObjectHideFlags: 0
