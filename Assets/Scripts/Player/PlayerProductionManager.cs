@@ -13,7 +13,7 @@ public class PlayerProductionManager : MonoBehaviour {
 
     private void Start()
     {
-        ProductionSessionManager.OnProductionFinished += SpawnContainer;
+        //ProductionSessionManager.OnProductionFinishedSuccessfully += SpawnContainer;
     }
 
     public void SpawnContainer() {

@@ -20,6 +20,11 @@ namespace Production.Challenges.General.Temperature
 
         private void Start()
         {
+            if (!associatedChallenge.isActive)
+            {
+                return;
+            }
+            
             _config = associatedChallenge.Config;
 
             associatedSlider.maxValue = _config.failTemperature;

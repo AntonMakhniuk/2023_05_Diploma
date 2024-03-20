@@ -26,6 +26,11 @@ namespace Production.Challenges.General.Core_Segmentation
                                     $"{GetType().Name} has been instantiated without UILineRenderer");
             }
 
+            if (!segmentationChallenge.isActive)
+            {
+                return;
+            }
+                
             switch (zoneType)
             {
                 case ZoneType.Warning:

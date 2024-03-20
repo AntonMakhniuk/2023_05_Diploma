@@ -29,6 +29,11 @@ namespace Production.Challenges.General.Rod_Positioning
                 throw new Exception("RodLever object has been instantiated outside of GenRodPositioning");
             }
 
+            if (!_parentPositioningChallenge.isActive)
+            {
+                return;
+            }
+                
             _config = _parentPositioningChallenge.Config;
 
             dangerZoneType = Utility.GetRandomEnum<LeverDangerZoneType>();
