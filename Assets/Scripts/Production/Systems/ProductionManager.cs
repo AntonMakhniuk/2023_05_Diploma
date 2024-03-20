@@ -65,7 +65,7 @@ namespace Production.Systems
             (
                 craftingData,
                 challengeRegistry
-                    .GetNumberOfRandomGeneralChallenges
+                    .GetActiveAndRestingGeneralChallenges
                     (
                         Random.Range
                         (
@@ -89,5 +89,8 @@ namespace Production.Systems
     {
         public int minGeneralChallengesInSession;
         public int maxGeneralChallengesInSession;
+        [Range(-1, -99)] public int firstFailBonusLoss;
+        [Range(-1, -99)] public int secondFailBonusLoss;
+        [Range(1, 3)] public int maxFailCount;
     }
 }

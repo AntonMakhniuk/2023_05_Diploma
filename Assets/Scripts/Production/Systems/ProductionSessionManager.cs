@@ -13,26 +13,29 @@ namespace Production.Systems
         // TODO: add modifier changes to the CraftingData object
         
         // prefabs that the manager may use in the production session
-        private GameObject[] _generalChallengePrefabs;
+        private ProductionChallengeRegistry.GeneralChallengeData _generalChallengePrefabs;
         private GameObject[] _resourceChallengePrefabs;
         
         [HideInInspector] public int criticalFailCount;
+        [HideInInspector] public CraftingData CraftingData;
+        [HideInInspector] public bool productionIsOver;
         
         public Difficulty Difficulty { get; private set; }
-        [HideInInspector] public CraftingData CraftingData;
-        public int maxCriticalFails = 3;
-        [HideInInspector] public bool productionIsOver;
 
         // currently running instances of session-specific challenges
-        private readonly List<GameObject> _generalChallengeInstances = new();
-        private List<GameObject> _resourceChallengeInstances = new();
+        private readonly List<GameObject> _activeGeneralChallengeInstances = new();
+        private readonly List<GameObject> _restingGeneralChallengeInstances = new();
+        private readonly List<GameObject> _resourceChallengeInstances = new();
 
         [SerializeField] private GameObject[] extraPrefabsForInstantiation;
+        [SerializeField] private GameObject productionEndOverlayPrefab;
 
         private readonly List<GameObject> _extrasInstances = new();
+        private readonly GameObject _productionEndOverlayInstance;
         
         public void Setup(CraftingData craftingData,
-            GameObject[] permittedGeneralChallenges, GameObject[] permittedResourceChallenges)
+            ProductionChallengeRegistry.GeneralChallengeData generalChallenges, 
+            GameObject[] permittedResourceChallenges)
         {
             foreach (var extraPrefab in extraPrefabsForInstantiation)
             {
@@ -42,24 +45,38 @@ namespace Production.Systems
             
             CraftingData = craftingData;
             Difficulty = craftingData.Recipe.difficultyConfig.difficulty;
-            _generalChallengePrefabs = permittedGeneralChallenges;
+            _generalChallengePrefabs = generalChallenges;
             _resourceChallengePrefabs = permittedResourceChallenges;
             
             // TODO: implement logic for choosing difficulty randomly
             
-            foreach (GameObject generalPrefab in _generalChallengePrefabs)
+            foreach (GameObject generalPrefab in _generalChallengePrefabs.ActiveGeneralChallengePrefabs)
             {
                 var instance = Instantiate(generalPrefab, transform);
-                _generalChallengeInstances.Add(instance);
+                _activeGeneralChallengeInstances.Add(instance);
             }
             
             // TODO: introduce algorithm that spawns challenges over time
             
-            foreach (IGeneralChallenge generalInstance in _generalChallengeInstances
+            foreach (IGeneralChallenge generalInstance in _activeGeneralChallengeInstances
                          .Select(ch => ch.GetComponent<IGeneralChallenge>())
                          .ToList())
             {
+                generalInstance.Setup();
                 generalInstance.SubscribeToOnGeneralFail(AddCriticalFail);
+            }
+            
+            foreach (GameObject generalPrefab in _generalChallengePrefabs.RestingGeneralChallengePrefabs)
+            {
+                var instance = Instantiate(generalPrefab, transform);
+                _restingGeneralChallengeInstances.Add(instance);
+            }
+            
+            foreach (IGeneralChallenge generalInstance in _restingGeneralChallengeInstances
+                         .Select(ch => ch.GetComponent<IGeneralChallenge>())
+                         .ToList())
+            {
+                generalInstance.SetupAsInactive();
             }
         }
 
@@ -70,8 +87,30 @@ namespace Production.Systems
             criticalFailCount++;
             
             OnCriticalFailReachedManager?.Invoke(this, criticalFailCount);
+
+            switch (criticalFailCount)
+            {
+                case 1:
+                {
+                    if (criticalFailCount < ProductionManager.Instance.Config.maxFailCount)
+                    {
+                        ChangeBonus(BonusSource.GeneralFail, ProductionManager.Instance.Config.firstFailBonusLoss);
+                    }
+
+                    break;
+                }
+                case 2:
+                {
+                    if (criticalFailCount < ProductionManager.Instance.Config.maxFailCount)
+                    {
+                        ChangeBonus(BonusSource.GeneralFail, ProductionManager.Instance.Config.secondFailBonusLoss);
+                    }
+
+                    break;
+                }
+            }
             
-            if (criticalFailCount >= maxCriticalFails)
+            if (criticalFailCount >= ProductionManager.Instance.Config.maxFailCount)
             {
                 FailProduction();
             }
@@ -81,39 +120,56 @@ namespace Production.Systems
 
         public event OnBonusChangedHandler OnBonusChanged;
 
-        public void ChangeBonus(float bonusModifier)
+        public void ChangeBonus(BonusSource source, int bonusModifier)
         {
+            CraftingData.UpdateModifier(source, bonusModifier);
+            
             OnBonusChanged?.Invoke(bonusModifier);
         }
 
-        public event EventHandler OnProductionFailed;
+        public event EventHandler<CraftingData> OnProductionFinished;
 
         private void FailProduction()
         {
-            OnProductionFailed?.Invoke(this, null);
-
+            CraftingData.FailProduction();
+            
             productionIsOver = true;
+            
+            DisplayFinalScoreCalculation();
+            
+            OnProductionFinished?.Invoke(this, CraftingData);
         }
 
         public void FinishProductionSuccessfully()
         {
-            OnProductionFinished?.Invoke(this, CraftingData);
-
+            CraftingData.ProductionFailed = false;
             productionIsOver = true;
+            
+            DisplayFinalScoreCalculation();
+            
+            OnProductionFinished?.Invoke(this, CraftingData);
         }
 
-        public static event EventHandler<CraftingData> OnProductionFinished;
+        private void DisplayFinalScoreCalculation()
+        {
+            Instantiate(productionEndOverlayPrefab, transform);
+        }
         
         public void EndProduction()
         {
-            foreach (IGeneralChallenge generalInstance in _generalChallengeInstances
+            foreach (IGeneralChallenge generalInstance in _activeGeneralChallengeInstances
                          .Select(ch => ch.GetComponent<IGeneralChallenge>())
                          .ToList())
             {
                 generalInstance.UnsubscribeFromOnGeneralFail(AddCriticalFail);
             }
             
-            foreach (var challengeInstance in _generalChallengeInstances)
+            foreach (var challengeInstance in _activeGeneralChallengeInstances)
+            {
+                Destroy(challengeInstance);
+            }
+
+            foreach (var challengeInstance in _restingGeneralChallengeInstances)
             {
                 Destroy(challengeInstance);
             }
@@ -127,8 +183,10 @@ namespace Production.Systems
             {
                 Destroy(extraInstance);
             }
-            
-            Destroy(this);
+
+            Destroy(_productionEndOverlayInstance);
+
+            Destroy(gameObject);
         }
     }
 }
