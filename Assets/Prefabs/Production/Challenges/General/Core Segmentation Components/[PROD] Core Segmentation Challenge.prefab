@@ -695,7 +695,7 @@ GameObject:
   - component: {fileID: 7002557066495759800}
   - component: {fileID: 4658815225653324518}
   m_Layer: 5
-  m_Name: Core Segmentation Challenge
+  m_Name: '[PROD] Core Segmentation Challenge'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -733,6 +733,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edb042a9b65f4f1f8f9c4eb645bc8d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactiveElementsParents:
+  - {fileID: 193419618990076565}
   configs:
   - difficulty: 1
     resetWaitingTime: 5

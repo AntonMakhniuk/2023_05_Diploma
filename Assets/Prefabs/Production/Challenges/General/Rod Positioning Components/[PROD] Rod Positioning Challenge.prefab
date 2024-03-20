@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 8171507951013095717}
   - component: {fileID: 4203950949890733759}
   m_Layer: 5
-  m_Name: Rod Positioning Challenge
+  m_Name: '[PROD] Rod Positioning Challenge'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -154,6 +154,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05c31d5a9291413ca28c5da751f5bc8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactiveElementsParents:
+  - {fileID: 2030692925919250020}
+  - {fileID: 1412362106168974434}
+  - {fileID: 6448665080950739433}
+  - {fileID: 3017809869418295609}
   configs:
   - difficulty: 1
     resetWaitingTime: 2
@@ -185,6 +190,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8970346297572908092}
     m_Modifications:
+    - target: {fileID: 2909501759816662732, guid: dc86b3ad8a6b8f242983900980948f63, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4475047530618108802, guid: dc86b3ad8a6b8f242983900980948f63, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -293,6 +302,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76bfa6b9fbde439d8d717c2ce7a32c62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &3017809869418295609 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2909501759816662732, guid: dc86b3ad8a6b8f242983900980948f63, type: 3}
+  m_PrefabInstance: {fileID: 108590487633825781}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &5189083593735655348 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5296970316605374529, guid: dc86b3ad8a6b8f242983900980948f63, type: 3}
@@ -414,6 +428,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76bfa6b9fbde439d8d717c2ce7a32c62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2030692925919250020 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2909501759816662732, guid: dc86b3ad8a6b8f242983900980948f63, type: 3}
+  m_PrefabInstance: {fileID: 3769187546256259240}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &9064697572301699305 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5296970316605374529, guid: dc86b3ad8a6b8f242983900980948f63, type: 3}
@@ -524,6 +543,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc86b3ad8a6b8f242983900980948f63, type: 3}
+--- !u!1 &1412362106168974434 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2909501759816662732, guid: dc86b3ad8a6b8f242983900980948f63, type: 3}
+  m_PrefabInstance: {fileID: 4321511384456258222}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1972853699214642933 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2349168481826729051, guid: dc86b3ad8a6b8f242983900980948f63, type: 3}
@@ -661,3 +685,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76bfa6b9fbde439d8d717c2ce7a32c62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &6448665080950739433 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2909501759816662732, guid: dc86b3ad8a6b8f242983900980948f63, type: 3}
+  m_PrefabInstance: {fileID: 8151201788410081061}
+  m_PrefabAsset: {fileID: 0}
