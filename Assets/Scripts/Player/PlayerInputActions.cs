@@ -134,6 +134,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleLaser"",
+                    ""type"": ""Button"",
+                    ""id"": ""0be59c3c-6dca-494d-95f3-dc09b69f5985"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -151,7 +160,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""modifier"",
                     ""id"": ""6cf0de82-eea0-4621-873a-30af5268c430"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""path"": ""<Mouse>/middleButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -422,6 +431,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Brakes"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3c2b93d3-0816-4461-b678-84864f1ba054"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleLaser"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -442,6 +462,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_PlayerShip_InstrumentSecondary = m_PlayerShip.FindAction("InstrumentSecondary", throwIfNotFound: true);
         m_PlayerShip_Movement2 = m_PlayerShip.FindAction("Movement2", throwIfNotFound: true);
         m_PlayerShip_Brakes = m_PlayerShip.FindAction("Brakes", throwIfNotFound: true);
+        m_PlayerShip_ToggleLaser = m_PlayerShip.FindAction("ToggleLaser", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -515,6 +536,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerShip_InstrumentSecondary;
     private readonly InputAction m_PlayerShip_Movement2;
     private readonly InputAction m_PlayerShip_Brakes;
+    private readonly InputAction m_PlayerShip_ToggleLaser;
     public struct PlayerShipActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -531,6 +553,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @InstrumentSecondary => m_Wrapper.m_PlayerShip_InstrumentSecondary;
         public InputAction @Movement2 => m_Wrapper.m_PlayerShip_Movement2;
         public InputAction @Brakes => m_Wrapper.m_PlayerShip_Brakes;
+        public InputAction @ToggleLaser => m_Wrapper.m_PlayerShip_ToggleLaser;
         public InputActionMap Get() { return m_Wrapper.m_PlayerShip; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -576,6 +599,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Brakes.started += instance.OnBrakes;
             @Brakes.performed += instance.OnBrakes;
             @Brakes.canceled += instance.OnBrakes;
+            @ToggleLaser.started += instance.OnToggleLaser;
+            @ToggleLaser.performed += instance.OnToggleLaser;
+            @ToggleLaser.canceled += instance.OnToggleLaser;
         }
 
         private void UnregisterCallbacks(IPlayerShipActions instance)
@@ -616,6 +642,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Brakes.started -= instance.OnBrakes;
             @Brakes.performed -= instance.OnBrakes;
             @Brakes.canceled -= instance.OnBrakes;
+            @ToggleLaser.started -= instance.OnToggleLaser;
+            @ToggleLaser.performed -= instance.OnToggleLaser;
+            @ToggleLaser.canceled -= instance.OnToggleLaser;
         }
 
         public void RemoveCallbacks(IPlayerShipActions instance)
@@ -647,5 +676,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnInstrumentSecondary(InputAction.CallbackContext context);
         void OnMovement2(InputAction.CallbackContext context);
         void OnBrakes(InputAction.CallbackContext context);
+        void OnToggleLaser(InputAction.CallbackContext context);
     }
 }
