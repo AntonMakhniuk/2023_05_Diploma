@@ -112,6 +112,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ToggleBombContainer",
+                    "type": "Button",
+                    "id": "d02f14e4-55c4-46ee-aeda-18a3c863062f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -398,6 +407,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Brakes",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "baf57db0-9bae-4759-9aed-0dbb7ee92d4c",
+                    "path": "<Keyboard>/9",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleBombContainer",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

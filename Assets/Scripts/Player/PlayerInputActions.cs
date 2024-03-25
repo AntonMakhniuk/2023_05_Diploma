@@ -134,6 +134,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleBombContainer"",
+                    ""type"": ""Button"",
+                    ""id"": ""d02f14e4-55c4-46ee-aeda-18a3c863062f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -151,7 +160,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""modifier"",
                     ""id"": ""6cf0de82-eea0-4621-873a-30af5268c430"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""path"": ""<Mouse>/middleButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -422,6 +431,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Brakes"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""baf57db0-9bae-4759-9aed-0dbb7ee92d4c"",
+                    ""path"": ""<Keyboard>/9"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleBombContainer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -442,6 +462,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_PlayerShip_InstrumentSecondary = m_PlayerShip.FindAction("InstrumentSecondary", throwIfNotFound: true);
         m_PlayerShip_Movement2 = m_PlayerShip.FindAction("Movement2", throwIfNotFound: true);
         m_PlayerShip_Brakes = m_PlayerShip.FindAction("Brakes", throwIfNotFound: true);
+        m_PlayerShip_ToggleBombContainer = m_PlayerShip.FindAction("ToggleBombContainer", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -515,6 +536,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerShip_InstrumentSecondary;
     private readonly InputAction m_PlayerShip_Movement2;
     private readonly InputAction m_PlayerShip_Brakes;
+    private readonly InputAction m_PlayerShip_ToggleBombContainer;
     public struct PlayerShipActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -531,6 +553,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @InstrumentSecondary => m_Wrapper.m_PlayerShip_InstrumentSecondary;
         public InputAction @Movement2 => m_Wrapper.m_PlayerShip_Movement2;
         public InputAction @Brakes => m_Wrapper.m_PlayerShip_Brakes;
+        public InputAction @ToggleBombContainer => m_Wrapper.m_PlayerShip_ToggleBombContainer;
         public InputActionMap Get() { return m_Wrapper.m_PlayerShip; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -576,6 +599,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Brakes.started += instance.OnBrakes;
             @Brakes.performed += instance.OnBrakes;
             @Brakes.canceled += instance.OnBrakes;
+            @ToggleBombContainer.started += instance.OnToggleBombContainer;
+            @ToggleBombContainer.performed += instance.OnToggleBombContainer;
+            @ToggleBombContainer.canceled += instance.OnToggleBombContainer;
         }
 
         private void UnregisterCallbacks(IPlayerShipActions instance)
@@ -616,6 +642,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Brakes.started -= instance.OnBrakes;
             @Brakes.performed -= instance.OnBrakes;
             @Brakes.canceled -= instance.OnBrakes;
+            @ToggleBombContainer.started -= instance.OnToggleBombContainer;
+            @ToggleBombContainer.performed -= instance.OnToggleBombContainer;
+            @ToggleBombContainer.canceled -= instance.OnToggleBombContainer;
         }
 
         public void RemoveCallbacks(IPlayerShipActions instance)
@@ -647,5 +676,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnInstrumentSecondary(InputAction.CallbackContext context);
         void OnMovement2(InputAction.CallbackContext context);
         void OnBrakes(InputAction.CallbackContext context);
+        void OnToggleBombContainer(InputAction.CallbackContext context);
     }
 }
