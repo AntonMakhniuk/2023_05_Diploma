@@ -45,15 +45,13 @@ public class Laser : Instrument
 
     if (isLaserActive && Input.GetMouseButton(0))
     {
-        // Update crosshair position
-        crosshairCanvas.transform.position = mainCamera.WorldToScreenPoint(transform.position + transform.up * 5f);
+        // Update crosshair position based on mouse position
+        crosshairCanvas.transform.position = Input.mousePosition;
 
-        // Rotate laser barrel according to camera rotation
-        Vector3 cameraForward = mainCamera.transform.forward;
-        cameraForward.y = 0f; // Keep the laser parallel to the ground
-        barrelTransform.forward = cameraForward.normalized;
+        // Calculate laser direction based on crosshair position
+        Vector3 direction = (crosshairCanvas.transform.position - mainCamera.WorldToScreenPoint(transform.position)).normalized;
 
-        // Raycast from camera to crosshair position
+        // Raycast from camera in the calculated direction
         Ray ray = mainCamera.ScreenPointToRay(crosshairCanvas.transform.position);
         RaycastHit hit;
 
@@ -85,13 +83,19 @@ public class Laser : Instrument
         }
         else
         {
-            lineRenderer.enabled = false;
+            // If no hit, simply draw the laser forward in the calculated direction
+            Vector3 endPos = ray.GetPoint(laserRange);
+            lineRenderer.enabled = true;
+            lineRenderer.SetPosition(0, barrelTransform.position);
+            lineRenderer.SetPosition(1, endPos);
+
+            crosshairCanvas.GetComponent<Canvas>().enabled = false;
         }
     }
     else
     {
+        // If button is not pressed, hide laser
         lineRenderer.enabled = false;
-        crosshairCanvas.GetComponent<Canvas>().enabled = false;
     }
 }
 
