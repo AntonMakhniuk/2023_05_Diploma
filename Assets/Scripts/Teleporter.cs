@@ -1,28 +1,30 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Teleporter : MonoBehaviour
 {
-    private TeleporterUI teleporterUI; // Reference to the TeleporterUI script
+    // Static list to store all teleporters
+    public static List<Teleporter> allTeleporters = new List<Teleporter>();
 
-    void Awake()
+    private void Awake()
     {
-        teleporterUI = FindObjectOfType<TeleporterUI>(); // Find the TeleporterUI script in the scene
-        if (teleporterUI == null)
-        {
-            Debug.LogError("TeleporterUI script not found in the scene!");
-        }
-        else
-        {
-            DontDestroyOnLoad(gameObject); // Ensure the Teleporter object persists between scenes
-        }
+        allTeleporters.Add(this);
+    }
+
+    private void OnDestroy()
+    {
+        allTeleporters.Remove(this);
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        TeleporterUI teleporterUI = TeleporterUI.GetInstance();
         if (other.CompareTag("Player") && teleporterUI != null)
         {
+            Debug.Log("ZALUPKO");
+
             // Prompt the player to choose a destination teleporter
-            teleporterUI.ShowTeleporterUI(this);
+            teleporterUI.ShowTeleporterUI(allTeleporters, this);
         }
     }
 }

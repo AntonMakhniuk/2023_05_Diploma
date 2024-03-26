@@ -1,25 +1,44 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class TeleporterUI : MonoBehaviour
 {
     public GameObject teleporterButtonPrefab;
     private GameObject currentTeleporterUI;
 
-    public void ShowTeleporterUI(Teleporter teleporter)
+    // Static variable to hold the active instance of TeleporterUI
+    private static TeleporterUI instance;
+
+    private void Awake()
+    {
+        // Set this instance as the active TeleporterUI
+        instance = this;
+    }
+
+    // Method to retrieve the active instance of TeleporterUI
+    public static TeleporterUI GetInstance()
+    {
+        return instance;
+    }
+    private void Start()
+    {
+        // Ensure the teleporter UI is initially hidden
+        HideTeleporterUI();
+    }
+
+    public void ShowTeleporterUI(List<Teleporter> allTeleporters, Teleporter selectedTeleporter)
     {
         // Destroy any existing teleporter UI
         Destroy(currentTeleporterUI);
+        Debug.Log("ZALUPA");
 
         // Instantiate the teleporter UI prefab
         currentTeleporterUI = InstantiateTeleporterUI();
 
-        // Get all teleporters
-        Teleporter[] teleporters = FindObjectsOfType<Teleporter>();
-
-        foreach (Teleporter destTeleporter in teleporters)
+        foreach (Teleporter destTeleporter in allTeleporters)
         {
-            if (destTeleporter != teleporter)
+            if (destTeleporter != selectedTeleporter)
             {
                 // Create a button for each destination teleporter
                 GameObject buttonGO = Instantiate(teleporterButtonPrefab, currentTeleporterUI.transform);
@@ -55,6 +74,15 @@ public class TeleporterUI : MonoBehaviour
         playerShip.transform.position = teleportPosition;
 
         // Destroy the teleporter UI
-        Destroy(currentTeleporterUI);
+        HideTeleporterUI();
+    }
+
+    public void HideTeleporterUI()
+    {
+        if (currentTeleporterUI != null)
+        {
+            Destroy(currentTeleporterUI);
+            currentTeleporterUI = null;
+        }
     }
 }
