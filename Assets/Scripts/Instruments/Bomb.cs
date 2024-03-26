@@ -47,9 +47,18 @@ public class Bomb : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
         foreach (Collider collider in colliders)
         {
-            if (collider.CompareTag("Asteroid"))
+            if (collider.CompareTag("AsteroidPoint"))
             {
                 Destroy(collider.gameObject);
+
+                // Find the Asteroid script on the parent asteroid
+                Asteroid asteroid = collider.transform.parent.GetComponent<Asteroid>();
+
+                // Notify the attached asteroid about the destruction
+                if (asteroid != null)
+                {
+                    asteroid.OnAsteroidPointDestroyed();
+                }
             }
         }
         Destroy(gameObject);
