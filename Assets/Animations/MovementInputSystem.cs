@@ -9,10 +9,9 @@ public class MovementInputSystem : MonoBehaviour
     private MovementActions movementActions;
     private FuelSystem fuelSystem;
 
-    private float fuelConsumptionRate = 0.5f; // Adjust as needed
+    private float fuelConsumptionRate = 0.5f;
 
 
-    // Movement variables
     private bool isMovingForward = false;
     private bool isMovingBackward = false;
     private bool isRotatingLeft = false;
@@ -22,7 +21,6 @@ public class MovementInputSystem : MonoBehaviour
     private bool isRotatingAlongZLeft = false;
     private bool isRotatingAlongZRight = false;
 
-    // Movement speed variables
     [SerializeField] private float forwardSpeed = 5f;
     [SerializeField] private float backwardSpeed = 5f;
     [SerializeField] private float rotationSpeed = 25f;
@@ -34,13 +32,14 @@ public class MovementInputSystem : MonoBehaviour
     [SerializeField] private float speedBoostDuration = 10f;
     private bool isSpeedBoosted = false;
 
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Accelerator"))
         {
             StartCoroutine(ApplySpeedBoost());
             // You may want to disable the accelerator object after it's been used.
-            other.gameObject.SetActive(false);
+            //other.gameObject.SetActive(false);
         }
     }
 
@@ -123,10 +122,14 @@ public class MovementInputSystem : MonoBehaviour
             if (isMovingForward || isMovingBackward)
             {
                 fuelSystem.ConsumeFuel(fuelConsumptionRate * Time.deltaTime);
-                bool remainingFuel = fuelSystem.GetLowFuelThreshold();
-                if (!remainingFuel)
+                bool isFuelThresholdReached = fuelSystem.GetCurrentFuelLevel() > fuelSystem.GetMaxFuelCapacity() * fuelSystem.GetLowFuelThreshold() ? true : false;
+                if (!isFuelThresholdReached)
                 {
                     UpdateMovementSpeedsForLowFuel();
+                    if(fuelSystem.GetCurrentFuelLevel() <= 1)
+                    {
+                        enabled = false;
+                    }
                 } else {
                     forwardSpeed = 5f;
                     backwardSpeed = 5f;
@@ -145,19 +148,6 @@ public class MovementInputSystem : MonoBehaviour
         turnSpeed = 25f;
         rotateAlongZSpeed = 25f;
     }
-
-    // void UpdateFuelIndicator()
-    // {
-    // Ensure fuel level does not exceed limits
-    //   currentFuelLevel = Mathf.Clamp(currentFuelLevel, 0f, maxFuelCapacity);
-
-    // Update fuel text
-    // fuelText.text = "Fuel Level: " + Mathf.Round(currentFuelLevel) + "%" ;
-
-    // Change text color if fuel is low
-    //fuelText.color = currentFuelLevel <= maxFuelCapacity * lowFuelThreshold ? lowFuelColor : Color.white;
-    //}
-
 
 
     private void StartMovingForward(InputAction.CallbackContext ctx)
