@@ -1,13 +1,15 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class Teleporter : MonoBehaviour
+public class Teleporter : BuildingObject
 {
     // Static list to store all teleporters
     public static List<Teleporter> allTeleporters = new List<Teleporter>();
+    public GameObject teleporterPrefab; 
 
     private void Awake()
     {
+        base.Awake();
         allTeleporters.Add(this);
     }
 
@@ -16,15 +18,19 @@ public class Teleporter : MonoBehaviour
         allTeleporters.Remove(this);
     }
 
+
+
     private void OnTriggerEnter(Collider other)
     {
         TeleporterUI teleporterUI = TeleporterUI.GetInstance();
         if (other.CompareTag("Player") && teleporterUI != null)
         {
-            Debug.Log("ZALUPKO");
+            // Create a list excluding the player's ship teleporter
+            List<Teleporter> filteredTeleporters = new List<Teleporter>(allTeleporters);
+            filteredTeleporters.Remove(this); // Remove the current teleporter (player's ship)
 
             // Prompt the player to choose a destination teleporter
-            teleporterUI.ShowTeleporterUI(allTeleporters, this);
+            teleporterUI.ShowTeleporterUI(filteredTeleporters, this);
         }
     }
 }

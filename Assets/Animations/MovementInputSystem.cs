@@ -130,7 +130,7 @@ public class MovementInputSystem : MonoBehaviour
                     {
                         enabled = false;
                     }
-                } else {
+                } else if (!isSpeedBoosted){
                     forwardSpeed = 5f;
                     backwardSpeed = 5f;
                     rotationSpeed = 50f;

@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RefillStation : MonoBehaviour
+public class RefillStation : BuildingObject
 {
     [SerializeField] private float refillRate = 1f; // Rate of fuel generation per second
     [SerializeField] private float maxFuelCapacity = 100f; // Maximum fuel capacity of the station
-   // [SerializeField] private Text refillPromptText; // Reference to the UI Text for refill prompt
+                                                           // [SerializeField] private Text refillPromptText; // Reference to the UI Text for refill prompt
+    public GameObject refillStationPrefab; // Reference to the refill station prefab
+
 
     private float currentFuelLevel; // Current fuel level of the station
     private bool isRefilling; // Flag to track if the station is currently refilling a player
@@ -23,6 +25,11 @@ public class RefillStation : MonoBehaviour
             // Generate fuel over time
             currentFuelLevel = Mathf.Min(currentFuelLevel + refillRate * Time.deltaTime, maxFuelCapacity);
         }
+    }
+
+    public void BuildRefillStation()
+    {
+        //BuildObject(refillStationPrefab);
     }
 
     private void OnTriggerEnter(Collider other)

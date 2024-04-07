@@ -31,7 +31,7 @@ public class TeleporterUI : MonoBehaviour
     {
         // Destroy any existing teleporter UI
         Destroy(currentTeleporterUI);
-        Debug.Log("ZALUPA");
+       
 
         // Instantiate the teleporter UI prefab
         currentTeleporterUI = InstantiateTeleporterUI();
@@ -40,6 +40,7 @@ public class TeleporterUI : MonoBehaviour
         {
             if (destTeleporter != selectedTeleporter)
             {
+               // Debug.Log(destTeleporter);
                 // Create a button for each destination teleporter
                 GameObject buttonGO = Instantiate(teleporterButtonPrefab, currentTeleporterUI.transform);
                 Button button = buttonGO.GetComponent<Button>();
