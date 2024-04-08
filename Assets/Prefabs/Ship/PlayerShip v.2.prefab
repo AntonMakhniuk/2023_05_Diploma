@@ -545,8 +545,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4755537177277571578}
   - component: {fileID: 3526778563648387244}
-  - component: {fileID: 5044314575776459946}
   - component: {fileID: 8458693848584434391}
+  - component: {fileID: 8046956368229285148}
   m_Layer: 0
   m_Name: PlayerThirdPersonCamera
   m_TagString: Camera
@@ -677,22 +677,6 @@ MonoBehaviour:
   - {fileID: 8813054569241673516}
   - {fileID: 3577149591777023671}
   - {fileID: 5655916780471571083}
---- !u!114 &5044314575776459946
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4232726258101470083}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb7194dc27b9df64c8beca7482ee8e0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerIndex: -1
-  AutoEnableInputs: 1
-  XYAxis: {fileID: 7618631954201866070, guid: f1a6e843c3af0d94596da8728006c219, type: 3}
-  ZAxis: {fileID: 8400464145584864924, guid: f1a6e843c3af0d94596da8728006c219, type: 3}
 --- !u!114 &8458693848584434391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -723,6 +707,22 @@ MonoBehaviour:
   m_Damping: 0
   m_DampingWhenOccluded: 0
   m_OptimalTargetDistance: 0
+--- !u!114 &8046956368229285148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4232726258101470083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7194dc27b9df64c8beca7482ee8e0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerIndex: -1
+  AutoEnableInputs: 1
+  XYAxis: {fileID: 7618631954201866070, guid: f1a6e843c3af0d94596da8728006c219, type: 3}
+  ZAxis: {fileID: 0}
 --- !u!1 &4456582416322828545
 GameObject:
   m_ObjectHideFlags: 0
@@ -1064,29 +1064,9 @@ MonoBehaviour:
     m_ActionId: 79c76f7d-7069-4fd2-bbcf-8c723260f903
     m_ActionName: PlayerShip/MouseCameraMovement[/Mouse/delta]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: Move
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: a45dd632-7566-4c7b-b7b2-eb9b6bc79c2a
-    m_ActionName: PlayerShip/Movement[/Keyboard/w,/Keyboard/s]
-  - m_PersistentCalls:
       m_Calls: []
     m_ActionId: e5de1bfa-6c14-42be-b71f-37d99f8fa03e
     m_ActionName: PlayerShip/AlignWithCamera[/Keyboard/space]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 20e14b37-b7b0-4820-8f7e-a77e462901f1
-    m_ActionName: PlayerShip/RotateAlongX[/Keyboard/q,/Keyboard/e]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 4d9f5733-9df1-4dcb-b328-d24e8011a84d
@@ -1115,6 +1095,18 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: b2505daa-6e37-4b97-b0f0-9b1bbd690924
     m_ActionName: PlayerShip/InstrumentSecondary[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6348877e-c5d8-41a3-912d-2826c54ab698
+    m_ActionName: PlayerShip/Movement[/Keyboard/space,/Keyboard/c,/Keyboard/s,/Keyboard/w]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f44241a1-ae12-49b1-968c-46e3a4f6f4e4
+    m_ActionName: PlayerShip/Brakes[/Keyboard/leftCtrl]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d02f14e4-55c4-46ee-aeda-18a3c863062f
+    m_ActionName: PlayerShip/ToggleBombContainer[/Keyboard/9]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerShip
@@ -1134,11 +1126,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   accelerationDrag: 0.3
-  decelerationDrag: 1.2
+  brakesDrag: 1.5
   rotationSpeed: 1
   maxAngularVelocity: 1
   accelerationAngularDrag: 0.5
-  decelerationAngularDrag: 1.8
+  brakesAngularDrag: 1
   cameraAlignRotationSpeed: 10
 --- !u!114 &9175932017806144090
 MonoBehaviour:
@@ -1155,6 +1147,7 @@ MonoBehaviour:
   tractorBeam: {fileID: 3564137744409306324}
   drill: {fileID: 4252711719720281664}
   gasCollector: {fileID: 990946408659690859}
+  bombContainer: {fileID: 0}
   activeInstrument: {fileID: 0}
 --- !u!114 &3044370234084167974
 MonoBehaviour:
@@ -1194,7 +1187,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingWindow: {fileID: 4923164207793489657}
-  capsulePrefab: {fileID: 2351305225469528052, guid: a525016b6b2473546bc6071827e953bb, type: 3}
+  teleporterPrefab: {fileID: 0}
+  acceleratorPrefab: {fileID: 0}
+  refillStationPrefab: {fileID: 0}
 --- !u!114 &9131913527958825256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1274,7 +1269,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6932676468003499120}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.6734766, y: 0.000000600676, z: -0.0000005472625, w: 0.7392086}
+  m_LocalRotation: {x: 0.6734766, y: 0.00000060067896, z: -0.0000005472652, w: 0.7392086}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1500,11 +1495,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1868094551940471768, guid: 75208d137b143384588a1549669ed1fa, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.007805164
+      value: 0.007805196
       objectReference: {fileID: 0}
     - target: {fileID: 1868094551940471768, guid: 75208d137b143384588a1549669ed1fa, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.003902582
+      value: -0.0039025983
       objectReference: {fileID: 0}
     - target: {fileID: 1909729843802563885, guid: 75208d137b143384588a1549669ed1fa, type: 3}
       propertyPath: m_Priority

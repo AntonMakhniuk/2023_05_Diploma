@@ -86,9 +86,9 @@ public class PlayerMovement : MonoBehaviour {
     
     private void FixedUpdate() {
         // Check for movement input and move ship accordingly
-        if (playerInputActions.PlayerShip.Movement2.IsPressed()) {
+        if (playerInputActions.PlayerShip.Movement.IsPressed()) {
             //float value = playerInputActions.PlayerShip.Movement.ReadValue<float>();
-            Move(playerInputActions.PlayerShip.Movement2.ReadValue<Vector2>());
+            Move(playerInputActions.PlayerShip.Movement.ReadValue<Vector2>());
         }
 
         // Check for rotation input and rotate ship accordingly
