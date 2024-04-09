@@ -1,67 +1,24 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(ParticleSystem))]
 public class GasCloudScript : MonoBehaviour
 {
-    [SerializeField] private float gasCapacity = 100f;
-
-    private ParticleSystem particleSystem;
-
-    void Start()
-    {
-        // Get the Particle System component from the child GameObject
-        particleSystem = GetComponentInChildren<ParticleSystem>();
-        if (particleSystem == null)
-        {
-            Debug.LogError("GasCloudController: Particle System not found. Make sure it is a child GameObject.");
-        }
-
-        // Ensure that collision is enabled in the Particle System component
-        ConfigureParticleCollision();
-    }
+    ParticleSystem gasCloud;
+    private List<ParticleSystem.Particle> particles;
     
-
-    public void DecreaseGasCapacity(float amount)
+    void OnParticleTrigger()
     {
-        gasCapacity -= amount;
-
-        // TODO: Add animation of gathering later
-
-        // If the gas capacity reaches 0, stop particle emission
-        if (gasCapacity <= 0)
-        {
-            StopGasEmission();
-        }
+        
+            int triggeredParticles = gasCloud.GetTriggerParticles(ParticleSystemTriggerEventType.Enter, particles);
+            for (int i = 0; i < triggeredParticles; i++)
+            {
+                ParticleSystem.Particle p = particles[i];
+                p.remainingLifetime = 0;
+                particles[i] = p;
+            }
+            gasCloud.SetTriggerParticles(ParticleSystemTriggerEventType.Enter,particles);
+        
     }
-
-    public float GetGasCapacity()
-    {
-        return gasCapacity;
-    }
-
-    private void StopGasEmission()
-    {
-        // Stop particle emission when the gas cloud is empty
-        if (particleSystem != null)
-        {
-            particleSystem.Stop();
-        }
-    }
-
-    private void ConfigureParticleCollision()
-    {
-        if (particleSystem != null)
-        {
-            // Enable collision module
-            var collisionModule = particleSystem.collision;
-            collisionModule.enabled = true;
-
-            // collision settings 
-            collisionModule.bounce = 0.5f;
-            collisionModule.lifetimeLoss = 0.5f;
-           
-        }
-    }
-    
     
 }

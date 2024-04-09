@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GasCollector : MonoBehaviour
 {
-    public KeyCode gatherKey = KeyCode.Mouse0;
+    /*public KeyCode gatherKey = KeyCode.Mouse0;
 
     [SerializeField] private float gatheringSpeed = 5f;
     [SerializeField] private float maxGasStorage = 100f;
@@ -66,5 +66,5 @@ public class GasCollector : MonoBehaviour
     public float GetCurrentGasStorage()
     {
         return currentGasStorage;
-    }
+    }*/
 }
