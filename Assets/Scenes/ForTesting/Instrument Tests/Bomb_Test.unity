@@ -803,6 +803,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.003902582
       objectReference: {fileID: 0}
+    - target: {fileID: 2503584139120351469, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
+      propertyPath: m_ConnectedBody
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2695315029610990627, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.000003814698
@@ -829,7 +833,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3793954295715505960, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
       propertyPath: m_ActionEvents.Array.size
-      value: 12
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 3793954295715505960, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
       propertyPath: m_ActionEvents.Array.data[3].m_ActionId
@@ -868,6 +872,14 @@ PrefabInstance:
       value: f44241a1-ae12-49b1-968c-46e3a4f6f4e4
       objectReference: {fileID: 0}
     - target: {fileID: 3793954295715505960, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
+      propertyPath: m_ActionEvents.Array.data[12].m_ActionId
+      value: d02f14e4-55c4-46ee-aeda-18a3c863062f
+      objectReference: {fileID: 0}
+    - target: {fileID: 3793954295715505960, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
+      propertyPath: m_ActionEvents.Array.data[13].m_ActionId
+      value: 129376ee-09e3-4437-9ad9-d91e94187d61
+      objectReference: {fileID: 0}
+    - target: {fileID: 3793954295715505960, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
       propertyPath: m_ActionEvents.Array.data[3].m_ActionName
       value: PlayerShip/RotateAlongY[/Keyboard/a,/Keyboard/d]
       objectReference: {fileID: 0}
@@ -903,17 +915,25 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[11].m_ActionName
       value: PlayerShip/Brakes[/Keyboard/leftCtrl]
       objectReference: {fileID: 0}
+    - target: {fileID: 3793954295715505960, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
+      propertyPath: m_ActionEvents.Array.data[12].m_ActionName
+      value: PlayerShip/ToggleBombContainer[/Keyboard/9]
+      objectReference: {fileID: 0}
+    - target: {fileID: 3793954295715505960, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
+      propertyPath: m_ActionEvents.Array.data[13].m_ActionName
+      value: PlayerShip/ToggleLaser[/Keyboard/4]
+      objectReference: {fileID: 0}
     - target: {fileID: 3933070503756335746, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4070484675594984252, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000060337067
+      value: 0.0000006033736
       objectReference: {fileID: 0}
     - target: {fileID: 4070484675594984252, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000005497176
+      value: -0.00000054972026
       objectReference: {fileID: 0}
     - target: {fileID: 4923164207793489657, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
       propertyPath: m_IsActive
@@ -964,16 +984,26 @@ PrefabInstance:
       value: PlayerShip v.2
       objectReference: {fileID: 0}
     - target: {fileID: 9175932017806144090, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
+      propertyPath: drill
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9175932017806144090, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
+      propertyPath: tractorBeam
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9175932017806144090, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
       propertyPath: bombContainer
       value: 
       objectReference: {fileID: 1727804052}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2503584139120351469, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
     m_RemovedGameObjects:
     - {fileID: 8721831978918695860, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
     - {fileID: 2658743029467178193, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
+    - {fileID: 3252176973831660911, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5632618145818135556, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
-      insertIndex: 5
+      insertIndex: 4
       addedObject: {fileID: 1727804048}
     - targetCorrespondingSourceObject: {fileID: 5632618145818135556, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
       insertIndex: -1

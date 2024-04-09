@@ -1444,6 +1444,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.003902582
       objectReference: {fileID: 0}
+    - target: {fileID: 2503584139120351469, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
+      propertyPath: m_ConnectedBody
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2695315029610990627, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
@@ -1472,17 +1476,29 @@ PrefabInstance:
       propertyPath: tractorBeamAimLayerMask.m_Bits
       value: 9280
       objectReference: {fileID: 0}
+    - target: {fileID: 3793954295715505960, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 3793954295715505960, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
+      propertyPath: m_ActionEvents.Array.data[12].m_ActionId
+      value: 129376ee-09e3-4437-9ad9-d91e94187d61
+      objectReference: {fileID: 0}
+    - target: {fileID: 3793954295715505960, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
+      propertyPath: m_ActionEvents.Array.data[12].m_ActionName
+      value: PlayerShip/ToggleLaser[/Keyboard/4]
+      objectReference: {fileID: 0}
     - target: {fileID: 3933070503756335746, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4070484675594984252, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000060515714
+      value: 0.0000006051628
       objectReference: {fileID: 0}
     - target: {fileID: 4070484675594984252, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000005513452
+      value: -0.00000055135035
       objectReference: {fileID: 0}
     - target: {fileID: 4923164207793489657, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
       propertyPath: m_IsActive
@@ -1573,6 +1589,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9175932017806144090, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
+      propertyPath: drill
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9175932017806144090, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
       propertyPath: laser
       value: 
       objectReference: {fileID: 8388873373872906678}
@@ -1582,10 +1602,12 @@ PrefabInstance:
       objectReference: {fileID: 1271561579}
     m_RemovedComponents:
     - {fileID: 990946408659690859, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
-    m_RemovedGameObjects: []
+    - {fileID: 2503584139120351469, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
+    m_RemovedGameObjects:
+    - {fileID: 3252176973831660911, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5632618145818135556, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
-      insertIndex: 6
+      insertIndex: 5
       addedObject: {fileID: 8388873373872906671}
     - targetCorrespondingSourceObject: {fileID: 5632618145818135556, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
       insertIndex: -1

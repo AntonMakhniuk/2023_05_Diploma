@@ -1246,11 +1246,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6568869717180884294, guid: 72a48c621196318468594eb5948ff704, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.0000038146973
       objectReference: {fileID: 0}
     - target: {fileID: 6568869717180884294, guid: 72a48c621196318468594eb5948ff704, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.0000038146973
       objectReference: {fileID: 0}
     - target: {fileID: 7556173151780381313, guid: 72a48c621196318468594eb5948ff704, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1405,7 +1405,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3252176973831660911, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3564137744409306324, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
       propertyPath: tractorBeamLayerMask.m_Bits
@@ -1415,17 +1415,29 @@ PrefabInstance:
       propertyPath: tractorBeamAimLayerMask.m_Bits
       value: 9280
       objectReference: {fileID: 0}
+    - target: {fileID: 3793954295715505960, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 3793954295715505960, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
+      propertyPath: m_ActionEvents.Array.data[12].m_ActionId
+      value: 129376ee-09e3-4437-9ad9-d91e94187d61
+      objectReference: {fileID: 0}
+    - target: {fileID: 3793954295715505960, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
+      propertyPath: m_ActionEvents.Array.data[12].m_ActionName
+      value: PlayerShip/ToggleLaser[/Keyboard/4]
+      objectReference: {fileID: 0}
     - target: {fileID: 3933070503756335746, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4070484675594984252, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000006059097
+      value: 0.0000006059438
       objectReference: {fileID: 0}
     - target: {fileID: 4070484675594984252, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.00000055203077
+      value: -0.0000005520619
       objectReference: {fileID: 0}
     - target: {fileID: 4923164207793489657, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
       propertyPath: m_IsActive
@@ -1509,7 +1521,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6528473955529477378, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 7462000615053570617, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
       propertyPath: m_IsTrigger
@@ -1529,8 +1541,10 @@ PrefabInstance:
       objectReference: {fileID: 1271561579}
     m_RemovedComponents:
     - {fileID: 990946408659690859, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
+    - {fileID: 2503584139120351469, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
     m_RemovedGameObjects:
     - {fileID: 8721831978918695860, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
+    - {fileID: 3252176973831660911, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5632618145818135556, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
       insertIndex: 4
@@ -1767,7 +1781,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2180858187666896097, guid: 55a433a272c7da245889e4183048bbba, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.23
+      value: 10.94
       objectReference: {fileID: 0}
     - target: {fileID: 2180858187666896097, guid: 55a433a272c7da245889e4183048bbba, type: 3}
       propertyPath: m_LocalRotation.w
