@@ -121,8 +121,11 @@ public class TractorBeam : Instrument
         Collider[] hitColliders = Physics.OverlapSphere(transform.parent.position, tractorBeamRange, tractorBeamAimLayerMask);
         foreach (Collider collider in hitColliders)
         {
-            Vector3 forceDirection = (collider.transform.position - transform.parent.position).normalized;
-            collider.GetComponent<Rigidbody>().AddForce(forceDirection * tractorSpeed * 5f, ForceMode.Impulse);
+            Rigidbody rigidbody = collider.GetComponent<Rigidbody>();
+            if (rigidbody != null) {
+                Vector3 forceDirection = (collider.transform.position - transform.parent.position).normalized;
+                rigidbody.AddForce(forceDirection * tractorSpeed * 5f, ForceMode.Impulse);
+            }
         }
     }
 
