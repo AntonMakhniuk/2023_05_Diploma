@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
+    [SerializeField] private GameObject explosion;
     private Rigidbody rb;
     private bool isFrozen = false;
     private BombContainer bombContainer;
@@ -55,6 +56,8 @@ public class Bomb : MonoBehaviour
                 }
             }
         }
+
+        Instantiate(explosion, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 
