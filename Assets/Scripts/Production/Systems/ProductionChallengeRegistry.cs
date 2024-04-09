@@ -73,7 +73,7 @@ namespace Production.Systems
             return resourceChallengePrefabs
                 .Where(prefab => 
                     resources.Any(res =>
-                        prefab.GetComponent<IResourceChallenge>().GetResourceType() == res.type))
+                        prefab.GetComponent<IResourceChallenge>().GetItemType() == res.type))
                 .ToArray();
         }
 

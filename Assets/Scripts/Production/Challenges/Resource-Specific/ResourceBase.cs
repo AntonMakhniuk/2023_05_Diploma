@@ -15,7 +15,7 @@ namespace Production.Challenges.Resource_Specific
         private ProductionSessionManager _sessionManager;
         private Difficulty _difficulty;
         
-        public ResourceType resourceType;
+        public ItemType resourceType;
         public TConfig Config { get; private set; }
         
         protected virtual void Start()
@@ -132,7 +132,7 @@ namespace Production.Challenges.Resource_Specific
         
         protected abstract IEnumerator HandleResetLogic();
 
-        public ResourceType GetResourceType()
+        public ItemType GetItemType()
         {
             return resourceType;
         }
@@ -140,6 +140,6 @@ namespace Production.Challenges.Resource_Specific
 
     public interface IResourceChallenge
     {
-        public ResourceType GetResourceType();
+        public ItemType GetItemType();
     }
 }

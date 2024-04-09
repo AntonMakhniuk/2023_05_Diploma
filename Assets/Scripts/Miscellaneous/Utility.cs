@@ -1,11 +1,12 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using ThirdParty.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Miscellaneous
 {
-    public abstract class Utility
+    public static class Utility
     {
         public static T GetRandomEnum<T>()
         {
@@ -98,6 +99,21 @@ namespace Miscellaneous
             newValue = endValue;
 
             yield return newValue;
+        }
+        
+        public static IList<T> Swap<T>(this IList<T> list, int indexA, int indexB)
+        {
+            (list[indexA], list[indexB]) = (list[indexB], list[indexA]);
+            
+            return list;
+        }
+        
+        public static IList<T> Swap<T>(this IList<T> list, T objA, T objB)
+        {
+            (list[list.IndexOf(objA)], list[list.IndexOf(objB)]) 
+                = (list[list.IndexOf(objB)], list[list.IndexOf(objA)]);
+            
+            return list;
         }
     }
 }
