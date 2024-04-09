@@ -38,7 +38,7 @@ public class GasCollectorV4 : Instrument
             {
                 if (currentGasLevel < maxGasCapacity)
                 {
-                    inventory.IncreaseFuelGasQuantity(0.5f);
+                    inventory.IncreaseFuelGasQuantity(1f);
                     currentGasLevel++;
                 }
                 else
