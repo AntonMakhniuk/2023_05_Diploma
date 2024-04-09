@@ -63,7 +63,61 @@ public class Asteroid : MonoBehaviour
         // Destroy the original asteroid GameObject
         Destroy(gameObject);
     }
+    public void Explode()
+    {
+        // Dynamically create a slicing plane for explosion
+        Plane explosionPlane = CreateExplosionPlane();
 
+        // Slice the asteroid with the explosion slicing plane
+        GameObject[] slices = Slicer.Slice(explosionPlane, gameObject);
+
+        // Optionally, you can add forces or other effects to the sliced pieces
+        Vector3 pushVector = new Vector3(0, 0, 0);
+        pushVector[Random.Range(0, 3)] = Random.Range(250f, 450f);
+        pushVector[Random.Range(0, 3)] = Random.Range(250f, 320f);
+        foreach (GameObject slice in slices)
+        {
+            pushVector *= -1;
+            slice.GetComponent<Rigidbody>().AddRelativeForce(pushVector);
+        }
+
+        // Spawn ore at each slice's position
+        foreach (GameObject slice in slices)
+        {
+            Vector3 slicePosition = slice.transform.position;
+            int oreNumber = Random.Range(1, 4); // Spawn fewer ores per slice
+            oreNumber = Mathf.Max(1, oreNumber / 3); // Reduce ore amount by 3 times
+            while (oreNumber > 0)
+            {
+                SpawnOre(slicePosition);
+                slicePosition += Random.insideUnitSphere * 0.2f; // Randomize ore spawn position around the slice
+                oreNumber--;
+            }
+        }
+
+        // Destroy the original asteroid GameObject
+        Destroy(gameObject);
+    }
+    
+    private Plane CreateExplosionPlane()
+    {
+        // Get the mesh from the asteroid
+        Mesh mesh = GetComponent<MeshFilter>().mesh;
+
+        // Compute the average position of vertices to get the center
+        Vector3 center = Vector3.zero;
+        foreach (Vector3 vertex in mesh.vertices)
+        {
+            center += vertex;
+        }
+        center /= mesh.vertices.Length;
+
+        // Randomize the slicing direction
+        Vector3 normal = Random.insideUnitSphere.normalized;
+
+        // Create and return the plane
+        return new Plane(normal, center);
+    }
     private Plane CreateSlicingPlane()
     {
         // Get the mesh from the asteroid

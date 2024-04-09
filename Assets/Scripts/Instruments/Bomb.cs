@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
-    public float freezeTime = 3f; 
-    public float explosionRadius = 5f;
-
     private Rigidbody rb;
     private bool isFrozen = false;
+    private BombContainer bombContainer;
+
+    public float freezeTime = 3f;
+    public float explosionRadius = 5f;
 
     void Start()
     {
@@ -21,8 +22,9 @@ public class Bomb : MonoBehaviour
        
         if (!isFrozen)
         {
-            rb.velocity = rb.velocity.normalized * GetComponentInParent<BombContainer>().bombSpeed;
+            rb.velocity = rb.velocity.normalized * bombContainer.bombSpeed;
         }
+        
     }
 
     void FreezeBomb()
@@ -46,9 +48,19 @@ public class Bomb : MonoBehaviour
         {
             if (collider.CompareTag("Asteroid"))
             {
-                Destroy(collider.gameObject);
+                Asteroid asteroid = collider.GetComponent<Asteroid>();
+                if (asteroid != null)
+                {
+                    asteroid.Explode();
+                }
             }
         }
         Destroy(gameObject);
+    }
+
+    // Method to set the reference to the BombContainer script
+    public void SetBombContainer(BombContainer container)
+    {
+        bombContainer = container;
     }
 }

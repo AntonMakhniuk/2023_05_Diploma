@@ -16,33 +16,37 @@ public class BombContainer : Instrument
         {
             ToggleActiveState();
         }
-        if (Input.GetMouseButtonDown(0))
+        if (isActiveTool && Input.GetMouseButtonDown(0))
         {
-            if (isActiveTool)
-            {
-                SpawnBomb();
-            }
+            SpawnBomb();
         }
 
-        if (Input.GetMouseButtonDown(1))
+        if (isActiveTool && Input.GetMouseButtonDown(1))
         {
-            if (isActiveTool)
-            {
-                DetonateAllBombs();
-            }
+            DetonateAllBombs();
         }
     }
-    
 
     void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, bombRange);
+        if (isActiveTool)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, bombRange);
+        }
     }
 
     void SpawnBomb()
     {
         GameObject bomb = Instantiate(bombPrefab, transform.position, Quaternion.identity);
+        
+        // Set reference to the BombContainer script on the instantiated bomb
+        Bomb bombScript = bomb.GetComponent<Bomb>();
+        if (bombScript != null)
+        {
+            bombScript.SetBombContainer(this);
+        }
+        
         Rigidbody rb = bomb.GetComponent<Rigidbody>();
         rb.velocity = transform.forward * bombSpeed;
         Destroy(bomb, bombLifetime);
@@ -56,6 +60,7 @@ public class BombContainer : Instrument
             bomb.Detonate();
         }
     }
+
     void ToggleActiveState()
     {
         SetActiveTool(!isActiveTool);
