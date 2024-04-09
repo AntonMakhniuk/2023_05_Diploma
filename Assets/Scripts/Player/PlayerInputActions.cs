@@ -37,15 +37,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Movement"",
-                    ""type"": ""Button"",
-                    ""id"": ""a45dd632-7566-4c7b-b7b2-eb9b6bc79c2a"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
                     ""name"": ""AlignWithCamera"",
                     ""type"": ""Button"",
                     ""id"": ""e5de1bfa-6c14-42be-b71f-37d99f8fa03e"",
@@ -118,7 +109,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Movement2"",
+                    ""name"": ""Movement"",
                     ""type"": ""Value"",
                     ""id"": ""6348877e-c5d8-41a3-912d-2826c54ab698"",
                     ""expectedControlType"": ""Vector2"",
@@ -160,7 +151,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""modifier"",
                     ""id"": ""6cf0de82-eea0-4621-873a-30af5268c430"",
-                    ""path"": ""<Mouse>/middleButton"",
+                    ""path"": ""<Keyboard>/shift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -180,39 +171,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""Forward/Backward"",
-                    ""id"": ""852620a6-d135-49fd-b8ad-90d2ec75860f"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""75c27e4a-f1c2-4f53-96b2-1dabc1cd531a"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""97857c57-7643-4bc2-a9ee-09a83bca7171"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": ""BothMouseButtonPushed"",
                     ""id"": ""9f4ddde9-9209-407e-bbb1-c5249994c1a3"",
                     ""path"": ""OneModifier"",
@@ -226,7 +184,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""modifier"",
                     ""id"": ""f20036ab-9cb5-4072-8477-ff25e7ed41e6"",
-                    ""path"": ""<Mouse>/rightButton"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -237,7 +195,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""binding"",
                     ""id"": ""850a0843-908d-4920-8fcd-350383647282"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -373,7 +331,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Movement2"",
+                    ""action"": ""Movement"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -384,7 +342,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Movement2"",
+                    ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -395,7 +353,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Movement2"",
+                    ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -406,7 +364,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Movement2"",
+                    ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -417,7 +375,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Movement2"",
+                    ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -451,7 +409,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         // PlayerShip
         m_PlayerShip = asset.FindActionMap("PlayerShip", throwIfNotFound: true);
         m_PlayerShip_MouseCameraMovement = m_PlayerShip.FindAction("MouseCameraMovement", throwIfNotFound: true);
-        m_PlayerShip_Movement = m_PlayerShip.FindAction("Movement", throwIfNotFound: true);
         m_PlayerShip_AlignWithCamera = m_PlayerShip.FindAction("AlignWithCamera", throwIfNotFound: true);
         m_PlayerShip_RotateAlongY = m_PlayerShip.FindAction("RotateAlongY", throwIfNotFound: true);
         m_PlayerShip_RotateAlongZ = m_PlayerShip.FindAction("RotateAlongZ", throwIfNotFound: true);
@@ -460,7 +417,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_PlayerShip_ToggleGasCollector = m_PlayerShip.FindAction("ToggleGasCollector", throwIfNotFound: true);
         m_PlayerShip_InstrumentPrimary = m_PlayerShip.FindAction("InstrumentPrimary", throwIfNotFound: true);
         m_PlayerShip_InstrumentSecondary = m_PlayerShip.FindAction("InstrumentSecondary", throwIfNotFound: true);
-        m_PlayerShip_Movement2 = m_PlayerShip.FindAction("Movement2", throwIfNotFound: true);
+        m_PlayerShip_Movement = m_PlayerShip.FindAction("Movement", throwIfNotFound: true);
         m_PlayerShip_Brakes = m_PlayerShip.FindAction("Brakes", throwIfNotFound: true);
         m_PlayerShip_ToggleLaser = m_PlayerShip.FindAction("ToggleLaser", throwIfNotFound: true);
     }
@@ -525,7 +482,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_PlayerShip;
     private List<IPlayerShipActions> m_PlayerShipActionsCallbackInterfaces = new List<IPlayerShipActions>();
     private readonly InputAction m_PlayerShip_MouseCameraMovement;
-    private readonly InputAction m_PlayerShip_Movement;
     private readonly InputAction m_PlayerShip_AlignWithCamera;
     private readonly InputAction m_PlayerShip_RotateAlongY;
     private readonly InputAction m_PlayerShip_RotateAlongZ;
@@ -534,7 +490,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerShip_ToggleGasCollector;
     private readonly InputAction m_PlayerShip_InstrumentPrimary;
     private readonly InputAction m_PlayerShip_InstrumentSecondary;
-    private readonly InputAction m_PlayerShip_Movement2;
+    private readonly InputAction m_PlayerShip_Movement;
     private readonly InputAction m_PlayerShip_Brakes;
     private readonly InputAction m_PlayerShip_ToggleLaser;
     public struct PlayerShipActions
@@ -542,7 +498,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         private @PlayerInputActions m_Wrapper;
         public PlayerShipActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @MouseCameraMovement => m_Wrapper.m_PlayerShip_MouseCameraMovement;
-        public InputAction @Movement => m_Wrapper.m_PlayerShip_Movement;
         public InputAction @AlignWithCamera => m_Wrapper.m_PlayerShip_AlignWithCamera;
         public InputAction @RotateAlongY => m_Wrapper.m_PlayerShip_RotateAlongY;
         public InputAction @RotateAlongZ => m_Wrapper.m_PlayerShip_RotateAlongZ;
@@ -551,7 +506,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @ToggleGasCollector => m_Wrapper.m_PlayerShip_ToggleGasCollector;
         public InputAction @InstrumentPrimary => m_Wrapper.m_PlayerShip_InstrumentPrimary;
         public InputAction @InstrumentSecondary => m_Wrapper.m_PlayerShip_InstrumentSecondary;
-        public InputAction @Movement2 => m_Wrapper.m_PlayerShip_Movement2;
+        public InputAction @Movement => m_Wrapper.m_PlayerShip_Movement;
         public InputAction @Brakes => m_Wrapper.m_PlayerShip_Brakes;
         public InputAction @ToggleLaser => m_Wrapper.m_PlayerShip_ToggleLaser;
         public InputActionMap Get() { return m_Wrapper.m_PlayerShip; }
@@ -566,9 +521,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @MouseCameraMovement.started += instance.OnMouseCameraMovement;
             @MouseCameraMovement.performed += instance.OnMouseCameraMovement;
             @MouseCameraMovement.canceled += instance.OnMouseCameraMovement;
-            @Movement.started += instance.OnMovement;
-            @Movement.performed += instance.OnMovement;
-            @Movement.canceled += instance.OnMovement;
             @AlignWithCamera.started += instance.OnAlignWithCamera;
             @AlignWithCamera.performed += instance.OnAlignWithCamera;
             @AlignWithCamera.canceled += instance.OnAlignWithCamera;
@@ -593,9 +545,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @InstrumentSecondary.started += instance.OnInstrumentSecondary;
             @InstrumentSecondary.performed += instance.OnInstrumentSecondary;
             @InstrumentSecondary.canceled += instance.OnInstrumentSecondary;
-            @Movement2.started += instance.OnMovement2;
-            @Movement2.performed += instance.OnMovement2;
-            @Movement2.canceled += instance.OnMovement2;
+            @Movement.started += instance.OnMovement;
+            @Movement.performed += instance.OnMovement;
+            @Movement.canceled += instance.OnMovement;
             @Brakes.started += instance.OnBrakes;
             @Brakes.performed += instance.OnBrakes;
             @Brakes.canceled += instance.OnBrakes;
@@ -609,9 +561,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @MouseCameraMovement.started -= instance.OnMouseCameraMovement;
             @MouseCameraMovement.performed -= instance.OnMouseCameraMovement;
             @MouseCameraMovement.canceled -= instance.OnMouseCameraMovement;
-            @Movement.started -= instance.OnMovement;
-            @Movement.performed -= instance.OnMovement;
-            @Movement.canceled -= instance.OnMovement;
             @AlignWithCamera.started -= instance.OnAlignWithCamera;
             @AlignWithCamera.performed -= instance.OnAlignWithCamera;
             @AlignWithCamera.canceled -= instance.OnAlignWithCamera;
@@ -636,9 +585,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @InstrumentSecondary.started -= instance.OnInstrumentSecondary;
             @InstrumentSecondary.performed -= instance.OnInstrumentSecondary;
             @InstrumentSecondary.canceled -= instance.OnInstrumentSecondary;
-            @Movement2.started -= instance.OnMovement2;
-            @Movement2.performed -= instance.OnMovement2;
-            @Movement2.canceled -= instance.OnMovement2;
+            @Movement.started -= instance.OnMovement;
+            @Movement.performed -= instance.OnMovement;
+            @Movement.canceled -= instance.OnMovement;
             @Brakes.started -= instance.OnBrakes;
             @Brakes.performed -= instance.OnBrakes;
             @Brakes.canceled -= instance.OnBrakes;
@@ -665,7 +614,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     public interface IPlayerShipActions
     {
         void OnMouseCameraMovement(InputAction.CallbackContext context);
-        void OnMovement(InputAction.CallbackContext context);
         void OnAlignWithCamera(InputAction.CallbackContext context);
         void OnRotateAlongY(InputAction.CallbackContext context);
         void OnRotateAlongZ(InputAction.CallbackContext context);
@@ -674,7 +622,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnToggleGasCollector(InputAction.CallbackContext context);
         void OnInstrumentPrimary(InputAction.CallbackContext context);
         void OnInstrumentSecondary(InputAction.CallbackContext context);
-        void OnMovement2(InputAction.CallbackContext context);
+        void OnMovement(InputAction.CallbackContext context);
         void OnBrakes(InputAction.CallbackContext context);
         void OnToggleLaser(InputAction.CallbackContext context);
     }

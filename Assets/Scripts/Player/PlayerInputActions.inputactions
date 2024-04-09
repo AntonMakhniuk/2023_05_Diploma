@@ -15,15 +15,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Movement",
-                    "type": "Button",
-                    "id": "a45dd632-7566-4c7b-b7b2-eb9b6bc79c2a",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "AlignWithCamera",
                     "type": "Button",
                     "id": "e5de1bfa-6c14-42be-b71f-37d99f8fa03e",
@@ -96,7 +87,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Movement2",
+                    "name": "Movement",
                     "type": "Value",
                     "id": "6348877e-c5d8-41a3-912d-2826c54ab698",
                     "expectedControlType": "Vector2",
@@ -138,7 +129,7 @@
                 {
                     "name": "modifier",
                     "id": "6cf0de82-eea0-4621-873a-30af5268c430",
-                    "path": "<Mouse>/middleButton",
+                    "path": "<Keyboard>/shift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -158,39 +149,6 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Forward/Backward",
-                    "id": "852620a6-d135-49fd-b8ad-90d2ec75860f",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "75c27e4a-f1c2-4f53-96b2-1dabc1cd531a",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "97857c57-7643-4bc2-a9ee-09a83bca7171",
-                    "path": "<Keyboard>/w",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "BothMouseButtonPushed",
                     "id": "9f4ddde9-9209-407e-bbb1-c5249994c1a3",
                     "path": "OneModifier",
@@ -204,7 +162,7 @@
                 {
                     "name": "modifier",
                     "id": "f20036ab-9cb5-4072-8477-ff25e7ed41e6",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -215,7 +173,7 @@
                 {
                     "name": "binding",
                     "id": "850a0843-908d-4920-8fcd-350383647282",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -351,7 +309,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement2",
+                    "action": "Movement",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -362,7 +320,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement2",
+                    "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -373,7 +331,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement2",
+                    "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -384,7 +342,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement2",
+                    "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -395,7 +353,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement2",
+                    "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
