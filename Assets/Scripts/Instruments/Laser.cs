@@ -7,101 +7,125 @@ using UnityEngine;
 public class Laser : Instrument
 {
     [SerializeField] private Canvas crosshairCanvas;
+    [SerializeField] private LineRenderer lineRenderer;
+    [SerializeField] private Transform barrelTransform;
     [SerializeField] private float laserRange = 100f;
     [SerializeField] private LayerMask asteroidLayer;
     [SerializeField] private Color validColor = Color.green;
     [SerializeField] private Color invalidColor = Color.red;
 
-    private LineRenderer lineRenderer;
-    private Transform barrelTransform;
-
-    private bool isLaserActive = false;
     private Camera mainCamera;
 
-    void Start()
+    private bool isLaserActive = false;
+
+    protected override void Awake()
     {
-        // Create the LineRenderer as a child object of the Laser prefab
-        GameObject lineObject = new GameObject("LineRenderer");
-        lineRenderer = lineObject.AddComponent<LineRenderer>();
-        lineRenderer.startWidth = 0.1f;
-        lineRenderer.endWidth = 0.1f;
-        lineRenderer.material.color = Color.red;
-        lineObject.transform.SetParent(transform);
-        lineObject.transform.localPosition = Vector3.zero;
-        lineRenderer.enabled = false;
+        base.Awake();
 
         mainCamera = Camera.main;
-        barrelTransform = transform.Find("Barrel (Laser)");
-        
+
+        lineRenderer.enabled = false;
+        lineRenderer.startWidth = 0.1f;
+        lineRenderer.endWidth = 0.1f;
+        lineRenderer.material.color = invalidColor;
+
+        ToggleBarrel(false);
+        crosshairCanvas.enabled = false;
     }
 
     void Update()
-{
-    if (Input.GetKeyDown(KeyCode.Alpha4))
     {
-        isLaserActive = !isLaserActive;
-        crosshairCanvas.enabled = isLaserActive;
-    }
-
-    if (isLaserActive && Input.GetMouseButton(0))
-    {
-        // Update crosshair position based on mouse position
-        crosshairCanvas.transform.position = Input.mousePosition;
-
-        // Calculate laser direction based on crosshair position
-        Vector3 direction = (crosshairCanvas.transform.position - mainCamera.WorldToScreenPoint(transform.position)).normalized;
-
-        // Raycast from camera in the calculated direction
-        Ray ray = mainCamera.ScreenPointToRay(crosshairCanvas.transform.position);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, laserRange))
+        if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            // Check if the hit object is an asteroid point
-            if (hit.collider.CompareTag("AsteroidPoint"))
+            ToggleLaser();
+        }
+
+        if (isLaserActive && Input.GetMouseButton(0))
+        {
+            UpdateCrosshairPosition();
+
+            Ray ray = mainCamera.ScreenPointToRay(crosshairCanvas.transform.position);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, laserRange, asteroidLayer))
             {
-                // Destroy the collided asteroid point
-                Destroy(hit.collider.gameObject);
-
-                // Find the Asteroid script on the parent asteroid
-                Asteroid asteroid = hit.collider.transform.parent.GetComponent<Asteroid>();
-
-                // Notify the attached asteroid about the destruction
-                if (asteroid != null)
-                {
-                    asteroid.OnAsteroidPointDestroyed();
-                }
+                DrawLaser(barrelTransform.position, hit.point);
+                UpdateLaserColor(hit);
+                CheckAndDestroyAsteroidPoint(hit.collider);
             }
-
-            // Draw laser line
-            lineRenderer.enabled = true;
-            lineRenderer.SetPosition(0, barrelTransform.position);
-            lineRenderer.SetPosition(1, hit.point);
-
-            // Change color of crosshair based on whether laser can shoot or not
-            crosshairCanvas.GetComponent<Canvas>().enabled = IsTargetClear(hit);
+            else
+            {
+                Vector3 endPos = ray.GetPoint(laserRange);
+                DrawLaser(barrelTransform.position, endPos);
+                crosshairCanvas.GetComponent<Canvas>().enabled = false;
+            }
         }
         else
         {
-            // If no hit, simply draw the laser forward in the calculated direction
-            Vector3 endPos = ray.GetPoint(laserRange);
-            lineRenderer.enabled = true;
-            lineRenderer.SetPosition(0, barrelTransform.position);
-            lineRenderer.SetPosition(1, endPos);
+            lineRenderer.enabled = false;
+        }
+        
+        RotateBarrel();
+    }
 
-            crosshairCanvas.GetComponent<Canvas>().enabled = false;
+    private void ToggleLaser()
+    {
+        isLaserActive = !isLaserActive;
+        crosshairCanvas.enabled = isLaserActive;
+        base.Toggle();
+        ToggleBarrel(isLaserActive);
+    }
+
+    private void ToggleBarrel(bool active)
+    {
+        barrelTransform.gameObject.SetActive(active);
+    }
+
+    private void UpdateCrosshairPosition()
+    {
+        Vector3 crosshairPosition = mainCamera.WorldToScreenPoint(barrelTransform.position + Vector3.up * 2f); 
+        crosshairCanvas.transform.position = crosshairPosition;
+    }
+
+    private void UpdateLaserColor(RaycastHit hit)
+    {
+        lineRenderer.material.color = IsTargetClear(hit) ? validColor : invalidColor;
+    }
+
+    private void DrawLaser(Vector3 startPos, Vector3 endPos)
+    {
+        lineRenderer.enabled = true;
+        lineRenderer.SetPosition(0, startPos);
+        lineRenderer.SetPosition(1, endPos);
+    }
+
+    private bool IsTargetClear(RaycastHit hit)
+    {
+        return hit.collider.CompareTag("AsteroidPoint");
+    }
+
+    private void CheckAndDestroyAsteroidPoint(Collider collider)
+    {
+        if (collider.CompareTag("AsteroidPoint"))
+        {
+            Destroy(collider.gameObject);
+
+            Asteroid asteroid = collider.transform.parent.GetComponent<Asteroid>();
+            if (asteroid != null)
+            {
+                asteroid.OnAsteroidPointDestroyed();
+            }
         }
     }
-    else
-    {
-        // If button is not pressed, hide laser
-        lineRenderer.enabled = false;
-    }
-}
 
-    bool IsTargetClear(RaycastHit hit)
+    private void RotateBarrel()
     {
-        return !Physics.Raycast(barrelTransform.position, (hit.point - barrelTransform.position), Vector3.Distance(barrelTransform.position, hit.point), asteroidLayer);
+        if (isLaserActive)
+        {
+            Vector3 cameraRotation = mainCamera.transform.localRotation.eulerAngles;
+            Quaternion targetRotation = Quaternion.Euler(cameraRotation.x, cameraRotation.y, 0f);
+            barrelTransform.rotation = Quaternion.Lerp(barrelTransform.rotation, targetRotation, Time.deltaTime);
+        }
     }
 }
 
