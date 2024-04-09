@@ -134,6 +134,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleLaser"",
+                    ""type"": ""Button"",
+                    ""id"": ""129376ee-09e3-4437-9ad9-d91e94187d61"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -167,6 +176,39 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""MouseCameraMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""BothMouseButtonPushed"",
+                    ""id"": ""9f4ddde9-9209-407e-bbb1-c5249994c1a3"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AlignWithCamera"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""f20036ab-9cb5-4072-8477-ff25e7ed41e6"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AlignWithCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""850a0843-908d-4920-8fcd-350383647282"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AlignWithCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -400,6 +442,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""AlignWithCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3c2b93d3-0816-4461-b678-84864f1ba054"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleLaser"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -420,6 +473,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_PlayerShip_Movement = m_PlayerShip.FindAction("Movement", throwIfNotFound: true);
         m_PlayerShip_Brakes = m_PlayerShip.FindAction("Brakes", throwIfNotFound: true);
         m_PlayerShip_ToggleBombContainer = m_PlayerShip.FindAction("ToggleBombContainer", throwIfNotFound: true);
+        m_PlayerShip_ToggleLaser = m_PlayerShip.FindAction("ToggleLaser", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -493,6 +547,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerShip_Movement;
     private readonly InputAction m_PlayerShip_Brakes;
     private readonly InputAction m_PlayerShip_ToggleBombContainer;
+    private readonly InputAction m_PlayerShip_ToggleLaser;
     public struct PlayerShipActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -509,6 +564,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_PlayerShip_Movement;
         public InputAction @Brakes => m_Wrapper.m_PlayerShip_Brakes;
         public InputAction @ToggleBombContainer => m_Wrapper.m_PlayerShip_ToggleBombContainer;
+        public InputAction @ToggleLaser => m_Wrapper.m_PlayerShip_ToggleLaser;
         public InputActionMap Get() { return m_Wrapper.m_PlayerShip; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -554,6 +610,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @ToggleBombContainer.started += instance.OnToggleBombContainer;
             @ToggleBombContainer.performed += instance.OnToggleBombContainer;
             @ToggleBombContainer.canceled += instance.OnToggleBombContainer;
+            @ToggleLaser.started += instance.OnToggleLaser;
+            @ToggleLaser.performed += instance.OnToggleLaser;
+            @ToggleLaser.canceled += instance.OnToggleLaser;
         }
 
         private void UnregisterCallbacks(IPlayerShipActions instance)
@@ -594,6 +653,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @ToggleBombContainer.started -= instance.OnToggleBombContainer;
             @ToggleBombContainer.performed -= instance.OnToggleBombContainer;
             @ToggleBombContainer.canceled -= instance.OnToggleBombContainer;
+            @ToggleLaser.started -= instance.OnToggleLaser;
+            @ToggleLaser.performed -= instance.OnToggleLaser;
+            @ToggleLaser.canceled -= instance.OnToggleLaser;
         }
 
         public void RemoveCallbacks(IPlayerShipActions instance)
@@ -625,5 +687,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnBrakes(InputAction.CallbackContext context);
         void OnToggleBombContainer(InputAction.CallbackContext context);
+        void OnToggleLaser(InputAction.CallbackContext context);
     }
 }

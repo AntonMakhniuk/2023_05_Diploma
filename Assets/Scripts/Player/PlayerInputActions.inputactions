@@ -112,6 +112,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ToggleLaser",
+                    "type": "Button",
+                    "id": "129376ee-09e3-4437-9ad9-d91e94187d61",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -145,6 +154,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "MouseCameraMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "BothMouseButtonPushed",
+                    "id": "9f4ddde9-9209-407e-bbb1-c5249994c1a3",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AlignWithCamera",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "f20036ab-9cb5-4072-8477-ff25e7ed41e6",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AlignWithCamera",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "850a0843-908d-4920-8fcd-350383647282",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AlignWithCamera",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -378,6 +420,17 @@
                     "action": "AlignWithCamera",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "3c2b93d3-0816-4461-b678-84864f1ba054",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleLaser",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
