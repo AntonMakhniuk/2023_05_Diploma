@@ -15,13 +15,14 @@ public class PlayerMovement : MonoBehaviour {
 
     [Header("Ship Movement Parameters")]
     [SerializeField] private float moveSpeed = 1;
-    [SerializeField] private float accelerationDrag = 0.3f;
+    [SerializeField] private float accelerationDrag = 0f;
     [SerializeField] private float brakesDrag = 1.5f;
+    [SerializeField] private float maxLinearVelocity = 1000;
     [Space]
     [Header("Ship Rotation Parameters")]
     [SerializeField] private float rotationSpeed = 1;
     [SerializeField] private float maxAngularVelocity = 1;
-    [SerializeField] private float accelerationAngularDrag = 0.1f;
+    [SerializeField] private float accelerationAngularDrag = 0.5f;
     [SerializeField] private float brakesAngularDrag = 1f;
     [SerializeField] private float cameraAlignRotationSpeed = 1f;
     
@@ -30,6 +31,7 @@ public class PlayerMovement : MonoBehaviour {
         
         rb = GetComponent<Rigidbody>();
         rb.maxAngularVelocity = maxAngularVelocity;
+        rb.maxLinearVelocity = maxLinearVelocity;
 
         rb.drag = accelerationDrag;
         rb.angularDrag = accelerationAngularDrag;
@@ -59,19 +61,6 @@ public class PlayerMovement : MonoBehaviour {
             rb.drag = accelerationDrag;
             rb.angularDrag = accelerationAngularDrag;
         };
-
-        // X axis
-        // playerInputActions.PlayerShip.RotateAlongX.performed += context =>
-        // {
-        //     rb.angularDrag = accelerationAngularDrag;
-        //     isRotating = true;
-        // };
-        //
-        // playerInputActions.PlayerShip.RotateAlongX.canceled += context =>
-        // {
-        //     rb.angularDrag = decelerationAngularDrag;
-        //     isRotating = false;
-        // };
 
         // Y axis
         playerInputActions.PlayerShip.RotateAlongY.performed += _ => isRotating = true;
