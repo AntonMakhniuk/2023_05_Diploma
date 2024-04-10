@@ -5,8 +5,11 @@ using UnityEngine;
 public class ShipInventory : MonoBehaviour {
     [SerializeField] private TractorBeam tractorBeam;
     [SerializeField] private Drill drill;
-    [SerializeField] private GasCollectorV3 gasCollector;
+
     [SerializeField] private BombContainer bombContainer;
+
+    [SerializeField] private GasCollectorV4 gasCollector;
+    [SerializeField] private Laser laser;
 
     [SerializeField] private Instrument activeInstrument = null;
     private PlayerInputActions playerInputActions;
@@ -18,7 +21,10 @@ public class ShipInventory : MonoBehaviour {
         playerInputActions.PlayerShip.ToggleTractorBeam.performed += context => { ToggleInstrument(tractorBeam); };
         playerInputActions.PlayerShip.ToggleDrill.performed += context => { ToggleInstrument(drill); };
         playerInputActions.PlayerShip.ToggleGasCollector.performed += context => { ToggleInstrument(gasCollector); };
+
         playerInputActions.PlayerShip.ToggleBombContainer.performed += context => { ToggleInstrument(bombContainer); };
+        playerInputActions.PlayerShip.ToggleLaser.performed += context => { ToggleInstrument(laser); };
+        
     }
 
     private void ToggleInstrument(Instrument instr) {

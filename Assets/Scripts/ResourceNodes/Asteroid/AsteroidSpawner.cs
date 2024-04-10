@@ -5,18 +5,19 @@ using UnityEngine;
 public class AsteroidSpawner : MonoBehaviour
 {
     public GameObject asteroidPrefab;
-    [SerializeField]public int numberOfAsteroids = 10;
-    public Vector3 spawnZoneSize = new Vector3(10f, 10f, 10f);
-    [SerializeField]public float spawnInterval = 5f;
+    [SerializeField]private int numberOfAsteroids = 10;
+    [SerializeField]private Vector3 spawnZoneSize = new Vector3(10f, 10f, 10f);
+    [SerializeField]private float spawnInterval = 5f;
 
-   public enum SpawnShape { Rectangle, Circle, Sphere }
-    public SpawnShape spawnShape = SpawnShape.Rectangle;
-    public float circleRadius = 5f;
-    public bool drawGizmos = true;
+    public enum SpawnShape { Rectangle, Circle, Sphere }
+    [SerializeField]private SpawnShape spawnShape = SpawnShape.Rectangle;
+    [SerializeField]private float circleRadius = 5f;
+    [SerializeField]private bool drawGizmos = true;
+    [SerializeField] private bool isRoom = false;
 
     [Header("Asteroid Properties")]
-    public float asteroidSpeed = 1f;
-    public float asteroidRotationSpeed = 5f;
+    [SerializeField]private float asteroidSpeed = 1f;
+    [SerializeField]private float asteroidRotationSpeed = 5f;
 
     private void Start()
     {
@@ -43,6 +44,27 @@ public class AsteroidSpawner : MonoBehaviour
         asteroidRb.AddTorque(Random.onUnitSphere * asteroidRotationSpeed, ForceMode.Impulse);
 
         asteroid.transform.parent = transform;
+        
+        if (isRoom)
+        {
+            StartCoroutine(ConstrainPosition(asteroid, spawnZoneSize));
+        }
+    }
+    
+    private IEnumerator ConstrainPosition(GameObject obj, Vector3 zoneSize)
+    {
+        Rigidbody rb = obj.GetComponent<Rigidbody>();
+
+        while (true)
+        {
+            rb.position = new Vector3(
+                Mathf.Clamp(rb.position.x, transform.position.x - zoneSize.x / 2, transform.position.x + zoneSize.x / 2),
+                Mathf.Clamp(rb.position.y, transform.position.y - zoneSize.y / 2, transform.position.y + zoneSize.y / 2),
+                Mathf.Clamp(rb.position.z, transform.position.z - zoneSize.z / 2, transform.position.z + zoneSize.z / 2)
+            );
+
+            yield return null;
+        }
     }
 
     private Vector3 GetRandomPosition()

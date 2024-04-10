@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 8274532137978051865}
   - component: {fileID: 5808699502468494061}
   - component: {fileID: 1134484558653196118}
-  - component: {fileID: 1316530941155346858}
+  - component: {fileID: 3182119837325187759}
   m_Layer: 8
-  m_Name: GasCollector 1
+  m_Name: 'GasCollector '
   m_TagString: Instrument
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -107,7 +107,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5495902117074765545, guid: 0ec5410fa7d33754d89004d389857da0, type: 3}
---- !u!114 &1316530941155346858
+--- !u!114 &3182119837325187759
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,10 +116,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5536583135080010174}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 338d916b6b2f130418d5e8d0daeab7e1, type: 3}
+  m_Script: {fileID: 11500000, guid: 6e7195b1ac2310a408b272d898413160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gasCloudTag: Gas
-  gatheringSpeed: 5
-  maxGasStorage: 100
-  currentGasStorage: 0
+  maxGasCapacity: 100
+  isCollectorActive: 0
+  isGatheringGas: 0
+  currentGasLevel: 0

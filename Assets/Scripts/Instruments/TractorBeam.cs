@@ -121,8 +121,11 @@ public class TractorBeam : Instrument
         Collider[] hitColliders = Physics.OverlapSphere(transform.parent.position, tractorBeamRange, tractorBeamAimLayerMask);
         foreach (Collider collider in hitColliders)
         {
-            Vector3 forceDirection = (collider.transform.position - transform.parent.position).normalized;
-            collider.GetComponent<Rigidbody>().AddForce(forceDirection * tractorSpeed * 5f, ForceMode.Impulse);
+            Rigidbody rigidbody = collider.GetComponent<Rigidbody>();
+            if (rigidbody != null) {
+                Vector3 forceDirection = (collider.transform.position - transform.parent.position).normalized;
+                rigidbody.AddForce(forceDirection * tractorSpeed * 5f, ForceMode.Impulse);
+            }
         }
     }
 
@@ -153,22 +156,10 @@ public class TractorBeam : Instrument
     }
 
     private void RotateHalfSphere() {
-        Vector3 cameraRotation = mainCamera.transform.localRotation.eulerAngles;
+    	Quaternion targetRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, mainCamera.transform.rotation.eulerAngles.y+180f, transform.rotation.eulerAngles.z);
         
-        // TODO: WTF is going on here????
-        
-         Quaternion targetRotation = Quaternion.Euler(
-             new Vector3(
-                 halfSphereDefaultLocalRotation.x - 90f, halfSphereDefaultLocalRotation.y, cameraRotation.y + 180f
-                 )
-             );
-        
-        transform.localRotation = 
-            Quaternion.Lerp
-            (transform.localRotation, 
-                targetRotation, 
-                halfSphereRotationSpeed * Time.deltaTime);
-    }
+    	transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, targetRotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+	}
 
     private void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Resource")) {
@@ -176,12 +167,4 @@ public class TractorBeam : Instrument
             Destroy(other.gameObject);
         }
     }
-
-    // TODO: Figure out how to make this work
-    // private void RotateBarrel() {
-    //     Vector3 direction = lastRaycastHit.point - transform.position;
-    //     
-    //     float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - barrelTransform.eulerAngles.x;
-    //     barrelTransform.Rotate(angle, 0f, 0f, Space.Self);
-    // }
 }
