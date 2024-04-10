@@ -132,7 +132,7 @@ namespace Production.Challenges.General
             StartCoroutine(ResetCoroutine());
         }
 
-        private void ForceResetAndStop(object sender, CraftingData craftingData)
+        private void ForceResetAndStop(object sender, EventArgs e)
         {
             if (!_isBeingReset)
             {

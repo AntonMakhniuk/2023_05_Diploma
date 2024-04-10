@@ -739,10 +739,34 @@ MonoBehaviour:
   - difficulty: 1
     resetWaitingTime: 5
     warningThreshold: 2
+    failThreshold: 4
+    numOfSegments: 8
+    minDisableCooldown: 3
+    maxDisableCooldown: 5
+    minDestabilizationCount: 1
+    maxDestabilizationCount: 1
+    destabilizationTravelTime: 10
+    resetTravelTime: 5
+    warningZoneRadius: 100
+  - difficulty: 2
+    resetWaitingTime: 5
+    warningThreshold: 2
     failThreshold: 3
     numOfSegments: 8
     minDisableCooldown: 2
     maxDisableCooldown: 5
+    minDestabilizationCount: 1
+    maxDestabilizationCount: 1
+    destabilizationTravelTime: 12.5
+    resetTravelTime: 5
+    warningZoneRadius: 100
+  - difficulty: 3
+    resetWaitingTime: 5
+    warningThreshold: 2
+    failThreshold: 3
+    numOfSegments: 8
+    minDisableCooldown: 3
+    maxDisableCooldown: 7
     minDestabilizationCount: 1
     maxDestabilizationCount: 2
     destabilizationTravelTime: 15
@@ -750,6 +774,7 @@ MonoBehaviour:
     warningZoneRadius: 100
   challengeType: 3
   updateRate: 0.016665
+  isActive: 0
   failZoneRadius: 130
   stabilizerOrbitRadius: 160
   stabilizer: {fileID: 0}

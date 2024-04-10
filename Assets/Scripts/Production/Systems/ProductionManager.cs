@@ -37,7 +37,7 @@ namespace Production.Systems
             }
         }
         
-        public UnityEvent onProductionStarted;
+        public UnityEvent onProductionStarted, onProductionEnded;
         
         public void StartProduction(CraftingData craftingData)
         {
@@ -79,8 +79,17 @@ namespace Production.Systems
                         craftingData.Recipe.resources.Select(res => res.resource).ToArray()
                     )
             );
+
+            currentManager.OnProductionEnded += SendOnProductionEndedEvent;
             
             onProductionStarted?.Invoke();
+        }
+
+        private void SendOnProductionEndedEvent(object sender, CraftingData cd)
+        {
+            currentManager.OnProductionEnded -= SendOnProductionEndedEvent;
+            
+            onProductionEnded?.Invoke();
         }
     }
     

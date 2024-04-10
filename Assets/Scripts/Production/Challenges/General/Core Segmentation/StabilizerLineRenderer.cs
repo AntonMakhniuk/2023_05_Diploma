@@ -45,7 +45,7 @@ namespace Production.Challenges.General.Core_Segmentation
             stabilizer.OnStabilizerTrajectoryUpdated += UpdateLine;
             _segmentationChallenge.OnGeneralFail += HandleChallengeFail;
             _segmentationChallenge.OnGeneralReset += HandleChallengeReset;
-            ProductionManager.Instance.currentManager.OnProductionFinished += HandleProductionEnd;
+            ProductionManager.Instance.currentManager.OnProductionEnded += HandleProductionEnd;
         }
 
         private void GenerateLine()

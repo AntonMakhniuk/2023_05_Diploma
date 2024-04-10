@@ -27,7 +27,7 @@ namespace Production.Challenges.General.Temperature
             
             _config = associatedChallenge.Config;
 
-            associatedSlider.maxValue = _config.failTemperature;
+            associatedSlider.maxValue = _config.maxTemperature;
             associatedSlider.minValue = _config.minTemperature;
             associatedSlider.value = _config.baseTemperature;
 
