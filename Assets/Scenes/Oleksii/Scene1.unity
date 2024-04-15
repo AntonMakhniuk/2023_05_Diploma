@@ -510,6 +510,7 @@ GameObject:
   - component: {fileID: 698374317}
   - component: {fileID: 698374310}
   - component: {fileID: 698374309}
+  - component: {fileID: 698374319}
   - component: {fileID: 698374316}
   m_Layer: 0
   m_Name: Ship
@@ -732,9 +733,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingWindow: {fileID: 1926089547}
-  teleporterPrefab: {fileID: 8460431489395359899, guid: 3b8ad1113fcdf3845b94218c422ae82c, type: 3}
-  acceleratorPrefab: {fileID: 796662751}
-  refillStationPrefab: {fileID: 4232139476301420494, guid: 44ba052fb945e714b97a39841a1bcf3f, type: 3}
+  buildingManager: {fileID: 698374319}
 --- !u!114 &698374317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -771,6 +770,21 @@ MonoBehaviour:
   deceleration: 50
   speedBoostMultiplier: 2
   speedBoostDuration: 10
+--- !u!114 &698374319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 698374308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f79fb31104c7794d8c8159592cb841f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teleporterPrefab: {fileID: 8460431489395359899, guid: 3b8ad1113fcdf3845b94218c422ae82c, type: 3}
+  acceleratorPrefab: {fileID: 6192842715499181006, guid: 20450e2530c27444bbce270b2f8a97a8, type: 3}
+  refillStationPrefab: {fileID: 4232139476301420494, guid: 44ba052fb945e714b97a39841a1bcf3f, type: 3}
 --- !u!1 &714205186
 GameObject:
   m_ObjectHideFlags: 0
@@ -979,11 +993,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 730664124}
   m_CullTransparentMesh: 1
---- !u!1 &796662751 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6192842715499181006, guid: 20450e2530c27444bbce270b2f8a97a8, type: 3}
-  m_PrefabInstance: {fileID: 4116290025514033495}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &919783259
 GameObject:
   m_ObjectHideFlags: 0
@@ -2057,7 +2066,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _skyboxMaterials:
   - {fileID: 2100000, guid: 81f714daf7144784b8a2f42f1cd30927, type: 2}
-  - {fileID: 2100000, guid: 9803600998c48b140b2f7038d0fc2eb1, type: 2}
+  - {fileID: 0}
 --- !u!114 &1752065109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2468,7 +2477,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 698374316}
         m_TargetAssemblyTypeName: BuildingWindow, 2023-05-Diploma
-        m_MethodName: BuildCapsule
+        m_MethodName: BuildTeleporter
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

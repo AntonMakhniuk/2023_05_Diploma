@@ -1,36 +1,29 @@
 using UnityEngine;
+using System;
 using System.Collections.Generic;
 
 public class Teleporter : BuildingObject
 {
-    // Static list to store all teleporters
-    public static List<Teleporter> allTeleporters = new List<Teleporter>();
-    public GameObject teleporterPrefab; 
-
-    private void Awake()
+    protected override void Awake()
     {
-        base.Awake();
-        allTeleporters.Add(this);
+        base.Awake(); 
     }
 
-    private void OnDestroy()
+    protected override void OnDestroy()
     {
-        allTeleporters.Remove(this);
+        base.OnDestroy(); 
     }
-
-
 
     private void OnTriggerEnter(Collider other)
     {
         TeleporterUI teleporterUI = TeleporterUI.GetInstance();
         if (other.CompareTag("Player") && teleporterUI != null)
         {
-            // Create a list excluding the player's ship teleporter
-            List<Teleporter> filteredTeleporters = new List<Teleporter>(allTeleporters);
-            filteredTeleporters.Remove(this); // Remove the current teleporter (player's ship)
+            List<Teleporter> teleporters = GetInstancesOfType<Teleporter>();
 
-            // Prompt the player to choose a destination teleporter
-            teleporterUI.ShowTeleporterUI(filteredTeleporters, this);
+            teleporters.Remove(this);
+
+            teleporterUI.ShowTeleporterUI(teleporters, this);
         }
     }
 }

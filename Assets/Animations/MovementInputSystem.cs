@@ -33,14 +33,19 @@ public class MovementInputSystem : MonoBehaviour
     private bool isSpeedBoosted = false;
 
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Accelerator"))
-        {
-            StartCoroutine(ApplySpeedBoost());
+   // private void OnTriggerEnter(Collider other)
+    //{
+      //  if (other.CompareTag("Accelerator"))
+        //{
+          //  StartCoroutine(ApplySpeedBoost());
             // You may want to disable the accelerator object after it's been used.
             //other.gameObject.SetActive(false);
-        }
+        //}
+    //}
+
+    public void SpeedBoost()
+    {
+        StartCoroutine(ApplySpeedBoost());
     }
 
     private IEnumerator ApplySpeedBoost()
@@ -234,25 +239,21 @@ public class MovementInputSystem : MonoBehaviour
     {
         if (isMovingForward)
         {
-            // Move the ship forward using Rigidbody
             MoveForward();
         }
 
         if (isMovingBackward)
         {
-            // Move the ship backward using Rigidbody
             MoveBackward();
         }
 
         if (isRotatingLeft)
         {
-            // Rotate the ship to the left using Rigidbody
             RotateLeft();
         }
 
         if (isRotatingRight)
         {
-            // Rotate the ship to the right using Rigidbody
             RotateRight();
         }
 

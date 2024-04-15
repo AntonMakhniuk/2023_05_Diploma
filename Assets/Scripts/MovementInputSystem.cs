@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class MovementInputSystem : MonoBehaviour
 {
-    private Rigidbody ship;
-
-    private void Awake()
+    // Start is called before the first frame update
+    void Start()
     {
-        ship = GetComponent<Rigidbody>();
-          
+        
     }
-    public void Forward()
+
+    // Update is called once per frame
+    void Update()
     {
-        Debug.Log("W");
+        
     }
 }
