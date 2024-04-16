@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace UI.Wagons
+namespace UI.UI_Categories.Wagons
 {
-    public class WagonUI : MonoBehaviour
+    public class WagonUIElement : MonoBehaviour
     {
         public Transform frontJointTransform, backJointTransform;
     }

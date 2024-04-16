@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AYellowpaper.SerializedCollections;
 using Miscellaneous;
 using UnityEngine;
 using Wagons.Wagon_Types;
@@ -8,8 +9,10 @@ namespace Wagons
 {
     public class WagonManager : MonoBehaviour
     {
-        public List<WagonTypePrefabDataContainer> wagonTypePrefabAssociations = new();
-
+        public static WagonManager Instance;
+        
+        [SerializedDictionary("Wagon Type", "Associated Prefab")]
+        [SerializeField] private SerializedDictionary<WagonType, GameObject> wagonTypePrefabAssociations;
         [SerializeField] private float wagonSpawnDistance;
 
         private List<WagonChain> _allChains = new();
@@ -18,7 +21,20 @@ namespace Wagons
         private WagonChain _attachedChainBackup = new();
         private PlayerShipComponent _shipComponent;
         private bool _modificationAllowed;
-        
+
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+
         private void Start()
         {
             _shipComponent = GetComponentInParent<PlayerShipComponent>();
@@ -27,6 +43,11 @@ namespace Wagons
             _attachedWagons = _attachedChain.AttachedWagons;
         }
 
+        public List<IWagon> GetAllAttachedWagons()
+        {
+            return _attachedWagons;
+        }
+        
         public List<T> GetAllAttachedWagonsOfType<T>() where T : IWagon
         {
             return _attachedWagons.OfType<T>().ToList();
@@ -97,9 +118,7 @@ namespace Wagons
                 {
                     newWagon = Instantiate
                     (
-                        wagonTypePrefabAssociations
-                            .Find(wp => wp.wagonType == WagonType.General)
-                            .wagonPrefab,
+                        wagonTypePrefabAssociations[WagonType.General],
                         wagonPosition,
                         _shipComponent.transform.rotation
                     );
@@ -109,9 +128,7 @@ namespace Wagons
                 {
                     newWagon = Instantiate
                     (
-                        wagonTypePrefabAssociations
-                            .Find(wp => wp.wagonType == WagonType.Storage)
-                            .wagonPrefab,
+                        wagonTypePrefabAssociations[WagonType.Storage],
                         wagonPosition,
                         _shipComponent.transform.rotation
                     );

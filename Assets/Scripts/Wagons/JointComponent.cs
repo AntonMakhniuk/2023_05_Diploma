@@ -8,7 +8,7 @@ namespace Wagons
 
         public void Connect(JointComponent jointToConnect)
         {
-            if (this.joint.connectedBody != null)
+            if (joint.connectedBody != null)
             {
                 Debug.Log("Tried to connect to a joint that already has a connected object");
                 
