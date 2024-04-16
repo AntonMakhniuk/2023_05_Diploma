@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -25,8 +26,9 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private float brakesAngularDrag = 1f;
     [SerializeField] private float cameraAlignRotationSpeed = 1f;
     
-    private void Awake() {
-        playerInputActions = new PlayerInputActions();
+    private void Awake()
+    {
+        playerInputActions = PlayerActions.InputActions;
         
         rb = GetComponent<Rigidbody>();
         rb.maxAngularVelocity = maxAngularVelocity;
@@ -35,8 +37,6 @@ public class PlayerMovement : MonoBehaviour {
         rb.angularDrag = accelerationAngularDrag;
         
         mainCamera = Camera.main;
-        
-        playerInputActions.Enable(); 
         
         // If the player presses the movement key, the drag will be changed to allow for higher velocity to be reached
         // playerInputActions.PlayerShip.Movement.performed += context => { rb.drag = accelerationDrag; };

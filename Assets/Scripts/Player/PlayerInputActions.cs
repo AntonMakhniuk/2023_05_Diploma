@@ -151,7 +151,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""modifier"",
                     ""id"": ""6cf0de82-eea0-4621-873a-30af5268c430"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""path"": ""<Mouse>/middleButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -424,6 +424,174 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""UI"",
+            ""id"": ""beb6d50b-661a-4f2f-8fa9-e284c8a0f514"",
+            ""actions"": [
+                {
+                    ""name"": ""CloseWindow/OpenPause"",
+                    ""type"": ""Button"",
+                    ""id"": ""da0059cc-2e16-4147-98b0-f124c91eab12"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleInventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""80a86b74-e1ac-4cca-8591-eb0336f64123"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleWagons"",
+                    ""type"": ""Button"",
+                    ""id"": ""844fb4ca-5f6b-46b4-bc5f-d46056815b0c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleProduction"",
+                    ""type"": ""Button"",
+                    ""id"": ""b4cc0ca3-394b-43bf-891e-43a150cc40ae"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleJournal"",
+                    ""type"": ""Button"",
+                    ""id"": ""c23b05dd-131a-422c-a80f-527071feb77c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleMap"",
+                    ""type"": ""Button"",
+                    ""id"": ""86190192-fbc8-41e2-95d8-4d7e4eedc199"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""InteractWithObject"",
+                    ""type"": ""Button"",
+                    ""id"": ""24ca2de8-80ec-495f-ae17-9e4df4f681d6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleBuilding"",
+                    ""type"": ""Button"",
+                    ""id"": ""a67a894f-25df-4bae-b28d-231dcfac0597"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""5f70ee99-4f1a-45bd-b9f9-a87e269a3118"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CloseWindow/OpenPause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""827b654f-65b4-4e47-90a2-5c7dd4f0d9ef"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8e1a5d03-137b-4c00-bedf-a1eee93371ed"",
+                    ""path"": ""<Keyboard>/o"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleWagons"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5d34d2f2-01cf-4ff3-ac16-f505acaade8f"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleProduction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8bef99ee-e7d9-40b8-aef7-9675bc213d63"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleJournal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6c5ee2a8-21d6-4541-94e1-12f914bcf04c"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleMap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4fe7eb75-7fcc-49dc-b26c-a60e8a68a011"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InteractWithObject"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6bdf6118-28f4-47f8-b3d0-b000b2960a8c"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleBuilding"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -442,6 +610,16 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_PlayerShip_InstrumentSecondary = m_PlayerShip.FindAction("InstrumentSecondary", throwIfNotFound: true);
         m_PlayerShip_Movement2 = m_PlayerShip.FindAction("Movement2", throwIfNotFound: true);
         m_PlayerShip_Brakes = m_PlayerShip.FindAction("Brakes", throwIfNotFound: true);
+        // UI
+        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_CloseWindowOpenPause = m_UI.FindAction("CloseWindow/OpenPause", throwIfNotFound: true);
+        m_UI_ToggleInventory = m_UI.FindAction("ToggleInventory", throwIfNotFound: true);
+        m_UI_ToggleWagons = m_UI.FindAction("ToggleWagons", throwIfNotFound: true);
+        m_UI_ToggleProduction = m_UI.FindAction("ToggleProduction", throwIfNotFound: true);
+        m_UI_ToggleJournal = m_UI.FindAction("ToggleJournal", throwIfNotFound: true);
+        m_UI_ToggleMap = m_UI.FindAction("ToggleMap", throwIfNotFound: true);
+        m_UI_InteractWithObject = m_UI.FindAction("InteractWithObject", throwIfNotFound: true);
+        m_UI_ToggleBuilding = m_UI.FindAction("ToggleBuilding", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -633,6 +811,108 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         }
     }
     public PlayerShipActions @PlayerShip => new PlayerShipActions(this);
+
+    // UI
+    private readonly InputActionMap m_UI;
+    private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
+    private readonly InputAction m_UI_CloseWindowOpenPause;
+    private readonly InputAction m_UI_ToggleInventory;
+    private readonly InputAction m_UI_ToggleWagons;
+    private readonly InputAction m_UI_ToggleProduction;
+    private readonly InputAction m_UI_ToggleJournal;
+    private readonly InputAction m_UI_ToggleMap;
+    private readonly InputAction m_UI_InteractWithObject;
+    private readonly InputAction m_UI_ToggleBuilding;
+    public struct UIActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public UIActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @CloseWindowOpenPause => m_Wrapper.m_UI_CloseWindowOpenPause;
+        public InputAction @ToggleInventory => m_Wrapper.m_UI_ToggleInventory;
+        public InputAction @ToggleWagons => m_Wrapper.m_UI_ToggleWagons;
+        public InputAction @ToggleProduction => m_Wrapper.m_UI_ToggleProduction;
+        public InputAction @ToggleJournal => m_Wrapper.m_UI_ToggleJournal;
+        public InputAction @ToggleMap => m_Wrapper.m_UI_ToggleMap;
+        public InputAction @InteractWithObject => m_Wrapper.m_UI_InteractWithObject;
+        public InputAction @ToggleBuilding => m_Wrapper.m_UI_ToggleBuilding;
+        public InputActionMap Get() { return m_Wrapper.m_UI; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+        public void AddCallbacks(IUIActions instance)
+        {
+            if (instance == null || m_Wrapper.m_UIActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_UIActionsCallbackInterfaces.Add(instance);
+            @CloseWindowOpenPause.started += instance.OnCloseWindowOpenPause;
+            @CloseWindowOpenPause.performed += instance.OnCloseWindowOpenPause;
+            @CloseWindowOpenPause.canceled += instance.OnCloseWindowOpenPause;
+            @ToggleInventory.started += instance.OnToggleInventory;
+            @ToggleInventory.performed += instance.OnToggleInventory;
+            @ToggleInventory.canceled += instance.OnToggleInventory;
+            @ToggleWagons.started += instance.OnToggleWagons;
+            @ToggleWagons.performed += instance.OnToggleWagons;
+            @ToggleWagons.canceled += instance.OnToggleWagons;
+            @ToggleProduction.started += instance.OnToggleProduction;
+            @ToggleProduction.performed += instance.OnToggleProduction;
+            @ToggleProduction.canceled += instance.OnToggleProduction;
+            @ToggleJournal.started += instance.OnToggleJournal;
+            @ToggleJournal.performed += instance.OnToggleJournal;
+            @ToggleJournal.canceled += instance.OnToggleJournal;
+            @ToggleMap.started += instance.OnToggleMap;
+            @ToggleMap.performed += instance.OnToggleMap;
+            @ToggleMap.canceled += instance.OnToggleMap;
+            @InteractWithObject.started += instance.OnInteractWithObject;
+            @InteractWithObject.performed += instance.OnInteractWithObject;
+            @InteractWithObject.canceled += instance.OnInteractWithObject;
+            @ToggleBuilding.started += instance.OnToggleBuilding;
+            @ToggleBuilding.performed += instance.OnToggleBuilding;
+            @ToggleBuilding.canceled += instance.OnToggleBuilding;
+        }
+
+        private void UnregisterCallbacks(IUIActions instance)
+        {
+            @CloseWindowOpenPause.started -= instance.OnCloseWindowOpenPause;
+            @CloseWindowOpenPause.performed -= instance.OnCloseWindowOpenPause;
+            @CloseWindowOpenPause.canceled -= instance.OnCloseWindowOpenPause;
+            @ToggleInventory.started -= instance.OnToggleInventory;
+            @ToggleInventory.performed -= instance.OnToggleInventory;
+            @ToggleInventory.canceled -= instance.OnToggleInventory;
+            @ToggleWagons.started -= instance.OnToggleWagons;
+            @ToggleWagons.performed -= instance.OnToggleWagons;
+            @ToggleWagons.canceled -= instance.OnToggleWagons;
+            @ToggleProduction.started -= instance.OnToggleProduction;
+            @ToggleProduction.performed -= instance.OnToggleProduction;
+            @ToggleProduction.canceled -= instance.OnToggleProduction;
+            @ToggleJournal.started -= instance.OnToggleJournal;
+            @ToggleJournal.performed -= instance.OnToggleJournal;
+            @ToggleJournal.canceled -= instance.OnToggleJournal;
+            @ToggleMap.started -= instance.OnToggleMap;
+            @ToggleMap.performed -= instance.OnToggleMap;
+            @ToggleMap.canceled -= instance.OnToggleMap;
+            @InteractWithObject.started -= instance.OnInteractWithObject;
+            @InteractWithObject.performed -= instance.OnInteractWithObject;
+            @InteractWithObject.canceled -= instance.OnInteractWithObject;
+            @ToggleBuilding.started -= instance.OnToggleBuilding;
+            @ToggleBuilding.performed -= instance.OnToggleBuilding;
+            @ToggleBuilding.canceled -= instance.OnToggleBuilding;
+        }
+
+        public void RemoveCallbacks(IUIActions instance)
+        {
+            if (m_Wrapper.m_UIActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IUIActions instance)
+        {
+            foreach (var item in m_Wrapper.m_UIActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_UIActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public UIActions @UI => new UIActions(this);
     public interface IPlayerShipActions
     {
         void OnMouseCameraMovement(InputAction.CallbackContext context);
@@ -647,5 +927,16 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnInstrumentSecondary(InputAction.CallbackContext context);
         void OnMovement2(InputAction.CallbackContext context);
         void OnBrakes(InputAction.CallbackContext context);
+    }
+    public interface IUIActions
+    {
+        void OnCloseWindowOpenPause(InputAction.CallbackContext context);
+        void OnToggleInventory(InputAction.CallbackContext context);
+        void OnToggleWagons(InputAction.CallbackContext context);
+        void OnToggleProduction(InputAction.CallbackContext context);
+        void OnToggleJournal(InputAction.CallbackContext context);
+        void OnToggleMap(InputAction.CallbackContext context);
+        void OnInteractWithObject(InputAction.CallbackContext context);
+        void OnToggleBuilding(InputAction.CallbackContext context);
     }
 }
