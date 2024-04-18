@@ -3,9 +3,10 @@ using System.Linq;
 using AYellowpaper.SerializedCollections;
 using Miscellaneous;
 using UnityEngine;
+using Wagons.Miscellaneous;
 using Wagons.Wagon_Types;
 
-namespace Wagons
+namespace Wagons.Systems
 {
     public class WagonManager : MonoBehaviour
     {
@@ -106,9 +107,11 @@ namespace Wagons
                 return;
             }
             
-            Vector3 backJointPosition = _shipComponent.backJoint.transform.position;
-            Vector3 wagonPosition = 
-                backJointPosition - _shipComponent.transform.forward * (_attachedWagons.Count + 1) * wagonSpawnDistance;
+            var backJointPosition = _attachedChain.AttachedWagons.Count == 0
+                ? _shipComponent.backJoint.transform.position
+                : _attachedChain.AttachedWagons[^1].GetWagon().backJoint.transform.position;
+            Vector3 wagonPosition = backJointPosition 
+                - _shipComponent.transform.forward * wagonSpawnDistance;
 
             GameObject newWagon = null;
 
@@ -140,6 +143,8 @@ namespace Wagons
             {
                 return;
             }
+            
+            newWagon.SetActive(false);
             
             AddWagonToBack(newWagon.GetComponent<IWagon>());
                 
@@ -255,14 +260,15 @@ namespace Wagons
             if (!_modificationAllowed)
             {
                 Debug.Log("Tried to update wagons while modification was not allowed.");
+                
                 return;
             }
-
+            
             if (_attachedWagons.Count == 0)
             {
                 return;
             }
-
+            
             var tempChain = DisconnectWagonsFromShip();
 
             foreach (var wagon in tempChain.AttachedWagons)
@@ -271,25 +277,27 @@ namespace Wagons
                 wagon.GetWagon().frontJoint.Disconnect();
             }
             
-            Vector3 backJointPosition = _shipComponent.backJoint.transform.position;
-            
             for (int i = 0; i < tempChain.AttachedWagons.Count; i++)
             {
+                var backJointPosition = i == 0
+                    ? _shipComponent.backJoint.transform.position
+                    : tempChain.AttachedWagons[i - 1].GetWagon().backJoint.transform.position;
+                
                 var wagon = tempChain.AttachedWagons[i].GetWagon();
                 
                 Vector3 wagonPosition = 
-                    backJointPosition - _shipComponent.transform.forward * (i + 1) * wagonSpawnDistance;
+                    backJointPosition - _shipComponent.transform.forward * wagonSpawnDistance;
                 
                 wagon.transform.position = wagonPosition;
             }
-
+            
             ConnectWagonsToShip(tempChain);
 
             if (_attachedWagons.Count == 1)
             {
                 return;
             }
-
+            
             for (int i = 0; i < _attachedWagons.Count - 1; i++)
             {
                 ConnectWagons(_attachedWagons.ElementAt(i), _attachedWagons.ElementAt(i + 1));
@@ -313,8 +321,8 @@ namespace Wagons
             
             _shipComponent.backJoint.Disconnect();
             _attachedWagons.ElementAt(0).GetWagon().frontJoint.Disconnect();
-
-            var newChain = new WagonChain { AttachedWagons = _attachedWagons };
+            
+            var newChain = new WagonChain { AttachedWagons = new(_attachedWagons) };
             
             _allChains.Add(newChain);
             _attachedWagons.Clear();
@@ -343,6 +351,7 @@ namespace Wagons
             chain.AttachedWagons.ElementAt(0).GetWagon().frontJoint.Connect(_shipComponent.backJoint);
 
             _allChains.Remove(chain);
+            
             _attachedWagons = chain.AttachedWagons;
             
             OnWagonListChanged?.Invoke(_attachedWagons.ToArray(), WagonOperationType.Addition);

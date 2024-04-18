@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Wagons.Wagon_Types;
 
-namespace Wagons
+namespace Wagons.Miscellaneous
 {
     public class WagonChain
     {

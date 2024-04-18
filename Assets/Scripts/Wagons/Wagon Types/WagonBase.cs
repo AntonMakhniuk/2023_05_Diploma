@@ -1,5 +1,6 @@
 using Miscellaneous;
 using UnityEngine;
+using Wagons.Miscellaneous;
 
 namespace Wagons.Wagon_Types
 {
