@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Player;
 using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;

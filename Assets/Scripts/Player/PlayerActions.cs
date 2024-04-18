@@ -4,13 +4,34 @@ namespace Player
 {
     public class PlayerActions : MonoBehaviour
     {
-        public static PlayerInputActions InputActions { get; private set; }
+        private static PlayerInputActions _inputActions;
+        public static PlayerInputActions InputActions
+        {
+            get
+            {
+                if (_inputActions != null)
+                {
+                    return _inputActions;
+                }
+
+                _inputActions = new PlayerInputActions();
+                
+                _inputActions.Enable();
+
+                return _inputActions;
+            }
+        }
 
         private void Awake()
         {
-            InputActions = new PlayerInputActions();
+            if (_inputActions != null)
+            {
+                return;
+            }
             
-            InputActions.Enable(); 
+            _inputActions = new PlayerInputActions();
+            
+            _inputActions.Enable(); 
         }
     }
 }
