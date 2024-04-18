@@ -38,6 +38,11 @@ namespace UI.Systems
         public virtual void Close()
         {
             gameObject.SetActive(false);
+            
+            foreach (var element in _uiElements)
+            {
+                element.CloseElement();
+            }
         }
     }
 

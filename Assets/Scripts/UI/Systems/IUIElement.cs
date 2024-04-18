@@ -5,5 +5,7 @@
         public void Initialize();
         
         public void UpdateElement();
+
+        public void CloseElement();
     }
 }

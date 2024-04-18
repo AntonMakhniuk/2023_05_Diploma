@@ -4,6 +4,7 @@ using System.Linq;
 using JetBrains.Annotations;
 using Scriptable_Object_Templates;
 using UnityEngine;
+using Wagons.Systems;
 using Wagons.Wagon_Types;
 
 namespace Wagons.Inventory
