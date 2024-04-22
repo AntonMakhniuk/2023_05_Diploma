@@ -1,33 +1,45 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class TeleporterUI : MonoBehaviour
 {
     public GameObject teleporterButtonPrefab;
     private GameObject currentTeleporterUI;
 
-    public void ShowTeleporterUI(Teleporter teleporter)
-    {
-        // Destroy any existing teleporter UI
-        Destroy(currentTeleporterUI);
+    private static TeleporterUI instance;
 
-        // Instantiate the teleporter UI prefab
+    private void Awake()
+    {
+        instance = this;
+    }
+
+    public static TeleporterUI GetInstance()
+    {
+        return instance;
+    }
+    private void Start()
+    {
+        HideTeleporterUI();
+    }
+
+    public void ShowTeleporterUI(List<Teleporter> allTeleporters, Teleporter selectedTeleporter)
+    {
+        Destroy(currentTeleporterUI);
+       
+
         currentTeleporterUI = InstantiateTeleporterUI();
 
-        // Get all teleporters
-        Teleporter[] teleporters = FindObjectsOfType<Teleporter>();
-
-        foreach (Teleporter destTeleporter in teleporters)
+        foreach (Teleporter destTeleporter in allTeleporters)
         {
-            if (destTeleporter != teleporter)
+            if (destTeleporter != selectedTeleporter)
             {
-                // Create a button for each destination teleporter
+
                 GameObject buttonGO = Instantiate(teleporterButtonPrefab, currentTeleporterUI.transform);
                 Button button = buttonGO.GetComponent<Button>();
                 Text buttonText = buttonGO.GetComponentInChildren<Text>();
                 buttonText.text = "Teleport to: " + destTeleporter.transform.position.ToString();
 
-                // Add an onclick event to the button
                 button.onClick.AddListener(() => TeleportToDestination(destTeleporter));
             }
         }
@@ -40,7 +52,7 @@ public class TeleporterUI : MonoBehaviour
         Canvas canvas = teleporterUI.AddComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         GridLayoutGroup gridLayout = teleporterUI.AddComponent<GridLayoutGroup>();
-        gridLayout.cellSize = new Vector2(200, 50); // Adjust button size as needed
+        gridLayout.cellSize = new Vector2(200, 50); 
         teleporterUI.AddComponent<GraphicRaycaster>();
 
         return teleporterUI;
@@ -48,13 +60,21 @@ public class TeleporterUI : MonoBehaviour
 
     private void TeleportToDestination(Teleporter destination)
     {
-        // Teleport the player to the destination teleporter
+       
         GameObject playerShip = GameObject.FindGameObjectWithTag("Player");
-        Vector3 offset = destination.transform.forward * 3f; // Adjust the distance as needed
+        Vector3 offset = destination.transform.forward * 3f; 
         Vector3 teleportPosition = destination.transform.position + offset;
         playerShip.transform.position = teleportPosition;
 
-        // Destroy the teleporter UI
-        Destroy(currentTeleporterUI);
+        HideTeleporterUI();
+    }
+
+    public void HideTeleporterUI()
+    {
+        if (currentTeleporterUI != null)
+        {
+            Destroy(currentTeleporterUI);
+            currentTeleporterUI = null;
+        }
     }
 }

@@ -9,10 +9,9 @@ public class MovementInputSystem : MonoBehaviour
     private MovementActions movementActions;
     private FuelSystem fuelSystem;
 
-    private float fuelConsumptionRate = 0.5f; // Adjust as needed
+    private float fuelConsumptionRate = 0.5f;
 
 
-    // Movement variables
     private bool isMovingForward = false;
     private bool isMovingBackward = false;
     private bool isRotatingLeft = false;
@@ -22,7 +21,6 @@ public class MovementInputSystem : MonoBehaviour
     private bool isRotatingAlongZLeft = false;
     private bool isRotatingAlongZRight = false;
 
-    // Movement speed variables
     [SerializeField] private float forwardSpeed = 5f;
     [SerializeField] private float backwardSpeed = 5f;
     [SerializeField] private float rotationSpeed = 25f;
@@ -34,43 +32,57 @@ public class MovementInputSystem : MonoBehaviour
     [SerializeField] private float speedBoostDuration = 10f;
     private bool isSpeedBoosted = false;
 
-    private void OnTriggerEnter(Collider other)
+
+    // private void OnTriggerEnter(Collider other)
+    //{
+    //  if (other.CompareTag("Accelerator"))
+    //{
+    //  StartCoroutine(ApplySpeedBoost());
+    // You may want to disable the accelerator object after it's been used.
+    //other.gameObject.SetActive(false);
+    //}
+    //}
+
+    private int speedBoostsCount = 0;
+
+    public void SpeedBoost()
     {
-        if (other.CompareTag("Accelerator"))
-        {
-            StartCoroutine(ApplySpeedBoost());
-            // You may want to disable the accelerator object after it's been used.
-            other.gameObject.SetActive(false);
-        }
+        StartCoroutine(ApplySpeedBoost());
     }
 
     private IEnumerator ApplySpeedBoost()
     {
-        if (!isSpeedBoosted)
+        // Increment the speed boosts count
+        speedBoostsCount++;
+
+        // Apply speed boost
+        forwardSpeed *= speedBoostMultiplier;
+        backwardSpeed *= speedBoostMultiplier;
+        rotationSpeed *= speedBoostMultiplier;
+        turnSpeed *= speedBoostMultiplier;
+        rotateAlongZSpeed *= speedBoostMultiplier;
+
+        isSpeedBoosted = true;
+
+        // Wait for the duration of the speed boost
+        yield return new WaitForSeconds(speedBoostDuration);
+
+        // Remove speed boost
+        forwardSpeed /= speedBoostMultiplier;
+        backwardSpeed /= speedBoostMultiplier;
+        rotationSpeed /= speedBoostMultiplier;
+        turnSpeed /= speedBoostMultiplier;
+        rotateAlongZSpeed /= speedBoostMultiplier;
+
+        // Decrement the speed boosts count
+        speedBoostsCount--;
+
+        // If no speed boosts are active, reset isSpeedBoosted flag
+        if (speedBoostsCount == 0)
         {
-            // Apply speed boost
-            forwardSpeed *= speedBoostMultiplier;
-            backwardSpeed *= speedBoostMultiplier;
-            rotationSpeed *= speedBoostMultiplier;
-            turnSpeed *= speedBoostMultiplier;
-            rotateAlongZSpeed *= speedBoostMultiplier;
-
-            isSpeedBoosted = true;
-
-            // Wait for the duration of the speed boost
-            yield return new WaitForSeconds(speedBoostDuration);
-
-            // Remove speed boost
-            forwardSpeed /= speedBoostMultiplier;
-            backwardSpeed /= speedBoostMultiplier;
-            rotationSpeed /= speedBoostMultiplier;
-            turnSpeed /= speedBoostMultiplier;
-            rotateAlongZSpeed /= speedBoostMultiplier;
-
             isSpeedBoosted = false;
         }
     }
-
     private void Awake()
     {
         ship = GetComponent<Rigidbody>();
@@ -123,11 +135,15 @@ public class MovementInputSystem : MonoBehaviour
             if (isMovingForward || isMovingBackward)
             {
                 fuelSystem.ConsumeFuel(fuelConsumptionRate * Time.deltaTime);
-                bool remainingFuel = fuelSystem.GetLowFuelThreshold();
-                if (!remainingFuel)
+                bool isFuelThresholdReached = fuelSystem.GetCurrentFuelLevel() > fuelSystem.GetMaxFuelCapacity() * fuelSystem.GetLowFuelThreshold() ? true : false;
+                if (!isFuelThresholdReached)
                 {
                     UpdateMovementSpeedsForLowFuel();
-                } else {
+                    if(fuelSystem.GetCurrentFuelLevel() <= 1)
+                    {
+                        enabled = false;
+                    }
+                } else if (!isSpeedBoosted){
                     forwardSpeed = 5f;
                     backwardSpeed = 5f;
                     rotationSpeed = 50f;
@@ -145,19 +161,6 @@ public class MovementInputSystem : MonoBehaviour
         turnSpeed = 25f;
         rotateAlongZSpeed = 25f;
     }
-
-    // void UpdateFuelIndicator()
-    // {
-    // Ensure fuel level does not exceed limits
-    //   currentFuelLevel = Mathf.Clamp(currentFuelLevel, 0f, maxFuelCapacity);
-
-    // Update fuel text
-    // fuelText.text = "Fuel Level: " + Mathf.Round(currentFuelLevel) + "%" ;
-
-    // Change text color if fuel is low
-    //fuelText.color = currentFuelLevel <= maxFuelCapacity * lowFuelThreshold ? lowFuelColor : Color.white;
-    //}
-
 
 
     private void StartMovingForward(InputAction.CallbackContext ctx)
@@ -244,25 +247,21 @@ public class MovementInputSystem : MonoBehaviour
     {
         if (isMovingForward)
         {
-            // Move the ship forward using Rigidbody
             MoveForward();
         }
 
         if (isMovingBackward)
         {
-            // Move the ship backward using Rigidbody
             MoveBackward();
         }
 
         if (isRotatingLeft)
         {
-            // Rotate the ship to the left using Rigidbody
             RotateLeft();
         }
 
         if (isRotatingRight)
         {
-            // Rotate the ship to the right using Rigidbody
             RotateRight();
         }
 

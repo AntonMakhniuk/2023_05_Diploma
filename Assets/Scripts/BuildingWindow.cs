@@ -1,154 +1,80 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class BuildingWindow : MonoBehaviour
 {
-    public GameObject buildingWindow; // Reference to the building window Panel
-    public GameObject teleporterPrefab; // Reference to the capsule prefab
-    public GameObject acceleratorPrefab; // Reference to the accelerator prefab
-    public GameObject refillStationPrefab; // Reference to the refill station prefab
+    public GameObject buildingWindow;
+    public BuildingManager buildingManager;
 
-    private GameObject currentObject; // Reference to the currently spawned object
-
-    void Update()
+    private void Update()
     {
-
-        if (Input.GetKeyDown(KeyCode.B) && currentObject != null && !buildingWindow.activeSelf)
+        if (Input.GetKeyDown(KeyCode.B) && buildingManager.CurrentObject != null && !buildingWindow.activeSelf)
         {
-            DetachObject();
+            buildingManager.RemoveCurrentObject();
         }
-        // Check for the "B" key press to toggle the building window
+
         if (Input.GetKeyDown(KeyCode.B))
         {
             ToggleBuildingWindow();
         }
 
-        // Check for left mouse button press
-        if (Input.GetMouseButtonDown(0) && currentObject != null)
+        if (Input.GetMouseButtonDown(0) && buildingManager.CurrentObject != null)
         {
-            FixateObject();
+            buildingManager.FixateObject();
         }
 
-        // Check for right mouse button press
-        if (Input.GetMouseButtonDown(1) && currentObject != null && !buildingWindow.activeSelf)
+        if (Input.GetMouseButtonDown(1) && buildingManager.CurrentObject != null && !buildingWindow.activeSelf)
         {
-            DetachObject();
+            buildingManager.RemoveCurrentObject();
             ToggleBuildingWindow();
         }
-
     }
 
-    void ToggleBuildingWindow()
+    private void ToggleBuildingWindow()
     {
-        // Toggle the visibility of the building window
         buildingWindow.SetActive(!buildingWindow.activeSelf);
 
-        // If the window is closed, detach the current object
-        if (!buildingWindow.activeSelf && currentObject != null)
+        if (!buildingWindow.activeSelf && buildingManager.CurrentObject != null)
         {
-            DetachObject();
+            buildingManager.RemoveCurrentObject();
         }
     }
 
-    // Method to handle the Capsule button click
-    public void BuildCapsule()
+    public void BuildTeleporter()
     {
-        // Toggle the building window
-        buildingWindow.SetActive(!buildingWindow.activeSelf);
-
-        // Instantiate the capsule prefab in front of the ship
-        Vector3 spawnPosition = transform.position + transform.forward * 5f;
-        currentObject = Instantiate(teleporterPrefab, spawnPosition, transform.rotation);
-
-        // Set the ship as the parent of the object
-        currentObject.transform.parent = transform;
-
-        // Set opacity if needed
-        SetObjectOpacity(currentObject, 0.3f);
+        if (buildingManager != null && buildingManager.teleporterPrefab != null)
+        {
+            buildingManager.BuildObject(buildingManager.teleporterPrefab);
+            buildingWindow.SetActive(false);
+        }
+        else
+        {
+            Debug.LogError("Building manager or Teleporter prefab is not assigned.");
+        }
     }
 
-    // Method to handle the Accelerator button click
     public void BuildAccelerator()
     {
-        // Toggle the building window
-        buildingWindow.SetActive(!buildingWindow.activeSelf);
-
-        // Instantiate the accelerator prefab in front of the ship
-        Vector3 spawnPosition = transform.position + transform.forward * 5f;
-        currentObject = Instantiate(acceleratorPrefab, spawnPosition, transform.rotation);
-
-        // Set the ship as the parent of the object
-        currentObject.transform.parent = transform;
-
-        // Set opacity if needed
-        SetObjectOpacity(currentObject, 0.3f);
+        if (buildingManager != null && buildingManager.acceleratorPrefab != null)
+        {
+            buildingManager.BuildObject(buildingManager.acceleratorPrefab);
+            buildingWindow.SetActive(false);
+        }
+        else
+        {
+            Debug.LogError("Building manager or Accelerator prefab is not assigned.");
+        }
     }
 
-    // Method to handle the Refill Station button click
     public void BuildRefillStation()
     {
-        // Toggle the building window
-        buildingWindow.SetActive(!buildingWindow.activeSelf);
-
-        // Instantiate the refill station prefab in front of the ship
-        Vector3 spawnPosition = transform.position + transform.forward * 5f;
-        currentObject = Instantiate(refillStationPrefab, spawnPosition, transform.rotation);
-
-        // Set the ship as the parent of the object
-        currentObject.transform.parent = transform;
-
-        // Set opacity if needed
-        SetObjectOpacity(currentObject, 0.3f);
-    }
-
-    // Method to fixate the object position and rotation and detach it from the ship
-    void FixateObject()
-    {
-        // Detach the object from the ship
-        currentObject.transform.parent = null;
-
-        // Disable any object-specific scripts or components here if needed
-
-        // Set the object reference to null
-        currentObject = null;
-    }
-
-    // Method to detach the current object from the ship
-    void DetachObject()
-    {
-        // Detach the object from the ship
-        currentObject.transform.parent = null;
-
-        // Disable any object-specific scripts or components here if needed
-
-        // Destroy the object
-        Destroy(currentObject);
-
-        // Set the object reference to null
-        currentObject = null;
-    }
-    void SetObjectOpacity(GameObject obj, float opacity)
-    {
-        Renderer objRenderer = obj.GetComponent<Renderer>();
-        if (objRenderer != null)
+        if (buildingManager != null && buildingManager.refillStationPrefab != null)
         {
-            // Get the current material of the object
-            Material objMaterial = objRenderer.material;
-
-            // Set the alpha (transparency) of the material
-            Color materialColor = objMaterial.color;
-            materialColor.a = opacity;
-            objMaterial.color = materialColor;
-
-            // Enable alpha blending for transparency
-            objMaterial.SetFloat("_Mode", 3);
-            objMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-            objMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-            objMaterial.SetInt("_ZWrite", 0);
-            objMaterial.DisableKeyword("_ALPHATEST_ON");
-            objMaterial.EnableKeyword("_ALPHABLEND_ON");
-            objMaterial.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-            objMaterial.renderQueue = 3000; // or another value depending on your needs
+            buildingManager.BuildObject(buildingManager.refillStationPrefab);
+            buildingWindow.SetActive(false);
+        }
+        else
+        {
+            Debug.LogError("Building manager or Refill station prefab is not assigned.");
         }
     }
 }
