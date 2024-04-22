@@ -162,21 +162,52 @@ MonoBehaviour:
   configs:
   - difficulty: 1
     resetWaitingTime: 2
+    warningThreshold: 1
+    failThreshold: 2
+    maxRangeValue: 1
+    minRangeValue: 0
+    minSafeRangeSize: 0.35
+    maxSafeRangeSize: 0.45
+    minDangerRangeSize: 0.15
+    warningRangeMinForSingle: 0.15
+    warningRangeMaxForSingle: 0.3
+    warningRangeMinForBoth: 0.075
+    warningRangeMaxForBoth: 0.15
+    maxStepLength: 0.0015
+    leverQuantity: 2
+  - difficulty: 2
+    resetWaitingTime: 2
     warningThreshold: 2
     failThreshold: 3
     maxRangeValue: 1
     minRangeValue: 0
     minSafeRangeSize: 0.1
-    maxSafeRangeSize: 0.2
-    minDangerRangeSize: 0.05
+    maxSafeRangeSize: 0.15
+    minDangerRangeSize: 0.1
     warningRangeMinForSingle: 0.35
     warningRangeMaxForSingle: 0.6
     warningRangeMinForBoth: 0.15
     warningRangeMaxForBoth: 0.35
-    maxStepLength: 0.0005
+    maxStepLength: 0.0015
+    leverQuantity: 3
+  - difficulty: 3
+    resetWaitingTime: 2
+    warningThreshold: 2
+    failThreshold: 3
+    maxRangeValue: 1
+    minRangeValue: 0
+    minSafeRangeSize: 0.075
+    maxSafeRangeSize: 0.125
+    minDangerRangeSize: 0.15
+    warningRangeMinForSingle: 0.35
+    warningRangeMaxForSingle: 0.6
+    warningRangeMinForBoth: 0.15
+    warningRangeMaxForBoth: 0.35
+    maxStepLength: 0.0015
     leverQuantity: 4
   challengeType: 1
   updateRate: 0.03333
+  isActive: 0
   levers:
   - {fileID: 1501726535575229683}
   - {fileID: 1972853699214642933}

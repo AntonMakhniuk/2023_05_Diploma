@@ -127,7 +127,8 @@ namespace Production.Systems
             OnBonusChanged?.Invoke(bonusModifier);
         }
 
-        public event EventHandler<CraftingData> OnProductionFinished;
+        public event EventHandler OnProductionFinished;
+        public event EventHandler<CraftingData> OnProductionEnded;
 
         private void FailProduction()
         {
@@ -135,9 +136,9 @@ namespace Production.Systems
             
             productionIsOver = true;
             
-            DisplayFinalScoreCalculation();
+            OnProductionFinished?.Invoke(this, null);
             
-            OnProductionFinished?.Invoke(this, CraftingData);
+            DisplayFinalScoreCalculation();
         }
 
         public void FinishProductionSuccessfully()
@@ -145,9 +146,9 @@ namespace Production.Systems
             CraftingData.ProductionFailed = false;
             productionIsOver = true;
             
-            DisplayFinalScoreCalculation();
+            OnProductionFinished?.Invoke(this, null);
             
-            OnProductionFinished?.Invoke(this, CraftingData);
+            DisplayFinalScoreCalculation();
         }
 
         private void DisplayFinalScoreCalculation()
@@ -157,6 +158,8 @@ namespace Production.Systems
         
         public void EndProduction()
         {
+            OnProductionEnded?.Invoke(this, CraftingData);
+            
             foreach (IGeneralChallenge generalInstance in _activeGeneralChallengeInstances
                          .Select(ch => ch.GetComponent<IGeneralChallenge>())
                          .ToList())

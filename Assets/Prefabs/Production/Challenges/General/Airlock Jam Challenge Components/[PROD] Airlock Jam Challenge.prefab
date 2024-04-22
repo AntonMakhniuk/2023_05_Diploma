@@ -251,18 +251,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9fd468a26b54311bcb1758d202f16fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactiveElementsParents: []
   configs:
   - difficulty: 1
+    resetWaitingTime: 5
+    warningThreshold: 8
+    failThreshold: 12
+    gridSize: 5
+    totalBlinkCount: 3
+    singleBlinkTime: 0.5
+    minDisabledButtonsPerTurn: 1
+    maxDisabledButtonsPerTurn: 3
+    disableCooldown: 2.5
+  - difficulty: 2
     resetWaitingTime: 5
     warningThreshold: 12
     failThreshold: 18
     gridSize: 6
     totalBlinkCount: 3
     singleBlinkTime: 0.5
-    minDisabledButtonsPerTurn: 1
+    minDisabledButtonsPerTurn: 2
     maxDisabledButtonsPerTurn: 4
-    disableCooldown: 2.5
+    disableCooldown: 3.5
+  - difficulty: 3
+    resetWaitingTime: 5
+    warningThreshold: 12
+    failThreshold: 18
+    gridSize: 6
+    totalBlinkCount: 3
+    singleBlinkTime: 0.5
+    minDisabledButtonsPerTurn: 2
+    maxDisabledButtonsPerTurn: 4
+    disableCooldown: 2
   challengeType: 2
   updateRate: 0.03333
+  isActive: 0
   buttonGrid: {fileID: 6186789464313890225}
   buttonPrefab: {fileID: 7304079430483837314, guid: 5820e3bc5b447544db63b51760e1b45e, type: 3}

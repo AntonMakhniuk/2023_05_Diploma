@@ -634,11 +634,34 @@ MonoBehaviour:
     failTemperature: 850
     warningTemperature: 400
     minTemperature: 0
-    baseTemperature: 200
+    baseTemperature: 100
     stepSize: 50
     growthSpeed: 40
+  - difficulty: 2
+    resetWaitingTime: 2
+    warningThreshold: 1
+    failThreshold: 1
+    maxTemperature: 1000
+    failTemperature: 700
+    warningTemperature: 350
+    minTemperature: 0
+    baseTemperature: 100
+    stepSize: 40
+    growthSpeed: 45
+  - difficulty: 3
+    resetWaitingTime: 2
+    warningThreshold: 1
+    failThreshold: 1
+    maxTemperature: 1000
+    failTemperature: 600
+    warningTemperature: 300
+    minTemperature: 0
+    baseTemperature: 100
+    stepSize: 30
+    growthSpeed: 50
   challengeType: 0
   updateRate: 0.03333
+  isActive: 0
   currentTemperature: 0
 --- !u!114 &1005224347364677779
 MonoBehaviour:
