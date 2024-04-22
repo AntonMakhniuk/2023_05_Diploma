@@ -40,15 +40,6 @@ public class PlayerMovement : MonoBehaviour {
         
         playerInputActions.Enable(); 
         
-        // If the player presses the movement key, the drag will be changed to allow for higher velocity to be reached
-        // playerInputActions.PlayerShip.Movement.performed += context => { rb.drag = accelerationDrag; };
-        // If the player stops pressing the movement key, the drag will be changed to rapidly decelerate the ship
-        // playerInputActions.PlayerShip.Movement.canceled += context => { rb.drag = decelerationDrag; };
-
-        // If the player presses the rotation key, the drag will be changed to allow for quicker turn speed
-        // If the player stops pressing the rotation key, the drag will be changed to rapidly decelerate the ship's rotation
-        // This is repeated for every axis
-        
         // Brakes
         playerInputActions.PlayerShip.Brakes.performed += _ =>
         {
@@ -76,7 +67,6 @@ public class PlayerMovement : MonoBehaviour {
     private void FixedUpdate() {
         // Check for movement input and move ship accordingly
         if (playerInputActions.PlayerShip.Movement.IsPressed()) {
-            //float value = playerInputActions.PlayerShip.Movement.ReadValue<float>();
             Move(playerInputActions.PlayerShip.Movement.ReadValue<Vector2>());
         }
 
