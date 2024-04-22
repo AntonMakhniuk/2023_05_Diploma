@@ -6,7 +6,7 @@ public class FuelSystem : MonoBehaviour
     [SerializeField] private float maxFuelCapacity = 100f;
     private float currentFuelLevel;
     public Text fuelText;
-    [SerializeField] public Slider fuelSlider;
+    [SerializeField] private Slider fuelSlider;
     public Color lowFuelColor = Color.red;
     private float lowFuelThreshold = 0.33f;
 

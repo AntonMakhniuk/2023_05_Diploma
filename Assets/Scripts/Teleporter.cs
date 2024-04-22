@@ -4,15 +4,6 @@ using System.Collections.Generic;
 
 public class Teleporter : BuildingObject
 {
-    protected override void Awake()
-    {
-        base.Awake(); 
-    }
-
-    protected override void OnDestroy()
-    {
-        base.OnDestroy(); 
-    }
 
     private void OnTriggerEnter(Collider other)
     {

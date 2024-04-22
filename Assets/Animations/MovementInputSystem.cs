@@ -33,15 +33,17 @@ public class MovementInputSystem : MonoBehaviour
     private bool isSpeedBoosted = false;
 
 
-   // private void OnTriggerEnter(Collider other)
+    // private void OnTriggerEnter(Collider other)
     //{
-      //  if (other.CompareTag("Accelerator"))
-        //{
-          //  StartCoroutine(ApplySpeedBoost());
-            // You may want to disable the accelerator object after it's been used.
-            //other.gameObject.SetActive(false);
-        //}
+    //  if (other.CompareTag("Accelerator"))
+    //{
+    //  StartCoroutine(ApplySpeedBoost());
+    // You may want to disable the accelerator object after it's been used.
+    //other.gameObject.SetActive(false);
     //}
+    //}
+
+    private int speedBoostsCount = 0;
 
     public void SpeedBoost()
     {
@@ -50,31 +52,37 @@ public class MovementInputSystem : MonoBehaviour
 
     private IEnumerator ApplySpeedBoost()
     {
-        if (!isSpeedBoosted)
+        // Increment the speed boosts count
+        speedBoostsCount++;
+
+        // Apply speed boost
+        forwardSpeed *= speedBoostMultiplier;
+        backwardSpeed *= speedBoostMultiplier;
+        rotationSpeed *= speedBoostMultiplier;
+        turnSpeed *= speedBoostMultiplier;
+        rotateAlongZSpeed *= speedBoostMultiplier;
+
+        isSpeedBoosted = true;
+
+        // Wait for the duration of the speed boost
+        yield return new WaitForSeconds(speedBoostDuration);
+
+        // Remove speed boost
+        forwardSpeed /= speedBoostMultiplier;
+        backwardSpeed /= speedBoostMultiplier;
+        rotationSpeed /= speedBoostMultiplier;
+        turnSpeed /= speedBoostMultiplier;
+        rotateAlongZSpeed /= speedBoostMultiplier;
+
+        // Decrement the speed boosts count
+        speedBoostsCount--;
+
+        // If no speed boosts are active, reset isSpeedBoosted flag
+        if (speedBoostsCount == 0)
         {
-            // Apply speed boost
-            forwardSpeed *= speedBoostMultiplier;
-            backwardSpeed *= speedBoostMultiplier;
-            rotationSpeed *= speedBoostMultiplier;
-            turnSpeed *= speedBoostMultiplier;
-            rotateAlongZSpeed *= speedBoostMultiplier;
-
-            isSpeedBoosted = true;
-
-            // Wait for the duration of the speed boost
-            yield return new WaitForSeconds(speedBoostDuration);
-
-            // Remove speed boost
-            forwardSpeed /= speedBoostMultiplier;
-            backwardSpeed /= speedBoostMultiplier;
-            rotationSpeed /= speedBoostMultiplier;
-            turnSpeed /= speedBoostMultiplier;
-            rotateAlongZSpeed /= speedBoostMultiplier;
-
             isSpeedBoosted = false;
         }
     }
-
     private void Awake()
     {
         ship = GetComponent<Rigidbody>();

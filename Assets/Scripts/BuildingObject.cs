@@ -10,12 +10,6 @@ public abstract class BuildingObject : MonoBehaviour
     {
         AddInstanceToDictionary(this);
 
-        foreach (var kvp in instancesByType)
-        {
-            Type type = kvp.Key;
-            List<BuildingObject> instances = kvp.Value;
-            Debug.Log($"Type: {type}, Count: {instances.Count}");
-        }
     }
 
     protected virtual void OnDestroy()
