@@ -44,12 +44,13 @@ public class TractorBeam : Instrument
         playerInputActions.Enable();
         
         // TODO: Is this required for half-sphere rotation?
-        playerInputActions.PlayerShip.MouseCameraMovement.performed += _ =>
-        {
-            if (barrelMeshRenderer.enabled) {
-                RotateHalfSphere();
-            }
-        };
+        // TODO: Commented this out, figure out this thing later
+        // playerInputActions.PlayerShip.MouseCameraMovement.performed += _ =>
+        // {
+        //     if (barrelMeshRenderer.enabled) {
+        //         RotateHalfSphere();
+        //     }
+        // };
         
         playerInputActions.PlayerShip.Movement.performed += _ =>
         {
