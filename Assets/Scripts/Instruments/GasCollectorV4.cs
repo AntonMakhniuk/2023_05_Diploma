@@ -25,7 +25,7 @@ public class GasCollectorV4 : Instrument
         {
             isGatheringGas = true;
         }
-        else if (Input.GetMouseButtonUp(0))
+        else if (isCollectorActive && Input.GetMouseButtonUp(0))
         {
             isGatheringGas = false;
         }
