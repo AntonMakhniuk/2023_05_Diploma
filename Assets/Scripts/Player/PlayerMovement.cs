@@ -5,6 +5,7 @@ using Assets.Scripts.Player;
 using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Wagons.Systems;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour {
@@ -37,6 +38,8 @@ public class PlayerMovement : MonoBehaviour {
         rb.drag = accelerationDrag;
         rb.angularDrag = accelerationAngularDrag;
         
+        //WagonManager.Instance.SetDragValuesForAttachedWagons(accelerationDrag, accelerationAngularDrag);
+        
         mainCamera = Camera.main;
         
         // If the player presses the movement key, the drag will be changed to allow for higher velocity to be reached
@@ -53,12 +56,16 @@ public class PlayerMovement : MonoBehaviour {
         {
             rb.drag = brakesDrag;
             rb.angularDrag = brakesAngularDrag;
+
+            WagonManager.Instance.SetDragValuesForAttachedWagons(brakesDrag, brakesAngularDrag);
         };
 
         playerInputActions.PlayerShip.Brakes.canceled += _ =>
         {
             rb.drag = accelerationDrag;
             rb.angularDrag = accelerationAngularDrag;
+            
+            WagonManager.Instance.SetDragValuesForAttachedWagons(accelerationDrag, accelerationAngularDrag);
         };
 
         // X axis

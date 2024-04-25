@@ -129,7 +129,7 @@
                 {
                     "name": "modifier",
                     "id": "6cf0de82-eea0-4621-873a-30af5268c430",
-                    "path": "<Mouse>/middleButton",
+                    "path": "<Keyboard>/shift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -478,6 +478,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ToggleUpgrades",
+                    "type": "Button",
+                    "id": "a2ae6e64-5119-4382-9b6d-229e64ef7355",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -566,6 +575,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ToggleBuilding",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "feec2ebf-0d88-4bb0-afba-0794b709776a",
+                    "path": "<Keyboard>/u",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleUpgrades",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -48,6 +48,6 @@ namespace UI.Systems
 
     public enum PanelType
     {
-        Inventory, Journal, Map, Production, Wagons, Building, Pause
+        Inventory, Journal, Map, Production, Wagons, Building, Pause, Upgrades
     }
 }

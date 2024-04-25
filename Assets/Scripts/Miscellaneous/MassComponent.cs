@@ -11,13 +11,16 @@ namespace Miscellaneous
         [Header("Shown here for easier access, treat as read-only")]
         public float currentMass;
 
+        private void Awake()
+        {
+            SetBaseMass(baseMass);
+        }
+
         public void SetBaseMass(float newBaseMass)
         {
-            float massDiff = newBaseMass - baseMass;
-            
             baseMass = newBaseMass;
             
-            ChangeMassByModifier(massDiff);
+            ChangeMassByModifier(newBaseMass);
         }
 
         public void ChangeMassByModifier(float modifier)

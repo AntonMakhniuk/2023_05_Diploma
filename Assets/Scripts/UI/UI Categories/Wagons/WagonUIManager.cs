@@ -35,15 +35,11 @@ namespace UI.UI_Categories.Wagons
         
         public void Initialize()
         {
-            Debug.Log(WagonManager.Instance.GetAllAttachedWagons().Count);
-            
             GenerateWagonUIElements();
         }
 
         public void UpdateElement()
         {
-            Debug.Log(WagonManager.Instance.GetAllAttachedWagons().Count);
-            
             WagonManager.Instance.StartModification();
             
             UpdateWagonUIElements();
@@ -51,8 +47,6 @@ namespace UI.UI_Categories.Wagons
 
         public void CloseElement()
         {
-            Debug.Log(WagonManager.Instance.GetAllAttachedWagons().Count);
-            
             WagonManager.Instance.EndModification();
         }
         

@@ -151,7 +151,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""modifier"",
                     ""id"": ""6cf0de82-eea0-4621-873a-30af5268c430"",
-                    ""path"": ""<Mouse>/middleButton"",
+                    ""path"": ""<Keyboard>/shift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -500,6 +500,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleUpgrades"",
+                    ""type"": ""Button"",
+                    ""id"": ""a2ae6e64-5119-4382-9b6d-229e64ef7355"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -590,6 +599,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""ToggleBuilding"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""feec2ebf-0d88-4bb0-afba-0794b709776a"",
+                    ""path"": ""<Keyboard>/u"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleUpgrades"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -620,6 +640,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_UI_ToggleMap = m_UI.FindAction("ToggleMap", throwIfNotFound: true);
         m_UI_InteractWithObject = m_UI.FindAction("InteractWithObject", throwIfNotFound: true);
         m_UI_ToggleBuilding = m_UI.FindAction("ToggleBuilding", throwIfNotFound: true);
+        m_UI_ToggleUpgrades = m_UI.FindAction("ToggleUpgrades", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -823,6 +844,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_ToggleMap;
     private readonly InputAction m_UI_InteractWithObject;
     private readonly InputAction m_UI_ToggleBuilding;
+    private readonly InputAction m_UI_ToggleUpgrades;
     public struct UIActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -835,6 +857,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @ToggleMap => m_Wrapper.m_UI_ToggleMap;
         public InputAction @InteractWithObject => m_Wrapper.m_UI_InteractWithObject;
         public InputAction @ToggleBuilding => m_Wrapper.m_UI_ToggleBuilding;
+        public InputAction @ToggleUpgrades => m_Wrapper.m_UI_ToggleUpgrades;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -868,6 +891,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @ToggleBuilding.started += instance.OnToggleBuilding;
             @ToggleBuilding.performed += instance.OnToggleBuilding;
             @ToggleBuilding.canceled += instance.OnToggleBuilding;
+            @ToggleUpgrades.started += instance.OnToggleUpgrades;
+            @ToggleUpgrades.performed += instance.OnToggleUpgrades;
+            @ToggleUpgrades.canceled += instance.OnToggleUpgrades;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -896,6 +922,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @ToggleBuilding.started -= instance.OnToggleBuilding;
             @ToggleBuilding.performed -= instance.OnToggleBuilding;
             @ToggleBuilding.canceled -= instance.OnToggleBuilding;
+            @ToggleUpgrades.started -= instance.OnToggleUpgrades;
+            @ToggleUpgrades.performed -= instance.OnToggleUpgrades;
+            @ToggleUpgrades.canceled -= instance.OnToggleUpgrades;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -938,5 +967,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnToggleMap(InputAction.CallbackContext context);
         void OnInteractWithObject(InputAction.CallbackContext context);
         void OnToggleBuilding(InputAction.CallbackContext context);
+        void OnToggleUpgrades(InputAction.CallbackContext context);
     }
 }

@@ -1,8 +1,6 @@
-﻿using UnityEngine;
-
-namespace Player
+﻿namespace Player
 {
-    public class PlayerActions : MonoBehaviour
+    public static class PlayerActions
     {
         private static PlayerInputActions _inputActions;
         public static PlayerInputActions InputActions
@@ -20,18 +18,6 @@ namespace Player
 
                 return _inputActions;
             }
-        }
-
-        private void Awake()
-        {
-            if (_inputActions != null)
-            {
-                return;
-            }
-            
-            _inputActions = new PlayerInputActions();
-            
-            _inputActions.Enable(); 
         }
     }
 }

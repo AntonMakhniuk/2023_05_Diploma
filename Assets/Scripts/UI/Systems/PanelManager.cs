@@ -37,6 +37,7 @@ namespace UI.Systems
             _playerInputActions.UI.ToggleJournal.performed += _ => TogglePanel(PanelType.Journal);
             _playerInputActions.UI.ToggleMap.performed += _ => TogglePanel(PanelType.Map);
             _playerInputActions.UI.ToggleBuilding.performed += _ => TogglePanel(PanelType.Building);
+            _playerInputActions.UI.ToggleUpgrades.performed += _ => TogglePanel(PanelType.Upgrades);
             
             _playerInputActions.UI.CloseWindowOpenPause.performed += _ => HandlePauseAction();
             
