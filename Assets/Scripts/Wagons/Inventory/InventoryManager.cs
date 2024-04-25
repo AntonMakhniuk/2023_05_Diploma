@@ -114,7 +114,7 @@ namespace Wagons.Inventory
         {
             Dictionary<ItemBase, float> combinedItemDictionary = new();
 
-            foreach (var itemDictionary in _shipStorageComponents.Select(sc => sc.itemDictionary))
+            foreach (var itemDictionary in _shipStorageComponents.Select(sc => sc.ItemDictionary))
             {
                 foreach (var kvp in itemDictionary)
                 {

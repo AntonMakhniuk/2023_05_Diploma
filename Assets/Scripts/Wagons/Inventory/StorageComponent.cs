@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Miscellaneous;
 using Scriptable_Object_Templates;
 using UnityEngine;
 
@@ -9,10 +10,13 @@ namespace Wagons.Inventory
     [Serializable]
     public class StorageComponent : MonoBehaviour
     {
+        // Add mass calculations
+        [HideInInspector] public MassComponent massComponent;
+        
         public ItemType[] allowedItemTypes;
         public float maxCapacity;
         
-        public Dictionary<ItemBase, float> itemDictionary = new();
+        public Dictionary<ItemBase, float> ItemDictionary = new();
 
         // Derived attributes
         [HideInInspector] public float occupiedCapacity;
@@ -20,7 +24,7 @@ namespace Wagons.Inventory
 
         private void UpdateCapacities()
         {
-            float occupiedTemp = itemDictionary.Sum(item => item.Key.volume * item.Value);
+            float occupiedTemp = ItemDictionary.Sum(item => item.Key.volume * item.Value);
 
             occupiedCapacity = occupiedTemp;
             freeCapacity = maxCapacity - occupiedCapacity;
@@ -40,13 +44,13 @@ namespace Wagons.Inventory
 
             float amountAdded = Mathf.Min(itemCount, freeCapacity);
             
-            if (itemDictionary.ContainsKey(item))
+            if (ItemDictionary.ContainsKey(item))
             {
-                itemDictionary[item] += amountAdded;
+                ItemDictionary[item] += amountAdded;
             }
             else
             {
-                itemDictionary.Add(item, amountAdded);
+                ItemDictionary.Add(item, amountAdded);
             }
             
             UpdateCapacities();
@@ -60,20 +64,20 @@ namespace Wagons.Inventory
         {
             float takenOutCount;
             
-            if (!itemDictionary.ContainsKey(item))
+            if (!ItemDictionary.ContainsKey(item))
             {
                 return 0;
             }
 
-            if (itemDictionary[item] < itemCount)
+            if (ItemDictionary[item] < itemCount)
             {
-                takenOutCount = itemDictionary[item];
-                itemDictionary[item] = 0;
+                takenOutCount = ItemDictionary[item];
+                ItemDictionary[item] = 0;
             }
             else
             {
                 takenOutCount = itemCount;
-                itemDictionary[item] -= itemCount;
+                ItemDictionary[item] -= itemCount;
             }
 
             UpdateCapacities();

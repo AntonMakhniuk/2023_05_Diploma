@@ -12,15 +12,17 @@ namespace Wagons.Systems
     {
         public static WagonManager Instance;
         
+        public float wagonSpawnDistance;
+        
         [SerializedDictionary("Wagon Type", "Associated Prefab")]
         [SerializeField] private SerializedDictionary<WagonType, GameObject> wagonTypePrefabAssociations;
-        [SerializeField] private float wagonSpawnDistance;
-
+        [SerializeField] private WagonPlayerShip shipWagonComponent;
+        
         private List<WagonChain> _allChains = new();
         private WagonChain _attachedChain = new();
         private List<IWagon> _attachedWagons = new();
         private WagonChain _attachedChainBackup = new();
-        private PlayerShipComponent _shipComponent;
+        private Transform _shipTransform;
         private bool _modificationAllowed;
 
         private void Awake()
@@ -38,10 +40,10 @@ namespace Wagons.Systems
 
         private void Start()
         {
-            _shipComponent = GetComponentInParent<PlayerShipComponent>();
-
             _attachedChain = new WagonChain();
             _attachedWagons = _attachedChain.AttachedWagons;
+            
+            _shipTransform = shipWagonComponent.transform;
         }
 
         public List<IWagon> GetAllAttachedWagons()
@@ -108,47 +110,27 @@ namespace Wagons.Systems
             }
             
             var backJointPosition = _attachedChain.AttachedWagons.Count == 0
-                ? _shipComponent.backJoint.transform.position
-                : _attachedChain.AttachedWagons[^1].GetWagon().backJoint.transform.position;
-            Vector3 wagonPosition = backJointPosition 
-                - _shipComponent.transform.forward * wagonSpawnDistance;
-
-            GameObject newWagon = null;
-
-            switch (type)
-            {
-                case WagonType.General:
-                {
-                    newWagon = Instantiate
-                    (
-                        wagonTypePrefabAssociations[WagonType.General],
-                        wagonPosition,
-                        _shipComponent.transform.rotation
-                    );
-                    break;
-                }
-                case WagonType.Storage:
-                {
-                    newWagon = Instantiate
-                    (
-                        wagonTypePrefabAssociations[WagonType.Storage],
-                        wagonPosition,
-                        _shipComponent.transform.rotation
-                    );
-                    break;
-                }
-            }
-
-            if (newWagon == null)
-            {
-                return;
-            }
+                ? shipWagonComponent.backJoint.GetPosition()
+                : _attachedChain.AttachedWagons[^1].GetWagon().backJoint.GetPosition();
+            
+            GameObject newWagon = Instantiate
+            (
+                wagonTypePrefabAssociations[type],
+                backJointPosition,
+                _shipTransform.rotation,
+                transform
+            );
+            var wagonComponent = newWagon.GetComponent<IWagon>();
+            
+            newWagon.transform.position -= _shipTransform.forward *
+                                           (wagonComponent.GetWagon().backJoint.GetAbsDistanceFromWagonCenter()
+                                            + wagonSpawnDistance);
             
             newWagon.SetActive(false);
             
-            AddWagonToBack(newWagon.GetComponent<IWagon>());
+            AddWagonToBack(wagonComponent);
                 
-            OnWagonListChanged?.Invoke(new[] { newWagon.GetComponent<IWagon>() }, 
+            OnWagonListChanged?.Invoke(new[] { wagonComponent }, 
                 WagonOperationType.Creation);
         }
         
@@ -273,22 +255,21 @@ namespace Wagons.Systems
 
             foreach (var wagon in tempChain.AttachedWagons)
             {
-                wagon.GetWagon().backJoint.Disconnect();
-                wagon.GetWagon().frontJoint.Disconnect();
+                DisconnectWagonFrom(wagon);
             }
             
             for (int i = 0; i < tempChain.AttachedWagons.Count; i++)
             {
                 var backJointPosition = i == 0
-                    ? _shipComponent.backJoint.transform.position
-                    : tempChain.AttachedWagons[i - 1].GetWagon().backJoint.transform.position;
+                    ? shipWagonComponent.backJoint.GetPosition()
+                    : tempChain.AttachedWagons[i - 1].GetWagon().backJoint.GetPosition();
                 
                 var wagon = tempChain.AttachedWagons[i].GetWagon();
                 
-                Vector3 wagonPosition = 
-                    backJointPosition - _shipComponent.transform.forward * wagonSpawnDistance;
-                
-                wagon.transform.position = wagonPosition;
+                wagon.transform.position = 
+                    backJointPosition - _shipTransform.forward *
+                    (wagon.GetWagon().backJoint.GetAbsDistanceFromWagonCenter()
+                     + wagonSpawnDistance);
             }
             
             ConnectWagonsToShip(tempChain);
@@ -306,10 +287,9 @@ namespace Wagons.Systems
             OnWagonListChanged?.Invoke(_attachedWagons.ToArray(), WagonOperationType.Update);
         }
         
-        private void DisconnectWagons(IWagon parentWagon, IWagon childWagon)
+        private void DisconnectWagonFrom(IWagon parentWagon)
         {
             parentWagon.GetWagon().backJoint.Disconnect();
-            childWagon.GetWagon().frontJoint.Disconnect();
         }
 
         public WagonChain DisconnectWagonsFromShip()
@@ -319,8 +299,7 @@ namespace Wagons.Systems
                 return null;
             }
             
-            _shipComponent.backJoint.Disconnect();
-            _attachedWagons.ElementAt(0).GetWagon().frontJoint.Disconnect();
+            DisconnectWagonFrom(shipWagonComponent);
             
             var newChain = new WagonChain { AttachedWagons = new(_attachedWagons) };
             
@@ -334,8 +313,7 @@ namespace Wagons.Systems
         
         private void ConnectWagons(IWagon parentWagon, IWagon childWagon)
         {
-            parentWagon.GetWagon().backJoint.Connect(childWagon.GetWagon().frontJoint);
-            childWagon.GetWagon().frontJoint.Connect(parentWagon.GetWagon().backJoint);
+            parentWagon.GetWagon().backJoint.Connect(childWagon.GetWagon().gameObject);
         }
 
         public void ConnectWagonsToShip(WagonChain chain)
@@ -347,14 +325,21 @@ namespace Wagons.Systems
                 return;
             }
             
-            _shipComponent.backJoint.Connect(chain.AttachedWagons.ElementAt(0).GetWagon().frontJoint);
-            chain.AttachedWagons.ElementAt(0).GetWagon().frontJoint.Connect(_shipComponent.backJoint);
+            ConnectWagons(shipWagonComponent, chain.AttachedWagons.ElementAt(0));
 
             _allChains.Remove(chain);
             
             _attachedWagons = chain.AttachedWagons;
             
             OnWagonListChanged?.Invoke(_attachedWagons.ToArray(), WagonOperationType.Addition);
+        }
+        
+        public void SetDragValuesForAttachedWagons(float drag, float angularDrag)
+        {
+            foreach (var wagon in _attachedWagons)
+            {
+                wagon.SetDragValues(drag, angularDrag);
+            }
         }
     }
 

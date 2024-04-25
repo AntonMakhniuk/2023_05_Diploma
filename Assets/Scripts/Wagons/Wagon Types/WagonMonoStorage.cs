@@ -7,6 +7,13 @@ namespace Wagons.Wagon_Types
     {
         public StorageComponent storageComponent;
         
+        protected override void Awake()
+        {
+            base.Awake();
+            
+            wagonType = WagonType.Storage;
+        }
+        
         public StorageComponent[] GetStorageComponents()
         {
             return new[] { storageComponent };

@@ -1,4 +1,3 @@
-using Miscellaneous;
 using UnityEngine;
 using Wagons.Miscellaneous;
 
@@ -6,16 +5,16 @@ namespace Wagons.Wagon_Types
 {
     public abstract class WagonBase : MonoBehaviour, IWagon
     {
-        public MassComponent massComponent;
-        public float baseMass;
-        public WagonType wagonType;
-        public JointComponent frontJoint, backJoint;
+        [HideInInspector] public WagonType wagonType;
+        public JointComponent backJoint;
 
-        private void Start()
+        private Rigidbody _rigidbody;
+
+        protected virtual void Awake()
         {
-            massComponent.SetBaseMass(baseMass);
+            _rigidbody = GetComponent<Rigidbody>();
         }
-
+        
         public virtual WagonBase GetWagon()
         {
             return this;
@@ -30,6 +29,12 @@ namespace Wagons.Wagon_Types
         {
             Destroy(this);
         }
+
+        public void SetDragValues(float drag, float angularDrag)
+        {
+            _rigidbody.drag = drag;
+            _rigidbody.angularDrag = angularDrag;
+        }
     }
 
     public interface IWagon
@@ -39,10 +44,12 @@ namespace Wagons.Wagon_Types
         public WagonType GetWagonType();
         
         public void DeleteWagon();
+
+        public void SetDragValues(float drag, float angularDrag);
     }
     
     public enum WagonType
     {
-        General, Storage
+        PlayerShip, General, Storage
     }
 }
