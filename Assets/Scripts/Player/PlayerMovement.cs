@@ -10,6 +10,11 @@ public class PlayerMovement : MonoBehaviour {
     private Rigidbody rb;
     private Camera mainCamera;
 
+    private FuelSystem fuelSystem;
+    private float fuelConsumptionRate = 0.5f;
+
+
+
     // Required for detecting rotation (no need for that for movement since only rotation is read as 3D Vector)
     private bool isRotating = false;
 
@@ -25,7 +30,13 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private float accelerationAngularDrag = 0.5f;
     [SerializeField] private float brakesAngularDrag = 1f;
     [SerializeField] private float cameraAlignRotationSpeed = 1f;
-    
+
+    [SerializeField] private float speedBoostMultiplier = 2f;
+    [SerializeField] private float speedBoostDuration = 10f;
+    private bool isSpeedBoosted = false;
+    private int speedBoostsCount = 0;
+
+
     private void Awake() {
         playerInputActions = new PlayerInputActions();
         
@@ -38,8 +49,10 @@ public class PlayerMovement : MonoBehaviour {
         
         mainCamera = Camera.main;
         
-        playerInputActions.Enable(); 
-        
+        playerInputActions.Enable();
+
+        fuelSystem = GetComponent<FuelSystem>();
+
         // If the player presses the movement key, the drag will be changed to allow for higher velocity to be reached
         // playerInputActions.PlayerShip.Movement.performed += context => { rb.drag = accelerationDrag; };
         // If the player stops pressing the movement key, the drag will be changed to rapidly decelerate the ship
@@ -48,7 +61,7 @@ public class PlayerMovement : MonoBehaviour {
         // If the player presses the rotation key, the drag will be changed to allow for quicker turn speed
         // If the player stops pressing the rotation key, the drag will be changed to rapidly decelerate the ship's rotation
         // This is repeated for every axis
-        
+
         // Brakes
         playerInputActions.PlayerShip.Brakes.performed += _ =>
         {
@@ -71,8 +84,40 @@ public class PlayerMovement : MonoBehaviour {
         playerInputActions.PlayerShip.RotateAlongZ.performed += _ => isRotating = true;
         
         playerInputActions.PlayerShip.RotateAlongZ.canceled += _ => isRotating = false;
+
+        StartCoroutine(ConsumeFuel());
+
     }
-    
+
+    public void SpeedBoost()
+    {
+        StartCoroutine(ApplySpeedBoost());
+    }
+
+    private IEnumerator ApplySpeedBoost()
+    {
+        speedBoostsCount++;
+
+        moveSpeed *= speedBoostMultiplier;
+        rotationSpeed *= speedBoostMultiplier;
+
+        isSpeedBoosted = true;
+
+        yield return new WaitForSeconds(speedBoostDuration);
+
+        moveSpeed /= speedBoostMultiplier;
+        rotationSpeed /= speedBoostMultiplier;
+
+        speedBoostsCount--;
+
+        if (speedBoostsCount == 0)
+        {
+            isSpeedBoosted = false;
+        }
+    }
+
+
+
     private void FixedUpdate() {
         // Check for movement input and move ship accordingly
         if (playerInputActions.PlayerShip.Movement.IsPressed()) {
@@ -122,4 +167,38 @@ public class PlayerMovement : MonoBehaviour {
             )
         );
     }
+
+    private IEnumerator ConsumeFuel()
+    {
+        while (true)
+        {
+            yield return null;
+
+            // Consume fuel when moving
+            if (playerInputActions.PlayerShip.Movement.IsPressed())
+            {
+                fuelSystem.ConsumeFuel(fuelConsumptionRate * Time.deltaTime);
+                bool isFuelThresholdReached = fuelSystem.GetCurrentFuelLevel() > fuelSystem.GetMaxFuelCapacity() * fuelSystem.GetLowFuelThreshold() ? true : false;
+                if (!isFuelThresholdReached)
+                {
+                    UpdateMovementSpeedsForLowFuel();
+                    if (fuelSystem.GetCurrentFuelLevel() <= 1)
+                    {
+                        enabled = false;
+                    }
+                }
+                else if (!isSpeedBoosted)
+                {
+                    moveSpeed = 1;
+                    rotationSpeed = 1;
+                }
+            }
+        }
+    }
+    public void UpdateMovementSpeedsForLowFuel()
+    {
+        moveSpeed /= speedBoostMultiplier;
+        rotationSpeed /= speedBoostMultiplier;
+    }
 }
+
