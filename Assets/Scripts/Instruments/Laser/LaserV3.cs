@@ -62,11 +62,11 @@ public class LaserV3 : Instrument
 
        void Work()
        {
-           if (Input.GetMouseButtonDown(0))
+           if (isActiveTool && Input.GetMouseButtonDown(0))
            {
                Activate();
            }
-           else if (Input.GetMouseButtonUp(0))
+           else if (isActiveTool && Input.GetMouseButtonUp(0))
            {
                Deactivate();
            }

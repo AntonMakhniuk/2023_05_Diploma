@@ -24,7 +24,6 @@ public class BombContainer : Instrument
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             ToggleInstrument(!isActiveTool);
-            Debug.Log(isActiveTool);
             
             ChangeCamera();
             
