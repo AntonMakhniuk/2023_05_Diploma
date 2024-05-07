@@ -34,13 +34,9 @@ public class RefillStation : BuildingObject
     private void OnTriggerEnter(Collider other)
     {
 
-        Debug.Log(isRefilling);
-        Debug.Log(other.gameObject.tag);
 
         if (other.CompareTag("Player") && !isRefilling && currentFuelLevel > 0)
         {
-            Debug.Log("Player entered refill station trigger area.");
-
             // Show UI prompt to refill fuel
            // if (refillPromptText != null)
             {
@@ -49,78 +45,78 @@ public class RefillStation : BuildingObject
 
             RefillFuel(other.gameObject);
         }
-        if (refillPromptText != null)
-        {
-            refillPromptText.gameObject.SetActive(true);
-        }
+        //if (refillPromptText != null)
+        //{
+        //    refillPromptText.gameObject.SetActive(true);
+        //}
 
-        // Show UI slider and accept button
-        if (fuelSlider != null && acceptButton != null)
-        {
-            fuelSlider.gameObject.SetActive(true);
-            acceptButton.gameObject.SetActive(true);
+        //// Show UI slider and accept button
+        //if (fuelSlider != null && acceptButton != null)
+        //{
+        //    fuelSlider.gameObject.SetActive(true);
+        //    acceptButton.gameObject.SetActive(true);
 
-            // Add listener to accept button
-            acceptButton.onClick.AddListener(() => StoreFuel(other.gameObject, fuelSlider.value));
+        //    // Add listener to accept button
+        //    //acceptButton.onClick.AddListener(() => StoreFuel(other.gameObject, fuelSlider.value));
 
 
 
-            Debug.Log("Player entered station trigger area.");
+        //    Debug.Log("Player entered station trigger area.");
 
-            if (fuelStoreWindow != null)
-            {
-                fuelStoreWindow.SetActive(true);
-            }
+        //    if (fuelStoreWindow != null)
+        //    {
+        //        fuelStoreWindow.SetActive(true);
+        //    }
 
-            // Set max value of the slider to the player's current fuel amount
-            FuelSystem fuelSystem = other.GetComponent<FuelSystem>();
-            if (fuelSystem != null)
-            {
-                fuelSlider.maxValue = fuelSystem.GetCurrentFuelLevel();
-            }
+        //    // Set max value of the slider to the player's current fuel amount
+        //    FuelSystem fuelSystem = other.GetComponent<FuelSystem>();
+        //    if (fuelSystem != null)
+        //    {
+        //        fuelSlider.maxValue = fuelSystem.GetCurrentFuelLevel();
+        //    }
 
-            // Add listener to slider value change
-            fuelSlider.onValueChanged.AddListener(delegate { UpdateSliderValueText(); });
+        //    // Add listener to slider value change
+        //    fuelSlider.onValueChanged.AddListener(delegate { UpdateSliderValueText(); });
 
-            // Show UI slider and accept button
-            if (fuelSlider != null && acceptButton != null)
-            {
-                fuelSlider.gameObject.SetActive(true);
-                acceptButton.gameObject.SetActive(true);
+        //    // Show UI slider and accept button
+        //    if (fuelSlider != null && acceptButton != null)
+        //    {
+        //        fuelSlider.gameObject.SetActive(true);
+        //        acceptButton.gameObject.SetActive(true);
 
-                // Add listener to accept button
-               // acceptButton.onClick.AddListener(() => StoreFuel(fuelSystem, fuelSlider.value));
-            }
-        }
+        //        // Add listener to accept button
+        //       // acceptButton.onClick.AddListener(() => StoreFuel(fuelSystem, fuelSlider.value));
+        //    }
+        //}
     }
 
-    private void UpdateSliderValueText()
-    {
-        if (sliderValueText != null && fuelSlider != null)
-        {
-            sliderValueText.text = "Selected Amount: " + fuelSlider.value.ToString("F1");
-        }
-    }
+    //private void UpdateSliderValueText()
+    //{
+    //    if (sliderValueText != null && fuelSlider != null)
+    //    {
+    //        sliderValueText.text = "Selected Amount: " + fuelSlider.value.ToString("F1");
+    //    }
+    //}
 
-    private void StoreFuel(FuelSystem fuelSystem, float storeAmount)
-    {
-        //FuelSystem fuelSystem = player.GetComponent<FuelSystem>();
-        if (fuelSystem != null)
-        {
-            fuelSystem.ConsumeFuel(storeAmount);
-            currentFuelLevel = Mathf.Min(currentFuelLevel + storeAmount, maxFuelCapacity);
+    //private void StoreFuel(FuelSystem fuelSystem, float storeAmount)
+    //{
+    //    //FuelSystem fuelSystem = player.GetComponent<FuelSystem>();
+    //    if (fuelSystem != null)
+    //    {
+    //        fuelSystem.ConsumeFuel(storeAmount);
+    //        currentFuelLevel = Mathf.Min(currentFuelLevel + storeAmount, maxFuelCapacity);
 
-            isRefilling = true;
+    //        isRefilling = true;
 
-            Invoke("ResetRefillingFlag", 1.0f);
+    //        Invoke("ResetRefillingFlag", 1.0f);
 
-            Debug.Log("Fuel stored: " + storeAmount + " units");
-        }
-        else
-        {
-            Debug.LogWarning("No FuelSystem component found on the player object.");
-        }
-    }
+    //        Debug.Log("Fuel stored: " + storeAmount + " units");
+    //    }
+    //    else
+    //    {
+    //        Debug.LogWarning("No FuelSystem component found on the player object.");
+    //    }
+    //}
 
     private void RefillFuel(GameObject player)
     {

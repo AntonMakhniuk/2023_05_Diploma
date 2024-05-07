@@ -204,6 +204,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 115541811}
   m_CullTransparentMesh: 1
+--- !u!4 &167691146 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4755537177277571578, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
+  m_PrefabInstance: {fileID: 1773977764}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &219486423
 GameObject:
   m_ObjectHideFlags: 0
@@ -1739,15 +1744,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1514345941441426700, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.00000005960466
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1514345941441426700, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.000003814698
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1514345941441426700, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.000003814698
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1514345941441426700, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
       propertyPath: m_LocalRotation.y
@@ -1791,11 +1796,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4070484675594984252, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000006006991
+      value: 0.00000060071716
       objectReference: {fileID: 0}
     - target: {fileID: 4070484675594984252, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000005472835
+      value: -0.00000054730003
       objectReference: {fileID: 0}
     - target: {fileID: 4923164207793489657, guid: db7c2dc5fd4125b49acb063787f94bac, type: 3}
       propertyPath: m_IsActive
@@ -2278,6 +2283,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6736660382204539933, guid: 0c3bcc54ae5b4a34bb6d58f7fe3548e7, type: 3}
+      propertyPath: _target
+      value: 
+      objectReference: {fileID: 167691146}
     - target: {fileID: 7908106679731159020, guid: 0c3bcc54ae5b4a34bb6d58f7fe3548e7, type: 3}
       propertyPath: _skyboxMaterials.Array.size
       value: 1
@@ -2286,7 +2295,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: BackgroundSkyboxCamera
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4371081684893215937, guid: 0c3bcc54ae5b4a34bb6d58f7fe3548e7, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -2504,7 +2514,7 @@ PrefabInstance:
     - target: {fileID: 8171820326729820775, guid: 44ba052fb945e714b97a39841a1bcf3f, type: 3}
       propertyPath: refillPromptText
       value: 
-      objectReference: {fileID: 1927862568}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

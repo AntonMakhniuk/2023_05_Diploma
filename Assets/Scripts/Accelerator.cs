@@ -8,7 +8,6 @@ public class Accelerator : BuildingObject
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player entered refill station trigger area.");
             SpeedBoost(other.gameObject);
         }
     }

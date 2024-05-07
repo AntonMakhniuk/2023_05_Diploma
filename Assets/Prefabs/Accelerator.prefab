@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 558502040018177616}
   - component: {fileID: 8617447771233508646}
   - component: {fileID: 4326153578117440477}
-  - component: {fileID: 5287909590439632506}
+  - component: {fileID: -651134835346400843}
   m_Layer: 0
   m_Name: Accelerator
   m_TagString: Accelerator
@@ -106,7 +106,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5287909590439632506
+--- !u!114 &-651134835346400843
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,4 +118,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddee305d6bd4d2048b37f9fd6864e48e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementInputSystem: {fileID: 0}
