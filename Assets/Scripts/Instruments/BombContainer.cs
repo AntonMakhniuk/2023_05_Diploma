@@ -12,12 +12,11 @@ public class BombContainer : Instrument
     [SerializeField] private CinemachineVirtualCamera cinematicCamera;
     [SerializeField] private Canvas crosshairCanvas;
     private int cameraPriorityDiff = 10;
-    private CinemachineVirtualCamera mainCamera;
+    
 
     private void Start()
     {
         ToggleInstrument(false);
-        mainCamera = Camera.main.GetComponent<CinemachineVirtualCamera>();
     }
 
     void Update()
@@ -25,11 +24,15 @@ public class BombContainer : Instrument
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             ToggleInstrument(!isActiveTool);
+            Debug.Log(isActiveTool);
+            
             ChangeCamera();
-        }        
+            
+        }    
+        Work();
     }
 
-    private void FixedUpdate()
+    void Work()
     {
         if (isActiveTool && Input.GetMouseButtonDown(0))
         {
@@ -96,7 +99,7 @@ public class BombContainer : Instrument
     private void ChangeCamera() 
     {
         cinematicCamera.Priority += cameraPriorityDiff;
-        mainCamera.Priority -= cameraPriorityDiff;
+        cinematicCamera.Priority -= cameraPriorityDiff;
         
         if (cameraPriorityDiff < 0) 
         {
