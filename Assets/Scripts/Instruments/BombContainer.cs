@@ -1,21 +1,32 @@
 using Assets.Scripts.Instruments;
-using System.Collections;
-using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 public class BombContainer : Instrument
 {
-    public GameObject bombPrefab;
+    [SerializeField] private GameObject bombPrefab;
+    [SerializeField] private Transform muzzlePoint;
     public float bombSpeed = 5f;
-    public float bombLifetime = 3f;
-    public float bombRange = 5f;
+    [SerializeField] private float bombLifetime = 3f;
+    [SerializeField] private float bombRange = 5f;
+    [SerializeField] private CinemachineVirtualCamera cinematicCamera;
+    [SerializeField] private Canvas crosshairCanvas;
+
+    private void Start()
+    {
+        ToggleInstrument(false);
+    }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-            ToggleActiveState();
-        }
+            ToggleInstrument(isActiveTool);
+        }        
+    }
+
+    private void FixedUpdate()
+    {
         if (isActiveTool && Input.GetMouseButtonDown(0))
         {
             SpawnBomb();
@@ -38,9 +49,8 @@ public class BombContainer : Instrument
 
     void SpawnBomb()
     {
-        GameObject bomb = Instantiate(bombPrefab, transform.position, Quaternion.identity);
+        GameObject bomb = Instantiate(bombPrefab, muzzlePoint.position, muzzlePoint.rotation); // Adjust position and rotation
         
-        // Set reference to the BombContainer script on the instantiated bomb
         Bomb bombScript = bomb.GetComponent<Bomb>();
         if (bombScript != null)
         {
@@ -48,7 +58,7 @@ public class BombContainer : Instrument
         }
         
         Rigidbody rb = bomb.GetComponent<Rigidbody>();
-        rb.velocity = transform.forward * bombSpeed;
+        rb.velocity = muzzlePoint.forward * bombSpeed;
         Destroy(bomb, bombLifetime);
     }
 
@@ -61,8 +71,21 @@ public class BombContainer : Instrument
         }
     }
 
-    void ToggleActiveState()
+    void ToggleInstrument(bool activate)
     {
-        SetActiveTool(!isActiveTool);
+        isActiveTool = activate;
+        
+        if (isActiveTool)
+        {
+            cinematicCamera.gameObject.SetActive(true);
+            crosshairCanvas.gameObject.SetActive(true);
+            SetActiveTool(true);
+        }
+        else
+        {
+            cinematicCamera.gameObject.SetActive(false);
+            crosshairCanvas.gameObject.SetActive(false);
+            SetActiveTool(false);
+        }
     }
 }
