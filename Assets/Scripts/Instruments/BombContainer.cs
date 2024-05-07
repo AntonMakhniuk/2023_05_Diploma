@@ -11,17 +11,21 @@ public class BombContainer : Instrument
     [SerializeField] private float bombRange = 5f;
     [SerializeField] private CinemachineVirtualCamera cinematicCamera;
     [SerializeField] private Canvas crosshairCanvas;
+    private int cameraPriorityDiff = 10;
+    private CinemachineVirtualCamera mainCamera;
 
     private void Start()
     {
         ToggleInstrument(false);
+        mainCamera = Camera.main.GetComponent<CinemachineVirtualCamera>();
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-            ToggleInstrument(isActiveTool);
+            ToggleInstrument(!isActiveTool);
+            ChangeCamera();
         }        
     }
 
@@ -49,7 +53,7 @@ public class BombContainer : Instrument
 
     void SpawnBomb()
     {
-        GameObject bomb = Instantiate(bombPrefab, muzzlePoint.position, muzzlePoint.rotation); // Adjust position and rotation
+        GameObject bomb = Instantiate(bombPrefab, muzzlePoint.position, muzzlePoint.rotation);
         
         Bomb bombScript = bomb.GetComponent<Bomb>();
         if (bombScript != null)
@@ -87,5 +91,19 @@ public class BombContainer : Instrument
             crosshairCanvas.gameObject.SetActive(false);
             SetActiveTool(false);
         }
+    }
+
+    private void ChangeCamera() 
+    {
+        cinematicCamera.Priority += cameraPriorityDiff;
+        mainCamera.Priority -= cameraPriorityDiff;
+        
+        if (cameraPriorityDiff < 0) 
+        {
+            cinematicCamera.transform.localPosition = Vector3.zero;
+            cinematicCamera.transform.localRotation = Quaternion.identity;
+        }
+
+        cameraPriorityDiff *= -1;
     }
 }
