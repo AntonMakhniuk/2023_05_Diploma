@@ -4,6 +4,7 @@ namespace Assets.Scripts.Instruments {
 [RequireComponent(typeof(MeshRenderer), typeof(Collider))]
 public class Instrument : MonoBehaviour {
     protected bool isActiveTool = false;
+    protected bool isOcupied = false;
     private Renderer meshRenderer;
     private Collider instrumentCollider;
 
