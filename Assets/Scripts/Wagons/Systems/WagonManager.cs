@@ -84,6 +84,13 @@ namespace Wagons.Systems
             {
                 wagon.GetWagon().gameObject.SetActive(true);
             }
+
+            shipWagonComponent.backJoint.UpdateAnchors();
+            
+            foreach (var wagon in _attachedWagons)
+            {
+                wagon.GetWagon().backJoint.UpdateAnchors();
+            }
             
             _modificationAllowed = false;
         }
@@ -313,7 +320,7 @@ namespace Wagons.Systems
         
         private void ConnectWagons(IWagon parentWagon, IWagon childWagon)
         {
-            parentWagon.GetWagon().backJoint.Connect(childWagon.GetWagon().gameObject);
+            parentWagon.GetWagon().backJoint.Connect(childWagon.GetWagon());
         }
 
         public void ConnectWagonsToShip(WagonChain chain)

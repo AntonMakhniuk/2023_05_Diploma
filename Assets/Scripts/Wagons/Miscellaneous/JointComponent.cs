@@ -1,14 +1,23 @@
 ﻿using System;
 using UnityEngine;
 using Wagons.Systems;
+using Wagons.Wagon_Types;
 
 namespace Wagons.Miscellaneous
 {
     public class JointComponent : MonoBehaviour
     {
+        [SerializeField] private Transform frontJointPoint;
         [SerializeField] private Transform jointPoint;
+        [SerializeField] private LineRenderer connectionRenderer;
         [SerializeField] private ConfigurableJoint joint;
+        [SerializeField] private float minAnchorDrawDistance;
 
+        private bool _isConnected;
+        
+        private IWagon _connectedWagon;
+        private JointComponent _connectedJoint;
+        
         private ConfigurableJointMotion _dataMotionX, _dataMotionY, _dataMotionZ;
         private ConfigurableJointMotion _dataMotionXAngular, _dataMotionYAngular, _dataMotionZAngular;
 
@@ -46,7 +55,15 @@ namespace Wagons.Miscellaneous
             Disable();
         }
 
-        public void Connect(GameObject connectedObject)
+        private void Update()
+        {
+            if (_isConnected)
+            {
+                UpdateRenderer();
+            }
+        }
+
+        public void Connect(IWagon connectedWagon)
         {
             if (joint.connectedBody != null)
             {
@@ -55,10 +72,13 @@ namespace Wagons.Miscellaneous
                 return;
             }
 
-            joint.connectedBody = connectedObject.GetComponent<Rigidbody>();
-            
+            _connectedWagon = connectedWagon;
+            _connectedJoint = _connectedWagon.GetWagon().backJoint;
+            joint.connectedBody = _connectedWagon.GetWagon().gameObject.GetComponent<Rigidbody>();
+            _isConnected = true;
+
+            SetUpRenderer();
             Enable();
-            UpdateAnchors();
         }
 
         public Vector3 GetPosition()
@@ -74,7 +94,10 @@ namespace Wagons.Miscellaneous
         
         public void Disconnect()
         {
+            _connectedWagon = null;
+            _connectedJoint = null;
             joint.connectedBody = null;
+            _isConnected = false;
             
             Disable();
         }
@@ -133,7 +156,81 @@ namespace Wagons.Miscellaneous
             joint.slerpDrive = _driveSlerp;
         }
 
-        private void UpdateAnchors()
+        private void SetUpRenderer()
+        {
+            connectionRenderer.positionCount = 2;
+            
+            connectionRenderer.SetPositions
+            (
+                new []
+                {
+                    GetPosition(),
+                    _connectedJoint.frontJointPoint.position
+                }
+            );
+            
+            // var anchorPoint = transform.TransformPoint(joint.anchor);
+            // var connectedAnchorPoint = transform.TransformPoint(joint.connectedAnchor);
+            //
+            // connectionRenderer.positionCount = 4;
+            //
+            // connectionRenderer.SetPositions
+            // (
+            //     new []
+            //     {
+            //         GetPosition(),
+            //         anchorPoint,
+            //         connectedAnchorPoint,
+            //         _connectedJoint.frontJointPoint.position
+            //         
+            //     }
+            // );
+        }
+
+        private void UpdateRenderer()
+        {
+            connectionRenderer.SetPositions
+            (
+                new []
+                {
+                    GetPosition(),
+                    _connectedJoint.frontJointPoint.position
+                }
+            );
+            
+            // var anchorPoint = transform.TransformPoint(joint.anchor);
+            // var connectedAnchorPoint = 
+            //     _connectedWagon.GetWagon().transform.TransformPoint(joint.connectedAnchor);
+            //
+            // if (Vector3.Distance(anchorPoint, connectedAnchorPoint) <= minAnchorDrawDistance)
+            // {
+            //     connectionRenderer.positionCount = 2;
+            //     connectionRenderer.SetPositions
+            //     (
+            //         new []
+            //         {
+            //             GetPosition(),
+            //             _connectedJoint.frontJointPoint.position
+            //         }
+            //     );
+            // }
+            // else
+            // {
+            //     connectionRenderer.positionCount = 4;
+            //     connectionRenderer.SetPositions
+            //     (
+            //         new []
+            //         {
+            //             GetPosition(),
+            //             anchorPoint,
+            //             connectedAnchorPoint,
+            //             _connectedJoint.frontJointPoint.position
+            //         }
+            //     );
+            // }
+        }
+        
+        public void UpdateAnchors()
         {
             joint.anchor = new Vector3
             {
@@ -142,6 +239,8 @@ namespace Wagons.Miscellaneous
                 z = -GetAbsDistanceFromWagonCenter() - WagonManager.Instance.wagonSpawnDistance / 2
             };
             
+            joint.autoConfigureConnectedAnchor = true;
+            // ReSharper disable once Unity.InefficientPropertyAccess
             joint.autoConfigureConnectedAnchor = false;
             
             joint.connectedAnchor = new Vector3
