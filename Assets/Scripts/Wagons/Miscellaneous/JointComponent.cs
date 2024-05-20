@@ -7,11 +7,10 @@ namespace Wagons.Miscellaneous
 {
     public class JointComponent : MonoBehaviour
     {
-        [SerializeField] private Transform frontJointPoint;
-        [SerializeField] private Transform jointPoint;
+        [SerializeField] private Transform frontConnectionPoint;
+        [SerializeField] private Transform backJointPoint;
         [SerializeField] private LineRenderer connectionRenderer;
         [SerializeField] private ConfigurableJoint joint;
-        [SerializeField] private float minAnchorDrawDistance;
 
         private bool _isConnected;
         
@@ -83,13 +82,13 @@ namespace Wagons.Miscellaneous
 
         public Vector3 GetPosition()
         {
-            return jointPoint.position;
+            return backJointPoint.position;
         }
 
         // Supporting function used to calculate offsets related to the wagon
         public float GetAbsDistanceFromWagonCenter()
         {
-            return Math.Abs(Vector3.Distance(gameObject.transform.position, jointPoint.position));
+            return Math.Abs(Vector3.Distance(gameObject.transform.position, backJointPoint.position));
         }
         
         public void Disconnect()
@@ -165,7 +164,7 @@ namespace Wagons.Miscellaneous
                 new []
                 {
                     GetPosition(),
-                    _connectedJoint.frontJointPoint.position
+                    _connectedJoint.frontConnectionPoint.position
                 }
             );
             
@@ -194,7 +193,7 @@ namespace Wagons.Miscellaneous
                 new []
                 {
                     GetPosition(),
-                    _connectedJoint.frontJointPoint.position
+                    _connectedJoint.frontConnectionPoint.position
                 }
             );
             
