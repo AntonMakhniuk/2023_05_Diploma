@@ -231,11 +231,20 @@ namespace Wagons.Miscellaneous
         
         public void UpdateAnchors()
         {
+            if (_connectedJoint == null)
+            {
+                return;
+            }
+            
+            var anchorDistance =
+                (GetAbsDistanceFromWagonCenter() + _connectedJoint.GetAbsDistanceFromWagonCenter()) / 2
+                + WagonManager.Instance.wagonSpawnDistance / 2;
+            
             joint.anchor = new Vector3
             {
                 x = 0, 
                 y = 0, 
-                z = -GetAbsDistanceFromWagonCenter() - WagonManager.Instance.wagonSpawnDistance / 2
+                z = -anchorDistance
             };
             
             joint.autoConfigureConnectedAnchor = true;
@@ -246,7 +255,7 @@ namespace Wagons.Miscellaneous
             {
                 x = 0, 
                 y = 0, 
-                z = GetAbsDistanceFromWagonCenter() + WagonManager.Instance.wagonSpawnDistance / 2
+                z = anchorDistance
             };
         }
     }

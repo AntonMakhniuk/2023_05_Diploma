@@ -17,8 +17,8 @@ namespace UI.UI_Categories.Wagons
         [SerializeField] private WagonUIElement shipUI;
         [SerializeField] private float lengthBetweenWagons;
 
-        private List<GameObject> _wagonInstances = new();
-        private List<WagonUIElement> _wagonsUI = new();
+        private readonly List<GameObject> _wagonInstances = new();
+        private readonly List<WagonUIElement> _wagonsUI = new();
 
         private void Awake()
         {
