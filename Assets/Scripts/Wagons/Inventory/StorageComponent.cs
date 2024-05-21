@@ -15,20 +15,13 @@ namespace Wagons.Inventory
         
         public ItemType[] allowedItemTypes;
         public float maxCapacity;
-        
-        public Dictionary<ItemBase, float> ItemDictionary = new();
+
+        private List<ItemStack> _items = new();
+        public List<ItemStack> Items => new(_items);
 
         // Derived attributes
-        [HideInInspector] public float occupiedCapacity;
-        [HideInInspector] public float freeCapacity;
-
-        private void UpdateCapacities()
-        {
-            float occupiedTemp = ItemDictionary.Sum(item => item.Key.volume * item.Value);
-
-            occupiedCapacity = occupiedTemp;
-            freeCapacity = maxCapacity - occupiedCapacity;
-        }
+        public float OccupiedCapacity => _items.Sum(item => item.DVolume);
+        public float FreeCapacity => maxCapacity - OccupiedCapacity;
 
         // Adds the provided count, or maximum available amount if there isn't enough space
         // returns the amount added
@@ -42,18 +35,23 @@ namespace Wagons.Inventory
                 return 0;
             }
 
-            float amountAdded = Mathf.Min(itemCount, freeCapacity);
-            
-            if (ItemDictionary.ContainsKey(item))
+            if (FreeCapacity <= 0)
             {
-                ItemDictionary[item] += amountAdded;
+                //TODO: Add player notification that max capacity has been reached
+                
+                return 0;
+            }
+            
+            float amountAdded = Mathf.Min(itemCount * item.volume, FreeCapacity);
+            
+            if (_items.Select(st => st.item).Contains(item))
+            {
+                _items.Single(st => st.item == item).quantity += amountAdded;
             }
             else
             {
-                ItemDictionary.Add(item, amountAdded);
+                _items.Add(new ItemStack(item, amountAdded));
             }
-            
-            UpdateCapacities();
 
             return amountAdded;
         }
@@ -62,25 +60,27 @@ namespace Wagons.Inventory
         // returns the amount taken out
         public float TakeOutItem(ItemBase item, float itemCount)
         {
-            float takenOutCount;
+            var requestedItem = _items.SingleOrDefault(st => st.item == item);
             
-            if (!ItemDictionary.ContainsKey(item))
+            if (requestedItem == null)
             {
+                Debug.Log("Tried to take out item that doesn't exist in player inventory.");
+                
                 return 0;
             }
-
-            if (ItemDictionary[item] < itemCount)
+            
+            float takenOutCount;
+            
+            if (requestedItem.quantity < itemCount)
             {
-                takenOutCount = ItemDictionary[item];
-                ItemDictionary[item] = 0;
+                takenOutCount = requestedItem.quantity;
+                requestedItem.quantity = 0;
             }
             else
             {
                 takenOutCount = itemCount;
-                ItemDictionary[item] -= itemCount;
+                requestedItem.quantity -= itemCount;
             }
-
-            UpdateCapacities();
             
             return takenOutCount;
         }

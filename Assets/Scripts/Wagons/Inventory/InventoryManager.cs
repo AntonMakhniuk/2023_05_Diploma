@@ -11,10 +11,25 @@ namespace Wagons.Inventory
 {
     public class InventoryManager : MonoBehaviour
     {
+        public static InventoryManager Instance;
+        
         public WagonManager playerWagonManager;
         
-        private List<StorageComponent> _shipStorageComponents;
+        private readonly List<StorageComponent> _shipStorageComponents = new();
 
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+        
         private void Start()
         {
             // TODO: add some kind of link to storage that can be on the ship as well
@@ -75,7 +90,8 @@ namespace Wagons.Inventory
             
             float itemTotal = 0;
 
-            foreach (var storageComponent in _shipStorageComponents)
+            foreach (var storageComponent in _shipStorageComponents
+                         .Where(sc => sc.allowedItemTypes.Contains(item.type)).ToList())
             {
                 itemTotal += storageComponent.AddItem(item, itemCount - itemTotal);
 
@@ -84,7 +100,7 @@ namespace Wagons.Inventory
                     break;
                 }
             }
-
+            
             return itemTotal;
         }
         
@@ -110,26 +126,26 @@ namespace Wagons.Inventory
             return itemTotal;
         }
 
-        public Dictionary<ItemBase, float> GetAllItems()
+        public List<ItemStack> GetAllItems()
         {
-            Dictionary<ItemBase, float> combinedItemDictionary = new();
-
-            foreach (var itemDictionary in _shipStorageComponents.Select(sc => sc.ItemDictionary))
+            List<ItemStack> combinedItems = new();
+            
+            foreach (var items in _shipStorageComponents.Select(sc => sc.Items))
             {
-                foreach (var kvp in itemDictionary)
+                foreach (var stack in items)
                 {
-                    if (!combinedItemDictionary.ContainsKey(kvp.Key))
+                    if (!combinedItems.Contains(stack))
                     {
-                        combinedItemDictionary[kvp.Key] = kvp.Value;
+                        combinedItems.Add(new ItemStack(stack));
                     }
                     else
                     {
-                        combinedItemDictionary[kvp.Key] += kvp.Value;
+                        combinedItems.Single(st => st == stack).quantity += stack.quantity;
                     }
                 }
             }
-
-            return combinedItemDictionary;
+            
+            return combinedItems;
         }
     }
 }
