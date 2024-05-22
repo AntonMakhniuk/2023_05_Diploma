@@ -22,10 +22,12 @@ namespace UI.UI_Categories.Inventory
         {
             if (Items.Count == 0)
             {
-                errorText.SetText("The inventory is empty.");
+                errorText.gameObject.SetActive(true);
             }
             else
             {
+                errorText.gameObject.SetActive(false);
+                
                 GenerateItemTiles();   
             }
         }
@@ -34,10 +36,12 @@ namespace UI.UI_Categories.Inventory
         {            
             if (Items.Count == 0)
             {
-                errorText.SetText("The inventory is empty.");
+                errorText.gameObject.SetActive(true);
             }
             else
             {
+                errorText.gameObject.SetActive(false);
+                
                 foreach (var stack in Items)
                 {
                     if (_itemTileDictionary.TryGetValue(stack.item, out var itemTile))
