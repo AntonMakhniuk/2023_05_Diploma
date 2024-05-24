@@ -103,12 +103,13 @@ public class LaserV3 : Instrument
        public void RotateWithCamera() 
        {
            var eulerAngles = _mainCamera.eulerAngles;
-           Quaternion targetRotationLeg = Quaternion.Euler(0, eulerAngles.y, 0);
+           Quaternion targetRotationLeg = Quaternion.Euler(laserLeg.eulerAngles.x, eulerAngles.y, laserLeg.eulerAngles.z);
            laserLeg.rotation = Quaternion.Lerp(laserLeg.rotation, targetRotationLeg, rotationSpeed * Time.deltaTime);
            
            Quaternion targetRotationBarrel = Quaternion.Euler(eulerAngles.x, laserLeg.eulerAngles.y, 0);
            laserBarrel.rotation = Quaternion.Lerp(laserBarrel.rotation, targetRotationBarrel, rotationSpeed * Time.deltaTime);
        }
+       
        void ToggleInstrument(bool activate)
        {
            isActiveTool = activate;
