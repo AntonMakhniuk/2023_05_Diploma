@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class LaserCameraControl : MonoBehaviour {
+public class InstrumentCameraControl : MonoBehaviour {
     private PlayerInputActions _playerInputActions;
     private Rigidbody _rb;
     private Transform _mainCamera;
     
-    [SerializeField] private Transform laserBarrel;
-    [SerializeField] private Transform laserLeg;
+    [SerializeField] private Transform barrel;
+    [SerializeField] private Transform leg;
     [SerializeField] private float rotationSpeed;
     
     private void Awake()
@@ -28,9 +28,9 @@ public class LaserCameraControl : MonoBehaviour {
     public void RotateWithCamera() 
     {
         Quaternion targetRotationLeg = Quaternion.Euler(0, _mainCamera.eulerAngles.y, 0);
-        laserLeg.rotation = Quaternion.Lerp(laserLeg.rotation, targetRotationLeg, rotationSpeed * Time.deltaTime);
+        leg.rotation = Quaternion.Lerp(leg.rotation, targetRotationLeg, rotationSpeed * Time.deltaTime);
         
-        Quaternion targetRotationBarrel = Quaternion.Euler(_mainCamera.eulerAngles.x, laserLeg.eulerAngles.y, 0);
-        laserBarrel.rotation = Quaternion.Lerp(laserBarrel.rotation, targetRotationBarrel, rotationSpeed * Time.deltaTime);
+        Quaternion targetRotationBarrel = Quaternion.Euler(_mainCamera.eulerAngles.x, leg.eulerAngles.y, 0);
+        barrel.rotation = Quaternion.Lerp(barrel.rotation, targetRotationBarrel, rotationSpeed * Time.deltaTime);
     }
 }
