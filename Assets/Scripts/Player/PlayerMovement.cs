@@ -19,20 +19,20 @@ public class PlayerMovement : MonoBehaviour {
     private bool isRotating = false;
 
     [Header("Ship Movement Parameters")]
-    [SerializeField] private float moveSpeed = 1;
-    [SerializeField] private float accelerationDrag = 0f;
-    [SerializeField] private float brakesDrag = 1.5f;
-    [SerializeField] private float maxLinearVelocity = 1000;
+    [SerializeField] private float _moveSpeed = 1;
+    [SerializeField] private float _accelerationDrag = 0f;
+    [SerializeField] private float _brakesDrag = 1.5f;
+    [SerializeField] private float _maxLinearVelocity = 1000;
     [Space]
     [Header("Ship Rotation Parameters")]
-    [SerializeField] private float rotationSpeed = 1;
-    [SerializeField] private float maxAngularVelocity = 1;
-    [SerializeField] private float accelerationAngularDrag = 0.5f;
-    [SerializeField] private float brakesAngularDrag = 1f;
-    [SerializeField] private float cameraAlignRotationSpeed = 1f;
+    [SerializeField] private float _rotationSpeed = 1;
+    [SerializeField] private float _maxAngularVelocity = 1;
+    [SerializeField] private float _accelerationAngularDrag = 0.5f;
+    [SerializeField] private float _brakesAngularDrag = 1f;
+    [SerializeField] private float _cameraAlignRotationSpeed = 1f;
 
-    [SerializeField] private float speedBoostMultiplier = 2f;
-    [SerializeField] private float speedBoostDuration = 10f;
+    [SerializeField] private float _speedBoostMultiplier = 2f;
+    [SerializeField] private float _speedBoostDuration = 10f;
     private bool isSpeedBoosted = false;
     private int speedBoostsCount = 0;
 
@@ -41,11 +41,11 @@ public class PlayerMovement : MonoBehaviour {
         playerInputActions = new PlayerInputActions();
         
         rb = GetComponent<Rigidbody>();
-        rb.maxAngularVelocity = maxAngularVelocity;
-        rb.maxLinearVelocity = maxLinearVelocity;
+        rb.maxAngularVelocity = _maxAngularVelocity;
+        rb.maxLinearVelocity = _maxLinearVelocity;
 
-        rb.drag = accelerationDrag;
-        rb.angularDrag = accelerationAngularDrag;
+        rb.drag = _accelerationDrag;
+        rb.angularDrag = _accelerationAngularDrag;
         
         mainCamera = Camera.main;
         
@@ -65,14 +65,14 @@ public class PlayerMovement : MonoBehaviour {
         // Brakes
         playerInputActions.PlayerShip.Brakes.performed += _ =>
         {
-            rb.drag = brakesDrag;
-            rb.angularDrag = brakesAngularDrag;
+            rb.drag = _brakesDrag;
+            rb.angularDrag = _brakesAngularDrag;
         };
 
         playerInputActions.PlayerShip.Brakes.canceled += _ =>
         {
-            rb.drag = accelerationDrag;
-            rb.angularDrag = accelerationAngularDrag;
+            rb.drag = _accelerationDrag;
+            rb.angularDrag = _accelerationAngularDrag;
         };
 
         // Y axis
@@ -98,15 +98,15 @@ public class PlayerMovement : MonoBehaviour {
     {
         speedBoostsCount++;
 
-        moveSpeed *= speedBoostMultiplier;
-        rotationSpeed *= speedBoostMultiplier;
+        _moveSpeed *= _speedBoostMultiplier;
+        _rotationSpeed *= _speedBoostMultiplier;
 
         isSpeedBoosted = true;
 
-        yield return new WaitForSeconds(speedBoostDuration);
+        yield return new WaitForSeconds(_speedBoostDuration);
 
-        moveSpeed /= speedBoostMultiplier;
-        rotationSpeed /= speedBoostMultiplier;
+        _moveSpeed /= _speedBoostMultiplier;
+        _rotationSpeed /= _speedBoostMultiplier;
 
         speedBoostsCount--;
 
@@ -147,12 +147,12 @@ public class PlayerMovement : MonoBehaviour {
     
     // Move along Z and Y axis (forward or backward / up or down)
     public void Move(Vector2 movementVector) {
-        rb.AddRelativeForce(moveSpeed * new Vector3(0, movementVector.y, movementVector.x), ForceMode.Force);
+        rb.AddRelativeForce(_moveSpeed * new Vector3(0, movementVector.y, movementVector.x), ForceMode.Force);
     }
 
     // Rotate along the input vector
     public void Rotate(Vector3 inputVector) {
-        rb.AddRelativeTorque(rotationSpeed * inputVector, ForceMode.Force);
+        rb.AddRelativeTorque(_rotationSpeed * inputVector, ForceMode.Force);
     }
 
     // Rotate to align with the direction where camera is pointed at
@@ -162,8 +162,8 @@ public class PlayerMovement : MonoBehaviour {
             Quaternion.Slerp
             (
                 transform.rotation, 
-                mainCamera.transform.rotation, 
-                cameraAlignRotationSpeed * Time.fixedDeltaTime
+                mainCamera.transform.rotation,
+                _cameraAlignRotationSpeed * Time.fixedDeltaTime
             )
         );
     }
@@ -178,7 +178,7 @@ public class PlayerMovement : MonoBehaviour {
             if (playerInputActions.PlayerShip.Movement.IsPressed())
             {
                 fuelSystem.ConsumeFuel(fuelConsumptionRate * Time.deltaTime);
-                bool isFuelThresholdReached = fuelSystem.GetCurrentFuelLevel() > fuelSystem.GetMaxFuelCapacity() * fuelSystem.GetLowFuelThreshold() ? true : false;
+                bool isFuelThresholdReached = fuelSystem.GetCurrentFuelLevel() > fuelSystem.GetMaxFuelCapacity() * fuelSystem.GetLowFuelThreshold();
                 if (!isFuelThresholdReached)
                 {
                     UpdateMovementSpeedsForLowFuel();
@@ -189,16 +189,16 @@ public class PlayerMovement : MonoBehaviour {
                 }
                 else if (!isSpeedBoosted)
                 {
-                    moveSpeed = 1;
-                    rotationSpeed = 1;
+                    _moveSpeed = 1;
+                    _rotationSpeed = 1;
                 }
             }
         }
     }
     public void UpdateMovementSpeedsForLowFuel()
     {
-        moveSpeed /= speedBoostMultiplier;
-        rotationSpeed /= speedBoostMultiplier;
+        _moveSpeed /= _speedBoostMultiplier;
+        _rotationSpeed /= _speedBoostMultiplier;
     }
 }
 
