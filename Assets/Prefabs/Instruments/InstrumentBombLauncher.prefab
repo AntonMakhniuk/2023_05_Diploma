@@ -112,7 +112,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6216801307778149218}
   - component: {fileID: 511297680474504828}
-  - component: {fileID: 7571655484505460016}
+  - component: {fileID: 1739957730097741697}
   m_Layer: 0
   m_Name: BomLauncherBase
   m_TagString: Untagged
@@ -129,7 +129,7 @@ Transform:
   m_GameObject: {fileID: 1751158559482113450}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.99, y: -1.77, z: -1.2378883}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -144,7 +144,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1751158559482113450}
   m_Mesh: {fileID: -4684232478718763241, guid: 3df41a6c49d4fbb47a43cb4dde3fba3d, type: 3}
---- !u!23 &7571655484505460016
+--- !u!23 &1739957730097741697
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -164,9 +164,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -8282847139935330817, guid: 3df41a6c49d4fbb47a43cb4dde3fba3d, type: 3}
-  - {fileID: -6966448349144846432, guid: 3df41a6c49d4fbb47a43cb4dde3fba3d, type: 3}
-  - {fileID: 355439140418085314, guid: 3df41a6c49d4fbb47a43cb4dde3fba3d, type: 3}
+  - {fileID: -5129921731139112870, guid: 3df41a6c49d4fbb47a43cb4dde3fba3d, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -290,7 +288,7 @@ Transform:
   m_GameObject: {fileID: 2394967574786150154}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.9012165, y: -1.071404, z: -2.2458882}
+  m_LocalPosition: {x: 0.8857524, y: 0.69859594, z: -1.0079999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -393,7 +391,7 @@ GameObject:
   m_Component:
   - component: {fileID: 982294045081840691}
   - component: {fileID: 1109413165724425443}
-  - component: {fileID: 8610483650903002026}
+  - component: {fileID: 1291962177760475426}
   m_Layer: 0
   m_Name: BombLauncherGun
   m_TagString: Untagged
@@ -425,7 +423,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4593320826234733409}
   m_Mesh: {fileID: -5395154236207405892, guid: 3df41a6c49d4fbb47a43cb4dde3fba3d, type: 3}
---- !u!23 &8610483650903002026
+--- !u!23 &1291962177760475426
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -445,8 +443,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6966448349144846432, guid: 3df41a6c49d4fbb47a43cb4dde3fba3d, type: 3}
-  - {fileID: -8282847139935330817, guid: 3df41a6c49d4fbb47a43cb4dde3fba3d, type: 3}
+  - {fileID: -5129921731139112870, guid: 3df41a6c49d4fbb47a43cb4dde3fba3d, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -648,7 +645,7 @@ Transform:
   m_GameObject: {fileID: 7081227315098689218}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.4112301, y: 0.80626154, z: 0.49221236}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
