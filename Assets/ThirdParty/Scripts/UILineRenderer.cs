@@ -1,10 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-// Author : radishmouse22
-// Obtained from: https://github.com/Radishmouse22/UILineRenderer/tree/main
-// Obtained and used under the MIT License
-
 namespace ThirdParty.Scripts
 {
     public class UILineRenderer : Graphic

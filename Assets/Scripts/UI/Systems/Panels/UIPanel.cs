@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-namespace UI.Systems
+namespace UI.Systems.Panels
 {
     public class UIPanel : MonoBehaviour
     {
         public PanelType panelType;
+        public List<UIPanel> childPanels = new(); 
         
         [SerializeField] private List<GameObject> uiObjects = new();
         
@@ -38,6 +40,11 @@ namespace UI.Systems
         public virtual void Close()
         {
             gameObject.SetActive(false);
+
+            foreach (var panel in childPanels.Where(p => p.gameObject.activeSelf))
+            {
+                panel.Close();
+            }
             
             foreach (var element in _uiElements)
             {
@@ -48,6 +55,6 @@ namespace UI.Systems
 
     public enum PanelType
     {
-        Inventory, Journal, Map, Production, Wagons, Building, Pause, Upgrades
+        Inventory, Journal, Map, Production, Wagons, Building, Pause, Upgrades, Child
     }
 }

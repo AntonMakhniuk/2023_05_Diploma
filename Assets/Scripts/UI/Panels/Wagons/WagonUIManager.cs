@@ -67,7 +67,7 @@ namespace UI.UI_Categories.Wagons
 
         public void DetachWagonsFromShip()
         {
-            WagonManager.Instance.DisconnectWagonsFromShip();
+            //  WagonManager.Instance.DisconnectWagonsFromShip();
             
             UpdateWagonUIElements();
         }

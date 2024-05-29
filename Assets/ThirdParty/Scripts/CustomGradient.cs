@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-  // Author : orionsyndrome
-  // Obtained from: https://forum.unity.com/threads/gradients-number-of-keys-and-alpha-values.1231029/
-
 namespace ThirdParty.Scripts
 {
     public struct CustomGradientKey {
