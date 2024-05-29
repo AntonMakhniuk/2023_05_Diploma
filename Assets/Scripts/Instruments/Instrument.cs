@@ -28,6 +28,18 @@ public class Instrument : MonoBehaviour {
     public void SetActiveTool(bool active)
     {
         isActiveTool = active;
+        
+    }
+    
+    public virtual void Activate()
+    {
+        isActiveTool = true;
+    }
+
+    
+    public virtual void Deactivate()
+    {
+        isActiveTool = false;
     }
 }
 }

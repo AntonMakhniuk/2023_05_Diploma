@@ -134,6 +134,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""InstrumentThird"",
+                    ""type"": ""Button"",
+                    ""id"": ""d3d04627-098c-4717-ad19-954dc9ebec46"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -411,6 +420,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""ToggleLaser"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4fb91fec-77b7-4db0-bd9a-a1bef4949881"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InstrumentThird"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -459,6 +479,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_PlayerShip_Brakes = m_PlayerShip.FindAction("Brakes", throwIfNotFound: true);
         m_PlayerShip_ToggleBombContainer = m_PlayerShip.FindAction("ToggleBombContainer", throwIfNotFound: true);
         m_PlayerShip_ToggleLaser = m_PlayerShip.FindAction("ToggleLaser", throwIfNotFound: true);
+        m_PlayerShip_InstrumentThird = m_PlayerShip.FindAction("InstrumentThird", throwIfNotFound: true);
         // PlayerCamera
         m_PlayerCamera = asset.FindActionMap("PlayerCamera", throwIfNotFound: true);
         m_PlayerCamera_MouseCameraMovement = m_PlayerCamera.FindAction("MouseCameraMovement", throwIfNotFound: true);
@@ -535,6 +556,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerShip_Brakes;
     private readonly InputAction m_PlayerShip_ToggleBombContainer;
     private readonly InputAction m_PlayerShip_ToggleLaser;
+    private readonly InputAction m_PlayerShip_InstrumentThird;
     public struct PlayerShipActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -551,6 +573,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Brakes => m_Wrapper.m_PlayerShip_Brakes;
         public InputAction @ToggleBombContainer => m_Wrapper.m_PlayerShip_ToggleBombContainer;
         public InputAction @ToggleLaser => m_Wrapper.m_PlayerShip_ToggleLaser;
+        public InputAction @InstrumentThird => m_Wrapper.m_PlayerShip_InstrumentThird;
         public InputActionMap Get() { return m_Wrapper.m_PlayerShip; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -596,6 +619,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @ToggleLaser.started += instance.OnToggleLaser;
             @ToggleLaser.performed += instance.OnToggleLaser;
             @ToggleLaser.canceled += instance.OnToggleLaser;
+            @InstrumentThird.started += instance.OnInstrumentThird;
+            @InstrumentThird.performed += instance.OnInstrumentThird;
+            @InstrumentThird.canceled += instance.OnInstrumentThird;
         }
 
         private void UnregisterCallbacks(IPlayerShipActions instance)
@@ -636,6 +662,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @ToggleLaser.started -= instance.OnToggleLaser;
             @ToggleLaser.performed -= instance.OnToggleLaser;
             @ToggleLaser.canceled -= instance.OnToggleLaser;
+            @InstrumentThird.started -= instance.OnInstrumentThird;
+            @InstrumentThird.performed -= instance.OnInstrumentThird;
+            @InstrumentThird.canceled -= instance.OnInstrumentThird;
         }
 
         public void RemoveCallbacks(IPlayerShipActions instance)
@@ -713,6 +742,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnBrakes(InputAction.CallbackContext context);
         void OnToggleBombContainer(InputAction.CallbackContext context);
         void OnToggleLaser(InputAction.CallbackContext context);
+        void OnInstrumentThird(InputAction.CallbackContext context);
     }
     public interface IPlayerCameraActions
     {

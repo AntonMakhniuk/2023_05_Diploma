@@ -32,15 +32,9 @@ public class Bomb : MonoBehaviour
     {
         rb.velocity = Vector3.zero;
         isFrozen = true;
-        
-        ShowBombRange();
     }
 
-    void ShowBombRange()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, explosionRadius);
-    }
+    
 
     public void Detonate()
     {
@@ -60,8 +54,7 @@ public class Bomb : MonoBehaviour
         Instantiate(explosion, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
-
-    // Method to set the reference to the BombContainer script
+    
     public void SetBombContainer(BombContainer container)
     {
         bombContainer = container;

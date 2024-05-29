@@ -6,6 +6,7 @@ public class LaserV3 : Instrument
 {
     [SerializeField] private Transform laserBarrel;
     [SerializeField] private Transform laserLeg;
+    [SerializeField] private Transform laserBase;
     [SerializeField] private float rotationSpeed;
     
     [SerializeField] private LineRenderer _beam;
@@ -15,131 +16,182 @@ public class LaserV3 : Instrument
     [SerializeField] private Canvas crosshairCanvas;
     private int cameraPriorityDiff = 10;
     
-    
-    
-       private PlayerInputActions _playerInputActions;
-       private Rigidbody _rb;
-       private Transform _mainCamera;
-       
-       private void Awake()
-       {
-           ToggleInstrument(false);
-           _playerInputActions = new PlayerInputActions();
-           if (Camera.main != null) _mainCamera = Camera.main.transform;
+    private PlayerInputActions _playerInputActions;
+    private Transform _mainCamera;
+    private Transform _spaceshipTransform; 
 
-           _playerInputActions.PlayerCamera.Enable();
-           
-           _beam.enabled = false;
-           _beam.startWidth = 0.1f;
-           _beam.endWidth = 0.1f;
-       }
-       
-       private void Activate()
-       {
-           _beam.enabled = true;
-       }
-    
-       private void Deactivate()
-       {
-           _beam.enabled = false;
-           var position = _muzzlePoint.position;
-           _beam.SetPosition(0, position);
-           _beam.SetPosition(1, position);
-       }
-   
-       private void Update() {
-           RotateWithCamera();
-           
-           if (Input.GetKeyDown(KeyCode.Alpha3))
-           {
-               ToggleInstrument(!isActiveTool);
-               ChangeCamera();
-               
-           }   
-           
-           Work();
-       }
+    private void Awake()
+    {
+        if (isActiveTool==false)
+        {
+            ToggleInstrument(false);
+        }
+        _playerInputActions = new PlayerInputActions();
+        if (Camera.main != null) _mainCamera = Camera.main.transform;
+        if (transform.root != null) _spaceshipTransform = transform.root;
 
-       void Work()
-       {
-           if (isActiveTool && Input.GetMouseButtonDown(0))
-           {
-               Activate();
-           }
-           else if (isActiveTool && Input.GetMouseButtonUp(0))
-           {
-               Deactivate();
-           }
-       }
-       
-       private void FixedUpdate()
-       {
-           if (!_beam.enabled)
-           {
-               return;
-           }
-
-           Ray ray = new Ray(_muzzlePoint.position, _muzzlePoint.forward);
-           bool cast = Physics.Raycast(ray, out RaycastHit hit, maxLenght);
-           Vector3 hitPosition = cast ? hit.point : _muzzlePoint.position + _muzzlePoint.forward * maxLenght;
-           _beam.SetPosition(0, _muzzlePoint.position);
-           _beam.SetPosition(1,hitPosition);
-           if (cast && hit.collider.CompareTag("AsteroidPoint"))
-           {
-               CheckAndDestroyAsteroidPoint(hit.collider);
-           }
-       }
-       private void CheckAndDestroyAsteroidPoint(Collider collider)
-       {
-           if (collider.CompareTag("AsteroidPoint"))
-           {
-               Destroy(collider.gameObject);
-
-               Asteroid asteroid = collider.transform.parent.GetComponent<Asteroid>();
-               asteroid.OnAsteroidPointDestroyed();
-           }
-       }
-   
-       public void RotateWithCamera() 
-       {
-           var eulerAngles = _mainCamera.eulerAngles;
-           Quaternion targetRotationLeg = Quaternion.Euler(laserLeg.eulerAngles.x, eulerAngles.y, laserLeg.eulerAngles.z);
-           laserLeg.rotation = Quaternion.Lerp(laserLeg.rotation, targetRotationLeg, rotationSpeed * Time.deltaTime);
-           
-           Quaternion targetRotationBarrel = Quaternion.Euler(eulerAngles.x, laserLeg.eulerAngles.y, 0);
-           laserBarrel.rotation = Quaternion.Lerp(laserBarrel.rotation, targetRotationBarrel, rotationSpeed * Time.deltaTime);
-       }
-       
-       void ToggleInstrument(bool activate)
-       {
-           isActiveTool = activate;
+        _playerInputActions.PlayerCamera.Enable();
         
-           if (isActiveTool)
-           {
-               cinematicCamera.gameObject.SetActive(true);
-               crosshairCanvas.gameObject.SetActive(true);
-               SetActiveTool(true);
-           }
-           else
-           {
-               cinematicCamera.gameObject.SetActive(false);
-               crosshairCanvas.gameObject.SetActive(false);
-               SetActiveTool(false);
-           }
-       }
-       
-       private void ChangeCamera() 
-       {
-           cinematicCamera.Priority += cameraPriorityDiff;
-           cinematicCamera.Priority -= cameraPriorityDiff;
+        _beam.enabled = false;
+        _beam.startWidth = 0.1f;
+        _beam.endWidth = 0.1f;
+    }
+    
+    private void Activate()
+    {
+        _beam.enabled = true;
+    }
+
+    private void Deactivate()
+    {
+        _beam.enabled = false;
+        var position = _muzzlePoint.position;
+        _beam.SetPosition(0, position);
+        _beam.SetPosition(1, position);
+    }
+
+    private void Update() {
+        if (isActiveTool)
+        {
+            RotateWithCamera();
+            Toggle();
+            ChangeCamera();
+            Work();
+        }
+        else 
+        {
+            ToggleInstrument(false);
+        }
+            
         
-           if (cameraPriorityDiff < 0) 
-           {
-               cinematicCamera.transform.localPosition = Vector3.zero;
-               cinematicCamera.transform.localRotation = Quaternion.identity;
-           }
+    }
+    
+    private void LateUpdate()
+    {
+        if (isActiveTool)
+        {
+            cinematicCamera.transform.position = _spaceshipTransform.position;
+            cinematicCamera.transform.rotation = _spaceshipTransform.rotation;
+        }
+    }
 
-           cameraPriorityDiff *= -1;
-       }
+    void Work()
+    {
+        if (isActiveTool && Input.GetMouseButtonDown(0))
+        {
+            Activate();
+        }
+        else if (isActiveTool && Input.GetMouseButtonUp(0))
+        {
+            Deactivate();
+        }
+    }
+    
+    private void FixedUpdate()
+    {
+        if (!_beam.enabled)
+        {
+            return;
+        }
 
+        Ray ray = new Ray(_muzzlePoint.position, _muzzlePoint.forward);
+        bool cast = Physics.Raycast(ray, out RaycastHit hit, maxLenght);
+        Vector3 hitPosition = cast ? hit.point : _muzzlePoint.position + _muzzlePoint.forward * maxLenght;
+        _beam.SetPosition(0, _muzzlePoint.position);
+        _beam.SetPosition(1,hitPosition);
+        if (cast && hit.collider.CompareTag("AsteroidPoint"))
+        {
+            CheckAndDestroyAsteroidPoint(hit.collider);
+        }
+    }
+
+    private void CheckAndDestroyAsteroidPoint(Collider collider)
+    {
+        if (collider.CompareTag("AsteroidPoint"))
+        {
+            Destroy(collider.gameObject);
+
+            Asteroid asteroid = collider.transform.parent.GetComponent<Asteroid>();
+            asteroid.OnAsteroidPointDestroyed();
+        }
+    }
+
+    public void RotateWithCamera() 
+    {
+        // Get the position of the laser base
+        Vector3 laserBasePosition = laserBase.transform.position;
+
+        // Get the position and forward direction of the cinemachine camera
+        Vector3 cameraPosition = cinematicCamera.transform.position;
+        Vector3 cameraForward = cinematicCamera.transform.forward;
+
+        // Calculate the direction from the laser base to the camera's forward direction
+        Vector3 direction = cameraPosition + cameraForward * 100f - laserBasePosition;
+
+        // Transform the direction to be relative to the ship's rotation
+        Vector3 relativeDirection = PlayerShip.Instance.transform.InverseTransformDirection(direction);
+
+        // Calculate the rotation for the laser leg (Y-axis rotation)
+        float legAngle = Mathf.Atan2(relativeDirection.x, relativeDirection.z) * Mathf.Rad2Deg;
+        laserLeg.transform.localRotation = Quaternion.Euler(0f, legAngle, 0f);
+
+        // Calculate the rotation for the laser barrel (X-axis rotation)
+        float barrelAngle = -Mathf.Atan2(relativeDirection.y, Mathf.Sqrt(relativeDirection.x * relativeDirection.x + relativeDirection.z * relativeDirection.z)) * Mathf.Rad2Deg;
+        laserBarrel.transform.localRotation = Quaternion.Euler(barrelAngle, 0f, 0f);
+    }
+    
+    void ToggleInstrument(bool activate)
+    {
+        isActiveTool = activate;
+        
+        if (isActiveTool)
+        {
+            cinematicCamera.gameObject.SetActive(true);
+            crosshairCanvas.gameObject.SetActive(true);
+            SetActiveTool(true);
+        }
+        else
+        {
+            cinematicCamera.gameObject.SetActive(false);
+            crosshairCanvas.gameObject.SetActive(false);
+            SetActiveTool(false);
+        }
+        if (_spaceshipTransform != null)
+        {
+            transform.rotation = _spaceshipTransform.rotation;
+        }
+    }
+    public override void Toggle()
+    {
+        if (isActiveTool)
+        {
+            cinematicCamera.gameObject.SetActive(true);
+            crosshairCanvas.gameObject.SetActive(true);
+            SetActiveTool(true);
+        }
+        else
+        {
+            cinematicCamera.gameObject.SetActive(false);
+            crosshairCanvas.gameObject.SetActive(false);
+            SetActiveTool(false);
+        }
+        if (_spaceshipTransform != null)
+        {
+            transform.rotation = _spaceshipTransform.rotation;
+        }
+    }
+
+    private void ChangeCamera() 
+    {
+        cinematicCamera.Priority += cameraPriorityDiff;
+        cinematicCamera.Priority -= cameraPriorityDiff;
+    
+        if (cameraPriorityDiff < 0) 
+        {
+            cinematicCamera.transform.localPosition = Vector3.zero;
+            cinematicCamera.transform.localRotation = Quaternion.identity;
+        }
+
+        cameraPriorityDiff *= -1;
+    }
 }

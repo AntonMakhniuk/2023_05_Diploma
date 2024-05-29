@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class BombContainer : Instrument
 {
+    [SerializeField] private Transform bombBarrel;
+    [SerializeField] private Transform bombBase;
+    [SerializeField] private float rotationSpeed;
+    
     [SerializeField] private GameObject bombPrefab;
     [SerializeField] private Transform muzzlePoint;
     public float bombSpeed = 5f;
@@ -13,22 +17,63 @@ public class BombContainer : Instrument
     [SerializeField] private Canvas crosshairCanvas;
     private int cameraPriorityDiff = 10;
     
+    private PlayerInputActions _playerInputActions;
+    private Transform _mainCamera;
+    private Transform _spaceshipTransform; 
+    
 
-    private void Start()
+    private void Awake()
     {
-        ToggleInstrument(false);
+        if (isActiveTool==false)
+        {
+            ToggleInstrument(false);
+        }
+        _playerInputActions = new PlayerInputActions();
+        if (Camera.main != null) _mainCamera = Camera.main.transform;
+        if (transform.root != null) _spaceshipTransform = transform.root;
+
+        _playerInputActions.PlayerCamera.Enable();
     }
+    
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha9))
+        if (isActiveTool)
         {
-            ToggleInstrument(!isActiveTool);
-            
+            RotateWithCamera();
+            Toggle();
             ChangeCamera();
-            
-        }    
-        Work();
+            Work();
+        }
+        else
+        {
+            ToggleInstrument(false);
+        }
+    }
+    
+    public void RotateWithCamera() 
+    {
+        // Get the position of the laser base
+        Vector3 laserBasePosition = bombBase.transform.position;
+
+        // Get the position and forward direction of the cinemachine camera
+        Vector3 cameraPosition = cinematicCamera.transform.position;
+        Vector3 cameraForward = cinematicCamera.transform.forward;
+
+        // Calculate the direction from the laser base to the camera's forward direction
+        Vector3 direction = cameraPosition + cameraForward * 100f - laserBasePosition;
+
+        // Transform the direction to be relative to the ship's rotation
+        Vector3 relativeDirection = PlayerShip.Instance.transform.InverseTransformDirection(direction);
+        
+        // Calculate the rotation for the laser leg (Y-axis rotation)
+        float legAngle = Mathf.Atan2(relativeDirection.x, relativeDirection.z) * Mathf.Rad2Deg;
+        bombBase.transform.localRotation = Quaternion.Euler(0f, legAngle, 0f);
+        
+
+        // Calculate the rotation for the laser barrel (X-axis rotation)
+        float barrelAngle = -Mathf.Atan2(relativeDirection.y, Mathf.Sqrt(relativeDirection.x * relativeDirection.x + relativeDirection.z * relativeDirection.z)) * Mathf.Rad2Deg;
+        bombBarrel.transform.localRotation = Quaternion.Euler(barrelAngle, 0f, 0f);
     }
 
     void Work()
@@ -77,6 +122,26 @@ public class BombContainer : Instrument
         }
     }
 
+    public override void Toggle()
+    {
+        if (isActiveTool)
+        {
+            cinematicCamera.gameObject.SetActive(true);
+            crosshairCanvas.gameObject.SetActive(true);
+            SetActiveTool(true);
+        }
+        else
+        {
+            cinematicCamera.gameObject.SetActive(false);
+            crosshairCanvas.gameObject.SetActive(false);
+            SetActiveTool(false);
+        }
+        if (_spaceshipTransform != null)
+        {
+            transform.rotation = _spaceshipTransform.rotation;
+        }
+    }
+
     void ToggleInstrument(bool activate)
     {
         isActiveTool = activate;
@@ -92,6 +157,10 @@ public class BombContainer : Instrument
             cinematicCamera.gameObject.SetActive(false);
             crosshairCanvas.gameObject.SetActive(false);
             SetActiveTool(false);
+        }
+        if (_spaceshipTransform != null)
+        {
+            transform.rotation = _spaceshipTransform.rotation;
         }
     }
 
