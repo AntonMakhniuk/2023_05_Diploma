@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AYellowpaper.SerializedCollections;
+using JetBrains.Annotations;
 using Miscellaneous;
 using UnityEngine;
 using Wagons.Miscellaneous;
@@ -70,29 +71,66 @@ namespace Wagons.Systems
             _modificationAllowed = true;
             _attachedChainBackup = _attachedChain;
 
-            foreach (var wagon in _attachedWagons)
-            {
-                wagon.GetWagon().gameObject.SetActive(false);
-            }
+            DisableWagons(null);
         }
 
         public void EndModification()
         {
             UpdateWagonConnections();
-
-            foreach (var wagon in _attachedWagons)
-            {
-                wagon.GetWagon().gameObject.SetActive(true);
-            }
-
-            shipWagonComponent.backJoint.UpdateAnchors();
-            
-            foreach (var wagon in _attachedWagons)
-            {
-                wagon.GetWagon().backJoint.UpdateAnchors();
-            }
+            EnableWagons(null);
             
             _modificationAllowed = false;
+        }
+
+        private void DisableWagons([CanBeNull] WagonChain optionalChain)
+        {
+            if (optionalChain != null)
+            {
+                foreach (var wagon in optionalChain.AttachedWagons)
+                {
+                    wagon.GetWagon().gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                foreach (var wagon in _attachedWagons)
+                {
+                    wagon.GetWagon().gameObject.SetActive(false);
+                }    
+            }
+        }
+        
+        private void EnableWagons([CanBeNull] WagonChain optionalChain)
+        {
+            if (optionalChain != null)
+            {
+                foreach (var wagon in optionalChain.AttachedWagons)
+                {
+                    wagon.GetWagon().gameObject.SetActive(true);
+                }
+            
+                foreach (var wagon in optionalChain.AttachedWagons)
+                {
+                    wagon.GetWagon().backJoint.UpdateAnchors();
+                }
+            }
+            else
+            {
+                foreach (var wagon in _attachedWagons)
+                {
+                    wagon.GetWagon().gameObject.SetActive(true);
+                }
+
+                Debug.Log(shipWagonComponent == null);
+                Debug.Log(shipWagonComponent.backJoint == null);
+                
+                shipWagonComponent.backJoint.UpdateAnchors();
+            
+                foreach (var wagon in _attachedWagons)
+                {
+                    wagon.GetWagon().backJoint.UpdateAnchors();
+                }    
+            }
         }
 
         public void EndModificationWithoutSaving()
@@ -299,7 +337,20 @@ namespace Wagons.Systems
             parentWagon.GetWagon().backJoint.Disconnect();
         }
 
-        public WagonChain DisconnectWagonsFromShip()
+        public void HandleDisconnectWagonsInput()
+        {
+            if (_attachedWagons.Count == 0)
+            {
+                Debug.Log("There are no wagons to disconnect");
+
+                return;
+            }
+
+            var chain = DisconnectWagonsFromShip();
+            EnableWagons(chain);
+        }
+        
+        private WagonChain DisconnectWagonsFromShip()
         {
             if (_attachedWagons.Count == 0)
             {
@@ -308,7 +359,7 @@ namespace Wagons.Systems
             
             DisconnectWagonFrom(shipWagonComponent);
             
-            var newChain = new WagonChain { AttachedWagons = new(_attachedWagons) };
+            var newChain = new WagonChain { AttachedWagons = new List<IWagon>(_attachedWagons) };
             
             _allChains.Add(newChain);
             _attachedWagons.Clear();
