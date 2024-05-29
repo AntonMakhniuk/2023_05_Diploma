@@ -42,21 +42,15 @@ public class TractorBeam : Instrument
         
         playerInputActions = new PlayerInputActions();
         playerInputActions.Enable();
+
+        Action rotateSphere = () =>
+        {
+
+        };
         
         // TODO: Is this required for half-sphere rotation?
-        playerInputActions.PlayerShip.MouseCameraMovement.performed += _ =>
-        {
-            if (barrelMeshRenderer.enabled) {
-                RotateHalfSphere();
-            }
-        };
-        
-        playerInputActions.PlayerShip.Movement.performed += _ =>
-        {
-            if (barrelMeshRenderer.enabled) {
-                RotateHalfSphere();
-            }
-        };
+        playerInputActions.PlayerShip.MouseCameraMovement.performed += RotateHalfSphere;
+        playerInputActions.PlayerShip.Movement.performed += RotateHalfSphere;
         
         // playerInputActions.PlayerShip.RotateAlongX.performed += _ =>
         // {
@@ -64,22 +58,11 @@ public class TractorBeam : Instrument
         //         RotateHalfSphere();
         //     }
         // };
-        
-        playerInputActions.PlayerShip.RotateAlongY.performed += _ =>
-        {
-            if (barrelMeshRenderer.enabled) {
-                RotateHalfSphere();
-            }
-        };
-        
-        playerInputActions.PlayerShip.RotateAlongZ.performed += _ =>
-        {
-            if (barrelMeshRenderer.enabled) {
-                RotateHalfSphere();
-            }
-        };
 
-        playerInputActions.PlayerShip.InstrumentSecondary.performed += _ => { PushObjects(); };
+        playerInputActions.PlayerShip.RotateAlongY.performed += RotateHalfSphere;
+        playerInputActions.PlayerShip.RotateAlongZ.performed += RotateHalfSphere;
+
+        playerInputActions.PlayerShip.InstrumentSecondary.performed += PushObjects;
         
         GameObject barrel = transform.Find("Barrel (TractorBeam)").gameObject;
         barrelCollider = barrel.GetComponent<Collider>();
@@ -116,7 +99,7 @@ public class TractorBeam : Instrument
         hit.rigidbody.AddForce(tractorSpeed * (transform.parent.position - hit.transform.position).normalized);
     }
     
-    void PushObjects()
+    void PushObjects(InputAction.CallbackContext callbackContext)
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.parent.position, tractorBeamRange, tractorBeamAimLayerMask);
         foreach (Collider collider in hitColliders)
@@ -152,7 +135,12 @@ public class TractorBeam : Instrument
         cameraPriorityDiff *= -1;
     }
 
-    private void RotateHalfSphere() {
+    private void RotateHalfSphere(InputAction.CallbackContext callbackContext) {
+        if (!barrelMeshRenderer.enabled)
+        {
+            return;
+        }
+        
         Vector3 cameraRotation = mainCamera.transform.localRotation.eulerAngles;
         
         // TODO: WTF is going on here????
@@ -184,4 +172,14 @@ public class TractorBeam : Instrument
     //     float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - barrelTransform.eulerAngles.x;
     //     barrelTransform.Rotate(angle, 0f, 0f, Space.Self);
     // }
+
+    private void OnDestroy()
+    {
+        playerInputActions.PlayerShip.MouseCameraMovement.performed -= RotateHalfSphere;
+        playerInputActions.PlayerShip.Movement.performed -= RotateHalfSphere;
+        playerInputActions.PlayerShip.RotateAlongY.performed -= RotateHalfSphere;
+        playerInputActions.PlayerShip.RotateAlongZ.performed -= RotateHalfSphere;
+
+        playerInputActions.PlayerShip.InstrumentSecondary.performed -= PushObjects;
+    }
 }
