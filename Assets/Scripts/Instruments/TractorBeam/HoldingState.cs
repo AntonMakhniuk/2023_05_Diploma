@@ -10,6 +10,7 @@ public class HoldingState : ITractorBeamState
 
     public void UpdateState(TractorBeamController context)
     {
+        Debug.Log("Is holding");
         Rigidbody attractedObject = context.GetAttractedObject();
 
         if (attractedObject == null)
@@ -20,16 +21,6 @@ public class HoldingState : ITractorBeamState
 
         attractedObject.velocity = Vector3.zero;
         attractedObject.position = context.holdPoint.position;
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            context.SetAttractedObject(null);
-            context.SetState(new IdleState());
-        }
-        else if (Input.GetMouseButtonDown(2)) 
-        {
-            context.SetState(new PushState());
-        }
     }
 
     public void ExitState(TractorBeamController context)

@@ -22,7 +22,10 @@ public class LaserV3 : Instrument
 
     private void Awake()
     {
-        ToggleInstrument(false);
+        if (isActiveTool==false)
+        {
+            ToggleInstrument(false);
+        }
         _playerInputActions = new PlayerInputActions();
         if (Camera.main != null) _mainCamera = Camera.main.transform;
         if (transform.root != null) _spaceshipTransform = transform.root;
@@ -51,16 +54,18 @@ public class LaserV3 : Instrument
         if (isActiveTool)
         {
             RotateWithCamera();
-        }
-        
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            ToggleInstrument(!isActiveTool);
+            Toggle();
             ChangeCamera();
-        }   
+            Work();
+        }
+        else 
+        {
+            ToggleInstrument(false);
+        }
+            
         
-        Work();
     }
+    
     private void LateUpdate()
     {
         if (isActiveTool)
@@ -139,6 +144,25 @@ public class LaserV3 : Instrument
     {
         isActiveTool = activate;
         
+        if (isActiveTool)
+        {
+            cinematicCamera.gameObject.SetActive(true);
+            crosshairCanvas.gameObject.SetActive(true);
+            SetActiveTool(true);
+        }
+        else
+        {
+            cinematicCamera.gameObject.SetActive(false);
+            crosshairCanvas.gameObject.SetActive(false);
+            SetActiveTool(false);
+        }
+        if (_spaceshipTransform != null)
+        {
+            transform.rotation = _spaceshipTransform.rotation;
+        }
+    }
+    public override void Toggle()
+    {
         if (isActiveTool)
         {
             cinematicCamera.gameObject.SetActive(true);

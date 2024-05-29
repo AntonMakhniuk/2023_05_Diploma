@@ -30,5 +30,16 @@ public class Instrument : MonoBehaviour {
         isActiveTool = active;
         
     }
+    
+    public virtual void Activate()
+    {
+        isActiveTool = true;
+    }
+
+    
+    public virtual void Deactivate()
+    {
+        isActiveTool = false;
+    }
 }
 }

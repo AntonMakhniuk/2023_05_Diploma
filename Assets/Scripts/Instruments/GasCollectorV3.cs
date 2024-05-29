@@ -1,3 +1,4 @@
+/*
 using System;
 using Assets.Scripts.Instruments;
 using UnityEngine;
@@ -97,3 +98,4 @@ public class GasCollectorV3 : Instrument
     //     }
     // }
 }
+*/

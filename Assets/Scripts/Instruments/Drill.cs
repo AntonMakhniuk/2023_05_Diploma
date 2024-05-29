@@ -1,3 +1,4 @@
+/*
 using Assets.Scripts.Instruments;
 using System.Collections;
 using UnityEngine;
@@ -118,3 +119,4 @@ public class Drill : Instrument
         }
     }
 }
+*/

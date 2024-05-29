@@ -10,6 +10,7 @@ public class AttractingState : ITractorBeamState
 
     public void UpdateState(TractorBeamController context)
     {
+        Debug.Log("is attracting");
         Rigidbody attractedObject = context.GetAttractedObject();
 
         if (attractedObject == null)
@@ -19,9 +20,13 @@ public class AttractingState : ITractorBeamState
         }
 
         Vector3 direction = (context.holdPoint.position - attractedObject.position).normalized;
-        attractedObject.velocity = direction * context.attractSpeed;
+        float distance = Vector3.Distance(context.holdPoint.position, attractedObject.position);
+        float forceMagnitude = Mathf.Clamp(context.attractSpeed * distance, 0, context.attractSpeed);
+        Vector3 force = direction * forceMagnitude;
 
-        if (Vector3.Distance(context.holdPoint.position, attractedObject.position) < context.holdDistance)
+        attractedObject.AddForce(force);
+
+        if (distance <= context.holdDistance)
         {
             context.SetState(new HoldingState());
         }
