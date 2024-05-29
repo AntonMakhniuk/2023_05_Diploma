@@ -10,7 +10,6 @@ public class HoldingState : ITractorBeamState
 
     public void UpdateState(TractorBeamController context)
     {
-        Debug.Log("Is holding");
         Rigidbody attractedObject = context.GetAttractedObject();
 
         if (attractedObject == null)

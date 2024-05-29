@@ -6,7 +6,6 @@ public class PushState : ITractorBeamState
 {
     public void EnterState(TractorBeamController context)
     {
-        Debug.Log("Is pushing");
         Rigidbody attractedObject = context.GetAttractedObject();
 
         if (attractedObject != null)

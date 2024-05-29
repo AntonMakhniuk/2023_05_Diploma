@@ -10,7 +10,6 @@ public class AttractingState : ITractorBeamState
 
     public void UpdateState(TractorBeamController context)
     {
-        Debug.Log("is attracting");
         Rigidbody attractedObject = context.GetAttractedObject();
 
         if (attractedObject == null)
