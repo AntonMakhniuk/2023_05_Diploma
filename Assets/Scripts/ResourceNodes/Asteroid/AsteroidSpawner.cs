@@ -40,6 +40,10 @@ public class AsteroidSpawner : MonoBehaviour
 
         GameObject asteroid = Instantiate(asteroidPrefab, randomPosition, randomRotation);
         Rigidbody asteroidRb = asteroid.GetComponent<Rigidbody>();
+
+        if (asteroidRb == null)
+            asteroidRb = asteroid.GetComponentInChildren<Rigidbody>();
+        
         asteroidRb.AddForce(Random.onUnitSphere * asteroidSpeed, ForceMode.Impulse);
         asteroidRb.AddTorque(Random.onUnitSphere * asteroidRotationSpeed, ForceMode.Impulse);
 

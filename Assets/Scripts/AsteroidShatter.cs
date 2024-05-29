@@ -11,6 +11,7 @@ public class AsteroidShatter : MonoBehaviour
     [SerializeField] private GameObject _fracturedAsteroid;
     
     [SerializeField] private bool _shatter = false;
+    private bool _shattered = false;
     [SerializeField] private float _explosionRadius = 1f;
     [SerializeField] private float _explosionPower = 1f;
 
@@ -22,12 +23,13 @@ public class AsteroidShatter : MonoBehaviour
 
     private void Update()
     {
-        if (_shatter)
+        if (_shatter && !_shattered)
             Shatter();
     }
 
     private void Shatter()
     {
+        _shattered = true;
         _fracturedAsteroid.transform.position = _wholeAsteroid.transform.position;
         _fracturedAsteroid.transform.rotation = _wholeAsteroid.transform.localRotation * Quaternion.Inverse(_asteroidRotationOffset);
         Vector3 explosionPos = _fracturedAsteroid.transform.position;

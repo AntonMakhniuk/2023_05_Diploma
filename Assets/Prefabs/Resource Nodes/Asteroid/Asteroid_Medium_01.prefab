@@ -3158,6 +3158,7 @@ GameObject:
   m_Component:
   - component: {fileID: 787856333023870797}
   - component: {fileID: 8406925939456500994}
+  - component: {fileID: 196261945816929231}
   m_Layer: 0
   m_Name: Asteroid_Medium_01
   m_TagString: Untagged
@@ -3199,6 +3200,20 @@ MonoBehaviour:
   _shatter: 0
   _explosionRadius: 2
   _explosionPower: 0.5
+--- !u!114 &196261945816929231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6994450440821555756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d36a77d8592b8e41b55f79acb6186ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lookupCollider: {fileID: 4703823863688835888}
+  asteroidPointPrefab: {fileID: 3163121273371693474, guid: 234aae01c0604314b816205292a55227, type: 3}
 --- !u!1 &7000405013917603378
 GameObject:
   m_ObjectHideFlags: 0
