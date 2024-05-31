@@ -12,7 +12,11 @@ public class AsteroidPoint : MonoBehaviour, IDestructible
     private void Start()
     {
         CurrentHP = MaxHP;
-        parentAsteroid = GetComponentInParent<Asteroid>();
+    }
+
+    public void SetUp(Asteroid asteroid)
+    {
+        parentAsteroid = asteroid;
     }
 
     public void OnLaserInteraction(double damage)
@@ -40,11 +44,11 @@ public class AsteroidPoint : MonoBehaviour, IDestructible
         CurrentHP -= damage;
         if (CurrentHP <= 0)
         {
-            Destroy();
+            InitiateDestroy();
         }
     }
 
-    public void Destroy()
+    public void InitiateDestroy()
     {
         if (parentAsteroid != null)
         {

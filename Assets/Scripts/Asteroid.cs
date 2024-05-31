@@ -8,8 +8,8 @@ using Random = UnityEngine.Random;
 
 public class Asteroid : MonoBehaviour, IDestructible
 {
-    public double MaxHP { get;  set; } = 1000; // Example max HP
-    public double CurrentHP { get;   set; }
+   [SerializeField] private double MaxHP { get;  set; } = 1000; // Example max HP
+    private double CurrentHP { get;   set; }
   //  public IInstrument CurrentInstrument { get; set; }
 
     private int asteroidPointsCount = 0;
@@ -21,6 +21,12 @@ public class Asteroid : MonoBehaviour, IDestructible
         CurrentHP = MaxHP;
         // Count the initial number of asteroid points
         asteroidPointsCount = 3;
+
+        AsteroidPoint[] asteroidPoints = GetComponentsInChildren<AsteroidPoint>();
+        foreach (var point in asteroidPoints)
+        {
+            point.SetUp(this);
+        }
     }
 
     private void Update()
@@ -29,14 +35,27 @@ public class Asteroid : MonoBehaviour, IDestructible
             ShatterAsteroid();
     }
 
+    double IDestructible.MaxHP
+    {
+        get => MaxHP;
+        set => MaxHP = value;
+    }
+
+    double IDestructible.CurrentHP
+    {
+        get => MaxHP;
+        set => MaxHP = value;
+    }
+
+
     public void OnLaserInteraction(double damage)
     {
-        TakeDamage(damage);
+        Debug.Log("Asteroid can not take damage from laser");
     }
 
     public void OnDrillInteraction(double damage)
     {
-        TakeDamage(MaxHP/asteroidPointsCount);
+        TakeDamage(damage);
     }
 
 
@@ -55,11 +74,11 @@ public class Asteroid : MonoBehaviour, IDestructible
         CurrentHP -= damage;
         if (CurrentHP <= 0)
         {
-            Destroy();
+            InitiateDestroy();
         }
     }
 
-    public void Destroy()
+    public void InitiateDestroy()
     {
         ShatterAsteroid();
     }
@@ -80,7 +99,7 @@ public class Asteroid : MonoBehaviour, IDestructible
         }
     }
 
-    void ShatterAsteroid()
+    public void ShatterAsteroid()
     {
         // Dynamically create a plane using asteroid's geometry
         Plane slicingPlane = CreateSlicingPlane();
@@ -111,43 +130,6 @@ public class Asteroid : MonoBehaviour, IDestructible
         // Destroy the original asteroid GameObject
         Destroy(gameObject);
     }
-
-    public void Explode()
-    {
-        // Dynamically create a slicing plane for explosion
-        Plane explosionPlane = CreateExplosionPlane();
-
-        // Slice the asteroid with the explosion slicing plane
-        GameObject[] slices = Slicer.Slice(explosionPlane, gameObject);
-
-        // Optionally, you can add forces or other effects to the sliced pieces
-        Vector3 pushVector = new Vector3(0, 0, 0);
-        pushVector[Random.Range(0, 3)] = Random.Range(250f, 450f);
-        pushVector[Random.Range(0, 3)] = Random.Range(250f, 320f);
-        foreach (GameObject slice in slices)
-        {
-            pushVector *= -1;
-            slice.GetComponent<Rigidbody>().AddRelativeForce(pushVector);
-        }
-
-        // Spawn ore at each slice's position
-        foreach (GameObject slice in slices)
-        {
-            Vector3 slicePosition = slice.transform.position;
-            int oreNumber = Random.Range(1, 4); // Spawn fewer ores per slice
-            oreNumber = Mathf.Max(1, oreNumber / 3); // Reduce ore amount by 3 times
-            while (oreNumber > 0)
-            {
-                SpawnOre(slicePosition);
-                slicePosition += Random.insideUnitSphere * 0.2f; // Randomize ore spawn position around the slice
-                oreNumber--;
-            }
-        }
-
-        // Destroy the original asteroid GameObject
-        Destroy(gameObject);
-    }
-
 
     private Plane CreateSlicingPlane()
     {

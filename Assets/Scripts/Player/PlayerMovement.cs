@@ -19,13 +19,15 @@ public class PlayerMovement : MonoBehaviour {
     private bool isRotating = false;
 
     [Header("Ship Movement Parameters")]
-    [SerializeField] private float _moveSpeed = 1;
+    [SerializeField] private float _baseMoveSpeed = 1;
+    [SerializeField] private float _currentMoveSpeed = 1;
     [SerializeField] private float _accelerationDrag = 0f;
     [SerializeField] private float _brakesDrag = 1.5f;
     [SerializeField] private float _maxLinearVelocity = 1000;
     [Space]
     [Header("Ship Rotation Parameters")]
-    [SerializeField] private float _rotationSpeed = 1;
+    [SerializeField] private float _baseRotationSpeed = 1;
+    [SerializeField] private float _currentRotationSpeed = 1;
     [SerializeField] private float _maxAngularVelocity = 1;
     [SerializeField] private float _accelerationAngularDrag = 0.5f;
     [SerializeField] private float _brakesAngularDrag = 1f;
@@ -98,15 +100,15 @@ public class PlayerMovement : MonoBehaviour {
     {
         speedBoostsCount++;
 
-        _moveSpeed *= _speedBoostMultiplier;
-        _rotationSpeed *= _speedBoostMultiplier;
+        _currentMoveSpeed *= _speedBoostMultiplier;
+        _currentRotationSpeed *= _speedBoostMultiplier;
 
         isSpeedBoosted = true;
 
         yield return new WaitForSeconds(_speedBoostDuration);
 
-        _moveSpeed /= _speedBoostMultiplier;
-        _rotationSpeed /= _speedBoostMultiplier;
+        _currentMoveSpeed /= _speedBoostMultiplier;
+        _currentRotationSpeed /= _speedBoostMultiplier;
 
         speedBoostsCount--;
 
@@ -147,12 +149,12 @@ public class PlayerMovement : MonoBehaviour {
     
     // Move along Z and Y axis (forward or backward / up or down)
     public void Move(Vector2 movementVector) {
-        rb.AddRelativeForce(_moveSpeed * new Vector3(0, movementVector.y, movementVector.x), ForceMode.Force);
+        rb.AddRelativeForce(_currentMoveSpeed * new Vector3(0, movementVector.y, movementVector.x), ForceMode.Force);
     }
 
     // Rotate along the input vector
     public void Rotate(Vector3 inputVector) {
-        rb.AddRelativeTorque(_rotationSpeed * inputVector, ForceMode.Force);
+        rb.AddRelativeTorque(_currentRotationSpeed * inputVector, ForceMode.Force);
     }
 
     // Rotate to align with the direction where camera is pointed at
@@ -189,16 +191,16 @@ public class PlayerMovement : MonoBehaviour {
                 }
                 else if (!isSpeedBoosted)
                 {
-                    _moveSpeed = 1;
-                    _rotationSpeed = 1;
+                    _currentMoveSpeed = _baseMoveSpeed;
+                    _currentRotationSpeed = _baseRotationSpeed;
                 }
             }
         }
     }
     public void UpdateMovementSpeedsForLowFuel()
     {
-        _moveSpeed /= _speedBoostMultiplier;
-        _rotationSpeed /= _speedBoostMultiplier;
+        _currentMoveSpeed /= _speedBoostMultiplier;
+        _currentRotationSpeed /= _speedBoostMultiplier;
     }
 }
 
