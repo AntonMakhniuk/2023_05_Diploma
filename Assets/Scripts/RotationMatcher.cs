@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class RotationMatcher : MonoBehaviour
 {
-    [SerializeField] Transform _target;
+    private Transform _target;
+
+    private void Awake()
+    {
+        _target = Camera.main.transform;
+    }
 
     private void LateUpdate()
     {

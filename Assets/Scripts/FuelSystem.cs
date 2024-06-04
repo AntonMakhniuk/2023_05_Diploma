@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,8 +6,8 @@ public class FuelSystem : MonoBehaviour
 {
     [SerializeField] private float maxFuelCapacity = 100f;
     private float currentFuelLevel;
-    public Text fuelText;
-    [SerializeField] private Slider fuelSlider;
+    public TextMeshProUGUI fuelText;
+    //[SerializeField] private Slider fuelSlider;
     public Color lowFuelColor = Color.red;
     private float lowFuelThreshold = 0.33f;
 
@@ -51,13 +52,13 @@ public class FuelSystem : MonoBehaviour
     private void UpdateFuelIndicator()
     {
         // Update the value of the fuel slider
-        fuelSlider.value = currentFuelLevel;
-        //fuelText.text = currentFuelLevel <= 0 ? "Out of Fuel!" : "Fuel Level: " + Mathf.Round(currentFuelLevel) + "%";
+        //fuelSlider.value = currentFuelLevel;
+    
 
         // Optionally, change the color of the slider handle based on fuel level
         fuelText.text = currentFuelLevel <= maxFuelCapacity * lowFuelThreshold ? "Low Fuel Level: " + Mathf.Round(currentFuelLevel) + "%" : "Fuel Level: " + Mathf.Round(currentFuelLevel) + "%";
         fuelText.text = currentFuelLevel <= 1 ? "Out of Fuel!" : "Fuel Level: " + Mathf.Round(currentFuelLevel) + "%";
         fuelText.color = currentFuelLevel <= maxFuelCapacity * lowFuelThreshold ? lowFuelColor : Color.white;
-        fuelSlider.fillRect.GetComponent<Image>().color = currentFuelLevel <= maxFuelCapacity * lowFuelThreshold ? lowFuelColor : Color.green;
+        //fuelSlider.fillRect.GetComponent<Image>().color = currentFuelLevel <= maxFuelCapacity * lowFuelThreshold ? lowFuelColor : Color.green;
     }
 }

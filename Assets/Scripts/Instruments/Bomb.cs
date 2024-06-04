@@ -46,7 +46,7 @@ public class Bomb : MonoBehaviour
                 Asteroid asteroid = collider.GetComponent<Asteroid>();
                 if (asteroid != null)
                 {
-                    asteroid.Explode();
+                    asteroid.ShatterAsteroid();
                 }
             }
         }

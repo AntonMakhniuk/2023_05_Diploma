@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6494266198833982320}
   - component: {fileID: 1008425800181363204}
   - component: {fileID: 7908106679731159020}
-  - component: {fileID: 4371081684893215937}
   - component: {fileID: 3152538275571637552}
+  - component: {fileID: 6736660382204539933}
   m_Layer: 0
   m_Name: BackgroundSkyboxCamera
   m_TagString: Untagged
@@ -101,7 +101,16 @@ MonoBehaviour:
   _skyboxMaterials:
   - {fileID: 2100000, guid: 81f714daf7144784b8a2f42f1cd30927, type: 2}
   - {fileID: 2100000, guid: 9803600998c48b140b2f7038d0fc2eb1, type: 2}
---- !u!114 &4371081684893215937
+--- !u!45 &3152538275571637552
+Skybox:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8257711728351979687}
+  m_Enabled: 1
+  m_CustomSkybox: {fileID: 0}
+--- !u!114 &6736660382204539933
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -114,12 +123,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 0}
---- !u!45 &3152538275571637552
-Skybox:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8257711728351979687}
-  m_Enabled: 1
-  m_CustomSkybox: {fileID: 0}
