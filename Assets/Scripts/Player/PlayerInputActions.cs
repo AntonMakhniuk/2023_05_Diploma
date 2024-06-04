@@ -28,36 +28,27 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             ""id"": ""40e0c021-8b2b-47c2-8c09-0c07232be718"",
             ""actions"": [
                 {
-                    ""name"": ""AlignWithCamera"",
-                    ""type"": ""Button"",
-                    ""id"": ""e5de1bfa-6c14-42be-b71f-37d99f8fa03e"",
-                    ""expectedControlType"": ""Button"",
+                    ""name"": ""MouseCameraMovement"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""79c76f7d-7069-4fd2-bbcf-8c723260f903"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""Movement"",
-                    ""type"": ""Value"",
-                    ""id"": ""6348877e-c5d8-41a3-912d-2826c54ab698"",
-                    ""expectedControlType"": ""Vector3"",
+                    ""type"": ""Button"",
+                    ""id"": ""a45dd632-7566-4c7b-b7b2-eb9b6bc79c2a"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""ToggleMovementMode"",
+                    ""name"": ""AlignWithCamera"",
                     ""type"": ""Button"",
-                    ""id"": ""6f786401-fc91-4aef-9c78-71085c726e13"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""RotateAlongX"",
-                    ""type"": ""Button"",
-                    ""id"": ""1346b094-4f8f-4079-861b-d0a24e3c58ab"",
+                    ""id"": ""e5de1bfa-6c14-42be-b71f-37d99f8fa03e"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -127,6 +118,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Movement2"",
+                    ""type"": ""Value"",
+                    ""id"": ""6348877e-c5d8-41a3-912d-2826c54ab698"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
                     ""name"": ""Brakes"",
                     ""type"": ""Button"",
                     ""id"": ""f44241a1-ae12-49b1-968c-46e3a4f6f4e4"",
@@ -134,27 +134,75 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ToggleBombContainer"",
-                    ""type"": ""Button"",
-                    ""id"": ""d02f14e4-55c4-46ee-aeda-18a3c863062f"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ToggleLaser"",
-                    ""type"": ""Button"",
-                    ""id"": ""129376ee-09e3-4437-9ad9-d91e94187d61"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""4d82881e-174d-49e2-8b6a-6a17186f02e6"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseCameraMovement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""6cf0de82-eea0-4621-873a-30af5268c430"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseCameraMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""b16001b6-836a-4d81-8710-88f9f446a39b"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseCameraMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Forward/Backward"",
+                    ""id"": ""852620a6-d135-49fd-b8ad-90d2ec75860f"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""75c27e4a-f1c2-4f53-96b2-1dabc1cd531a"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""97857c57-7643-4bc2-a9ee-09a83bca7171"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
                 {
                     ""name"": ""BothMouseButtonPushed"",
                     ""id"": ""9f4ddde9-9209-407e-bbb1-c5249994c1a3"",
@@ -169,7 +217,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""modifier"",
                     ""id"": ""f20036ab-9cb5-4072-8477-ff25e7ed41e6"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -180,7 +228,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""binding"",
                     ""id"": ""850a0843-908d-4920-8fcd-350383647282"",
-                    ""path"": ""<Mouse>/rightButton"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -235,7 +283,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""negative"",
                     ""id"": ""eba4ecc4-1d6b-4fb8-8c18-01ecab94f1bc"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -246,7 +294,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""positive"",
                     ""id"": ""a11563c6-5314-44fe-86a5-1d8b9b205929"",
-                    ""path"": ""<Keyboard>/q"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -310,6 +358,61 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
+                    ""name"": ""Up/Down/Forward/Backward"",
+                    ""id"": ""93e4117f-2630-4dcb-9185-3166cde7f4a0"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement2"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""0ff8fb32-fc32-43c5-9c54-d4fccb5321e7"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""339b26f0-e858-4021-9721-0adce4149b43"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""b99d4a2f-e501-40c6-a64d-cd5a6db48d8e"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""4be9077d-3c1f-4bfa-81ff-0883fdadd84d"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
                     ""name"": """",
                     ""id"": ""277b6764-9139-4d5b-a73c-3c024a818683"",
                     ""path"": ""<Keyboard>/leftCtrl"",
@@ -319,194 +422,90 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Brakes"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""baf57db0-9bae-4759-9aed-0dbb7ee92d4c"",
-                    ""path"": ""<Keyboard>/9"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ToggleBombContainer"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""BothMouseButtons"",
-                    ""id"": ""de32d885-7263-463e-873e-1709820524ff"",
-                    ""path"": ""OneModifier"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""AlignWithCamera"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""modifier"",
-                    ""id"": ""e988e783-28b7-4d47-bba0-5930542924c7"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""AlignWithCamera"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""binding"",
-                    ""id"": ""f645a0c8-2261-41fc-adfb-cdab21b4a7fc"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""AlignWithCamera"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3c2b93d3-0816-4461-b678-84864f1ba054"",
-                    ""path"": ""<Keyboard>/4"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ToggleLaser"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""TiltDown/TiltUp"",
-                    ""id"": ""621c19d4-afb4-4bc7-9980-23269415af4c"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""RotateAlongX"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""fdcf5408-9e5c-4d48-b6c2-b84315ca1245"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""RotateAlongX"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""527be58b-9195-4eb8-91f0-04fe6a94cc97"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""RotateAlongX"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Up/Down/Forward/Backward/Left/Right"",
-                    ""id"": ""93e4117f-2630-4dcb-9185-3166cde7f4a0"",
-                    ""path"": ""3DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""Up"",
-                    ""id"": ""0ff8fb32-fc32-43c5-9c54-d4fccb5321e7"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Down"",
-                    ""id"": ""339b26f0-e858-4021-9721-0adce4149b43"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Left"",
-                    ""id"": ""b99d4a2f-e501-40c6-a64d-cd5a6db48d8e"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Right"",
-                    ""id"": ""4be9077d-3c1f-4bfa-81ff-0883fdadd84d"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Forward"",
-                    ""id"": ""b2324d95-6e82-4c18-a039-22ed1f9614bb"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Backward"",
-                    ""id"": ""7707c19d-64e0-4d17-a5ba-fb92b14a036d"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3af918b1-d440-4a2c-9fec-08b48b52aba9"",
-                    ""path"": ""<Keyboard>/f"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ToggleMovementMode"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         },
         {
-            ""name"": ""PlayerCamera"",
-            ""id"": ""00054202-ff1e-4f31-a250-3e21c6a71386"",
+            ""name"": ""UI"",
+            ""id"": ""beb6d50b-661a-4f2f-8fa9-e284c8a0f514"",
             ""actions"": [
                 {
-                    ""name"": ""MouseCameraMovement"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""f2a28994-8cd6-407f-b699-4abb462566b9"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""name"": ""CloseWindow/OpenPause"",
+                    ""type"": ""Button"",
+                    ""id"": ""da0059cc-2e16-4147-98b0-f124c91eab12"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleInventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""80a86b74-e1ac-4cca-8591-eb0336f64123"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleWagons"",
+                    ""type"": ""Button"",
+                    ""id"": ""844fb4ca-5f6b-46b4-bc5f-d46056815b0c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleProduction"",
+                    ""type"": ""Button"",
+                    ""id"": ""b4cc0ca3-394b-43bf-891e-43a150cc40ae"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleJournal"",
+                    ""type"": ""Button"",
+                    ""id"": ""c23b05dd-131a-422c-a80f-527071feb77c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleMap"",
+                    ""type"": ""Button"",
+                    ""id"": ""86190192-fbc8-41e2-95d8-4d7e4eedc199"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""InteractWithObject"",
+                    ""type"": ""Button"",
+                    ""id"": ""24ca2de8-80ec-495f-ae17-9e4df4f681d6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleBuilding"",
+                    ""type"": ""Button"",
+                    ""id"": ""a67a894f-25df-4bae-b28d-231dcfac0597"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleUpgrades"",
+                    ""type"": ""Button"",
+                    ""id"": ""a2ae6e64-5119-4382-9b6d-229e64ef7355"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -515,12 +514,100 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""a649b7da-7ebd-4869-b14f-e6fa898809ba"",
-                    ""path"": ""<Mouse>/delta"",
+                    ""id"": ""5f70ee99-4f1a-45bd-b9f9-a87e269a3118"",
+                    ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MouseCameraMovement"",
+                    ""action"": ""CloseWindow/OpenPause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""827b654f-65b4-4e47-90a2-5c7dd4f0d9ef"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8e1a5d03-137b-4c00-bedf-a1eee93371ed"",
+                    ""path"": ""<Keyboard>/o"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleWagons"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5d34d2f2-01cf-4ff3-ac16-f505acaade8f"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleProduction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8bef99ee-e7d9-40b8-aef7-9675bc213d63"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleJournal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6c5ee2a8-21d6-4541-94e1-12f914bcf04c"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleMap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4fe7eb75-7fcc-49dc-b26c-a60e8a68a011"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InteractWithObject"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6bdf6118-28f4-47f8-b3d0-b000b2960a8c"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleBuilding"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""feec2ebf-0d88-4bb0-afba-0794b709776a"",
+                    ""path"": ""<Keyboard>/u"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleUpgrades"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -531,10 +618,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
 }");
         // PlayerShip
         m_PlayerShip = asset.FindActionMap("PlayerShip", throwIfNotFound: true);
-        m_PlayerShip_AlignWithCamera = m_PlayerShip.FindAction("AlignWithCamera", throwIfNotFound: true);
+        m_PlayerShip_MouseCameraMovement = m_PlayerShip.FindAction("MouseCameraMovement", throwIfNotFound: true);
         m_PlayerShip_Movement = m_PlayerShip.FindAction("Movement", throwIfNotFound: true);
-        m_PlayerShip_ToggleMovementMode = m_PlayerShip.FindAction("ToggleMovementMode", throwIfNotFound: true);
-        m_PlayerShip_RotateAlongX = m_PlayerShip.FindAction("RotateAlongX", throwIfNotFound: true);
+        m_PlayerShip_AlignWithCamera = m_PlayerShip.FindAction("AlignWithCamera", throwIfNotFound: true);
         m_PlayerShip_RotateAlongY = m_PlayerShip.FindAction("RotateAlongY", throwIfNotFound: true);
         m_PlayerShip_RotateAlongZ = m_PlayerShip.FindAction("RotateAlongZ", throwIfNotFound: true);
         m_PlayerShip_ToggleTractorBeam = m_PlayerShip.FindAction("ToggleTractorBeam", throwIfNotFound: true);
@@ -542,12 +628,19 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_PlayerShip_ToggleGasCollector = m_PlayerShip.FindAction("ToggleGasCollector", throwIfNotFound: true);
         m_PlayerShip_InstrumentPrimary = m_PlayerShip.FindAction("InstrumentPrimary", throwIfNotFound: true);
         m_PlayerShip_InstrumentSecondary = m_PlayerShip.FindAction("InstrumentSecondary", throwIfNotFound: true);
+        m_PlayerShip_Movement2 = m_PlayerShip.FindAction("Movement2", throwIfNotFound: true);
         m_PlayerShip_Brakes = m_PlayerShip.FindAction("Brakes", throwIfNotFound: true);
-        m_PlayerShip_ToggleBombContainer = m_PlayerShip.FindAction("ToggleBombContainer", throwIfNotFound: true);
-        m_PlayerShip_ToggleLaser = m_PlayerShip.FindAction("ToggleLaser", throwIfNotFound: true);
-        // PlayerCamera
-        m_PlayerCamera = asset.FindActionMap("PlayerCamera", throwIfNotFound: true);
-        m_PlayerCamera_MouseCameraMovement = m_PlayerCamera.FindAction("MouseCameraMovement", throwIfNotFound: true);
+        // UI
+        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_CloseWindowOpenPause = m_UI.FindAction("CloseWindow/OpenPause", throwIfNotFound: true);
+        m_UI_ToggleInventory = m_UI.FindAction("ToggleInventory", throwIfNotFound: true);
+        m_UI_ToggleWagons = m_UI.FindAction("ToggleWagons", throwIfNotFound: true);
+        m_UI_ToggleProduction = m_UI.FindAction("ToggleProduction", throwIfNotFound: true);
+        m_UI_ToggleJournal = m_UI.FindAction("ToggleJournal", throwIfNotFound: true);
+        m_UI_ToggleMap = m_UI.FindAction("ToggleMap", throwIfNotFound: true);
+        m_UI_InteractWithObject = m_UI.FindAction("InteractWithObject", throwIfNotFound: true);
+        m_UI_ToggleBuilding = m_UI.FindAction("ToggleBuilding", throwIfNotFound: true);
+        m_UI_ToggleUpgrades = m_UI.FindAction("ToggleUpgrades", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -609,10 +702,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     // PlayerShip
     private readonly InputActionMap m_PlayerShip;
     private List<IPlayerShipActions> m_PlayerShipActionsCallbackInterfaces = new List<IPlayerShipActions>();
-    private readonly InputAction m_PlayerShip_AlignWithCamera;
+    private readonly InputAction m_PlayerShip_MouseCameraMovement;
     private readonly InputAction m_PlayerShip_Movement;
-    private readonly InputAction m_PlayerShip_ToggleMovementMode;
-    private readonly InputAction m_PlayerShip_RotateAlongX;
+    private readonly InputAction m_PlayerShip_AlignWithCamera;
     private readonly InputAction m_PlayerShip_RotateAlongY;
     private readonly InputAction m_PlayerShip_RotateAlongZ;
     private readonly InputAction m_PlayerShip_ToggleTractorBeam;
@@ -620,17 +712,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerShip_ToggleGasCollector;
     private readonly InputAction m_PlayerShip_InstrumentPrimary;
     private readonly InputAction m_PlayerShip_InstrumentSecondary;
+    private readonly InputAction m_PlayerShip_Movement2;
     private readonly InputAction m_PlayerShip_Brakes;
-    private readonly InputAction m_PlayerShip_ToggleBombContainer;
-    private readonly InputAction m_PlayerShip_ToggleLaser;
     public struct PlayerShipActions
     {
         private @PlayerInputActions m_Wrapper;
         public PlayerShipActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @AlignWithCamera => m_Wrapper.m_PlayerShip_AlignWithCamera;
+        public InputAction @MouseCameraMovement => m_Wrapper.m_PlayerShip_MouseCameraMovement;
         public InputAction @Movement => m_Wrapper.m_PlayerShip_Movement;
-        public InputAction @ToggleMovementMode => m_Wrapper.m_PlayerShip_ToggleMovementMode;
-        public InputAction @RotateAlongX => m_Wrapper.m_PlayerShip_RotateAlongX;
+        public InputAction @AlignWithCamera => m_Wrapper.m_PlayerShip_AlignWithCamera;
         public InputAction @RotateAlongY => m_Wrapper.m_PlayerShip_RotateAlongY;
         public InputAction @RotateAlongZ => m_Wrapper.m_PlayerShip_RotateAlongZ;
         public InputAction @ToggleTractorBeam => m_Wrapper.m_PlayerShip_ToggleTractorBeam;
@@ -638,9 +728,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @ToggleGasCollector => m_Wrapper.m_PlayerShip_ToggleGasCollector;
         public InputAction @InstrumentPrimary => m_Wrapper.m_PlayerShip_InstrumentPrimary;
         public InputAction @InstrumentSecondary => m_Wrapper.m_PlayerShip_InstrumentSecondary;
+        public InputAction @Movement2 => m_Wrapper.m_PlayerShip_Movement2;
         public InputAction @Brakes => m_Wrapper.m_PlayerShip_Brakes;
-        public InputAction @ToggleBombContainer => m_Wrapper.m_PlayerShip_ToggleBombContainer;
-        public InputAction @ToggleLaser => m_Wrapper.m_PlayerShip_ToggleLaser;
         public InputActionMap Get() { return m_Wrapper.m_PlayerShip; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -650,18 +739,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_PlayerShipActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_PlayerShipActionsCallbackInterfaces.Add(instance);
-            @AlignWithCamera.started += instance.OnAlignWithCamera;
-            @AlignWithCamera.performed += instance.OnAlignWithCamera;
-            @AlignWithCamera.canceled += instance.OnAlignWithCamera;
+            @MouseCameraMovement.started += instance.OnMouseCameraMovement;
+            @MouseCameraMovement.performed += instance.OnMouseCameraMovement;
+            @MouseCameraMovement.canceled += instance.OnMouseCameraMovement;
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
-            @ToggleMovementMode.started += instance.OnToggleMovementMode;
-            @ToggleMovementMode.performed += instance.OnToggleMovementMode;
-            @ToggleMovementMode.canceled += instance.OnToggleMovementMode;
-            @RotateAlongX.started += instance.OnRotateAlongX;
-            @RotateAlongX.performed += instance.OnRotateAlongX;
-            @RotateAlongX.canceled += instance.OnRotateAlongX;
+            @AlignWithCamera.started += instance.OnAlignWithCamera;
+            @AlignWithCamera.performed += instance.OnAlignWithCamera;
+            @AlignWithCamera.canceled += instance.OnAlignWithCamera;
             @RotateAlongY.started += instance.OnRotateAlongY;
             @RotateAlongY.performed += instance.OnRotateAlongY;
             @RotateAlongY.canceled += instance.OnRotateAlongY;
@@ -683,31 +769,25 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @InstrumentSecondary.started += instance.OnInstrumentSecondary;
             @InstrumentSecondary.performed += instance.OnInstrumentSecondary;
             @InstrumentSecondary.canceled += instance.OnInstrumentSecondary;
+            @Movement2.started += instance.OnMovement2;
+            @Movement2.performed += instance.OnMovement2;
+            @Movement2.canceled += instance.OnMovement2;
             @Brakes.started += instance.OnBrakes;
             @Brakes.performed += instance.OnBrakes;
             @Brakes.canceled += instance.OnBrakes;
-            @ToggleBombContainer.started += instance.OnToggleBombContainer;
-            @ToggleBombContainer.performed += instance.OnToggleBombContainer;
-            @ToggleBombContainer.canceled += instance.OnToggleBombContainer;
-            @ToggleLaser.started += instance.OnToggleLaser;
-            @ToggleLaser.performed += instance.OnToggleLaser;
-            @ToggleLaser.canceled += instance.OnToggleLaser;
         }
 
         private void UnregisterCallbacks(IPlayerShipActions instance)
         {
-            @AlignWithCamera.started -= instance.OnAlignWithCamera;
-            @AlignWithCamera.performed -= instance.OnAlignWithCamera;
-            @AlignWithCamera.canceled -= instance.OnAlignWithCamera;
+            @MouseCameraMovement.started -= instance.OnMouseCameraMovement;
+            @MouseCameraMovement.performed -= instance.OnMouseCameraMovement;
+            @MouseCameraMovement.canceled -= instance.OnMouseCameraMovement;
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
-            @ToggleMovementMode.started -= instance.OnToggleMovementMode;
-            @ToggleMovementMode.performed -= instance.OnToggleMovementMode;
-            @ToggleMovementMode.canceled -= instance.OnToggleMovementMode;
-            @RotateAlongX.started -= instance.OnRotateAlongX;
-            @RotateAlongX.performed -= instance.OnRotateAlongX;
-            @RotateAlongX.canceled -= instance.OnRotateAlongX;
+            @AlignWithCamera.started -= instance.OnAlignWithCamera;
+            @AlignWithCamera.performed -= instance.OnAlignWithCamera;
+            @AlignWithCamera.canceled -= instance.OnAlignWithCamera;
             @RotateAlongY.started -= instance.OnRotateAlongY;
             @RotateAlongY.performed -= instance.OnRotateAlongY;
             @RotateAlongY.canceled -= instance.OnRotateAlongY;
@@ -729,15 +809,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @InstrumentSecondary.started -= instance.OnInstrumentSecondary;
             @InstrumentSecondary.performed -= instance.OnInstrumentSecondary;
             @InstrumentSecondary.canceled -= instance.OnInstrumentSecondary;
+            @Movement2.started -= instance.OnMovement2;
+            @Movement2.performed -= instance.OnMovement2;
+            @Movement2.canceled -= instance.OnMovement2;
             @Brakes.started -= instance.OnBrakes;
             @Brakes.performed -= instance.OnBrakes;
             @Brakes.canceled -= instance.OnBrakes;
-            @ToggleBombContainer.started -= instance.OnToggleBombContainer;
-            @ToggleBombContainer.performed -= instance.OnToggleBombContainer;
-            @ToggleBombContainer.canceled -= instance.OnToggleBombContainer;
-            @ToggleLaser.started -= instance.OnToggleLaser;
-            @ToggleLaser.performed -= instance.OnToggleLaser;
-            @ToggleLaser.canceled -= instance.OnToggleLaser;
         }
 
         public void RemoveCallbacks(IPlayerShipActions instance)
@@ -756,57 +833,120 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     }
     public PlayerShipActions @PlayerShip => new PlayerShipActions(this);
 
-    // PlayerCamera
-    private readonly InputActionMap m_PlayerCamera;
-    private List<IPlayerCameraActions> m_PlayerCameraActionsCallbackInterfaces = new List<IPlayerCameraActions>();
-    private readonly InputAction m_PlayerCamera_MouseCameraMovement;
-    public struct PlayerCameraActions
+    // UI
+    private readonly InputActionMap m_UI;
+    private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
+    private readonly InputAction m_UI_CloseWindowOpenPause;
+    private readonly InputAction m_UI_ToggleInventory;
+    private readonly InputAction m_UI_ToggleWagons;
+    private readonly InputAction m_UI_ToggleProduction;
+    private readonly InputAction m_UI_ToggleJournal;
+    private readonly InputAction m_UI_ToggleMap;
+    private readonly InputAction m_UI_InteractWithObject;
+    private readonly InputAction m_UI_ToggleBuilding;
+    private readonly InputAction m_UI_ToggleUpgrades;
+    public struct UIActions
     {
         private @PlayerInputActions m_Wrapper;
-        public PlayerCameraActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @MouseCameraMovement => m_Wrapper.m_PlayerCamera_MouseCameraMovement;
-        public InputActionMap Get() { return m_Wrapper.m_PlayerCamera; }
+        public UIActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @CloseWindowOpenPause => m_Wrapper.m_UI_CloseWindowOpenPause;
+        public InputAction @ToggleInventory => m_Wrapper.m_UI_ToggleInventory;
+        public InputAction @ToggleWagons => m_Wrapper.m_UI_ToggleWagons;
+        public InputAction @ToggleProduction => m_Wrapper.m_UI_ToggleProduction;
+        public InputAction @ToggleJournal => m_Wrapper.m_UI_ToggleJournal;
+        public InputAction @ToggleMap => m_Wrapper.m_UI_ToggleMap;
+        public InputAction @InteractWithObject => m_Wrapper.m_UI_InteractWithObject;
+        public InputAction @ToggleBuilding => m_Wrapper.m_UI_ToggleBuilding;
+        public InputAction @ToggleUpgrades => m_Wrapper.m_UI_ToggleUpgrades;
+        public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(PlayerCameraActions set) { return set.Get(); }
-        public void AddCallbacks(IPlayerCameraActions instance)
+        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+        public void AddCallbacks(IUIActions instance)
         {
-            if (instance == null || m_Wrapper.m_PlayerCameraActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_PlayerCameraActionsCallbackInterfaces.Add(instance);
-            @MouseCameraMovement.started += instance.OnMouseCameraMovement;
-            @MouseCameraMovement.performed += instance.OnMouseCameraMovement;
-            @MouseCameraMovement.canceled += instance.OnMouseCameraMovement;
+            if (instance == null || m_Wrapper.m_UIActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_UIActionsCallbackInterfaces.Add(instance);
+            @CloseWindowOpenPause.started += instance.OnCloseWindowOpenPause;
+            @CloseWindowOpenPause.performed += instance.OnCloseWindowOpenPause;
+            @CloseWindowOpenPause.canceled += instance.OnCloseWindowOpenPause;
+            @ToggleInventory.started += instance.OnToggleInventory;
+            @ToggleInventory.performed += instance.OnToggleInventory;
+            @ToggleInventory.canceled += instance.OnToggleInventory;
+            @ToggleWagons.started += instance.OnToggleWagons;
+            @ToggleWagons.performed += instance.OnToggleWagons;
+            @ToggleWagons.canceled += instance.OnToggleWagons;
+            @ToggleProduction.started += instance.OnToggleProduction;
+            @ToggleProduction.performed += instance.OnToggleProduction;
+            @ToggleProduction.canceled += instance.OnToggleProduction;
+            @ToggleJournal.started += instance.OnToggleJournal;
+            @ToggleJournal.performed += instance.OnToggleJournal;
+            @ToggleJournal.canceled += instance.OnToggleJournal;
+            @ToggleMap.started += instance.OnToggleMap;
+            @ToggleMap.performed += instance.OnToggleMap;
+            @ToggleMap.canceled += instance.OnToggleMap;
+            @InteractWithObject.started += instance.OnInteractWithObject;
+            @InteractWithObject.performed += instance.OnInteractWithObject;
+            @InteractWithObject.canceled += instance.OnInteractWithObject;
+            @ToggleBuilding.started += instance.OnToggleBuilding;
+            @ToggleBuilding.performed += instance.OnToggleBuilding;
+            @ToggleBuilding.canceled += instance.OnToggleBuilding;
+            @ToggleUpgrades.started += instance.OnToggleUpgrades;
+            @ToggleUpgrades.performed += instance.OnToggleUpgrades;
+            @ToggleUpgrades.canceled += instance.OnToggleUpgrades;
         }
 
-        private void UnregisterCallbacks(IPlayerCameraActions instance)
+        private void UnregisterCallbacks(IUIActions instance)
         {
-            @MouseCameraMovement.started -= instance.OnMouseCameraMovement;
-            @MouseCameraMovement.performed -= instance.OnMouseCameraMovement;
-            @MouseCameraMovement.canceled -= instance.OnMouseCameraMovement;
+            @CloseWindowOpenPause.started -= instance.OnCloseWindowOpenPause;
+            @CloseWindowOpenPause.performed -= instance.OnCloseWindowOpenPause;
+            @CloseWindowOpenPause.canceled -= instance.OnCloseWindowOpenPause;
+            @ToggleInventory.started -= instance.OnToggleInventory;
+            @ToggleInventory.performed -= instance.OnToggleInventory;
+            @ToggleInventory.canceled -= instance.OnToggleInventory;
+            @ToggleWagons.started -= instance.OnToggleWagons;
+            @ToggleWagons.performed -= instance.OnToggleWagons;
+            @ToggleWagons.canceled -= instance.OnToggleWagons;
+            @ToggleProduction.started -= instance.OnToggleProduction;
+            @ToggleProduction.performed -= instance.OnToggleProduction;
+            @ToggleProduction.canceled -= instance.OnToggleProduction;
+            @ToggleJournal.started -= instance.OnToggleJournal;
+            @ToggleJournal.performed -= instance.OnToggleJournal;
+            @ToggleJournal.canceled -= instance.OnToggleJournal;
+            @ToggleMap.started -= instance.OnToggleMap;
+            @ToggleMap.performed -= instance.OnToggleMap;
+            @ToggleMap.canceled -= instance.OnToggleMap;
+            @InteractWithObject.started -= instance.OnInteractWithObject;
+            @InteractWithObject.performed -= instance.OnInteractWithObject;
+            @InteractWithObject.canceled -= instance.OnInteractWithObject;
+            @ToggleBuilding.started -= instance.OnToggleBuilding;
+            @ToggleBuilding.performed -= instance.OnToggleBuilding;
+            @ToggleBuilding.canceled -= instance.OnToggleBuilding;
+            @ToggleUpgrades.started -= instance.OnToggleUpgrades;
+            @ToggleUpgrades.performed -= instance.OnToggleUpgrades;
+            @ToggleUpgrades.canceled -= instance.OnToggleUpgrades;
         }
 
-        public void RemoveCallbacks(IPlayerCameraActions instance)
+        public void RemoveCallbacks(IUIActions instance)
         {
-            if (m_Wrapper.m_PlayerCameraActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_UIActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(IPlayerCameraActions instance)
+        public void SetCallbacks(IUIActions instance)
         {
-            foreach (var item in m_Wrapper.m_PlayerCameraActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_UIActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_PlayerCameraActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_UIActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
-    public PlayerCameraActions @PlayerCamera => new PlayerCameraActions(this);
+    public UIActions @UI => new UIActions(this);
     public interface IPlayerShipActions
     {
-        void OnAlignWithCamera(InputAction.CallbackContext context);
+        void OnMouseCameraMovement(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
-        void OnToggleMovementMode(InputAction.CallbackContext context);
-        void OnRotateAlongX(InputAction.CallbackContext context);
+        void OnAlignWithCamera(InputAction.CallbackContext context);
         void OnRotateAlongY(InputAction.CallbackContext context);
         void OnRotateAlongZ(InputAction.CallbackContext context);
         void OnToggleTractorBeam(InputAction.CallbackContext context);
@@ -814,12 +954,19 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnToggleGasCollector(InputAction.CallbackContext context);
         void OnInstrumentPrimary(InputAction.CallbackContext context);
         void OnInstrumentSecondary(InputAction.CallbackContext context);
+        void OnMovement2(InputAction.CallbackContext context);
         void OnBrakes(InputAction.CallbackContext context);
-        void OnToggleBombContainer(InputAction.CallbackContext context);
-        void OnToggleLaser(InputAction.CallbackContext context);
     }
-    public interface IPlayerCameraActions
+    public interface IUIActions
     {
-        void OnMouseCameraMovement(InputAction.CallbackContext context);
+        void OnCloseWindowOpenPause(InputAction.CallbackContext context);
+        void OnToggleInventory(InputAction.CallbackContext context);
+        void OnToggleWagons(InputAction.CallbackContext context);
+        void OnToggleProduction(InputAction.CallbackContext context);
+        void OnToggleJournal(InputAction.CallbackContext context);
+        void OnToggleMap(InputAction.CallbackContext context);
+        void OnInteractWithObject(InputAction.CallbackContext context);
+        void OnToggleBuilding(InputAction.CallbackContext context);
+        void OnToggleUpgrades(InputAction.CallbackContext context);
     }
 }

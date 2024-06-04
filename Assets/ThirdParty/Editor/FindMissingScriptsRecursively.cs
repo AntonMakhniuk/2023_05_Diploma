@@ -5,7 +5,7 @@ namespace ThirdParty.Editor
 {
     public class FindMissingScriptsRecursively : EditorWindow
     {
-        static int _goCount = 0, _componentsCount = 0, _missingCount = 0;
+        static int _goCount, _componentsCount, _missingCount;
 
         [MenuItem("Window/FindMissingScriptsRecursively")]
         public static void ShowWindow()
@@ -61,9 +61,9 @@ namespace ThirdParty.Editor
                 {
                     if (o != null)
                     {
-                        if (o is GameObject)
+                        if (o is GameObject gameObject)
                         {
-                            FindInGO((GameObject) o);
+                            FindInGameObject(gameObject);
                         }
                     }
                 }
@@ -72,9 +72,9 @@ namespace ThirdParty.Editor
             Debug.Log($"Searched {_goCount} GameObjects, {_componentsCount} components, found {_missingCount} missing");
         }
 
-        public static Object[] LoadAllAssetsAtPath(string assetPath)
+        private static Object[] LoadAllAssetsAtPath(string assetPath)
         {
-            return typeof(SceneAsset).Equals(AssetDatabase.GetMainAssetTypeAtPath(assetPath))
+            return typeof(SceneAsset) == AssetDatabase.GetMainAssetTypeAtPath(assetPath)
                 ?
                 // prevent error "Do not use readobjectthreaded on scene objects!"
                 new[] {AssetDatabase.LoadMainAssetAtPath(assetPath)}
@@ -90,13 +90,13 @@ namespace ThirdParty.Editor
             foreach (GameObject g in go)
             {
 
-                FindInGO(g);
+                FindInGameObject(g);
             }
 
             Debug.Log($"Searched {_goCount} GameObjects, {_componentsCount} components, found {_missingCount} missing");
         }
 
-        private static void FindInGO(GameObject g)
+        private static void FindInGameObject(GameObject g)
         {
             _goCount++;
             Component[] components = g.GetComponents<Component>();
@@ -123,7 +123,7 @@ namespace ThirdParty.Editor
             foreach (Transform childT in g.transform)
             {
                 //Debug.Log("Searching " + childT.name  + " " );
-                FindInGO(childT.gameObject);
+                FindInGameObject(childT.gameObject);
             }
         }
     }

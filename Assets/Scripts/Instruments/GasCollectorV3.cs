@@ -1,7 +1,10 @@
 /*
 using System;
 using Assets.Scripts.Instruments;
+using ResourceNodes;
+using Scriptable_Object_Templates;
 using UnityEngine;
+using Wagons.Inventory;
 
 public class GasCollectorV3 : Instrument
 {
@@ -51,9 +54,11 @@ public class GasCollectorV3 : Instrument
     //     transform.position = transform.parent.position - transform.parent.up * GasCollectorOffset;
     // }
 
-    private void OnTriggerStay(Collider other) {
-        if (other.CompareTag("Gas")) {
-            inventory.IncreaseFuelGasQuantity(0.5f);
+    private void OnTriggerStay(Collider other) 
+    {
+        if (other.TryGetComponent<IGatherable>(out var gatherable) && gatherable.Resource.type == ItemType.Gas)
+        {
+            InventoryManager.Instance.AddItem(gatherable.Resource, 0.5f, null);
         }
     }
 
