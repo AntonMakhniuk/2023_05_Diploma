@@ -4,6 +4,7 @@ using System.Linq;
 using Production.Crafting;
 using Production.Systems;
 using Scriptable_Object_Templates;
+using Scriptable_Object_Templates.Resources;
 using UnityEngine;
 
 namespace Production.Challenges.Resource_Specific

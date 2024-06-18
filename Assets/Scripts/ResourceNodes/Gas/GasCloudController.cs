@@ -4,7 +4,7 @@ using ResourceNodes;
 using Scriptable_Object_Templates;
 using UnityEngine;
 
-public class GasCloudController : MonoBehaviour, IGatherable
+public class GasCloudController : MonoBehaviour
 {
     public float initialGasAmount = 100f;
     public float currentGasAmount;
@@ -26,7 +26,4 @@ public class GasCloudController : MonoBehaviour, IGatherable
             Destroy(gameObject);
         }
     }
-
-    [SerializeField] private Resource resource;
-    public Resource Resource => resource;
 }

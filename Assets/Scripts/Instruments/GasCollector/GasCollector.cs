@@ -1,6 +1,4 @@
 using System;
-// TODO: uncomment this
-//using ResourceNodes.Gas;
 using UnityEngine;
 
 public class GasCollector : MonoBehaviour

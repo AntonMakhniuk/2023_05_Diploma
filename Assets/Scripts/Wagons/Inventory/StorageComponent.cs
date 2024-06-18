@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Miscellaneous;
 using Scriptable_Object_Templates;
+using Scriptable_Object_Templates.Resources;
 using UnityEngine;
 
 namespace Wagons.Inventory
