@@ -28,15 +28,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             ""id"": ""40e0c021-8b2b-47c2-8c09-0c07232be718"",
             ""actions"": [
                 {
-                    ""name"": ""MouseCameraMovement"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""79c76f7d-7069-4fd2-bbcf-8c723260f903"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Movement"",
                     ""type"": ""Button"",
                     ""id"": ""a45dd632-7566-4c7b-b7b2-eb9b6bc79c2a"",
@@ -137,39 +128,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": ""One Modifier"",
-                    ""id"": ""4d82881e-174d-49e2-8b6a-6a17186f02e6"",
-                    ""path"": ""OneModifier"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MouseCameraMovement"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""modifier"",
-                    ""id"": ""6cf0de82-eea0-4621-873a-30af5268c430"",
-                    ""path"": ""<Keyboard>/shift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MouseCameraMovement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""binding"",
-                    ""id"": ""b16001b6-836a-4d81-8710-88f9f446a39b"",
-                    ""path"": ""<Mouse>/delta"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MouseCameraMovement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
                 {
                     ""name"": ""Forward/Backward"",
                     ""id"": ""852620a6-d135-49fd-b8ad-90d2ec75860f"",
@@ -618,10 +576,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             ""id"": ""6e0f7517-3757-496d-823e-e379aeb2934a"",
             ""actions"": [
                 {
-                    ""name"": ""New action"",
-                    ""type"": ""Button"",
+                    ""name"": ""CameraMovement"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""42c50dc8-f508-4f61-808f-053bafd339c2"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -630,12 +588,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""ab6eec99-ee8a-4464-9616-9bcb52f807eb"",
-                    ""path"": """",
+                    ""id"": ""d36682e0-7e25-4c8b-9fa9-488a9a09dd5c"",
+                    ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""New action"",
+                    ""action"": ""CameraMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -646,7 +604,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
 }");
         // PlayerShip
         m_PlayerShip = asset.FindActionMap("PlayerShip", throwIfNotFound: true);
-        m_PlayerShip_MouseCameraMovement = m_PlayerShip.FindAction("MouseCameraMovement", throwIfNotFound: true);
         m_PlayerShip_Movement = m_PlayerShip.FindAction("Movement", throwIfNotFound: true);
         m_PlayerShip_AlignWithCamera = m_PlayerShip.FindAction("AlignWithCamera", throwIfNotFound: true);
         m_PlayerShip_RotateAlongY = m_PlayerShip.FindAction("RotateAlongY", throwIfNotFound: true);
@@ -671,7 +628,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_UI_ToggleUpgrades = m_UI.FindAction("ToggleUpgrades", throwIfNotFound: true);
         // PlayerCamera
         m_PlayerCamera = asset.FindActionMap("PlayerCamera", throwIfNotFound: true);
-        m_PlayerCamera_Newaction = m_PlayerCamera.FindAction("New action", throwIfNotFound: true);
+        m_PlayerCamera_CameraMovement = m_PlayerCamera.FindAction("CameraMovement", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -733,7 +690,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     // PlayerShip
     private readonly InputActionMap m_PlayerShip;
     private List<IPlayerShipActions> m_PlayerShipActionsCallbackInterfaces = new List<IPlayerShipActions>();
-    private readonly InputAction m_PlayerShip_MouseCameraMovement;
     private readonly InputAction m_PlayerShip_Movement;
     private readonly InputAction m_PlayerShip_AlignWithCamera;
     private readonly InputAction m_PlayerShip_RotateAlongY;
@@ -749,7 +705,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     {
         private @PlayerInputActions m_Wrapper;
         public PlayerShipActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @MouseCameraMovement => m_Wrapper.m_PlayerShip_MouseCameraMovement;
         public InputAction @Movement => m_Wrapper.m_PlayerShip_Movement;
         public InputAction @AlignWithCamera => m_Wrapper.m_PlayerShip_AlignWithCamera;
         public InputAction @RotateAlongY => m_Wrapper.m_PlayerShip_RotateAlongY;
@@ -770,9 +725,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_PlayerShipActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_PlayerShipActionsCallbackInterfaces.Add(instance);
-            @MouseCameraMovement.started += instance.OnMouseCameraMovement;
-            @MouseCameraMovement.performed += instance.OnMouseCameraMovement;
-            @MouseCameraMovement.canceled += instance.OnMouseCameraMovement;
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
@@ -810,9 +762,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
 
         private void UnregisterCallbacks(IPlayerShipActions instance)
         {
-            @MouseCameraMovement.started -= instance.OnMouseCameraMovement;
-            @MouseCameraMovement.performed -= instance.OnMouseCameraMovement;
-            @MouseCameraMovement.canceled -= instance.OnMouseCameraMovement;
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
@@ -977,12 +926,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     // PlayerCamera
     private readonly InputActionMap m_PlayerCamera;
     private List<IPlayerCameraActions> m_PlayerCameraActionsCallbackInterfaces = new List<IPlayerCameraActions>();
-    private readonly InputAction m_PlayerCamera_Newaction;
+    private readonly InputAction m_PlayerCamera_CameraMovement;
     public struct PlayerCameraActions
     {
         private @PlayerInputActions m_Wrapper;
         public PlayerCameraActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Newaction => m_Wrapper.m_PlayerCamera_Newaction;
+        public InputAction @CameraMovement => m_Wrapper.m_PlayerCamera_CameraMovement;
         public InputActionMap Get() { return m_Wrapper.m_PlayerCamera; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -992,16 +941,16 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_PlayerCameraActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_PlayerCameraActionsCallbackInterfaces.Add(instance);
-            @Newaction.started += instance.OnNewaction;
-            @Newaction.performed += instance.OnNewaction;
-            @Newaction.canceled += instance.OnNewaction;
+            @CameraMovement.started += instance.OnCameraMovement;
+            @CameraMovement.performed += instance.OnCameraMovement;
+            @CameraMovement.canceled += instance.OnCameraMovement;
         }
 
         private void UnregisterCallbacks(IPlayerCameraActions instance)
         {
-            @Newaction.started -= instance.OnNewaction;
-            @Newaction.performed -= instance.OnNewaction;
-            @Newaction.canceled -= instance.OnNewaction;
+            @CameraMovement.started -= instance.OnCameraMovement;
+            @CameraMovement.performed -= instance.OnCameraMovement;
+            @CameraMovement.canceled -= instance.OnCameraMovement;
         }
 
         public void RemoveCallbacks(IPlayerCameraActions instance)
@@ -1021,7 +970,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     public PlayerCameraActions @PlayerCamera => new PlayerCameraActions(this);
     public interface IPlayerShipActions
     {
-        void OnMouseCameraMovement(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
         void OnAlignWithCamera(InputAction.CallbackContext context);
         void OnRotateAlongY(InputAction.CallbackContext context);
@@ -1048,6 +996,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     }
     public interface IPlayerCameraActions
     {
-        void OnNewaction(InputAction.CallbackContext context);
+        void OnCameraMovement(InputAction.CallbackContext context);
     }
 }
