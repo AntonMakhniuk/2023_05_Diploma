@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using AYellowpaper.SerializedCollections;
+using System.Linq;
 using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,77 +10,75 @@ namespace UI.Systems.Panels
 {
     public class PanelManager : MonoBehaviour
     {
-        [SerializedDictionary("Input Action", "Associated Panel")]
-        public SerializedDictionary<InputActionReference, UIPanel> uiPanelsDict = new();
-
-        public List<UIPanel> uiPanelsStatic = new();
-        
-        private static PanelManager _instance;
+        public static PanelManager Instance;
 
         [SerializeField] private UIPanel pausePanel;
         
         private PlayerInputActions _playerInputActions;
         private UIPanel _mainPanel;
+        private readonly List<UIPanel> _uiPanels = new();
         private readonly List<UIPanel> _childPanels = new();
         
         private readonly Dictionary<InputActionReference, Action<InputAction.CallbackContext>> _delegates = new();
         
         private void Awake()
         {
-            _instance = this;
+            Instance = this;
         }
         
         private void Start()
         {
             _playerInputActions = PlayerActions.InputActions;
-
-            foreach (var inputActionReference in uiPanelsDict.Keys)
-            {
-                Action<InputAction.CallbackContext> action = _ => ToggleMainPanel(uiPanelsDict[inputActionReference]);
-                _delegates[inputActionReference] = action;
-                
-                inputActionReference.action.performed += action;
-                inputActionReference.action.Enable();
-            }
             
-            _playerInputActions.UI.CloseWindowOpenPause.performed += HandlePauseAction;
+            if (Instance.pausePanel != null)
+            {
+                _playerInputActions.UI.CloseWindowOpenPause.performed += HandlePauseAction;
+            }
 
             SceneManager.sceneUnloaded += OnSceneUnloaded;
-            
-            foreach (var uiPanel in uiPanelsDict.Values)
-            {
-                uiPanel.Initialize();
-            }
-
-            foreach (var uiPanel in uiPanelsStatic)
-            {
-                uiPanel.Initialize();
-                uiPanel.Open();
-            }
         }
 
-        public static void ToggleMainPanel(UIPanel panel)
+        public void SubscribePanel(UIPanel panel)
         {
-            Debug.Log(_instance._mainPanel);
+            _uiPanels.Add(panel);
             
-            switch (_instance._mainPanel == null)
+            foreach (var toggleBind in panel.toggleBinds)
+            {
+                Action<InputAction.CallbackContext> action = _ => ToggleParentPanel(panel);
+                _delegates[toggleBind] = action;
+                
+                toggleBind.action.performed += action;
+                toggleBind.action.Enable();
+            }
+            
+            panel.Initialize();
+
+            if (panel.type == UIPanel.PanelType.Static)
+            {
+                panel.Open();
+            }
+        }
+        
+        public static void ToggleParentPanel(UIPanel panel)
+        {
+            switch (Instance._mainPanel == null)
             {
                 case true:
                 {
-                    _instance.OpenMainPanel(panel);
+                    Instance.OpenMainPanel(panel);
                     
                     return;
                 }
-                case false when _instance._mainPanel == panel:
+                case false when Instance._mainPanel == panel:
                 {
-                    _instance.CloseMainPanel();
+                    Instance.CloseMainPanel();
                     
                     return;
                 }
-                case false when _instance._mainPanel != panel:
+                case false when Instance._mainPanel != panel:
                 {
-                    _instance.CloseMainPanel();
-                    _instance.OpenMainPanel(panel);
+                    Instance.CloseMainPanel();
+                    Instance.OpenMainPanel(panel);
                     
                     return;
                 }
@@ -89,25 +87,25 @@ namespace UI.Systems.Panels
 
         public static void ToggleChildPanel(UIPanel panel)
         {
-            switch (_instance._mainPanel == null)
+            switch (Instance._mainPanel == null)
             {
                 case true:
                 {
                     return;
                 }
-                case false when _instance._childPanels.Contains(panel):
+                case false when Instance._childPanels.Contains(panel):
                 {
-                    _instance.CloseChildPanel(panel);
+                    Instance.CloseChildPanel(panel);
                     
                     return;
                 }
-                case false when !_instance._mainPanel.childPanels.Contains(panel):
+                case false when !Instance._mainPanel.childPanels.Contains(panel):
                 {
                     return;
                 }
-                case false when _instance._mainPanel.childPanels.Contains(panel):
+                case false when Instance._mainPanel.childPanels.Contains(panel):
                 {
-                    _instance.OpenChildPanel(panel);
+                    Instance.OpenChildPanel(panel);
                     
                     return;
                 }
@@ -122,7 +120,7 @@ namespace UI.Systems.Panels
             }
             else
             {
-                OpenMainPanel(_instance.pausePanel);
+                OpenMainPanel(Instance.pausePanel);
             }
         }
 
@@ -189,12 +187,9 @@ namespace UI.Systems.Panels
 
         private void OnDestroy()
         {
-            foreach (var inputActionReference in uiPanelsDict.Keys)
+            foreach (var toggleBind in _uiPanels.SelectMany(panel => panel.toggleBinds))
             {
-                if (_delegates.TryGetValue(inputActionReference, out var action))
-                {
-                    inputActionReference.action.performed -= action;
-                }
+                toggleBind.action.performed -= _delegates[toggleBind];
             }
 
             if (_playerInputActions != null)
