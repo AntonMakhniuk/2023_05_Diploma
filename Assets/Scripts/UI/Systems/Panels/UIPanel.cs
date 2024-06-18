@@ -6,7 +6,6 @@ namespace UI.Systems.Panels
 {
     public class UIPanel : MonoBehaviour
     {
-        public PanelType panelType;
         public List<UIPanel> childPanels = new(); 
         
         [SerializeField] private List<GameObject> uiObjects = new();
@@ -51,10 +50,5 @@ namespace UI.Systems.Panels
                 element.CloseElement();
             }
         }
-    }
-
-    public enum PanelType
-    {
-        Inventory, Journal, Map, Production, Wagons, Building, Pause, Upgrades, Child
     }
 }
