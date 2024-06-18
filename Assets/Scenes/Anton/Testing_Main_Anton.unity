@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -131,6 +131,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3152538275571637552, guid: 0c3bcc54ae5b4a34bb6d58f7fe3548e7, type: 3}
+      propertyPath: m_CustomSkybox
+      value: 
+      objectReference: {fileID: 2100000, guid: 81f714daf7144784b8a2f42f1cd30927, type: 2}
     - target: {fileID: 4371081684893215937, guid: 0c3bcc54ae5b4a34bb6d58f7fe3548e7, type: 3}
       propertyPath: _target
       value: 
@@ -175,15 +179,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6736660382204539933, guid: 0c3bcc54ae5b4a34bb6d58f7fe3548e7, type: 3}
+      propertyPath: _target
+      value: 
+      objectReference: {fileID: 143460083}
     - target: {fileID: 8257711728351979687, guid: 0c3bcc54ae5b4a34bb6d58f7fe3548e7, type: 3}
       propertyPath: m_Name
       value: BackgroundSkyboxCamera
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7908106679731159020, guid: 0c3bcc54ae5b4a34bb6d58f7fe3548e7, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c3bcc54ae5b4a34bb6d58f7fe3548e7, type: 3}
+--- !u!4 &143460083 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6494266198833982320, guid: 0c3bcc54ae5b4a34bb6d58f7fe3548e7, type: 3}
+  m_PrefabInstance: {fileID: 143460082}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &253782377
 GameObject:
   m_ObjectHideFlags: 0
@@ -1738,6 +1752,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerShip v.3
       objectReference: {fileID: 0}
+    - target: {fileID: 8983944399992573315, guid: a620a6ac1b0db8d46ac11c662a59a5ab, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8983944399992573315, guid: a620a6ac1b0db8d46ac11c662a59a5ab, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 7317555467393118818, guid: 2823fb8a5fc07e94bb0268c3120680b3, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

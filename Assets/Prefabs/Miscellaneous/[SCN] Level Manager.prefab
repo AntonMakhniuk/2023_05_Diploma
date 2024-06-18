@@ -48,9 +48,12 @@ MonoBehaviour:
   scenesDict:
     _serializedList:
     - Key: 0
-      Value: Main Menu
+      Value:
+      - Main Menu
     - Key: 1
-      Value: Inventory Test
+      Value:
+      - Inventory Test
+      - Overworld UI
 --- !u!114 &4961465600136280320
 MonoBehaviour:
   m_ObjectHideFlags: 0
