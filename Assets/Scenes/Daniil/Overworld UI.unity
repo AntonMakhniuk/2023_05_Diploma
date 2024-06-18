@@ -136,6 +136,42 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1002441472}
     - target: {fileID: -390791577101408502, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: uiPanels.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -390791577101408502, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: uiPanels.Array.data[0]
+      value: 
+      objectReference: {fileID: 1002441473}
+    - target: {fileID: -390791577101408502, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: uiPanels.Array.data[1]
+      value: 
+      objectReference: {fileID: 1002441478}
+    - target: {fileID: -390791577101408502, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: uiPanels.Array.data[2]
+      value: 
+      objectReference: {fileID: 1002441477}
+    - target: {fileID: -390791577101408502, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: uiPanels.Array.data[3]
+      value: 
+      objectReference: {fileID: 1002441476}
+    - target: {fileID: -390791577101408502, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: uiPanels.Array.data[4]
+      value: 
+      objectReference: {fileID: 1002441472}
+    - target: {fileID: -390791577101408502, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: uiPanels.Array.data[5]
+      value: 
+      objectReference: {fileID: 1002441475}
+    - target: {fileID: -390791577101408502, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: uiPanels.Array.data[6]
+      value: 
+      objectReference: {fileID: 1120315504}
+    - target: {fileID: -390791577101408502, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: uiPanels.Array.data[7]
+      value: 
+      objectReference: {fileID: 1002441474}
+    - target: {fileID: -390791577101408502, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
       propertyPath: uiPanelsDict._serializedList.Array.size
       value: 7
       objectReference: {fileID: 0}
@@ -191,10 +227,54 @@ PrefabInstance:
       propertyPath: uiPanelsDict._serializedList.Array.data[6].Value
       value: 
       objectReference: {fileID: 1002441473}
+    - target: {fileID: 257605796508932665, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: toggleBinds.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 257605796508932665, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: toggleBinds.Array.data[0]
+      value: 
+      objectReference: {fileID: -4901085437846058734, guid: f1a6e843c3af0d94596da8728006c219, type: 3}
+    - target: {fileID: 455863279627972835, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: toggleBinds.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 455863279627972835, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: toggleBinds.Array.data[0]
+      value: 
+      objectReference: {fileID: -583039266111107578, guid: f1a6e843c3af0d94596da8728006c219, type: 3}
+    - target: {fileID: 1552195294281072037, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: toggleBinds.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1552195294281072037, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: toggleBinds.Array.data[0]
+      value: 
+      objectReference: {fileID: 1573513416464748676, guid: f1a6e843c3af0d94596da8728006c219, type: 3}
+    - target: {fileID: 1612532490531263636, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1841926235260376170, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2036810335595409724, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
       propertyPath: m_Name
       value: '[UI] Panel Manager'
       objectReference: {fileID: 0}
+    - target: {fileID: 2348616324386635646, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2431142234212965750, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: toggleBinds.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2431142234212965750, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: toggleBinds.Array.data[0]
+      value: 
+      objectReference: {fileID: -4172155805905451065, guid: f1a6e843c3af0d94596da8728006c219, type: 3}
     - target: {fileID: 2553102692018376607, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -235,6 +315,42 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3101402445274821093, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: toggleBinds.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3101402445274821093, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: toggleBinds.Array.data[0]
+      value: 
+      objectReference: {fileID: -9206810241531102955, guid: f1a6e843c3af0d94596da8728006c219, type: 3}
+    - target: {fileID: 3524675595827764857, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: toggleBinds.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3524675595827764857, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: toggleBinds.Array.data[0]
+      value: 
+      objectReference: {fileID: -4777907699182228845, guid: f1a6e843c3af0d94596da8728006c219, type: 3}
+    - target: {fileID: 5156693853323516009, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6253052921163946854, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6660838609796904949, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6955614569334650431, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: toggleBinds.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7129454525901142965, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7986429723625086512, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -242,6 +358,22 @@ PrefabInstance:
     - target: {fileID: 7986429723625086512, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ToggleChildPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 7995506023063245434, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: toggleBinds.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7995506023063245434, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: toggleBinds.Array.data[0]
+      value: 
+      objectReference: {fileID: 8431059325307516603, guid: f1a6e843c3af0d94596da8728006c219, type: 3}
+    - target: {fileID: 8413421036265044074, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8424365046720338985, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -328,6 +460,17 @@ MonoBehaviour:
 --- !u!114 &1002441478 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3524675595827764857, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+  m_PrefabInstance: {fileID: 1002441470}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1e6d9e4109843cb9aacec034c8b20cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1120315504 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1552195294281072037, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
   m_PrefabInstance: {fileID: 1002441470}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}

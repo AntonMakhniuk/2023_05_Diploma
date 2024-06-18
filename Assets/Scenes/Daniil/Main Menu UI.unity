@@ -259,6 +259,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1557205734}
     m_Modifications:
+    - target: {fileID: -1244194897148296112, guid: 756a1ab21dcbb1349b3d7c50c908b9cf, type: 3}
+      propertyPath: type
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1596507401881087119, guid: 756a1ab21dcbb1349b3d7c50c908b9cf, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -437,6 +441,14 @@ PrefabInstance:
       propertyPath: pausePanel
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: -390791577101408502, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: uiPanels.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -390791577101408502, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
+      propertyPath: uiPanels.Array.data[0]
+      value: 
+      objectReference: {fileID: 1311350990}
     - target: {fileID: -390791577101408502, guid: 3b230ace7b7f2584bbc8fc4ad54b74aa, type: 3}
       propertyPath: uiPanelsStatic.Array.size
       value: 1
