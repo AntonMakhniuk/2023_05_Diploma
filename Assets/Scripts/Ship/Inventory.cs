@@ -6,9 +6,14 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    [SerializeField] private LaserV3 laserController;
-    [SerializeField] private TractorBeamController tractorBeamController;
-    [SerializeField] private BombContainer bombContainer;
+    [SerializeField] private Instrument instrument1;
+    [SerializeField] private Instrument instrument2;
+    [SerializeField] private Instrument instrument3;
+    
+    [SerializeField] private Transform slot1;
+    [SerializeField] private Transform slot2;
+    [SerializeField] private Transform slot3;
+    
     
     private Instrument activeInstrument;
 
@@ -16,15 +21,18 @@ public class Inventory : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            ToggleInstrument(laserController);
+            instrument1.transform.SetParent(slot1);
+            ToggleInstrument(instrument1);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            ToggleInstrument(tractorBeamController);
+            instrument2.transform.SetParent(slot2);
+            ToggleInstrument(instrument2);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            ToggleInstrument(bombContainer);
+            instrument3.transform.SetParent(slot3);
+            ToggleInstrument(instrument3);
         }
     }
 
