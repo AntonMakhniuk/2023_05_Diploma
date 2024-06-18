@@ -31,6 +31,7 @@ public class PlayerMovement : MonoBehaviour {
     private void Awake()
     {
         playerInputActions = PlayerActions.InputActions;
+        playerInputActions.PlayerShip.Enable();
         
         rb = GetComponent<Rigidbody>();
         rb.maxAngularVelocity = maxAngularVelocity;
@@ -67,7 +68,9 @@ public class PlayerMovement : MonoBehaviour {
             rb.drag = accelerationDrag;
             rb.angularDrag = accelerationAngularDrag;
             
-            WagonManager.Instance.SetDragValuesForAttachedWagons(accelerationDrag, accelerationAngularDrag);
+            // TODO: return this back to how it was (without the null check)
+            if (WagonManager.Instance != null) 
+                WagonManager.Instance.SetDragValuesForAttachedWagons(accelerationDrag, accelerationAngularDrag);
         };
 
         // X axis

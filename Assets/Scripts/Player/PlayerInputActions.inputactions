@@ -6,15 +6,6 @@
             "id": "40e0c021-8b2b-47c2-8c09-0c07232be718",
             "actions": [
                 {
-                    "name": "MouseCameraMovement",
-                    "type": "PassThrough",
-                    "id": "79c76f7d-7069-4fd2-bbcf-8c723260f903",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Movement",
                     "type": "Button",
                     "id": "a45dd632-7566-4c7b-b7b2-eb9b6bc79c2a",
@@ -115,39 +106,6 @@
                 }
             ],
             "bindings": [
-                {
-                    "name": "One Modifier",
-                    "id": "4d82881e-174d-49e2-8b6a-6a17186f02e6",
-                    "path": "OneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MouseCameraMovement",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "modifier",
-                    "id": "6cf0de82-eea0-4621-873a-30af5268c430",
-                    "path": "<Keyboard>/shift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MouseCameraMovement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "binding",
-                    "id": "b16001b6-836a-4d81-8710-88f9f446a39b",
-                    "path": "<Mouse>/delta",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MouseCameraMovement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
                 {
                     "name": "Forward/Backward",
                     "id": "852620a6-d135-49fd-b8ad-90d2ec75860f",
@@ -636,10 +594,10 @@
             "id": "6e0f7517-3757-496d-823e-e379aeb2934a",
             "actions": [
                 {
-                    "name": "New action",
-                    "type": "Button",
+                    "name": "CameraMovement",
+                    "type": "PassThrough",
                     "id": "42c50dc8-f508-4f61-808f-053bafd339c2",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -648,12 +606,12 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "ab6eec99-ee8a-4464-9616-9bcb52f807eb",
-                    "path": "",
+                    "id": "d36682e0-7e25-4c8b-9fa9-488a9a09dd5c",
+                    "path": "<Mouse>/delta",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "CameraMovement",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
