@@ -56,8 +56,10 @@ public class PlayerMovement : MonoBehaviour {
         {
             rb.drag = brakesDrag;
             rb.angularDrag = brakesAngularDrag;
-
-            WagonManager.Instance.SetDragValuesForAttachedWagons(brakesDrag, brakesAngularDrag);
+            
+            // TODO: return this back to how it was (without the null check)
+            if (WagonManager.Instance != null) 
+                WagonManager.Instance.SetDragValuesForAttachedWagons(brakesDrag, brakesAngularDrag);
         };
 
         playerInputActions.PlayerShip.Brakes.canceled += _ =>

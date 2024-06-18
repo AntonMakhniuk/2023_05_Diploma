@@ -590,6 +590,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "PlayerCamera",
+            "id": "6e0f7517-3757-496d-823e-e379aeb2934a",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "42c50dc8-f508-4f61-808f-053bafd339c2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "ab6eec99-ee8a-4464-9616-9bcb52f807eb",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

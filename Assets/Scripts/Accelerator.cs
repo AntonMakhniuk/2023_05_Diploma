@@ -18,7 +18,8 @@ public class Accelerator : BuildingObject
 
         if (inputSystem != null)
         {
-            inputSystem.SpeedBoost();
+            // TODO: uncomment this
+            //inputSystem.SpeedBoost();
         }
         else
         {
