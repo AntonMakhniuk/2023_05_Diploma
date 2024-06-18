@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Instruments;
 using Cinemachine;
+using Instruments.Miscellaneous;
+using Scriptable_Object_Templates;
 using UnityEngine;
 
-public class TractorBeamController : Instrument
+public class TractorBeamController : Instrument, ICollector
 {
     public float attractSpeed = 10f;
     public float holdDistance = 2f;
@@ -12,6 +14,9 @@ public class TractorBeamController : Instrument
     public float maxDistance = 100f;
     public Transform holdPoint;
     public LayerMask attractableLayer;
+
+    [SerializeField] private List<ItemType> collectableTypes = new() { ItemType.Ore, ItemType.Material };
+    public List<ItemType> CollectableTypes => collectableTypes;
 
     [SerializeField] private float rotationSpeed;
     [SerializeField] private CinemachineVirtualCamera cinematicCamera;
