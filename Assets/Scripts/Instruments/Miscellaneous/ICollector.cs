@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using ResourceNodes;
 using Scriptable_Object_Templates;
+using Scriptable_Object_Templates.Resources;
 using Wagons.Inventory;
 
 namespace Instruments.Miscellaneous

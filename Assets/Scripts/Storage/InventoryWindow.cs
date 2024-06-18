@@ -1,6 +1,7 @@
 using System.Linq;
 using Production.Crafting;
 using Scriptable_Object_Templates;
+using Scriptable_Object_Templates.Resources;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;

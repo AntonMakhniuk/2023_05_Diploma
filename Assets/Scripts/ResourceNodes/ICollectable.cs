@@ -1,4 +1,5 @@
 ﻿using Scriptable_Object_Templates;
+using Scriptable_Object_Templates.Resources;
 using UnityEngine;
 
 namespace ResourceNodes
