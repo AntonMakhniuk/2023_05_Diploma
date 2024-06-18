@@ -4,6 +4,7 @@ using System.Linq;
 using Production.Challenges.General;
 using Production.Challenges.Resource_Specific;
 using Scriptable_Object_Templates;
+using Scriptable_Object_Templates.Resources;
 using UnityEngine;
 using Random = UnityEngine.Random;
 

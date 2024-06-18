@@ -18,7 +18,7 @@ public class InstrumentCameraControl : MonoBehaviour {
         _playerInputActions = new PlayerInputActions();
         _mainCamera = Camera.main.transform;
         
-        _playerInputActions.PlayerCamera.Enable();
+        //_playerInputActions.PlayerCamera.Enable();
     }
 
     private void Update() {

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Scriptable_Object_Templates;
+using Scriptable_Object_Templates.Resources;
 
 namespace Wagons.Inventory
 {

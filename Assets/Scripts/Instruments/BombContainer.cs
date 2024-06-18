@@ -32,7 +32,7 @@ public class BombContainer : Instrument
         if (Camera.main != null) _mainCamera = Camera.main.transform;
         if (transform.root != null) _spaceshipTransform = transform.root;
 
-        _playerInputActions.PlayerCamera.Enable();
+        //_playerInputActions.PlayerCamera.Enable();
     }
     
 

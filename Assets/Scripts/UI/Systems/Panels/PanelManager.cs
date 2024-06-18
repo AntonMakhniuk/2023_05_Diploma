@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
-using AYellowpaper.SerializedCollections;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Player;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 namespace UI.Systems.Panels
@@ -9,76 +11,74 @@ namespace UI.Systems.Panels
     public class PanelManager : MonoBehaviour
     {
         public static PanelManager Instance;
-        
-        [SerializedDictionary("Panel Type", "Associated Panel")]
-        public SerializedDictionary<PanelType, UIPanel> uiPanelsDict = new();
+
+        [SerializeField] private UIPanel pausePanel;
         
         private PlayerInputActions _playerInputActions;
         private UIPanel _mainPanel;
+        private readonly List<UIPanel> _uiPanels = new();
         private readonly List<UIPanel> _childPanels = new();
+        
+        private readonly Dictionary<InputActionReference, Action<InputAction.CallbackContext>> _delegates = new();
         
         private void Awake()
         {
-            if (Instance == null)
-            {
-                Instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
+            Instance = this;
         }
         
         private void Start()
         {
             _playerInputActions = PlayerActions.InputActions;
             
-            _playerInputActions.UI.ToggleInventory.performed += _ => ToggleMainPanel(PanelType.Inventory);
-            _playerInputActions.UI.ToggleWagons.performed += _ => ToggleMainPanel(PanelType.Wagons);
-            _playerInputActions.UI.ToggleProduction.performed += _ => ToggleMainPanel(PanelType.Production);
-            _playerInputActions.UI.ToggleJournal.performed += _ => ToggleMainPanel(PanelType.Journal);
-            _playerInputActions.UI.ToggleMap.performed += _ => ToggleMainPanel(PanelType.Map);
-            _playerInputActions.UI.ToggleBuilding.performed += _ => ToggleMainPanel(PanelType.Building);
-            _playerInputActions.UI.ToggleUpgrades.performed += _ => ToggleMainPanel(PanelType.Upgrades);
-            
-            _playerInputActions.UI.CloseWindowOpenPause.performed += _ => HandlePauseAction();
-
-            SceneManager.sceneUnloaded += _ => CloseMainPanel();
-            
-            //TODO: Add interactable logic
-            //_playerInputActions.UI.InteractWithObject.performed += _ => ...;
-
-            foreach (var uiPanel in uiPanelsDict.Values)
+            if (Instance.pausePanel != null)
             {
-                uiPanel.Initialize();
+                _playerInputActions.UI.CloseWindowOpenPause.performed += HandlePauseAction;
+            }
+
+            SceneManager.sceneUnloaded += OnSceneUnloaded;
+        }
+
+        public void SubscribePanel(UIPanel panel)
+        {
+            _uiPanels.Add(panel);
+            
+            foreach (var toggleBind in panel.toggleBinds)
+            {
+                Action<InputAction.CallbackContext> action = _ => ToggleParentPanel(panel);
+                _delegates[toggleBind] = action;
+                
+                toggleBind.action.performed += action;
+                toggleBind.action.Enable();
+            }
+            
+            panel.Initialize();
+
+            if (panel.type == UIPanel.PanelType.Static)
+            {
+                panel.Open();
             }
         }
         
-        public delegate void OnPanelChangedHandler(PanelType panelType);
-
-        public event OnPanelChangedHandler OnMainPanelOpened, OnMainPanelClosed;
-
-        public static void ToggleMainPanel(PanelType panelType)
+        public static void ToggleParentPanel(UIPanel panel)
         {
             switch (Instance._mainPanel == null)
             {
                 case true:
                 {
-                    Instance.OpenMainPanel(panelType);
+                    Instance.OpenMainPanel(panel);
                     
                     return;
                 }
-                case false when Instance._mainPanel == Instance.uiPanelsDict[panelType]:
+                case false when Instance._mainPanel == panel:
                 {
                     Instance.CloseMainPanel();
                     
                     return;
                 }
-                case false when Instance._mainPanel != Instance.uiPanelsDict[panelType]:
+                case false when Instance._mainPanel != panel:
                 {
                     Instance.CloseMainPanel();
-                    Instance.OpenMainPanel(panelType);
+                    Instance.OpenMainPanel(panel);
                     
                     return;
                 }
@@ -91,8 +91,6 @@ namespace UI.Systems.Panels
             {
                 case true:
                 {
-                    Debug.Log(1);
-                    
                     return;
                 }
                 case false when Instance._childPanels.Contains(panel):
@@ -103,14 +101,10 @@ namespace UI.Systems.Panels
                 }
                 case false when !Instance._mainPanel.childPanels.Contains(panel):
                 {
-                    Debug.Log(3);
-                    
                     return;
                 }
                 case false when Instance._mainPanel.childPanels.Contains(panel):
                 {
-                    Debug.Log(4);
-                    
                     Instance.OpenChildPanel(panel);
                     
                     return;
@@ -118,7 +112,7 @@ namespace UI.Systems.Panels
             }
         }
         
-        private void HandlePauseAction()
+        private void HandlePauseAction(InputAction.CallbackContext _)
         {
             if (_mainPanel != null)
             {
@@ -126,21 +120,19 @@ namespace UI.Systems.Panels
             }
             else
             {
-                OpenMainPanel(PanelType.Pause);
+                OpenMainPanel(Instance.pausePanel);
             }
         }
 
-        private void OpenMainPanel(PanelType panelType)
+        private void OpenMainPanel(UIPanel panel)
         {
             if (_mainPanel != null)
             {
                 return;
             }
             
-            _mainPanel = uiPanelsDict[panelType];
+            _mainPanel = panel;
             _mainPanel.Open();
-            
-            OnMainPanelOpened?.Invoke(_mainPanel.panelType);
         }
         
         private void OpenChildPanel(UIPanel panel)
@@ -165,10 +157,8 @@ namespace UI.Systems.Panels
             {
                 return;
             }
-            
+
             _mainPanel.Close();
-                
-            OnMainPanelClosed?.Invoke(_mainPanel.panelType);
 
             _mainPanel = null;
             _childPanels.Clear();
@@ -188,6 +178,26 @@ namespace UI.Systems.Panels
 
             panel.Close();
             _childPanels.Remove(panel);
+        }
+        
+        private void OnSceneUnloaded(Scene _)
+        {
+            CloseMainPanel();
+        }
+
+        private void OnDestroy()
+        {
+            foreach (var toggleBind in _uiPanels.SelectMany(panel => panel.toggleBinds))
+            {
+                toggleBind.action.performed -= _delegates[toggleBind];
+            }
+
+            if (_playerInputActions != null)
+            {
+                _playerInputActions.UI.CloseWindowOpenPause.performed -= HandlePauseAction;
+            }
+
+            SceneManager.sceneUnloaded -= OnSceneUnloaded;
         }
     }
 }
