@@ -13,6 +13,8 @@ namespace Miscellaneous
         private void Start()
         {
             SceneManager.sceneLoaded += (scene, _) => ChangeInput(scene);
+            
+            ChangeInput(SceneManager.GetActiveScene());
         }
 
         private void ChangeInput(Scene scene)
@@ -22,7 +24,7 @@ namespace Miscellaneous
                     .Contains(kvp.Key))
                 .ToList();
 
-            bool isSceneNoInput = scenes.Any(kvp => kvp.Value == scene.name);
+            var isSceneNoInput = scenes.Any(kvp => kvp.Value.Any(s => s == scene.name));
 
             if (isSceneNoInput)
             {
