@@ -8,13 +8,16 @@ using UnityEngine.InputSystem;
 using Wagons.Systems;
 
 [RequireComponent(typeof(Rigidbody))]
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement : MonoBehaviour 
+{
     private PlayerInputActions playerInputActions;
     private Rigidbody rb;
     private Camera mainCamera;
 
-    // Required for detecting rotation (no need for that for movement since only rotation is read as 3D Vector)
     private bool isRotating = false;
+    private bool isPitchingX = false;
+    private bool isYawingY = false;
+    private bool isRollingZ = false;
 
     [Header("Ship Movement Parameters")]
     [SerializeField] private float moveSpeed = 1;
@@ -39,18 +42,11 @@ public class PlayerMovement : MonoBehaviour {
         rb.drag = accelerationDrag;
         rb.angularDrag = accelerationAngularDrag;
         
-        //WagonManager.Instance.SetDragValuesForAttachedWagons(accelerationDrag, accelerationAngularDrag);
+        // TODO: return it to how it was (without the null check)
+        if (WagonManager.Instance != null) 
+            WagonManager.Instance.SetDragValuesForAttachedWagons(accelerationDrag, accelerationAngularDrag);
         
         mainCamera = Camera.main;
-        
-        // If the player presses the movement key, the drag will be changed to allow for higher velocity to be reached
-        // playerInputActions.PlayerShip.Movement.performed += context => { rb.drag = accelerationDrag; };
-        // If the player stops pressing the movement key, the drag will be changed to rapidly decelerate the ship
-        // playerInputActions.PlayerShip.Movement.canceled += context => { rb.drag = decelerationDrag; };
-
-        // If the player presses the rotation key, the drag will be changed to allow for quicker turn speed
-        // If the player stops pressing the rotation key, the drag will be changed to rapidly decelerate the ship's rotation
-        // This is repeated for every axis
         
         // Brakes
         playerInputActions.PlayerShip.Brakes.performed += _ =>
@@ -73,77 +69,71 @@ public class PlayerMovement : MonoBehaviour {
                 WagonManager.Instance.SetDragValuesForAttachedWagons(accelerationDrag, accelerationAngularDrag);
         };
 
-        // X axis
-        // playerInputActions.PlayerShip.RotateAlongX.performed += context =>
-        // {
-        //     rb.angularDrag = accelerationAngularDrag;
-        //     isRotating = true;
-        // };
-        //
-        // playerInputActions.PlayerShip.RotateAlongX.canceled += context =>
-        // {
-        //     rb.angularDrag = decelerationAngularDrag;
-        //     isRotating = false;
-        // };
-
-        // Y axis
-        playerInputActions.PlayerShip.RotateAlongY.performed += _ => isRotating = true;
+        // Pitch (X axis)
+        playerInputActions.PlayerShip.Pitch.performed += _ => isPitchingX = true;
+        playerInputActions.PlayerShip.Pitch.canceled += _ => isPitchingX = false;
         
-        playerInputActions.PlayerShip.RotateAlongY.canceled += _ => isRotating = false;
-
-        // Z axis
-        playerInputActions.PlayerShip.RotateAlongZ.performed += _ => isRotating = true;
+        // Yaw (Y axis)
+        playerInputActions.PlayerShip.Yaw.performed += _ => isYawingY = true;
+        playerInputActions.PlayerShip.Yaw.canceled += _ => isYawingY = false;
         
-        playerInputActions.PlayerShip.RotateAlongZ.canceled += _ => isRotating = false;
+        // Roll (Z axis)
+        playerInputActions.PlayerShip.Roll.performed += _ =>  isRollingZ = true;
+        playerInputActions.PlayerShip.Roll.canceled += _ => isRollingZ = false;
     }
     
-    private void FixedUpdate() {
-        // Check for movement input and move ship accordingly
-        if (playerInputActions.PlayerShip.Movement2.IsPressed()) {
-            //float value = playerInputActions.PlayerShip.Movement.ReadValue<float>();
-            Move(playerInputActions.PlayerShip.Movement2.ReadValue<Vector2>());
-        }
-
-        // Check for rotation input and rotate ship accordingly
-        if (isRotating) {
-            Rotate(new Vector3(
-                //playerInputActions.PlayerShip.RotateAlongX.ReadValue<float>()
-                0,
-                playerInputActions.PlayerShip.RotateAlongY.ReadValue<float>(),
-                playerInputActions.PlayerShip.RotateAlongZ.ReadValue<float>()
-                ));
-        }
+    private void FixedUpdate() 
+    {
+        if (playerInputActions.PlayerShip.Thrust.IsPressed())
+            Move(new Vector2(playerInputActions.PlayerShip.Thrust.ReadValue<float>(), 0));
+        
+        if (playerInputActions.PlayerShip.Strafe.IsPressed())
+            Move(new Vector2(0, playerInputActions.PlayerShip.Strafe.ReadValue<float>()));
+        
+        if (isPitchingX)
+            Rotate(new Vector3(playerInputActions.PlayerShip.Pitch.ReadValue<float>(), 0, 0));
+        
+        if (isYawingY)
+            Rotate(new Vector3(0, playerInputActions.PlayerShip.Yaw.ReadValue<float>(), 0));
+        
+        if (isRollingZ)
+            Rotate(new Vector3(0, 0, playerInputActions.PlayerShip.Roll.ReadValue<float>()/2f));
         
         // Check if camera alignment is active, rotate if yes
         if (playerInputActions.PlayerShip.AlignWithCamera.IsPressed())
             AlignWithCamera();
     }
-
-    // Move along Z axis (forward or backward)
-    // public void Move(float zAxisValue) {
-    //     rb.AddRelativeForce(moveSpeed * new Vector3(0, 0, zAxisValue), ForceMode.Force);
-    // }
     
     // Move along Z and Y axis (forward or backward / up or down)
-    public void Move(Vector2 movementVector) {
-        rb.AddRelativeForce(moveSpeed * new Vector3(0, movementVector.y, movementVector.x), ForceMode.Force);
+    private void Move(Vector2 movementVector) 
+    {
+        rb.AddRelativeForce(moveSpeed * Time.deltaTime * new Vector3(movementVector.y, 0, movementVector.x), ForceMode.Force);
     }
 
     // Rotate along the input vector
-    public void Rotate(Vector3 inputVector) {
-        rb.AddRelativeTorque(rotationSpeed * inputVector, ForceMode.Force);
+    private void Rotate(Vector3 inputVector) 
+    {
+        rb.AddRelativeTorque(rotationSpeed * Time.deltaTime * inputVector, ForceMode.Force);
     }
 
     // Rotate to align with the direction where camera is pointed at
-    public void AlignWithCamera() {
-        rb.MoveRotation
-        (
-            Quaternion.Slerp
-            (
+    private void AlignWithCamera()
+    {
+        rb.MoveRotation(
+            Quaternion.Slerp(
                 transform.rotation, 
                 mainCamera.transform.rotation, 
-                cameraAlignRotationSpeed * Time.fixedDeltaTime
-            )
+                cameraAlignRotationSpeed * Time.deltaTime
+                )
         );
+        
+        // Funny
+        // rb.MoveRotation(rb.rotation * Quaternion.Euler(
+        //     Quaternion.FromToRotation(
+        //         transform.rotation.eulerAngles, 
+        //         mainCamera.transform.rotation.eulerAngles
+        //         ).eulerAngles 
+        //     * Time.fixedDeltaTime)
+        // );
     }
 }
