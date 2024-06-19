@@ -121,9 +121,6 @@ namespace Wagons.Systems
                 {
                     wagon.GetWagon().gameObject.SetActive(true);
                 }
-
-                Debug.Log(_shipWagonComponent == null);
-                Debug.Log(_shipWagonComponent.backJoint == null);
                 
                 _shipWagonComponent.backJoint.UpdateAnchors();
             

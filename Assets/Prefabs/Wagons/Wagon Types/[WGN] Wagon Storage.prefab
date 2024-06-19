@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 5624068946801659092}
   - component: {fileID: 3695405118611516388}
   - component: {fileID: 4961739369735867734}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: '[WGN] Wagon Storage'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,8 +111,8 @@ Rigidbody:
   m_GameObject: {fileID: 6250737092166770224}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 0.8
+  m_AngularDrag: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -148,8 +148,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.9818866, y: 1.9917057, z: 7.2664614}
+  m_Center: {x: 0, y: 0.0147281885, z: 0.012506485}
 --- !u!33 &5624068946801659092
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -157,7 +157,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6250737092166770224}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: -5115655267171723132, guid: 60fbe275b4ac59942b0bb679eb09dc6b, type: 3}
 --- !u!23 &3695405118611516388
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -178,7 +178,11 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c8723e3a04ba5c6499a5c43c2d52acbd, type: 2}
+  - {fileID: 2100000, guid: 8511803bd3de3c446a6cc949daedf181, type: 2}
+  - {fileID: 2100000, guid: 0306db5e8bb6a0741ad64077f16d6e82, type: 2}
+  - {fileID: 2100000, guid: ef4afff06447bf745981bef59215b581, type: 2}
+  - {fileID: 2100000, guid: 6118113625036e1438980eebc9af5fab, type: 2}
+  - {fileID: 2100000, guid: 1e6dea4bfc0eb8b43a421c0459b01c66, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -310,6 +314,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6044013698716164838}
     m_Modifications:
+    - target: {fileID: 1348706747054980088, guid: 68818369e62ff27459ead741d459410e, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 1540539302668245720, guid: 68818369e62ff27459ead741d459410e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -353,6 +361,14 @@ PrefabInstance:
     - target: {fileID: 4353961604666255938, guid: 68818369e62ff27459ead741d459410e, type: 3}
       propertyPath: m_Name
       value: JointDrawer
+      objectReference: {fileID: 0}
+    - target: {fileID: 4353961604666255938, guid: 68818369e62ff27459ead741d459410e, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7801765585070280909, guid: 68818369e62ff27459ead741d459410e, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8062047821990565421, guid: 68818369e62ff27459ead741d459410e, type: 3}
       propertyPath: m_LocalPosition.z
