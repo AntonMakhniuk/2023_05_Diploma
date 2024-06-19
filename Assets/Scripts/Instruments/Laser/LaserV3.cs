@@ -112,7 +112,7 @@ public class LaserV3 : Instrument
         {
             Destroy(collider.gameObject);
 
-            Asteroid asteroid = collider.transform.parent.parent.GetComponent<Asteroid>();
+            Asteroid asteroid = collider.transform.parent.GetComponent<Asteroid>();
             asteroid.OnAsteroidPointDestroyed();
         }
     }

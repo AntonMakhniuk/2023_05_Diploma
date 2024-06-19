@@ -3,14 +3,14 @@ using UnityEngine;
 
 public interface IDestructible
 {
-    float MaxHP { get; set; }
-    float CurrentHP { get;  set; }
+    double MaxHP { get; set; }
+    double CurrentHP { get;  set; }
    // IInstrument CurrentInstrument { get; set; } 
 
-    void OnLaserInteraction(float damage);
-    void OnDrillInteraction(float damage);
-    void OnCutterInteraction(float damage);
-    void OnExplosivesInteraction(float damage);
-    void TakeDamage(float damage);
+    void OnLaserInteraction(double damage);
+    void OnDrillInteraction(double damage);
+    void OnCutterInteraction(double damage);
+    void OnExplosivesInteraction(double damage);
+    void TakeDamage(double damage);
     void InitiateDestroy();
 }
