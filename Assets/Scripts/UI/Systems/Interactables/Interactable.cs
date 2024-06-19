@@ -3,12 +3,32 @@ using UI.Systems.Interactables.States;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace UI.Systems.Interactables
 {
     public class Interactable : InteractableStateMachine
     {
-        public GameObject objectIcon, bindIcon;
+        public Image objectIconImage, bindIconImage;
+        private Sprite _objectIcon, _bindIcon;
+        public Sprite ObjectIcon
+        {
+            get => _objectIcon;
+            set
+            {
+                _objectIcon = value;
+                objectIconImage.sprite = _objectIcon;
+            }
+        }
+        public Sprite BindIcon
+        {
+            get => _bindIcon;
+            set
+            {
+                _bindIcon = value;
+                bindIconImage.sprite = _bindIcon;
+            }
+        }
         
         public UnityEvent onInteractionStarted, onInteractionEnded;
 
@@ -20,7 +40,10 @@ namespace UI.Systems.Interactables
 
         public void HandleCameraLooking()
         {
-            SetState(new Highlit(this));
+            if (State is Shown)
+            {
+                SetState(new Highlit(this));
+            }
         }
         
         private void OnTriggerEnter(Collider other)

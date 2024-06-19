@@ -9,6 +9,8 @@ namespace UI.Systems.Interactables
 
         protected void SetState(InteractableState newState)
         {
+            Debug.Log("State changed: " + newState);
+            
             State = newState;
             StartCoroutine(State.UpdateDisplay());
         }

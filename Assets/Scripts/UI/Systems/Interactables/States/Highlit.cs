@@ -10,8 +10,8 @@ namespace UI.Systems.Interactables.States
         
         public override IEnumerator UpdateDisplay()
         {
-            Interactable.objectIcon.SetActive(true);
-            Interactable.bindIcon.SetActive(true);
+            Interactable.objectIconImage.enabled = true;
+            Interactable.bindIconImage.enabled = true;
 
             return base.UpdateDisplay();
         }
