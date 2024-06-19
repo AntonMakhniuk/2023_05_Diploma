@@ -752,7 +752,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2373757292982716900, guid: a620a6ac1b0db8d46ac11c662a59a5ab, type: 3}
       propertyPath: m_ActionEvents.Array.size
-      value: 21
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 2373757292982716900, guid: a620a6ac1b0db8d46ac11c662a59a5ab, type: 3}
       propertyPath: m_ActionEvents.Array.data[11].m_ActionId
@@ -795,6 +795,18 @@ PrefabInstance:
       value: a2ae6e64-5119-4382-9b6d-229e64ef7355
       objectReference: {fileID: 0}
     - target: {fileID: 2373757292982716900, guid: a620a6ac1b0db8d46ac11c662a59a5ab, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_ActionId
+      value: cbc32d01-346f-417c-b8c9-5fcac512eb45
+      objectReference: {fileID: 0}
+    - target: {fileID: 2373757292982716900, guid: a620a6ac1b0db8d46ac11c662a59a5ab, type: 3}
+      propertyPath: m_ActionEvents.Array.data[22].m_ActionId
+      value: abb99322-4b38-4588-8303-994f37a3e252
+      objectReference: {fileID: 0}
+    - target: {fileID: 2373757292982716900, guid: a620a6ac1b0db8d46ac11c662a59a5ab, type: 3}
+      propertyPath: m_ActionEvents.Array.data[23].m_ActionId
+      value: 42c50dc8-f508-4f61-808f-053bafd339c2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2373757292982716900, guid: a620a6ac1b0db8d46ac11c662a59a5ab, type: 3}
       propertyPath: m_ActionEvents.Array.data[11].m_ActionName
       value: PlayerShip/Movement[/Keyboard/s,/Keyboard/w]
       objectReference: {fileID: 0}
@@ -834,11 +846,24 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[20].m_ActionName
       value: UI/ToggleUpgrades[/Keyboard/u]
       objectReference: {fileID: 0}
+    - target: {fileID: 2373757292982716900, guid: a620a6ac1b0db8d46ac11c662a59a5ab, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_ActionName
+      value: UI/PlaceBlueprint[/Mouse/leftButton]
+      objectReference: {fileID: 0}
+    - target: {fileID: 2373757292982716900, guid: a620a6ac1b0db8d46ac11c662a59a5ab, type: 3}
+      propertyPath: m_ActionEvents.Array.data[22].m_ActionName
+      value: UI/RemoveBlueprint[/Mouse/rightButton]
+      objectReference: {fileID: 0}
+    - target: {fileID: 2373757292982716900, guid: a620a6ac1b0db8d46ac11c662a59a5ab, type: 3}
+      propertyPath: m_ActionEvents.Array.data[23].m_ActionName
+      value: PlayerCamera/New action
+      objectReference: {fileID: 0}
     - target: {fileID: 8885786384416905617, guid: a620a6ac1b0db8d46ac11c662a59a5ab, type: 3}
       propertyPath: m_Name
       value: PlayerShip v.3
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
