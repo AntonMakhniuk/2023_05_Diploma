@@ -137,7 +137,7 @@ public class LaserV3 : Instrument
 
         // Calculate the rotation for the laser barrel (X-axis rotation)
         float barrelAngle = -Mathf.Atan2(relativeDirection.x, Mathf.Sqrt(relativeDirection.y * relativeDirection.y + relativeDirection.z * relativeDirection.z)) * Mathf.Rad2Deg;
-        laserBarrel.transform.localRotation = Quaternion.Euler(barrelAngle * -1, 0f, 0f);
+        laserBarrel.transform.localRotation = Quaternion.Euler(barrelAngle , 0f, 0f);
     }
     
     void ToggleInstrument(bool activate)

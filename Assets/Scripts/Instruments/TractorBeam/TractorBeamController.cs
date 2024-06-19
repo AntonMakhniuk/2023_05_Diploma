@@ -187,7 +187,7 @@ public class TractorBeamController : Instrument, ICollector
 
         // Calculate the rotation for the laser barrel (X-axis rotation)
         float barrelAngle = -Mathf.Atan2(relativeDirection.y, Mathf.Sqrt(relativeDirection.x * relativeDirection.x + relativeDirection.z * relativeDirection.z)) * Mathf.Rad2Deg;
-        beamBarrel.transform.localRotation = Quaternion.Euler(barrelAngle, 0f * -1, 0f);
+        beamBarrel.transform.localRotation = Quaternion.Euler(barrelAngle * -1, 0f , 0f);
     }
     private void ChangeCamera() 
     {
