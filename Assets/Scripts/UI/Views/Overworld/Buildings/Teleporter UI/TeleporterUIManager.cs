@@ -13,27 +13,34 @@ namespace UI.Views.Overworld.Buildings.Teleporter_UI
     public class TeleporterUIManager : MonoBehaviour, IUIElement
     {
         private readonly Dictionary<Teleporter, TeleporterTile> _teleporterTiles = new();
-        private TeleporterTile _selectedTeleporterTile;
         
         private Teleporter _currentTeleporter, _openingTeleporter;
 
         [SerializeField] private TMP_Text errorText;
         [SerializeField] private GridLayoutGroup grid;
         [SerializeField] private Button teleportButton;
+        [SerializeField] private TeleporterTile selectedTeleporterTile;
         [SerializeField] private GameObject teleporterTilePrefab;
 
         public void Initialize()
         {
+            if (!BuildingManager.Instance.InstancesByType.TryGetValue(BuildingType.Teleporter, out _))
+            {
+                return;
+            }
+            
             if (BuildingManager.Instance.InstancesByType[BuildingType.Teleporter].Count > 2)
             {
                 errorText.enabled = true;
                 grid.enabled = false;
+                selectedTeleporterTile.enabled = false;
                 teleportButton.interactable = false;
             }
             else
             {
                 errorText.enabled = false;
                 grid.enabled = true;
+                selectedTeleporterTile.enabled = true;
                 teleportButton.interactable = true;
                 
                 GenerateTeleporterTiles();
@@ -105,8 +112,8 @@ namespace UI.Views.Overworld.Buildings.Teleporter_UI
         {
             var teleporterData = _teleporterTiles[teleporter];
 
-            _selectedTeleporterTile.Icon = teleporterData.Icon;
-            _selectedTeleporterTile.coordinates = teleporterData.coordinates;
+            selectedTeleporterTile.Icon = teleporterData.Icon;
+            selectedTeleporterTile.coordinates = teleporterData.coordinates;
         }
     }
 }
