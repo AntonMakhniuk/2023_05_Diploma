@@ -28,45 +28,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             ""id"": ""40e0c021-8b2b-47c2-8c09-0c07232be718"",
             ""actions"": [
                 {
-                    ""name"": ""MouseCameraMovement"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""79c76f7d-7069-4fd2-bbcf-8c723260f903"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Movement"",
-                    ""type"": ""Button"",
-                    ""id"": ""a45dd632-7566-4c7b-b7b2-eb9b6bc79c2a"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
                     ""name"": ""AlignWithCamera"",
                     ""type"": ""Button"",
                     ""id"": ""e5de1bfa-6c14-42be-b71f-37d99f8fa03e"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""RotateAlongY"",
-                    ""type"": ""Button"",
-                    ""id"": ""4d9f5733-9df1-4dcb-b328-d24e8011a84d"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""RotateAlongZ"",
-                    ""type"": ""Button"",
-                    ""id"": ""9de35a2d-9a5d-47cb-9cb7-2a34e5948d36"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -118,15 +82,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Movement2"",
-                    ""type"": ""Value"",
-                    ""id"": ""6348877e-c5d8-41a3-912d-2826c54ab698"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
                     ""name"": ""Brakes"",
                     ""type"": ""Button"",
                     ""id"": ""f44241a1-ae12-49b1-968c-46e3a4f6f4e4"",
@@ -134,174 +89,54 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Thrust"",
+                    ""type"": ""Value"",
+                    ""id"": ""a86a0477-64f5-45aa-bbe4-972be76d9523"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Strafe"",
+                    ""type"": ""Value"",
+                    ""id"": ""e44975b0-3ccd-47bd-824b-055fe946f162"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Pitch"",
+                    ""type"": ""Value"",
+                    ""id"": ""ee059aac-951f-4baf-81d1-ee94905098c8"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Yaw"",
+                    ""type"": ""Value"",
+                    ""id"": ""7b9e5dd1-91c9-485e-a0bc-9512d925bacd"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Roll"",
+                    ""type"": ""Value"",
+                    ""id"": ""d7272ac4-8b6d-4f83-a6da-781284d7b737"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": ""One Modifier"",
-                    ""id"": ""4d82881e-174d-49e2-8b6a-6a17186f02e6"",
-                    ""path"": ""OneModifier"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MouseCameraMovement"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""modifier"",
-                    ""id"": ""6cf0de82-eea0-4621-873a-30af5268c430"",
-                    ""path"": ""<Keyboard>/shift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MouseCameraMovement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""binding"",
-                    ""id"": ""b16001b6-836a-4d81-8710-88f9f446a39b"",
-                    ""path"": ""<Mouse>/delta"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MouseCameraMovement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Forward/Backward"",
-                    ""id"": ""852620a6-d135-49fd-b8ad-90d2ec75860f"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""75c27e4a-f1c2-4f53-96b2-1dabc1cd531a"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""97857c57-7643-4bc2-a9ee-09a83bca7171"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""BothMouseButtonPushed"",
-                    ""id"": ""9f4ddde9-9209-407e-bbb1-c5249994c1a3"",
-                    ""path"": ""OneModifier"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""AlignWithCamera"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""modifier"",
-                    ""id"": ""f20036ab-9cb5-4072-8477-ff25e7ed41e6"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""AlignWithCamera"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""binding"",
-                    ""id"": ""850a0843-908d-4920-8fcd-350383647282"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""AlignWithCamera"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Left/Right"",
-                    ""id"": ""7497a25c-121b-4579-a5ac-667863ad3957"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""RotateAlongY"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""f133044d-e21c-4947-b839-4b9e9306a16c"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""RotateAlongY"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""aa1bdbf1-fd54-4347-9d54-72747c44101c"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""RotateAlongY"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""LeftTilt/RightTilt"",
-                    ""id"": ""c7198939-499a-4fa1-a516-d490a2f636c2"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""RotateAlongZ"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""eba4ecc4-1d6b-4fb8-8c18-01ecab94f1bc"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""RotateAlongZ"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""a11563c6-5314-44fe-86a5-1d8b9b205929"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""RotateAlongZ"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
                 {
                     ""name"": """",
                     ""id"": ""71cc4386-c5e5-411c-969f-63611f2d9ed5"",
@@ -358,61 +193,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""Up/Down/Forward/Backward"",
-                    ""id"": ""93e4117f-2630-4dcb-9185-3166cde7f4a0"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement2"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""0ff8fb32-fc32-43c5-9c54-d4fccb5321e7"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement2"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""339b26f0-e858-4021-9721-0adce4149b43"",
-                    ""path"": ""<Keyboard>/c"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement2"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""b99d4a2f-e501-40c6-a64d-cd5a6db48d8e"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement2"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""4be9077d-3c1f-4bfa-81ff-0883fdadd84d"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement2"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": """",
                     ""id"": ""277b6764-9139-4d5b-a73c-3c024a818683"",
                     ""path"": ""<Keyboard>/leftCtrl"",
@@ -420,6 +200,182 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Brakes"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""ThrustKB"",
+                    ""id"": ""49547e73-0abc-498d-886e-e56caf02b87f"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Thrust"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""d79a2557-b0a0-439d-b6e2-39cfffb0e2fd"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Thrust"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""ab15037f-fa99-46ba-af0d-7ec811459133"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Thrust"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""StrafeKB"",
+                    ""id"": ""2dff6b50-469d-40ba-91ec-bc79bd829315"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Strafe"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""12c22c9f-127e-4c38-8404-1d4e1f9bff67"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Strafe"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""c594dc1f-bb14-4e03-8d0c-5d890a6ab55a"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Strafe"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""PitchKB"",
+                    ""id"": ""1d2474da-6d5a-4d6c-8026-8aa798182b69"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pitch"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""2a8e5547-52ca-4d5d-8427-8c448a0225c5"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pitch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""8e62f3be-6868-4f20-8451-b59dcbd09003"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pitch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""YawKB"",
+                    ""id"": ""02f67b70-fb1f-4712-af71-ab88a734f9a9"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Yaw"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""fa205a5b-2abc-4d91-af8b-3c38c8f5f946"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Yaw"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""6fbeb2c5-63a0-4675-b918-a50422098dda"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Yaw"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""RollKB"",
+                    ""id"": ""ea7003a9-84c6-415e-bda9-99dc143b7013"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Roll"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""7bee88fd-3571-4eff-9d60-63d8834a01cd"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Roll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""0a005394-e7ea-4b29-8ff5-8f257be59f25"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Roll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""147738c2-2120-4d4c-a2bb-20f13d20b836"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AlignWithCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -652,24 +608,52 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""PlayerCamera"",
+            ""id"": ""6e0f7517-3757-496d-823e-e379aeb2934a"",
+            ""actions"": [
+                {
+                    ""name"": ""CameraMovement"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""42c50dc8-f508-4f61-808f-053bafd339c2"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""d36682e0-7e25-4c8b-9fa9-488a9a09dd5c"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CameraMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
 }");
         // PlayerShip
         m_PlayerShip = asset.FindActionMap("PlayerShip", throwIfNotFound: true);
-        m_PlayerShip_MouseCameraMovement = m_PlayerShip.FindAction("MouseCameraMovement", throwIfNotFound: true);
-        m_PlayerShip_Movement = m_PlayerShip.FindAction("Movement", throwIfNotFound: true);
         m_PlayerShip_AlignWithCamera = m_PlayerShip.FindAction("AlignWithCamera", throwIfNotFound: true);
-        m_PlayerShip_RotateAlongY = m_PlayerShip.FindAction("RotateAlongY", throwIfNotFound: true);
-        m_PlayerShip_RotateAlongZ = m_PlayerShip.FindAction("RotateAlongZ", throwIfNotFound: true);
         m_PlayerShip_ToggleTractorBeam = m_PlayerShip.FindAction("ToggleTractorBeam", throwIfNotFound: true);
         m_PlayerShip_ToggleDrill = m_PlayerShip.FindAction("ToggleDrill", throwIfNotFound: true);
         m_PlayerShip_ToggleGasCollector = m_PlayerShip.FindAction("ToggleGasCollector", throwIfNotFound: true);
         m_PlayerShip_InstrumentPrimary = m_PlayerShip.FindAction("InstrumentPrimary", throwIfNotFound: true);
         m_PlayerShip_InstrumentSecondary = m_PlayerShip.FindAction("InstrumentSecondary", throwIfNotFound: true);
-        m_PlayerShip_Movement2 = m_PlayerShip.FindAction("Movement2", throwIfNotFound: true);
         m_PlayerShip_Brakes = m_PlayerShip.FindAction("Brakes", throwIfNotFound: true);
+        m_PlayerShip_Thrust = m_PlayerShip.FindAction("Thrust", throwIfNotFound: true);
+        m_PlayerShip_Strafe = m_PlayerShip.FindAction("Strafe", throwIfNotFound: true);
+        m_PlayerShip_Pitch = m_PlayerShip.FindAction("Pitch", throwIfNotFound: true);
+        m_PlayerShip_Yaw = m_PlayerShip.FindAction("Yaw", throwIfNotFound: true);
+        m_PlayerShip_Roll = m_PlayerShip.FindAction("Roll", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_CloseWindowOpenPause = m_UI.FindAction("CloseWindowOpenPause", throwIfNotFound: true);
@@ -683,6 +667,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_UI_ToggleUpgrades = m_UI.FindAction("ToggleUpgrades", throwIfNotFound: true);
         m_UI_PlaceBlueprint = m_UI.FindAction("PlaceBlueprint", throwIfNotFound: true);
         m_UI_RemoveBlueprint = m_UI.FindAction("RemoveBlueprint", throwIfNotFound: true);
+        // PlayerCamera
+        m_PlayerCamera = asset.FindActionMap("PlayerCamera", throwIfNotFound: true);
+        m_PlayerCamera_CameraMovement = m_PlayerCamera.FindAction("CameraMovement", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -744,34 +731,34 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     // PlayerShip
     private readonly InputActionMap m_PlayerShip;
     private List<IPlayerShipActions> m_PlayerShipActionsCallbackInterfaces = new List<IPlayerShipActions>();
-    private readonly InputAction m_PlayerShip_MouseCameraMovement;
-    private readonly InputAction m_PlayerShip_Movement;
     private readonly InputAction m_PlayerShip_AlignWithCamera;
-    private readonly InputAction m_PlayerShip_RotateAlongY;
-    private readonly InputAction m_PlayerShip_RotateAlongZ;
     private readonly InputAction m_PlayerShip_ToggleTractorBeam;
     private readonly InputAction m_PlayerShip_ToggleDrill;
     private readonly InputAction m_PlayerShip_ToggleGasCollector;
     private readonly InputAction m_PlayerShip_InstrumentPrimary;
     private readonly InputAction m_PlayerShip_InstrumentSecondary;
-    private readonly InputAction m_PlayerShip_Movement2;
     private readonly InputAction m_PlayerShip_Brakes;
+    private readonly InputAction m_PlayerShip_Thrust;
+    private readonly InputAction m_PlayerShip_Strafe;
+    private readonly InputAction m_PlayerShip_Pitch;
+    private readonly InputAction m_PlayerShip_Yaw;
+    private readonly InputAction m_PlayerShip_Roll;
     public struct PlayerShipActions
     {
         private @PlayerInputActions m_Wrapper;
         public PlayerShipActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @MouseCameraMovement => m_Wrapper.m_PlayerShip_MouseCameraMovement;
-        public InputAction @Movement => m_Wrapper.m_PlayerShip_Movement;
         public InputAction @AlignWithCamera => m_Wrapper.m_PlayerShip_AlignWithCamera;
-        public InputAction @RotateAlongY => m_Wrapper.m_PlayerShip_RotateAlongY;
-        public InputAction @RotateAlongZ => m_Wrapper.m_PlayerShip_RotateAlongZ;
         public InputAction @ToggleTractorBeam => m_Wrapper.m_PlayerShip_ToggleTractorBeam;
         public InputAction @ToggleDrill => m_Wrapper.m_PlayerShip_ToggleDrill;
         public InputAction @ToggleGasCollector => m_Wrapper.m_PlayerShip_ToggleGasCollector;
         public InputAction @InstrumentPrimary => m_Wrapper.m_PlayerShip_InstrumentPrimary;
         public InputAction @InstrumentSecondary => m_Wrapper.m_PlayerShip_InstrumentSecondary;
-        public InputAction @Movement2 => m_Wrapper.m_PlayerShip_Movement2;
         public InputAction @Brakes => m_Wrapper.m_PlayerShip_Brakes;
+        public InputAction @Thrust => m_Wrapper.m_PlayerShip_Thrust;
+        public InputAction @Strafe => m_Wrapper.m_PlayerShip_Strafe;
+        public InputAction @Pitch => m_Wrapper.m_PlayerShip_Pitch;
+        public InputAction @Yaw => m_Wrapper.m_PlayerShip_Yaw;
+        public InputAction @Roll => m_Wrapper.m_PlayerShip_Roll;
         public InputActionMap Get() { return m_Wrapper.m_PlayerShip; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -781,21 +768,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_PlayerShipActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_PlayerShipActionsCallbackInterfaces.Add(instance);
-            @MouseCameraMovement.started += instance.OnMouseCameraMovement;
-            @MouseCameraMovement.performed += instance.OnMouseCameraMovement;
-            @MouseCameraMovement.canceled += instance.OnMouseCameraMovement;
-            @Movement.started += instance.OnMovement;
-            @Movement.performed += instance.OnMovement;
-            @Movement.canceled += instance.OnMovement;
             @AlignWithCamera.started += instance.OnAlignWithCamera;
             @AlignWithCamera.performed += instance.OnAlignWithCamera;
             @AlignWithCamera.canceled += instance.OnAlignWithCamera;
-            @RotateAlongY.started += instance.OnRotateAlongY;
-            @RotateAlongY.performed += instance.OnRotateAlongY;
-            @RotateAlongY.canceled += instance.OnRotateAlongY;
-            @RotateAlongZ.started += instance.OnRotateAlongZ;
-            @RotateAlongZ.performed += instance.OnRotateAlongZ;
-            @RotateAlongZ.canceled += instance.OnRotateAlongZ;
             @ToggleTractorBeam.started += instance.OnToggleTractorBeam;
             @ToggleTractorBeam.performed += instance.OnToggleTractorBeam;
             @ToggleTractorBeam.canceled += instance.OnToggleTractorBeam;
@@ -811,31 +786,31 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @InstrumentSecondary.started += instance.OnInstrumentSecondary;
             @InstrumentSecondary.performed += instance.OnInstrumentSecondary;
             @InstrumentSecondary.canceled += instance.OnInstrumentSecondary;
-            @Movement2.started += instance.OnMovement2;
-            @Movement2.performed += instance.OnMovement2;
-            @Movement2.canceled += instance.OnMovement2;
             @Brakes.started += instance.OnBrakes;
             @Brakes.performed += instance.OnBrakes;
             @Brakes.canceled += instance.OnBrakes;
+            @Thrust.started += instance.OnThrust;
+            @Thrust.performed += instance.OnThrust;
+            @Thrust.canceled += instance.OnThrust;
+            @Strafe.started += instance.OnStrafe;
+            @Strafe.performed += instance.OnStrafe;
+            @Strafe.canceled += instance.OnStrafe;
+            @Pitch.started += instance.OnPitch;
+            @Pitch.performed += instance.OnPitch;
+            @Pitch.canceled += instance.OnPitch;
+            @Yaw.started += instance.OnYaw;
+            @Yaw.performed += instance.OnYaw;
+            @Yaw.canceled += instance.OnYaw;
+            @Roll.started += instance.OnRoll;
+            @Roll.performed += instance.OnRoll;
+            @Roll.canceled += instance.OnRoll;
         }
 
         private void UnregisterCallbacks(IPlayerShipActions instance)
         {
-            @MouseCameraMovement.started -= instance.OnMouseCameraMovement;
-            @MouseCameraMovement.performed -= instance.OnMouseCameraMovement;
-            @MouseCameraMovement.canceled -= instance.OnMouseCameraMovement;
-            @Movement.started -= instance.OnMovement;
-            @Movement.performed -= instance.OnMovement;
-            @Movement.canceled -= instance.OnMovement;
             @AlignWithCamera.started -= instance.OnAlignWithCamera;
             @AlignWithCamera.performed -= instance.OnAlignWithCamera;
             @AlignWithCamera.canceled -= instance.OnAlignWithCamera;
-            @RotateAlongY.started -= instance.OnRotateAlongY;
-            @RotateAlongY.performed -= instance.OnRotateAlongY;
-            @RotateAlongY.canceled -= instance.OnRotateAlongY;
-            @RotateAlongZ.started -= instance.OnRotateAlongZ;
-            @RotateAlongZ.performed -= instance.OnRotateAlongZ;
-            @RotateAlongZ.canceled -= instance.OnRotateAlongZ;
             @ToggleTractorBeam.started -= instance.OnToggleTractorBeam;
             @ToggleTractorBeam.performed -= instance.OnToggleTractorBeam;
             @ToggleTractorBeam.canceled -= instance.OnToggleTractorBeam;
@@ -851,12 +826,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @InstrumentSecondary.started -= instance.OnInstrumentSecondary;
             @InstrumentSecondary.performed -= instance.OnInstrumentSecondary;
             @InstrumentSecondary.canceled -= instance.OnInstrumentSecondary;
-            @Movement2.started -= instance.OnMovement2;
-            @Movement2.performed -= instance.OnMovement2;
-            @Movement2.canceled -= instance.OnMovement2;
             @Brakes.started -= instance.OnBrakes;
             @Brakes.performed -= instance.OnBrakes;
             @Brakes.canceled -= instance.OnBrakes;
+            @Thrust.started -= instance.OnThrust;
+            @Thrust.performed -= instance.OnThrust;
+            @Thrust.canceled -= instance.OnThrust;
+            @Strafe.started -= instance.OnStrafe;
+            @Strafe.performed -= instance.OnStrafe;
+            @Strafe.canceled -= instance.OnStrafe;
+            @Pitch.started -= instance.OnPitch;
+            @Pitch.performed -= instance.OnPitch;
+            @Pitch.canceled -= instance.OnPitch;
+            @Yaw.started -= instance.OnYaw;
+            @Yaw.performed -= instance.OnYaw;
+            @Yaw.canceled -= instance.OnYaw;
+            @Roll.started -= instance.OnRoll;
+            @Roll.performed -= instance.OnRoll;
+            @Roll.canceled -= instance.OnRoll;
         }
 
         public void RemoveCallbacks(IPlayerShipActions instance)
@@ -1000,20 +987,66 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         }
     }
     public UIActions @UI => new UIActions(this);
+
+    // PlayerCamera
+    private readonly InputActionMap m_PlayerCamera;
+    private List<IPlayerCameraActions> m_PlayerCameraActionsCallbackInterfaces = new List<IPlayerCameraActions>();
+    private readonly InputAction m_PlayerCamera_CameraMovement;
+    public struct PlayerCameraActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public PlayerCameraActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @CameraMovement => m_Wrapper.m_PlayerCamera_CameraMovement;
+        public InputActionMap Get() { return m_Wrapper.m_PlayerCamera; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(PlayerCameraActions set) { return set.Get(); }
+        public void AddCallbacks(IPlayerCameraActions instance)
+        {
+            if (instance == null || m_Wrapper.m_PlayerCameraActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_PlayerCameraActionsCallbackInterfaces.Add(instance);
+            @CameraMovement.started += instance.OnCameraMovement;
+            @CameraMovement.performed += instance.OnCameraMovement;
+            @CameraMovement.canceled += instance.OnCameraMovement;
+        }
+
+        private void UnregisterCallbacks(IPlayerCameraActions instance)
+        {
+            @CameraMovement.started -= instance.OnCameraMovement;
+            @CameraMovement.performed -= instance.OnCameraMovement;
+            @CameraMovement.canceled -= instance.OnCameraMovement;
+        }
+
+        public void RemoveCallbacks(IPlayerCameraActions instance)
+        {
+            if (m_Wrapper.m_PlayerCameraActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IPlayerCameraActions instance)
+        {
+            foreach (var item in m_Wrapper.m_PlayerCameraActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_PlayerCameraActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public PlayerCameraActions @PlayerCamera => new PlayerCameraActions(this);
     public interface IPlayerShipActions
     {
-        void OnMouseCameraMovement(InputAction.CallbackContext context);
-        void OnMovement(InputAction.CallbackContext context);
         void OnAlignWithCamera(InputAction.CallbackContext context);
-        void OnRotateAlongY(InputAction.CallbackContext context);
-        void OnRotateAlongZ(InputAction.CallbackContext context);
         void OnToggleTractorBeam(InputAction.CallbackContext context);
         void OnToggleDrill(InputAction.CallbackContext context);
         void OnToggleGasCollector(InputAction.CallbackContext context);
         void OnInstrumentPrimary(InputAction.CallbackContext context);
         void OnInstrumentSecondary(InputAction.CallbackContext context);
-        void OnMovement2(InputAction.CallbackContext context);
         void OnBrakes(InputAction.CallbackContext context);
+        void OnThrust(InputAction.CallbackContext context);
+        void OnStrafe(InputAction.CallbackContext context);
+        void OnPitch(InputAction.CallbackContext context);
+        void OnYaw(InputAction.CallbackContext context);
+        void OnRoll(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
@@ -1028,5 +1061,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnToggleUpgrades(InputAction.CallbackContext context);
         void OnPlaceBlueprint(InputAction.CallbackContext context);
         void OnRemoveBlueprint(InputAction.CallbackContext context);
+    }
+    public interface IPlayerCameraActions
+    {
+        void OnCameraMovement(InputAction.CallbackContext context);
     }
 }
