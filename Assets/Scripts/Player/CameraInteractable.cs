@@ -1,17 +1,19 @@
-﻿using System;
-using UI.Systems.Interactables;
+﻿using UI.Systems.Interactables;
 using UnityEngine;
 
 namespace Player
 {
     public class CameraInteractable : MonoBehaviour
     {
-        public static float InteractionRange;
+        [SerializeField] private float interactionRange;
         
         private void Update()
         {
-            Physics.Raycast(transform.position, transform.forward, out var hit, 
-                InteractionRange, LayerMask.GetMask("Interactable"), QueryTriggerInteraction.Ignore);
+            if (!Physics.Raycast(transform.position, transform.forward, out var hit,
+                    interactionRange, LayerMask.GetMask("Interactable"), QueryTriggerInteraction.Ignore))
+            {
+                return;
+            }
             
             hit.transform.GetComponent<Interactable>().HandleCameraLooking();
         }

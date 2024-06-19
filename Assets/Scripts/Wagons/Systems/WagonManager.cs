@@ -3,6 +3,7 @@ using System.Linq;
 using AYellowpaper.SerializedCollections;
 using JetBrains.Annotations;
 using Miscellaneous;
+using Player;
 using UnityEngine;
 using Wagons.Miscellaneous;
 using Wagons.Wagon_Types;
@@ -17,12 +18,12 @@ namespace Wagons.Systems
         
         [SerializedDictionary("Wagon Type", "Associated Prefab")]
         [SerializeField] private SerializedDictionary<WagonType, GameObject> wagonTypePrefabAssociations;
-        [SerializeField] private WagonPlayerShip shipWagonComponent;
         
         private List<WagonChain> _allChains = new();
         private WagonChain _attachedChain = new();
         private List<IWagon> _attachedWagons = new();
         private WagonChain _attachedChainBackup = new();
+        private WagonPlayerShip _shipWagonComponent;
         private Transform _shipTransform;
         private bool _modificationAllowed;
 
@@ -43,8 +44,8 @@ namespace Wagons.Systems
         {
             _attachedChain = new WagonChain();
             _attachedWagons = _attachedChain.AttachedWagons;
-            
-            _shipTransform = shipWagonComponent.transform;
+            _shipWagonComponent = PlayerShip.Instance.GetComponent<WagonPlayerShip>();
+            _shipTransform = _shipWagonComponent.transform;
         }
 
         public List<IWagon> GetAllAttachedWagons()
@@ -121,10 +122,10 @@ namespace Wagons.Systems
                     wagon.GetWagon().gameObject.SetActive(true);
                 }
 
-                Debug.Log(shipWagonComponent == null);
-                Debug.Log(shipWagonComponent.backJoint == null);
+                Debug.Log(_shipWagonComponent == null);
+                Debug.Log(_shipWagonComponent.backJoint == null);
                 
-                shipWagonComponent.backJoint.UpdateAnchors();
+                _shipWagonComponent.backJoint.UpdateAnchors();
             
                 foreach (var wagon in _attachedWagons)
                 {
@@ -155,7 +156,7 @@ namespace Wagons.Systems
             }
             
             var backJointPosition = _attachedChain.AttachedWagons.Count == 0
-                ? shipWagonComponent.backJoint.GetPosition()
+                ? _shipWagonComponent.backJoint.GetPosition()
                 : _attachedChain.AttachedWagons[^1].GetWagon().backJoint.GetPosition();
             
             GameObject newWagon = Instantiate
@@ -306,7 +307,7 @@ namespace Wagons.Systems
             for (int i = 0; i < tempChain.AttachedWagons.Count; i++)
             {
                 var backJointPosition = i == 0
-                    ? shipWagonComponent.backJoint.GetPosition()
+                    ? _shipWagonComponent.backJoint.GetPosition()
                     : tempChain.AttachedWagons[i - 1].GetWagon().backJoint.GetPosition();
                 
                 var wagon = tempChain.AttachedWagons[i].GetWagon();
@@ -357,7 +358,7 @@ namespace Wagons.Systems
                 return null;
             }
             
-            DisconnectWagonFrom(shipWagonComponent);
+            DisconnectWagonFrom(_shipWagonComponent);
             
             var newChain = new WagonChain { AttachedWagons = new List<IWagon>(_attachedWagons) };
             
@@ -383,7 +384,7 @@ namespace Wagons.Systems
                 return;
             }
             
-            ConnectWagons(shipWagonComponent, chain.AttachedWagons.ElementAt(0));
+            ConnectWagons(_shipWagonComponent, chain.AttachedWagons.ElementAt(0));
 
             _allChains.Remove(chain);
             

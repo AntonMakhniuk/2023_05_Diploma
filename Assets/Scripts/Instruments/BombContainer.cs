@@ -1,5 +1,6 @@
 using Assets.Scripts.Instruments;
 using Cinemachine;
+using Player;
 using UnityEngine;
 
 public class BombContainer : Instrument
