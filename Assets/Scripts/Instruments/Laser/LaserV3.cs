@@ -132,12 +132,12 @@ public class LaserV3 : Instrument
         Vector3 relativeDirection = PlayerShip.Instance.transform.InverseTransformDirection(direction);
 
         // Calculate the rotation for the laser leg (Y-axis rotation)
-        float legAngle = Mathf.Atan2(relativeDirection.x, relativeDirection.z) * Mathf.Rad2Deg;
-        laserLeg.transform.localRotation = Quaternion.Euler(0f, legAngle, 0f);
+        float legAngle = Mathf.Atan2(relativeDirection.y, relativeDirection.z) * Mathf.Rad2Deg;
+        laserLeg.transform.localRotation = Quaternion.Euler(0f, legAngle * -1, 0f);
 
         // Calculate the rotation for the laser barrel (X-axis rotation)
-        float barrelAngle = -Mathf.Atan2(relativeDirection.y, Mathf.Sqrt(relativeDirection.x * relativeDirection.x + relativeDirection.z * relativeDirection.z)) * Mathf.Rad2Deg;
-        laserBarrel.transform.localRotation = Quaternion.Euler(barrelAngle, 0f, 0f);
+        float barrelAngle = -Mathf.Atan2(relativeDirection.x, Mathf.Sqrt(relativeDirection.y * relativeDirection.y + relativeDirection.z * relativeDirection.z)) * Mathf.Rad2Deg;
+        laserBarrel.transform.localRotation = Quaternion.Euler(barrelAngle , 0f, 0f);
     }
     
     void ToggleInstrument(bool activate)
@@ -156,10 +156,7 @@ public class LaserV3 : Instrument
             crosshairCanvas.gameObject.SetActive(false);
             SetActiveTool(false);
         }
-        if (_spaceshipTransform != null)
-        {
-            transform.rotation = _spaceshipTransform.rotation;
-        }
+        
     }
     public override void Toggle()
     {
@@ -175,10 +172,7 @@ public class LaserV3 : Instrument
             crosshairCanvas.gameObject.SetActive(false);
             SetActiveTool(false);
         }
-        if (_spaceshipTransform != null)
-        {
-            transform.rotation = _spaceshipTransform.rotation;
-        }
+        
     }
 
     private void ChangeCamera() 

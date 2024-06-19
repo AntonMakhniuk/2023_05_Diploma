@@ -145,10 +145,7 @@ public class TractorBeamController : Instrument, ICollector
             crosshairCanvas.gameObject.SetActive(false);
             SetActiveTool(false);
         }
-        if (_spaceshipTransform != null)
-        {
-            transform.rotation = _spaceshipTransform.rotation;
-        }
+       
     }
 
     void ToggleInstrument(bool activate)
@@ -167,10 +164,7 @@ public class TractorBeamController : Instrument, ICollector
             crosshairCanvas.gameObject.SetActive(false);
             SetActiveTool(false);
         }
-        if (_spaceshipTransform != null)
-        {
-            transform.rotation = _spaceshipTransform.rotation;
-        }
+        
     }
     public void RotateWithCamera() 
     {
@@ -189,11 +183,11 @@ public class TractorBeamController : Instrument, ICollector
 
         // Calculate the rotation for the laser leg (Y-axis rotation)
         float legAngle = Mathf.Atan2(relativeDirection.x, relativeDirection.z) * Mathf.Rad2Deg;
-        beamLeg.transform.localRotation = Quaternion.Euler(0f, legAngle, 0f);
+        beamLeg.transform.localRotation = Quaternion.Euler(0f, legAngle * -1, 0f);
 
         // Calculate the rotation for the laser barrel (X-axis rotation)
         float barrelAngle = -Mathf.Atan2(relativeDirection.y, Mathf.Sqrt(relativeDirection.x * relativeDirection.x + relativeDirection.z * relativeDirection.z)) * Mathf.Rad2Deg;
-        beamBarrel.transform.localRotation = Quaternion.Euler(barrelAngle, 0f, 0f);
+        beamBarrel.transform.localRotation = Quaternion.Euler(barrelAngle * -1, 0f , 0f);
     }
     private void ChangeCamera() 
     {
