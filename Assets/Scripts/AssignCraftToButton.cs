@@ -1,5 +1,6 @@
 using Production.Crafting;
 using Production.Systems;
+using Scriptable_Object_Templates.Crafting;
 using UnityEngine;
 using UnityEngine.UI;
 

@@ -7,6 +7,7 @@ namespace Production.Crafting
     public class DifficultyConfig : ConfigBase
     {
         public int productionLengthInSeconds;
+        public Difficulty recipeDifficulty;
     }
     
     public enum Difficulty

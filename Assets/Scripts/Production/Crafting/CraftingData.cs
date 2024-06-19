@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Scriptable_Object_Templates.Crafting;
 
 namespace Production.Crafting
 {
