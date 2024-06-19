@@ -1370,15 +1370,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2180858187666896097, guid: 55a433a272c7da245889e4183048bbba, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -22.8
+      value: -25.32
       objectReference: {fileID: 0}
     - target: {fileID: 2180858187666896097, guid: 55a433a272c7da245889e4183048bbba, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 2.09
       objectReference: {fileID: 0}
     - target: {fileID: 2180858187666896097, guid: 55a433a272c7da245889e4183048bbba, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 26.4
+      value: -0.75
       objectReference: {fileID: 0}
     - target: {fileID: 2180858187666896097, guid: 55a433a272c7da245889e4183048bbba, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1407,6 +1407,14 @@ PrefabInstance:
     - target: {fileID: 2180858187666896097, guid: 55a433a272c7da245889e4183048bbba, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5501931029056259250, guid: 55a433a272c7da245889e4183048bbba, type: 3}
+      propertyPath: isRoom
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5501931029056259250, guid: 55a433a272c7da245889e4183048bbba, type: 3}
+      propertyPath: spawnInterval
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5501931029056259250, guid: 55a433a272c7da245889e4183048bbba, type: 3}
       propertyPath: asteroidPrefab
@@ -1474,6 +1482,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 40883793989788420, guid: a620a6ac1b0db8d46ac11c662a59a5ab, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.87570953
+      objectReference: {fileID: 0}
     - target: {fileID: 782577034239547090, guid: a620a6ac1b0db8d46ac11c662a59a5ab, type: 3}
       propertyPath: m_LocalPosition.x
       value: -31.79
@@ -1526,6 +1538,22 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.000000004838501
       objectReference: {fileID: 0}
+    - target: {fileID: 2533871850895043035, guid: a620a6ac1b0db8d46ac11c662a59a5ab, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2722012800524724631, guid: a620a6ac1b0db8d46ac11c662a59a5ab, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.0385668
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698896617907675445, guid: a620a6ac1b0db8d46ac11c662a59a5ab, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4245124157176306086, guid: a620a6ac1b0db8d46ac11c662a59a5ab, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.0958843
+      objectReference: {fileID: 0}
     - target: {fileID: 6306497080299356873, guid: a620a6ac1b0db8d46ac11c662a59a5ab, type: 3}
       propertyPath: m_LocalRotation.y
       value: -0.0000000042804333
@@ -1538,7 +1566,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerShip v.3
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5024123475562008057, guid: a620a6ac1b0db8d46ac11c662a59a5ab, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
