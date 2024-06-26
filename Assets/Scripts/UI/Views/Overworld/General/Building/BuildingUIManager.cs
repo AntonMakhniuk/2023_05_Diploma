@@ -36,6 +36,9 @@ namespace UI.Views.Overworld.General.Building
 
         private void CreateBuildingTile(BuildingData data)
         {
+            Debug.Log(buildingTilePrefab);
+            Debug.Log(grid);
+            
             var buildingTileObject = Instantiate(buildingTilePrefab, grid.transform);
             var buildingTile = buildingTileObject.GetComponent<BuildingTile>();
             

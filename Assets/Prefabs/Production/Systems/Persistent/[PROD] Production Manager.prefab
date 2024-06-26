@@ -56,13 +56,16 @@ MonoBehaviour:
   challengeRegistry: {fileID: 2793070841649305542}
   sessionManagerPrefab: {fileID: 885985384335834552, guid: 87b525f2dbf26ea4d8a1c8c004794927, type: 3}
   configs:
-  - difficulty: 1
-    minGeneralChallengesInSession: 2
+  - difficulty: 3
+    minGeneralChallengesInSession: 4
     maxGeneralChallengesInSession: 4
-    firstFailBonusLoss: 0
-    secondFailBonusLoss: 0
-    maxFailCount: 0
+    firstFailBonusLoss: -25
+    secondFailBonusLoss: -25
+    maxFailCount: 3
   onProductionStarted:
+    m_PersistentCalls:
+      m_Calls: []
+  onProductionEnded:
     m_PersistentCalls:
       m_Calls: []
 --- !u!223 &-2017889227278904842

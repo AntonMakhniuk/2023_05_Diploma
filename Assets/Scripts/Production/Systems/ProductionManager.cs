@@ -39,50 +39,50 @@ namespace Production.Systems
         
         public UnityEvent onProductionStarted, onProductionEnded;
         
-        public void StartProduction(CraftingData craftingData)
+        public static void StartProduction(CraftingData craftingData)
         {
-            Config = configs
+            Instance.Config = Instance.configs
                 .FirstOrDefault(config => config.difficulty == craftingData.Recipe.difficultyConfig.difficulty);
             
-            if (Config == null)
+            if (Instance.Config == null)
             {
-                Debug.LogError($"No appropriate config found for {GetType().Name} " +
+                Debug.LogError($"No appropriate config found for {Instance.GetType().Name} " +
                                $"at {craftingData.Recipe.difficultyConfig}. " +
                                "Reverting to first available config.");
                 
-                Config = configs[0];
+                Instance.Config = Instance.configs[0];
             }
 
-            if (Config == null)
+            if (Instance.Config == null)
             {
-                throw new Exception($"No config available for {GetType().Name}. Cannot start production.");
+                throw new Exception($"No config available for {Instance.GetType().Name}. Cannot start production.");
             }
 
-            _currentManagerObject = Instantiate(sessionManagerPrefab, transform);
-            currentManager = _currentManagerObject.GetComponent<ProductionSessionManager>();
+            Instance._currentManagerObject = Instantiate(Instance.sessionManagerPrefab, Instance.transform);
+            Instance.currentManager = Instance._currentManagerObject.GetComponent<ProductionSessionManager>();
             
-            currentManager.Setup
+            Instance.currentManager.Setup
             (
                 craftingData,
-                challengeRegistry
+                Instance.challengeRegistry
                     .GetActiveAndRestingGeneralChallenges
                     (
                         Random.Range
                         (
-                            Config.minGeneralChallengesInSession, 
-                            Config.maxGeneralChallengesInSession
+                            Instance.Config.minGeneralChallengesInSession, 
+                            Instance.Config.maxGeneralChallengesInSession
                         )
                     ),
-                challengeRegistry
+                Instance.challengeRegistry
                     .GetPermittedResourceChallenges
                     (
                         craftingData.Recipe.resources.Select(res => res.resource).ToArray()
                     )
             );
 
-            currentManager.OnProductionEnded += SendOnProductionEndedEvent;
+            Instance.currentManager.OnProductionEnded += Instance.SendOnProductionEndedEvent;
             
-            onProductionStarted?.Invoke();
+            Instance.onProductionStarted?.Invoke();
         }
 
         private void SendOnProductionEndedEvent(object sender, CraftingData cd)

@@ -18,13 +18,13 @@ namespace UI.Views.Overworld.General.Production
 
         public void Initialize()
         {
-            
+            GenerateRecipeTiles();
+            UpdateSelectedRecipeTile(_recipeTiles.ElementAt(0));
         }
 
         public void UpdateElement()
         {
-            GenerateRecipeTiles();
-            UpdateSelectedRecipeTile(_recipeTiles.ElementAt(0));
+
         }
 
         public void CloseElement()
@@ -44,9 +44,6 @@ namespace UI.Views.Overworld.General.Production
 
         private void CreateRecipeTile(Recipe recipe)
         {
-            Debug.Log(recipeTilePrefab);
-            Debug.Log(grid);
-            
             var recipeTileObject = Instantiate(recipeTilePrefab, grid.transform);
             var recipeTile = recipeTileObject.GetComponent<RecipeTile>();
 

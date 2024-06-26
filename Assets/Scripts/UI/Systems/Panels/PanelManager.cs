@@ -61,6 +61,8 @@ namespace UI.Systems.Panels
         
         public static void ToggleParentPanel(UIPanel panel)
         {
+            Debug.Log(Instance._mainPanel);
+            
             switch (Instance._mainPanel == null)
             {
                 case true:
