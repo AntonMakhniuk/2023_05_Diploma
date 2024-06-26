@@ -15,6 +15,7 @@ public class Asteroid : MonoBehaviour, IDestructible
     private int asteroidPointsCount = 0;
     [SerializeField] private GameObject spaceOre;
     [SerializeField] private bool shatter = false;
+    private bool _shattered = false;
     private RandomPointSelector randomPointSelector;
     
     [SerializeField] private GameObject _wholeAsteroid;
@@ -38,7 +39,7 @@ public class Asteroid : MonoBehaviour, IDestructible
 
     private void Update()
     {
-        if (shatter)
+        if (shatter && !_shattered)
             ShatterAsteroid();
     }
 
@@ -108,22 +109,7 @@ public class Asteroid : MonoBehaviour, IDestructible
 
     public void ShatterAsteroid()
     {
-        // // Dynamically create a plane using asteroid's geometry
-        // Plane slicingPlane = CreateSlicingPlane();
-        //
-        // // Slice the asteroid with the dynamically created plane
-        // GameObject[] slices = Slicer.Slice(slicingPlane, gameObject);
-        //
-        // // Optionally, you can add forces or other effects to the sliced pieces
-        // Vector3 pushVector = new Vector3(0, 0, 0);
-        // pushVector[Random.Range(0, 3)] = Random.Range(250f, 450f);
-        // pushVector[Random.Range(0, 3)] = Random.Range(250f, 320f);
-        // foreach (GameObject slice in slices)
-        // {
-        //     pushVector *= -1;
-        //     slice.GetComponent<Rigidbody>().AddRelativeForce(pushVector);
-        // }
-
+        _shattered = true;
         _fracturedAsteroid.transform.position = _wholeAsteroid.transform.position;
         _fracturedAsteroid.transform.rotation = _wholeAsteroid.transform.localRotation * Quaternion.Inverse(_asteroidRotationOffset);
         Vector3 explosionPos = _fracturedAsteroid.transform.position;
@@ -131,6 +117,16 @@ public class Asteroid : MonoBehaviour, IDestructible
         
         _wholeAsteroid.SetActive(false);
         _fracturedAsteroid.SetActive(true);
+        
+        // Spawn ore at center 
+        Vector3 asteroidPosition = _wholeAsteroid.transform.position;
+        int oreNumber = Random.Range(1, 6);
+        while (oreNumber > 0)
+        {
+            SpawnOre(asteroidPosition);
+            asteroidPosition[Random.Range(0, 3)] += Random.Range(0.4f, 0.9f);
+            oreNumber--;
+        }
         
         Collider[] colliders = Physics.OverlapSphere(explosionPos, _explosionRadius);
         
@@ -143,61 +139,12 @@ public class Asteroid : MonoBehaviour, IDestructible
 
             rb.velocity = asteroidVelocity;
             rb.AddExplosionForce(_explosionPower, explosionPos, _explosionRadius, 0);
+            rb.transform.parent = null;
         }
         
-        // Spawn ore at center 
-        Vector3 asteroidPosition = transform.position;
-        int oreNumber = Random.Range(1, 6);
-        while (oreNumber > 0)
-        {
-            SpawnOre(asteroidPosition);
-            asteroidPosition[Random.Range(0, 3)] += Random.Range(0.51f, 0.7f);
-            oreNumber--;
-        }
-
-        // Destroy the original asteroid GameObject
         Destroy(_wholeAsteroid);
+        Destroy(this.gameObject);
     }
-
-    // private Plane CreateSlicingPlane()
-    // {
-    //     // Get the mesh from the asteroid
-    //     Mesh mesh = GetComponent<MeshFilter>().mesh;
-    //
-    //     // Compute the average position of vertices to get the center
-    //     Vector3 center = Vector3.zero;
-    //     foreach (Vector3 vertex in mesh.vertices)
-    //     {
-    //         center += vertex;
-    //     }
-    //     center /= mesh.vertices.Length;
-    //
-    //     // Use the normal of the mesh as the normal of the slicing plane
-    //     Vector3 normal = transform.TransformDirection(mesh.normals[0]);
-    //
-    //     // Create and return the plane
-    //     return new Plane(normal, center);
-    // }
-    //
-    // private Plane CreateExplosionPlane()
-    // {
-    //     // Get the mesh from the asteroid
-    //     Mesh mesh = GetComponent<MeshFilter>().mesh;
-    //
-    //     // Compute the average position of vertices to get the center
-    //     Vector3 center = Vector3.zero;
-    //     foreach (Vector3 vertex in mesh.vertices)
-    //     {
-    //         center += vertex;
-    //     }
-    //     center /= mesh.vertices.Length;
-    //
-    //     // Randomize the slicing direction
-    //     Vector3 normal = Random.insideUnitSphere.normalized;
-    //
-    //     // Create and return the plane
-    //     return new Plane(normal, center);
-    // }
 
     private void SpawnOre(Vector3 position)
     {

@@ -33,9 +33,7 @@ public class Bomb : MonoBehaviour
         rb.velocity = Vector3.zero;
         isFrozen = true;
     }
-
     
-
     public void Detonate()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
@@ -43,7 +41,7 @@ public class Bomb : MonoBehaviour
         {
             if (collider.CompareTag("Asteroid"))
             {
-                Asteroid asteroid = collider.GetComponent<Asteroid>();
+                Asteroid asteroid = collider.GetComponentInParent<Asteroid>();
                 if (asteroid != null)
                 {
                     asteroid.ShatterAsteroid();
