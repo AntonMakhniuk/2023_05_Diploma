@@ -110,7 +110,7 @@ namespace Production.Challenges.General.Core_Segmentation
         private IEnumerator MoveRayCoroutine(bool isReturning, float startPosition, 
             float endPosition, AnimationCurve stabilizerCurve, float timeToMoveBack)
         {
-            IEnumerator currentEnumerator = Utility.LerpFloat
+            IEnumerator currentEnumerator = UtilityFunctions.LerpFloat
             (
                 startPosition,
                 endPosition,

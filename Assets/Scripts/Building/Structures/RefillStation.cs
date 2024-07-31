@@ -62,7 +62,7 @@ namespace Building.Structures
                     continue;
                 }
 
-                if (!overlappingCollider.gameObject.TryGetComponent<GasCloudNode>(out var gasCloudNode))
+                if (!overlappingCollider.gameObject.TryGetComponent<GasCloud>(out var gasCloudNode))
                 {
                     continue;
                 }

@@ -44,7 +44,7 @@ namespace Production.Challenges.General.Temperature
                 (float)_config.failTemperature / _config.maxTemperature + 0.001f));
             colorKeys.Add(new CustomGradientKey(dangerZoneColor, 1f));
             
-            Utility.CreateGradientSpriteAndApplyToSlider(associatedSlider, sliderBackground, colorKeys.ToArray());
+            UtilityFunctions.CreateGradientSpriteAndApplyToSlider(associatedSlider, sliderBackground, colorKeys.ToArray());
             
             InvokeRepeating(nameof(UpdateSlider), 0, associatedChallenge.updateRate);
         }

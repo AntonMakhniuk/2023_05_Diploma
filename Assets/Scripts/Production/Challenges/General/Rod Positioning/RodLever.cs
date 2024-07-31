@@ -36,7 +36,7 @@ namespace Production.Challenges.General.Rod_Positioning
                 
             _config = _parentPositioningChallenge.Config;
 
-            dangerZoneType = Utility.GetRandomEnum<LeverDangerZoneType>();
+            dangerZoneType = UtilityFunctions.GetRandomEnum<LeverDangerZoneType>();
 
             switch (dangerZoneType)
             {

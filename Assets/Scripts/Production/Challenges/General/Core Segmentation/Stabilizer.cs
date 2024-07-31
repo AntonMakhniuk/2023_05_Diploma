@@ -50,7 +50,7 @@ namespace Production.Challenges.General.Core_Segmentation
         
         private IEnumerator SpeedUpAtStart()
         {
-            IEnumerator currentEnumerator = Utility.LerpFloat
+            IEnumerator currentEnumerator = UtilityFunctions.LerpFloat
             (
                 0,
                 baseOrbitMovementSpeed,
@@ -121,7 +121,7 @@ namespace Production.Challenges.General.Core_Segmentation
             
             float topMovementSpeed = baseOrbitMovementSpeed * resetSpeedUpModifier;
             
-            IEnumerator currentEnumerator = Utility.LerpFloat
+            IEnumerator currentEnumerator = UtilityFunctions.LerpFloat
             (
                 baseOrbitMovementSpeed,
                 topMovementSpeed,
@@ -136,7 +136,7 @@ namespace Production.Challenges.General.Core_Segmentation
                 yield return null;
             }
             
-            currentEnumerator = Utility.LerpFloat
+            currentEnumerator = UtilityFunctions.LerpFloat
             (
                 topMovementSpeed,
                 0,
@@ -160,7 +160,7 @@ namespace Production.Challenges.General.Core_Segmentation
             
             StartCoroutine(InvertResetStateAfterTime(rayMovementTime));
             
-            currentEnumerator = Utility.LerpFloat
+            currentEnumerator = UtilityFunctions.LerpFloat
             (
                 0,
                 baseOrbitMovementSpeed,
@@ -248,7 +248,7 @@ namespace Production.Challenges.General.Core_Segmentation
         {
             stabilizerBody.freezeRotation = true;
             
-            IEnumerator currentEnumerator = Utility.LerpVector3
+            IEnumerator currentEnumerator = UtilityFunctions.LerpVector3
             (
                 startPosition,
                 returnPosition,

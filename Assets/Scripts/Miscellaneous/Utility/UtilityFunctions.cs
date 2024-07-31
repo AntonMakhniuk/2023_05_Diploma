@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Miscellaneous
 {
-    public static class Utility
+    public static class UtilityFunctions
     {
         public static T GetRandomEnum<T>()
         {
