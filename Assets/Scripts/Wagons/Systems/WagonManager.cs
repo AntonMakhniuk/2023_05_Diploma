@@ -4,6 +4,7 @@ using AYellowpaper.SerializedCollections;
 using JetBrains.Annotations;
 using Miscellaneous;
 using Player;
+using Player.Ship;
 using UnityEngine;
 using Wagons.Miscellaneous;
 using Wagons.Wagon_Types;

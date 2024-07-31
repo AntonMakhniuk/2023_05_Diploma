@@ -1,5 +1,6 @@
 using Building.Systems;
 using Player;
+using Player.Ship;
 
 namespace Building.Structures
 {

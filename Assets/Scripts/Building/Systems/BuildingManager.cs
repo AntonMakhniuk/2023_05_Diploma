@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
 using Player;
+using Player.Ship;
 using Scriptable_Object_Templates.Building;
 using UnityEngine;
 using UnityEngine.InputSystem;

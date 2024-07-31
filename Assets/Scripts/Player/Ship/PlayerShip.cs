@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Player
+namespace Player.Ship
 {
     public class PlayerShip : MonoBehaviour
     {

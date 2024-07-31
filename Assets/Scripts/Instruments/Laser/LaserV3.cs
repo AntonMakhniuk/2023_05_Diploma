@@ -1,6 +1,7 @@
 using Assets.Scripts.Instruments;
 using Cinemachine;
 using Player;
+using Player.Ship;
 using UnityEngine;
 
 public class LaserV3 : Instrument

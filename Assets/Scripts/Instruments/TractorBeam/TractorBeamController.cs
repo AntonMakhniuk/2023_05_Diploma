@@ -4,6 +4,7 @@ using Assets.Scripts.Instruments;
 using Cinemachine;
 using Instruments.Miscellaneous;
 using Player;
+using Player.Ship;
 using Scriptable_Object_Templates;
 using Scriptable_Object_Templates.Resources;
 using UnityEngine;
