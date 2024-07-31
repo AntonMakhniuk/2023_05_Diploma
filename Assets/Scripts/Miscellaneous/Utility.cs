@@ -10,14 +10,14 @@ namespace Miscellaneous
     {
         public static T GetRandomEnum<T>()
         {
-            System.Array a = System.Enum.GetValues(typeof(T));
-            T v = (T)a.GetValue(Random.Range(0,a.Length));
+            var a = System.Enum.GetValues(typeof(T));
+            var v = (T)a.GetValue(Random.Range(0,a.Length));
             
             return v;
         }
 
         public static void CreateGradientSpriteAndApplyToSlider(Slider slider, Image backgroundImage,
-            CustomGradientKey[] colorKeys)
+            IEnumerable<CustomGradientKey> colorKeys)
         {
             var sliderRect = slider.GetComponent<RectTransform>().rect;
         
@@ -28,14 +28,14 @@ namespace Miscellaneous
                 gradient.AddKey(colorKey);
             }
 
-            Texture2D texture2D = new Texture2D((int) sliderRect.width, (int)sliderRect.height)
+            var texture2D = new Texture2D((int) sliderRect.width, (int)sliderRect.height)
             {
                 wrapMode = TextureWrapMode.Clamp
             };
 
             for (int x = 0; x < sliderRect.width; x++)
             {
-                float t = Mathf.InverseLerp(0, sliderRect.width - 1, x);
+                var t = Mathf.InverseLerp(0, sliderRect.width - 1, x);
 
                 for (int y = 0; y < sliderRect.height; y++)
                 {
@@ -45,7 +45,7 @@ namespace Miscellaneous
         
             texture2D.Apply();
 
-            Sprite sprite = Sprite.Create
+            var sprite = Sprite.Create
             (
                 texture2D, 
                 new Rect(0, 0, sliderRect.width, sliderRect.height), 

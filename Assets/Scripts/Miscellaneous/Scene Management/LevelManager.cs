@@ -3,7 +3,7 @@ using AYellowpaper.SerializedCollections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Miscellaneous
+namespace Miscellaneous.Scene_Management
 {
     public class LevelManager : MonoBehaviour
     {
@@ -42,7 +42,7 @@ namespace Miscellaneous
             }
         }
         
-        public static void Quit()
+        public static void QuitGame()
         {
             Application.Quit();
         }

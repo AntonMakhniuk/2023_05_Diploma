@@ -1,18 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class RotationMatcher : MonoBehaviour
+namespace Miscellaneous
 {
-    private Transform _target;
-
-    private void Awake()
+    public class RotationMatcher : MonoBehaviour
     {
-        _target = Camera.main.transform;
-    }
+        private Transform _target;
 
-    private void LateUpdate()
-    {
-        transform.rotation = _target.rotation;
+        private void Awake()
+        {
+            if (Camera.main != null)
+            {
+                _target = Camera.main.transform;
+            }
+        }
+
+        private void LateUpdate()
+        {
+            transform.rotation = _target.rotation;
+        }
     }
 }

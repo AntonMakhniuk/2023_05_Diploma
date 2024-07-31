@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Miscellaneous.Scene_Management;
 using Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,7 +9,7 @@ namespace Miscellaneous
 {
     public class InputBlocker : MonoBehaviour
     {
-        public List<SceneType> scenesNoInput = new();
+        public List<SceneType> scenesWithNoInput = new();
 
         private void Start()
         {
@@ -20,7 +21,7 @@ namespace Miscellaneous
         private void ChangeInput(Scene scene)
         {
             var scenes = LevelManager.Instance.scenesDict
-                .Where(kvp => scenesNoInput
+                .Where(kvp => scenesWithNoInput
                     .Contains(kvp.Key))
                 .ToList();
 
