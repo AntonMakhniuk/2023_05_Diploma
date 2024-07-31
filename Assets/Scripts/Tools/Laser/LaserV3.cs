@@ -1,6 +1,7 @@
 using Cinemachine;
 using Player;
 using Player.Ship;
+using Resource_Nodes.Materials;
 using Tools.Base_Tool;
 using UnityEngine;
 
@@ -113,8 +114,8 @@ public class LaserV3 : Instrument
         {
             Destroy(collider.gameObject);
 
-            Asteroid asteroid = collider.transform.parent.parent.GetComponent<Asteroid>();
-            asteroid.OnAsteroidPointDestroyed();
+            RockMaterial rockMaterial = collider.transform.parent.parent.GetComponent<RockMaterial>();
+            //rockMaterial.OnAsteroidPointDestroyed();
         }
     }
 

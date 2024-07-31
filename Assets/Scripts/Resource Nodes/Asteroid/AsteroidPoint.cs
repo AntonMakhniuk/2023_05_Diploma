@@ -1,13 +1,21 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(SphereCollider))]
-public class AsteroidPoint : MonoBehaviour
+namespace Resource_Nodes.Asteroid
 {
-    private Asteroid parentAsteroid;
-
-    private void Start()
+    public class AsteroidPoint : MonoBehaviour
     {
-        parentAsteroid = GetComponentInParent<Asteroid>();
+        public event EventHandler<AsteroidPoint> OnPointDestroyed;
+
+        // Should be added as the method called by the UnityEvent inside the material associated with the point
+        private void ProcessDestruction()
+        {
+            //A bit of a dumb way to do it, but makes communication really easy
+            OnPointDestroyed?.Invoke(this, this);
+            
+            //TODO: Play some kind of animation?
+            
+            Destroy(gameObject);
+        }
     }
 }

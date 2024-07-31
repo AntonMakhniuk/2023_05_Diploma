@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Resource_Nodes.Gas_Cloud
 {
-    public class GasCloudNode : ResourceNode
+    public class GasCloud : ResourceNode
     {
         [SerializeField] private ParticleSystem gasParticleSystem;
         

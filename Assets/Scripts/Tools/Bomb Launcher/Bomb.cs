@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Instruments.Bomb_Launcher;
+using Resource_Nodes.Materials;
 using UnityEngine;
 
 public class Bomb : MonoBehaviour
@@ -42,10 +43,10 @@ public class Bomb : MonoBehaviour
         {
             if (collider.CompareTag("Asteroid"))
             {
-                Asteroid asteroid = collider.GetComponentInParent<Asteroid>();
-                if (asteroid != null)
+                RockMaterial rockMaterial = collider.GetComponentInParent<RockMaterial>();
+                if (rockMaterial != null)
                 {
-                    asteroid.ShatterAsteroid();
+                    //rockMaterial.ShatterAsteroid();
                 }
             }
         }
