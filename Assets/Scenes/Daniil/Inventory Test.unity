@@ -753,12 +753,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5501931029056259250, guid: 55a433a272c7da245889e4183048bbba, type: 3}
+      propertyPath: asteroidSpeed
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 5501931029056259250, guid: 55a433a272c7da245889e4183048bbba, type: 3}
       propertyPath: asteroidPrefab
       value: 
-      objectReference: {fileID: 3512438161539004110, guid: 47047b42267eadb40bf7f7b15e7b6ea1, type: 3}
+      objectReference: {fileID: 6994450440821555756, guid: 2b05fb9b6458c4e49bb221532f7428c0, type: 3}
     - target: {fileID: 5501931029056259250, guid: 55a433a272c7da245889e4183048bbba, type: 3}
       propertyPath: numberOfAsteroids
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5501931029056259250, guid: 55a433a272c7da245889e4183048bbba, type: 3}
+      propertyPath: asteroidRotationSpeed
+      value: 0.05
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
