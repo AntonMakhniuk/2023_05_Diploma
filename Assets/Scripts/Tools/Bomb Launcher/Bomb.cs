@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Instruments.Bomb_Launcher;
 using UnityEngine;
 
 public class Bomb : MonoBehaviour
@@ -7,7 +8,7 @@ public class Bomb : MonoBehaviour
     [SerializeField] private GameObject explosion;
     private Rigidbody rb;
     private bool isFrozen = false;
-    private BombContainer bombContainer;
+    private BombLauncher _bombLauncher;
 
     public float freezeTime = 3f;
     public float explosionRadius = 5f;
@@ -23,7 +24,7 @@ public class Bomb : MonoBehaviour
        
         if (!isFrozen)
         {
-            rb.velocity = rb.velocity.normalized * bombContainer.bombSpeed;
+            rb.velocity = rb.velocity.normalized * _bombLauncher.bombSpeed;
         }
         
     }
@@ -53,8 +54,8 @@ public class Bomb : MonoBehaviour
         Destroy(gameObject);
     }
     
-    public void SetBombContainer(BombContainer container)
+    public void SetBombContainer(BombLauncher launcher)
     {
-        bombContainer = container;
+        _bombLauncher = launcher;
     }
 }

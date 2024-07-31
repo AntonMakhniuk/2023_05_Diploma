@@ -1,8 +1,7 @@
-﻿using Player;
-using Player.Ship;
+﻿using Player.Ship;
 using UnityEngine;
 
-namespace Miscellaneous
+namespace Miscellaneous.Scene_Management
 {
     public class ShipPositionSetter : MonoBehaviour
     {

@@ -1,5 +1,4 @@
 using System;
-using Assets.Scripts.Instruments;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]

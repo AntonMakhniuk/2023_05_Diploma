@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using Assets.Scripts.Instruments;
 using Cinemachine;
 using Instruments.Miscellaneous;
 using Player;
 using Player.Ship;
 using Scriptable_Object_Templates;
 using Scriptable_Object_Templates.Resources;
+using Tools.Base_Tool;
 using UnityEngine;
 
 public class TractorBeamController : Instrument, ICollector

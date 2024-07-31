@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Miscellaneous.Scene_Management;
 using Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Miscellaneous
+namespace Miscellaneous.Scene_Management
 {
     public class InputBlocker : MonoBehaviour
     {
