@@ -1,15 +1,47 @@
-using UnityEngine;
+using UnityEngine.Events;
 
-public interface IDestructible
+namespace Resource_Nodes
 {
-    float MaxHP { get; set; }
-    float CurrentHP { get;  set; }
-   // IInstrument CurrentInstrument { get; set; } 
+    public interface IDestructible
+    {
+        public float MaxHp { get; }
+        public float CurrentHp { get; set; }
+        // IInstrument CurrentInstrument { get; set; } 
 
-    void OnLaserInteraction(float damage);
-    void OnDrillInteraction(float damage);
-    void OnCutterInteraction(float damage);
-    void OnExplosivesInteraction(float damage);
-    void TakeDamage(float damage);
-    void InitiateDestroy();
+        public void OnLaserInteraction(float damage)
+        {
+            TakeDamage(damage);
+        }
+        
+        public void OnDrillInteraction(float damage)
+        {
+            TakeDamage(damage);
+        }
+        
+        public void OnCutterInteraction(float damage)
+        {
+            TakeDamage(damage);
+        }
+        public void OnExplosivesInteraction(float damage)
+        {
+            TakeDamage(damage);
+        }
+
+        private void TakeDamage(float damage)
+        {
+            CurrentHp -= damage;
+            
+            if (CurrentHp <= 0)
+            {
+                InitiateDestroy();
+            }
+        }
+
+        public UnityEvent OnDestroyed { get; }
+
+        public void InitiateDestroy()
+        {
+            OnDestroyed.Invoke();
+        }
+    }
 }
