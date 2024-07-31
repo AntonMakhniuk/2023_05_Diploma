@@ -6,12 +6,12 @@ namespace Scriptable_Object_Templates.Resources
     {
         public Sprite icon;
         public string label;
-        public ItemType type;
+        public ItemCategory category;
         public float mass;
         public float volume;
     }
 
-    public enum ItemType
+    public enum ItemCategory
     {
         Ore, Gas, Material
     }

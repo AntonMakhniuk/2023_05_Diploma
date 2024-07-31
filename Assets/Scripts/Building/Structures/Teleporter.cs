@@ -1,16 +1,16 @@
 using Building.Systems;
-using Player;
 using Player.Ship;
+using UnityEngine;
 
 namespace Building.Structures
 {
     public class Teleporter : BuildingObject
     {
+        [SerializeField] private Transform teleportPositionTransform;
+        
         public void TeleportToDestination(Teleporter destination)
         {
-            var teleportPosition = destination.transform.position + destination.transform.forward * 3f;
-            
-            PlayerShip.Instance.transform.position = teleportPosition;
+            PlayerShip.Instance.transform.position = destination.teleportPositionTransform.position;
         }
     }
 }

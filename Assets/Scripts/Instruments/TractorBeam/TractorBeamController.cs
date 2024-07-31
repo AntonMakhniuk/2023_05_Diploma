@@ -18,8 +18,8 @@ public class TractorBeamController : Instrument, ICollector
     public Transform holdPoint;
     public LayerMask attractableLayer;
 
-    [SerializeField] private List<ItemType> collectableTypes = new() { ItemType.Ore, ItemType.Material };
-    public List<ItemType> CollectableTypes => collectableTypes;
+    [SerializeField] private List<ItemCategory> collectableTypes = new() { ItemCategory.Ore, ItemCategory.Material };
+    public List<ItemCategory> CollectableTypes => collectableTypes;
 
     [SerializeField] private float rotationSpeed;
     [SerializeField] private CinemachineVirtualCamera cinematicCamera;

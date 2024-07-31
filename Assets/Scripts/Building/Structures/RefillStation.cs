@@ -1,141 +1,154 @@
+using System.Collections;
 using Building.Systems;
 using Player.Movement;
-using TMPro;
+using Player.Ship;
+using Resource_Nodes.Gas_Cloud;
+using Scriptable_Object_Templates.Resources;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Building.Structures
 {
     public class RefillStation : BuildingObject
     {
-        public GameObject fuelStoreWindow;
+        // If the distance between the refill station and closest gas field center is less than this value,
+        // it is treated as being centered on the gas field, so the refill efficiency is 100%
+        private const float ProximityThreshold = 3f;
+        
+        // Refill rate, i.e. how fast it will refill fuel on its own
+        // if built in close proximity to a fuel gas field
+        private const float MinRefillRate = 0;
+        private const float MaxRefillRate = 0.1f;
+        
+        // Transfer rate, i.e. how fast it will refuel a docked ship or receive fuel from it,
+        // measured in units per second
+        private const float TransferRate = 3f;
+        
+        private const float MaxFuelCapacity = 100f;
 
-        public TextMeshProUGUI refillPromptText;
-        public Slider fuelSlider;
-        public TextMeshProUGUI sliderValueText;
-        public Button acceptButton;
+        [SerializeField] private SphereCollider refillArea;
 
-        [SerializeField] private float refillRate = 1f;
-        [SerializeField] private float maxFuelCapacity = 100f;
-
-        private float currentFuelLevel;
-        private bool isRefilling;
+        private float _refillRate = MinRefillRate;
+        private float _storedFuelLevel;
+        private IEnumerator _refuelCoroutine, _storeCoroutine;
+        private bool _isDocked;
 
         private void Start()
         {
-            // Check for null components
-            if (fuelStoreWindow == null) throw new MissingComponentException("fuelStoreWindow is not assigned.");
-            if (refillPromptText == null) throw new MissingComponentException("refillPromptText is not assigned.");
-            if (fuelSlider == null) throw new MissingComponentException("fuelSlider is not assigned.");
-            if (sliderValueText == null) throw new MissingComponentException("sliderValueText is not assigned.");
-            if (acceptButton == null) throw new MissingComponentException("acceptButton is not assigned.");
+            _refillRate = CalculateRefillRate();
 
-            currentFuelLevel = maxFuelCapacity / 2;
+            if (_refillRate > 0)
+            {
+                InvokeRepeating(nameof(Refill), 0, 1);
+            }
+
+            _refuelCoroutine = RefuelPlayerCoroutine();
+            _storeCoroutine = StoreFuelCoroutine();
         }
 
-        private void Update()
+        private float CalculateRefillRate()
         {
-            if (!isRefilling && currentFuelLevel < maxFuelCapacity)
+            var refillRate = MinRefillRate;
+
+            foreach (var overlappingCollider in Physics.OverlapSphere(refillArea.center, refillArea.radius))
             {
-                currentFuelLevel = Mathf.Min(currentFuelLevel + refillRate * Time.deltaTime, maxFuelCapacity);
+                if (overlappingCollider == refillArea)
+                {
+                    continue;
+                }
+
+                if (refillArea.ClosestPoint(overlappingCollider.transform.position)
+                    != overlappingCollider.transform.position)
+                {
+                    continue;
+                }
+
+                if (!overlappingCollider.gameObject.TryGetComponent<GasCloudNode>(out var gasCloudNode))
+                {
+                    continue;
+                }
+
+                if (gasCloudNode.associatedResource.resourceType != ResourceType.FuelGas)
+                {
+                    continue;
+                }
+
+                var distanceFromCloud
+                    = Vector3.Distance(transform.position, overlappingCollider.transform.position);
+
+                if (distanceFromCloud <= ProximityThreshold)
+                {
+                    _refillRate = MaxRefillRate;
+
+                    break;
+                }
+
+                var currentRefillRate = MaxRefillRate * distanceFromCloud / refillArea.radius;
+
+                if (currentRefillRate > refillRate)
+                {
+                    refillRate = currentRefillRate;
+                }
             }
+
+            return refillRate;
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void Refill()
         {
-            if (!other.CompareTag("Player")) return;
-
-            if (!isRefilling && currentFuelLevel > 0)
-            {
-                refillPromptText.gameObject.SetActive(true);
-                RefillFuel(other.gameObject);
-            }
-
-            fuelSlider.gameObject.SetActive(true);
-            acceptButton.gameObject.SetActive(true);
-
-            acceptButton.onClick.AddListener(() => StoreFuel(other.gameObject, fuelSlider.value));
-
-            Debug.Log("Player entered station trigger area.");
-
-            fuelStoreWindow.SetActive(true);
-
-            FuelSystem fuelSystem = other.GetComponent<FuelSystem>();
-            if (fuelSystem != null)
-            {
-                fuelSlider.maxValue = fuelSystem.GetCurrentFuelLevel();
-            }
-
-            fuelSlider.onValueChanged.AddListener((value) => UpdateSliderValueText());
+            _storedFuelLevel = Mathf.Min(_storedFuelLevel + _refillRate, MaxFuelCapacity);
         }
-
-        private void OnTriggerExit(Collider other)
+        
+        public void DockToStation(RefillStationAction action)
         {
-            if (other.CompareTag("Player"))
+            if (_isDocked)
             {
-                Debug.Log("Player exited station trigger area.");
-
-                fuelStoreWindow.SetActive(false);
-
-                fuelSlider.onValueChanged.RemoveAllListeners();
-                acceptButton.onClick.RemoveAllListeners();
+                return;
             }
+
+            _isDocked = true;
+
+            StartCoroutine(action == RefillStationAction.Refuel ? _refuelCoroutine : _storeCoroutine);
         }
 
-        private void UpdateSliderValueText()
+        public void UndockFromStation()
         {
-            sliderValueText.text = "Selected amount: " + fuelSlider.value.ToString("F1");
-        }
+            if (!_isDocked)
+            {
+                return;
+            }
 
-        private void StoreFuel(GameObject player, float storeAmount)
+            _isDocked = false;
+            
+            StopAllCoroutines();
+        }
+        
+        private IEnumerator RefuelPlayerCoroutine()
         {
-            FuelSystem fuelSystem = player.GetComponent<FuelSystem>();
-            if (fuelSystem != null)
-            {
-                float remainingCapacity = maxFuelCapacity - currentFuelLevel;
-                float actualStoreAmount = Mathf.Min(remainingCapacity, storeAmount);
+            var fuelSystem = PlayerShip.Instance.GetComponent<FuelSystem>();
+            var refuelAmount = TransferRate * Time.deltaTime;
+            
+            fuelSystem.AddFuel(refuelAmount);
+            
+            _storedFuelLevel -= refuelAmount;
 
-                fuelSystem.ConsumeFuel(actualStoreAmount);
-                currentFuelLevel += actualStoreAmount;
-
-                isRefilling = true;
-
-                Invoke("ResetRefillingFlag", 1.0f);
-
-                Debug.Log("Fuel stored: " + actualStoreAmount + " units");
-                Debug.Log("Fuel available: " + currentFuelLevel + " units");
-            }
-            else
-            {
-                Debug.LogWarning("No FuelSystem component found on the player object.");
-            }
+            yield return null;
         }
 
-        private void RefillFuel(GameObject player)
+        private IEnumerator StoreFuelCoroutine()
         {
-            FuelSystem fuelSystem = player.GetComponent<FuelSystem>();
-            if (fuelSystem != null)
-            {
-                float refillAmount = Mathf.Min(fuelSystem.GetMaxFuelCapacity() - fuelSystem.GetCurrentFuelLevel(), currentFuelLevel);
+            var fuelSystem = PlayerShip.Instance.GetComponent<FuelSystem>();
+            var refuelAmount = Mathf.Min(fuelSystem.CurrentFuelLevel, TransferRate * Time.deltaTime);
+            
+            fuelSystem.AddFuel(refuelAmount);
+            
+            _storedFuelLevel -= refuelAmount;
 
-                fuelSystem.AddFuel(refillAmount);
-                currentFuelLevel -= refillAmount;
-
-                isRefilling = true;
-
-                Invoke("ResetRefillingFlag", 1.0f);
-
-                Debug.Log("Fuel refilled by: " + refillAmount + " units");
-            }
-            else
-            {
-                Debug.LogWarning("No FuelSystem component found on the player object.");
-            }
+            yield return null;
         }
+    }
 
-        private void ResetRefillingFlag()
-        {
-            isRefilling = false;
-        }
+    public enum RefillStationAction
+    {
+        Refuel, Store
     }
 }

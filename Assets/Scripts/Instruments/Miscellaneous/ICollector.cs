@@ -8,7 +8,7 @@ namespace Instruments.Miscellaneous
 {
     public interface ICollector
     {
-        public List<ItemType> CollectableTypes { get; }
+        public List<ItemCategory> CollectableTypes { get; }
 
         public virtual void Collect(ICollectable itemToCollect)
         {

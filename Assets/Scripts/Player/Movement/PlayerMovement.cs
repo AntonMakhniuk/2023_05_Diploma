@@ -7,13 +7,13 @@ namespace Player.Movement
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerMovement : MonoBehaviour 
     {
+        public static PlayerMovement Instance;
+        
         private PlayerInputActions _playerInputActions;
         private Rigidbody _rb;
         private Camera _mainCamera;
         
-        private bool _isPitchingX;
-        private bool _isYawingY;
-        private bool _isRollingZ;
+        private bool _isPitchingX, _isYawingY, _isRollingZ;
 
         [Header("Ship Movement Parameters")]
         [SerializeField] private float moveSpeed = 1;
@@ -26,9 +26,35 @@ namespace Player.Movement
         [SerializeField] private float accelerationAngularDrag = 0.1f;
         [SerializeField] private float brakesAngularDrag = 1f;
         [SerializeField] private float cameraAlignRotationSpeed = 1f;
-    
+
+        private const float MaxSpeedModifier = 5, MinSpeedModifier = 0.1f;
+        private float _speedModifier = 1;
+        public float SpeedModifier
+        {
+            get => _speedModifier;
+            set
+            {
+                _speedModifier = value switch
+                {
+                    > MaxSpeedModifier => MaxSpeedModifier,
+                    < MinSpeedModifier => MinSpeedModifier,
+                    _ => value
+                };
+            }
+        }
+
         private void Awake()
         {
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+            
             _playerInputActions = PlayerActions.InputActions;
             _playerInputActions.PlayerShip.Enable();
         
@@ -129,14 +155,14 @@ namespace Player.Movement
         // Move along Z and Y axis (forward or backward / up or down)
         private void Move(Vector2 movementVector) 
         {
-            _rb.AddRelativeForce(moveSpeed * Time.deltaTime 
+            _rb.AddRelativeForce(moveSpeed * _speedModifier * Time.deltaTime 
                 * new Vector3(movementVector.y, 0, movementVector.x), ForceMode.Force);
         }
 
         // Rotate along the input vector
         private void Rotate(Vector3 inputVector) 
         {
-            _rb.AddRelativeTorque(rotationSpeed * Time.deltaTime * inputVector, ForceMode.Force);
+            _rb.AddRelativeTorque(rotationSpeed * _speedModifier * Time.deltaTime * inputVector, ForceMode.Force);
         }
 
         // Rotate to align with the direction where camera is pointed at

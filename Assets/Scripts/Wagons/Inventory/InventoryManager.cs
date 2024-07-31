@@ -92,7 +92,7 @@ namespace Wagons.Inventory
             float itemTotal = 0;
 
             foreach (var storageComponent in _shipStorageComponents
-                         .Where(sc => sc.allowedItemTypes.Contains(item.type)).ToList())
+                         .Where(sc => sc.allowedItemTypes.Contains(item.category)).ToList())
             {
                 itemTotal += storageComponent.AddItem(item, itemCount - itemTotal);
 

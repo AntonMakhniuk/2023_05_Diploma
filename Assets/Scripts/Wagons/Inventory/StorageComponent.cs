@@ -14,7 +14,7 @@ namespace Wagons.Inventory
         // Add mass calculations
         [HideInInspector] public MassComponent massComponent;
         
-        public ItemType[] allowedItemTypes;
+        public ItemCategory[] allowedItemTypes;
         public float maxCapacity;
 
         private List<ItemStack> _items = new();
@@ -28,9 +28,9 @@ namespace Wagons.Inventory
         // returns the amount added
         public float AddItem(ItemBase item, float itemCount)
         {
-            if (!allowedItemTypes.Contains(item.type))
+            if (!allowedItemTypes.Contains(item.category))
             {
-                Debug.Log($"Tried to add invalid item type: {item.type} " +
+                Debug.Log($"Tried to add invalid item type: {item.category} " +
                           $"to storage component {this} that only allows {allowedItemTypes}");
                 
                 return 0;
