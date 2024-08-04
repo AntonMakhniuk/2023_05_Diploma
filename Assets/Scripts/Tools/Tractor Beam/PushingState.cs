@@ -2,11 +2,11 @@ using UnityEngine;
 
 namespace Tools.Tractor_Beam
 {
-    public class PushState : BaseTractorBeamState
+    public class PushingState : BaseTractorBeamState
     {
         private const float PushForce = 20f;
         
-        public PushState(TractorBeam context) : base(context)
+        public PushingState(TractorBeam context) : base(context)
         {
         }
         

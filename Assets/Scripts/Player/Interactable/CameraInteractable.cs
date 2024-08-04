@@ -21,8 +21,11 @@ namespace Player.Interactable
             {
                 return;
             }
-            
-            hit.transform.GetComponent<UI.Systems.Interactables.Interactable>().HandleCameraLooking();
+
+            if (hit.transform.TryGetComponent<UI.Systems.Interactables.Interactable>(out var interactable))
+            {
+                interactable.HandleCameraLooking();
+            }
 
             _previousHit = hit.transform;
         }

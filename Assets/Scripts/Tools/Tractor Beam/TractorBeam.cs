@@ -17,24 +17,15 @@ namespace Tools.Tractor_Beam
 
         private Dictionary<TractorBeamState, BaseTractorBeamState> _stateDictionary = new();
         private BaseTractorBeamState _currentState;
-        private IdleState _idleState;
-        private AttractingState _attractingState;
-        private HoldingState _holdingState;
-        private PushState _pushState;
         
         private void Awake()
         {
-            _idleState = new IdleState(this);
-            _attractingState = new AttractingState(this);
-            _holdingState = new HoldingState(this);
-            _pushState = new PushState(this);
-            
             _stateDictionary = new Dictionary<TractorBeamState, BaseTractorBeamState>
             {
-                { TractorBeamState.Idle, _idleState },
-                { TractorBeamState.Attracting, _attractingState },
-                { TractorBeamState.Holding, _holdingState },
-                { TractorBeamState.Pushing, _pushState }
+                { TractorBeamState.Idle, new IdleState(this) },
+                { TractorBeamState.Attracting, new AttractingState(this) },
+                { TractorBeamState.Holding, new HoldingState(this) },
+                { TractorBeamState.Pushing, new PushingState(this) }
             };
 
             SetState(TractorBeamState.Idle);
