@@ -15,7 +15,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ToggleTractorBeam",
+                    "name": "ToggleSlot_1",
                     "type": "Button",
                     "id": "0546c9aa-ea63-4dcc-8469-54bf924fb546",
                     "expectedControlType": "Button",
@@ -24,7 +24,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ToggleDrill",
+                    "name": "ToggleSlot_2",
                     "type": "Button",
                     "id": "eb13f302-d11f-4eed-b75f-da5959c0e791",
                     "expectedControlType": "Button",
@@ -33,7 +33,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ToggleGasCollector",
+                    "name": "ToggleSlot_3",
                     "type": "Button",
                     "id": "30a32f41-8864-45a9-b2bf-8e92cbd67098",
                     "expectedControlType": "Button",
@@ -42,7 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "InstrumentPrimary",
+                    "name": "ToolPrimary",
                     "type": "Button",
                     "id": "06370757-8d74-438c-a5fc-234cf5f42477",
                     "expectedControlType": "Button",
@@ -51,7 +51,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "InstrumentSecondary",
+                    "name": "ToolSecondary",
                     "type": "Button",
                     "id": "b2505daa-6e37-4b97-b0f0-9b1bbd690924",
                     "expectedControlType": "Button",
@@ -122,7 +122,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ToggleDrill",
+                    "action": "ToggleSlot_2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -133,7 +133,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ToggleGasCollector",
+                    "action": "ToggleSlot_3",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -144,7 +144,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ToggleTractorBeam",
+                    "action": "ToggleSlot_1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -155,7 +155,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "InstrumentPrimary",
+                    "action": "ToolPrimary",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -166,7 +166,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "InstrumentSecondary",
+                    "action": "ToolSecondary",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

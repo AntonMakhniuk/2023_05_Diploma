@@ -1,62 +1,66 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
-using Instruments.Bomb_Launcher;
-using Resource_Nodes.Materials;
+using Resource_Nodes;
 using UnityEngine;
 
-public class Bomb : MonoBehaviour
+namespace Tools.Bomb_Launcher
 {
-    [SerializeField] private GameObject explosion;
-    private Rigidbody rb;
-    private bool isFrozen = false;
-    private BombLauncher _bombLauncher;
-
-    public float freezeTime = 3f;
-    public float explosionRadius = 5f;
-
-    void Start()
+    public class Bomb : MonoBehaviour
     {
-        rb = GetComponent<Rigidbody>();
-        Invoke("FreezeBomb", freezeTime);
-    }
-
-    void Update()
-    {
-       
-        if (!isFrozen)
-        {
-            rb.velocity = rb.velocity.normalized * _bombLauncher.bombSpeed;
-        }
+        private const float FlightTime = 3f;
+        private const float ExplosionRadius = 5f;
+        private const float MaxExplosionDamage = 50f;
         
-    }
+        [SerializeField] private GameObject explosion;
 
-    void FreezeBomb()
-    {
-        rb.velocity = Vector3.zero;
-        isFrozen = true;
-    }
-    
-    public void Detonate()
-    {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
-        foreach (Collider collider in colliders)
+        private void Start()
         {
-            if (collider.CompareTag("Asteroid"))
+            StartCoroutine(ApplyVelocity());
+        }
+
+        private IEnumerator ApplyVelocity()
+        {
+            var rb = GetComponent<Rigidbody>();
+            var initialSpeed = rb.velocity.magnitude;
+            var currentTime = 0f;
+
+            while (currentTime < FlightTime)
             {
-                RockMaterial rockMaterial = collider.GetComponentInParent<RockMaterial>();
-                if (rockMaterial != null)
+                var currentSpeed = Mathf.Lerp(initialSpeed, 0, currentTime / FlightTime);
+                
+                rb.velocity = transform.forward * currentSpeed;
+                currentTime += Time.deltaTime;
+                
+                yield return null;
+            }
+            
+            rb.velocity = Vector3.zero;
+        }
+    
+        public void Detonate()
+        {
+            var colliders = Physics.OverlapSphere(transform.position, ExplosionRadius);
+            
+            foreach (var overlappingCollider in colliders)
+            {
+                if (overlappingCollider.TryGetComponent<IDestructible>(out var destructible))
                 {
-                    //rockMaterial.ShatterAsteroid();
+                    //Explosion damage is linearly proportional to the distance from the bomb
+                    destructible.OnExplosivesInteraction(
+                        Vector3.Distance(transform.position, overlappingCollider.transform.position) 
+                        / ExplosionRadius * MaxExplosionDamage);
                 }
             }
+
+            Instantiate(explosion, transform.position, Quaternion.identity);
+            Destroy(gameObject);
         }
 
-        Instantiate(explosion, transform.position, Quaternion.identity);
-        Destroy(gameObject);
-    }
-    
-    public void SetBombContainer(BombLauncher launcher)
-    {
-        _bombLauncher = launcher;
+        public event EventHandler<Bomb> OnBombDestroyed;
+
+        private void OnDestroy()
+        {
+            OnBombDestroyed?.Invoke(this, this);
+        }
     }
 }

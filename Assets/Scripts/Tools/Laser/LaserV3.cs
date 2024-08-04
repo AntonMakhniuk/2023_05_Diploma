@@ -1,11 +1,10 @@
 using Cinemachine;
-using Player;
 using Player.Ship;
 using Resource_Nodes.Materials;
-using Tools.Base_Tool;
+using Tools.Base_Tools;
 using UnityEngine;
 
-public class LaserV3 : Instrument
+public class LaserV3 : BaseTool
 {
     [SerializeField] private Transform laserBarrel;
     [SerializeField] private Transform laserLeg;
@@ -25,7 +24,7 @@ public class LaserV3 : Instrument
 
     private void Awake()
     {
-        if (isActiveTool==false)
+        if (IsActiveTool==false)
         {
             ToggleInstrument(false);
         }
@@ -54,7 +53,7 @@ public class LaserV3 : Instrument
     }
 
     private void Update() {
-        if (isActiveTool)
+        if (IsActiveTool)
         {
             RotateWithCamera();
             Toggle();
@@ -71,7 +70,7 @@ public class LaserV3 : Instrument
     
     private void LateUpdate()
     {
-        if (isActiveTool)
+        if (IsActiveTool)
         {
             cinematicCamera.transform.position = _spaceshipTransform.position;
             cinematicCamera.transform.rotation = _spaceshipTransform.rotation;
@@ -80,11 +79,11 @@ public class LaserV3 : Instrument
 
     void Work()
     {
-        if (isActiveTool && Input.GetMouseButtonDown(0))
+        if (IsActiveTool && Input.GetMouseButtonDown(0))
         {
             Activate();
         }
-        else if (isActiveTool && Input.GetMouseButtonUp(0))
+        else if (IsActiveTool && Input.GetMouseButtonUp(0))
         {
             Deactivate();
         }
@@ -145,9 +144,9 @@ public class LaserV3 : Instrument
     
     void ToggleInstrument(bool activate)
     {
-        isActiveTool = activate;
+        IsActiveTool = activate;
         
-        if (isActiveTool)
+        if (IsActiveTool)
         {
             cinematicCamera.gameObject.SetActive(true);
             crosshairCanvas.gameObject.SetActive(true);
@@ -163,7 +162,7 @@ public class LaserV3 : Instrument
     }
     public override void Toggle()
     {
-        if (isActiveTool)
+        if (IsActiveTool)
         {
             cinematicCamera.gameObject.SetActive(true);
             crosshairCanvas.gameObject.SetActive(true);

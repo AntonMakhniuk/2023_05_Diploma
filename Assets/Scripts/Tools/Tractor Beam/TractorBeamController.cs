@@ -1,15 +1,12 @@
-using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
-using Instruments.Miscellaneous;
-using Player;
 using Player.Ship;
-using Scriptable_Object_Templates;
 using Scriptable_Object_Templates.Resources;
 using Tools.Base_Tool;
+using Tools.Base_Tools;
 using UnityEngine;
 
-public class TractorBeamController : Instrument, ICollector
+public class TractorBeamController : BaseTool
 {
     public float attractSpeed = 10f;
     public float holdDistance = 2f;
@@ -38,7 +35,7 @@ public class TractorBeamController : Instrument, ICollector
 
     private void Awake()
     {
-        if (isActiveTool==false)
+        if (IsActiveTool==false)
         {
             ToggleInstrument(false);
         }
@@ -66,7 +63,7 @@ public class TractorBeamController : Instrument, ICollector
 
     private void Update()
     {
-        if (isActiveTool)
+        if (IsActiveTool)
         {
             currentState.UpdateState(this);
             RotateWithCamera();
@@ -135,7 +132,7 @@ public class TractorBeamController : Instrument, ICollector
     }
     public override void Toggle()
     {
-        if (isActiveTool)
+        if (IsActiveTool)
         {
             cinematicCamera.gameObject.SetActive(true);
             crosshairCanvas.gameObject.SetActive(true);
@@ -152,9 +149,9 @@ public class TractorBeamController : Instrument, ICollector
 
     void ToggleInstrument(bool activate)
     {
-        isActiveTool = activate;
+        IsActiveTool = activate;
         
-        if (isActiveTool)
+        if (IsActiveTool)
         {
             cinematicCamera.gameObject.SetActive(true);
             crosshairCanvas.gameObject.SetActive(true);
