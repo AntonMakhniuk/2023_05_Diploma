@@ -1,57 +1,59 @@
+using System;
 using Tools.Base_Tool;
+using Tools.Base_Tools;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 //TODO: Should be rewritten
 namespace Player.Ship
 {
     public class Inventory : MonoBehaviour
     {
-        [SerializeField] private Instrument instrument1;
-        [SerializeField] private Instrument instrument2;
-        [SerializeField] private Instrument instrument3;
-    
-        [SerializeField] private Transform slot1;
-        [SerializeField] private Transform slot2;
-        [SerializeField] private Transform slot3;
-    
-    
-        private Instrument activeInstrument;
+        [SerializeField] private BaseTool instrument1;
+        [SerializeField] private BaseTool instrument2;
+        [SerializeField] private BaseTool instrument3;
+        
+        private BaseTool _activeBaseTool;
+        
+        private Action<InputAction.CallbackContext> _toggleInstrument1;
+        private Action<InputAction.CallbackContext> _toggleInstrument2;
+        private Action<InputAction.CallbackContext> _toggleInstrument3;
 
-        void Update()
+        private void Start()
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                instrument1.transform.SetParent(slot1);
-                ToggleInstrument(instrument1);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                instrument2.transform.SetParent(slot2);
-                ToggleInstrument(instrument2);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                instrument3.transform.SetParent(slot3);
-                ToggleInstrument(instrument3);
-            }
+            _toggleInstrument1 = _ => ToggleInstrument(instrument1);
+            _toggleInstrument2 = _ => ToggleInstrument(instrument2);
+            _toggleInstrument3 = _ => ToggleInstrument(instrument3);
+
+            PlayerActions.InputActions.PlayerShip.ToggleSlot_1.performed += _toggleInstrument1;
+            PlayerActions.InputActions.PlayerShip.ToggleSlot_2.performed += _toggleInstrument2;
+            PlayerActions.InputActions.PlayerShip.ToggleSlot_3.performed += _toggleInstrument3;
         }
 
-        void ToggleInstrument(Instrument instrument)
+        private void ToggleInstrument(BaseTool baseTool)
         {
-            if (instrument == activeInstrument)
+            if (_activeBaseTool != null)
             {
-                activeInstrument.Deactivate();
-                activeInstrument = null;
+                _activeBaseTool.IsActiveTool = false;
+            }
+            
+            if (baseTool == _activeBaseTool)
+            {
+                _activeBaseTool = null;
             }
             else
             {
-                if (activeInstrument != null)
-                {
-                    activeInstrument.Deactivate();
-                }
-                instrument.Activate();
-                activeInstrument = instrument;
+                baseTool.IsActiveTool = true;
+                
+                _activeBaseTool = baseTool;
             }
+        }
+
+        private void OnDestroy()
+        {
+            PlayerActions.InputActions.PlayerShip.ToggleSlot_1.performed -= _toggleInstrument1;
+            PlayerActions.InputActions.PlayerShip.ToggleSlot_2.performed -= _toggleInstrument2;
+            PlayerActions.InputActions.PlayerShip.ToggleSlot_3.performed -= _toggleInstrument3;
         }
     }
 }

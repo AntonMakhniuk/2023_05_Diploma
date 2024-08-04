@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 namespace Miscellaneous.Scene_Management
 {
-    public class InputBlocker : MonoBehaviour
+    public class SceneInputBlocker : MonoBehaviour
     {
         public List<SceneType> scenesWithNoInput = new();
 
