@@ -1,28 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class HoldingState : ITractorBeamState
+namespace Tools.Tractor_Beam
 {
-    public void EnterState(TractorBeamController context)
+    public class HoldingState : BaseTractorBeamState
     {
-    }
-
-    public void UpdateState(TractorBeamController context)
-    {
-        Rigidbody attractedObject = context.GetAttractedObject();
-
-        if (attractedObject == null)
+        public HoldingState(TractorBeam context) : base(context)
         {
-            context.SetState(new IdleState());
-            return;
         }
 
-        attractedObject.velocity = Vector3.zero;
-        attractedObject.position = context.holdPoint.position;
-    }
+        public override void Enter()
+        {
+            // No special behavior
+        }
 
-    public void ExitState(TractorBeamController context)
-    {
+        public override void Update()
+        {
+            Context.AttractedObject.position = Context.holdPoint.position;
+            Context.AttractedObject.velocity = Vector3.zero;
+        }
+
+        public override void Exit()
+        {
+            // No special behavior
+        }
     }
 }

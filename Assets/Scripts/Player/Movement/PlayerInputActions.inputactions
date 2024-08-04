@@ -60,6 +60,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "ToolThird",
+                    "type": "Button",
+                    "id": "6a6318fa-f9b0-4a83-b1e2-7659e0a3a6ce",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Brakes",
                     "type": "Button",
                     "id": "f44241a1-ae12-49b1-968c-46e3a4f6f4e4",
@@ -354,6 +363,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "AlignWithCamera",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0f2b7d38-fc74-45d4-9427-cf514d3659d2",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToolThird",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

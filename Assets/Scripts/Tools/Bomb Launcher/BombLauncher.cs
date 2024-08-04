@@ -10,8 +10,7 @@ namespace Tools.Bomb_Launcher
         private const float BombLifetime = 3f;
         
         [SerializeField] private GameObject bombPrefab;
-        [SerializeField] private Transform muzzlePoint;
-        [SerializeField] private float bombRange = 5f;
+        [SerializeField] private float explosionRange = 5f;
         
         private readonly List<Bomb> _activeBombs = new();
 
@@ -23,7 +22,7 @@ namespace Tools.Bomb_Launcher
             }
             
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, bombRange);
+            Gizmos.DrawWireSphere(transform.position, explosionRange);
         }
 
 
@@ -67,6 +66,21 @@ namespace Tools.Bomb_Launcher
         protected override void SecondaryActionCanceled()
         {
             // No action on end
+        }
+
+        protected override void ThirdActionStarted()
+        {
+            // No third action
+        }
+
+        protected override void ThirdActionPerformed()
+        {
+            // No third action
+        }
+
+        protected override void ThirdActionCanceled()
+        {
+            // No third action
         }
 
         private void HandleBombDestroyed(object sender, Bomb bomb)

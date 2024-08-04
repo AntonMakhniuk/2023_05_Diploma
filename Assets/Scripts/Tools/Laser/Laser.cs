@@ -10,7 +10,6 @@ namespace Tools.Laser
         private const float MaxBeamLength = 100f;
     
         [SerializeField] private LineRenderer beam;
-        [SerializeField] private Transform muzzlePoint;
 
         private void Awake()
         {
@@ -67,6 +66,21 @@ namespace Tools.Laser
         protected override void SecondaryActionCanceled()
         {
             // No secondary action
+        }
+
+        protected override void ThirdActionStarted()
+        {
+            // No third action
+        }
+
+        protected override void ThirdActionPerformed()
+        {
+            // No third action
+        }
+
+        protected override void ThirdActionCanceled()
+        {
+            // No third action
         }
     }
 }

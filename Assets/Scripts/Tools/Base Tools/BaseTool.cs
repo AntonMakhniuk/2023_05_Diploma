@@ -28,6 +28,9 @@ namespace Tools.Base_Tools
             PlayerActions.InputActions.PlayerShip.ToolSecondary.started += SecondaryActionStarted;
             PlayerActions.InputActions.PlayerShip.ToolSecondary.performed += SecondaryActionPerformed;
             PlayerActions.InputActions.PlayerShip.ToolSecondary.canceled += SecondaryActionCanceled;
+            PlayerActions.InputActions.PlayerShip.ToolThird.started += ThirdActionStarted;
+            PlayerActions.InputActions.PlayerShip.ToolThird.performed += ThirdActionPerformed;
+            PlayerActions.InputActions.PlayerShip.ToolThird.canceled += ThirdActionCanceled;
 
             _workCoroutine = WorkCoroutine();
         }
@@ -94,6 +97,36 @@ namespace Tools.Base_Tools
 
         protected abstract void SecondaryActionCanceled();
         
+        private void ThirdActionStarted(InputAction.CallbackContext _)
+        {
+            if (_isActiveTool)
+            {
+                ThirdActionStarted();
+            }
+        }
+
+        protected abstract void ThirdActionStarted();
+        
+        private void ThirdActionPerformed(InputAction.CallbackContext _)
+        {
+            if (_isActiveTool)
+            {
+                ThirdActionPerformed();
+            }
+        }
+        
+        protected abstract void ThirdActionPerformed();
+        
+        private void ThirdActionCanceled(InputAction.CallbackContext _)
+        {
+            if (_isActiveTool)
+            {
+                ThirdActionCanceled();
+            }
+        }
+
+        protected abstract void ThirdActionCanceled();
+        
         private void ToggleInstrument(bool newState)
         {
             cinematicCamera.gameObject.SetActive(newState);
@@ -127,6 +160,9 @@ namespace Tools.Base_Tools
             PlayerActions.InputActions.PlayerShip.ToolSecondary.started -= SecondaryActionStarted;
             PlayerActions.InputActions.PlayerShip.ToolSecondary.performed -= SecondaryActionPerformed;
             PlayerActions.InputActions.PlayerShip.ToolSecondary.canceled -= SecondaryActionCanceled;
+            PlayerActions.InputActions.PlayerShip.ToolThird.started -= ThirdActionStarted;
+            PlayerActions.InputActions.PlayerShip.ToolThird.performed -= ThirdActionPerformed;
+            PlayerActions.InputActions.PlayerShip.ToolThird.canceled -= ThirdActionCanceled;
             
             StopAllCoroutines();
         }

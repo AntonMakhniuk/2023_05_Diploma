@@ -82,6 +82,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""ToolThird"",
+                    ""type"": ""Button"",
+                    ""id"": ""6a6318fa-f9b0-4a83-b1e2-7659e0a3a6ce"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Brakes"",
                     ""type"": ""Button"",
                     ""id"": ""f44241a1-ae12-49b1-968c-46e3a4f6f4e4"",
@@ -378,6 +387,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""AlignWithCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0f2b7d38-fc74-45d4-9427-cf514d3659d2"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToolThird"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -648,6 +668,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_PlayerShip_ToggleSlot_3 = m_PlayerShip.FindAction("ToggleSlot_3", throwIfNotFound: true);
         m_PlayerShip_ToolPrimary = m_PlayerShip.FindAction("ToolPrimary", throwIfNotFound: true);
         m_PlayerShip_ToolSecondary = m_PlayerShip.FindAction("ToolSecondary", throwIfNotFound: true);
+        m_PlayerShip_ToolThird = m_PlayerShip.FindAction("ToolThird", throwIfNotFound: true);
         m_PlayerShip_Brakes = m_PlayerShip.FindAction("Brakes", throwIfNotFound: true);
         m_PlayerShip_Thrust = m_PlayerShip.FindAction("Thrust", throwIfNotFound: true);
         m_PlayerShip_Strafe = m_PlayerShip.FindAction("Strafe", throwIfNotFound: true);
@@ -737,6 +758,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerShip_ToggleSlot_3;
     private readonly InputAction m_PlayerShip_ToolPrimary;
     private readonly InputAction m_PlayerShip_ToolSecondary;
+    private readonly InputAction m_PlayerShip_ToolThird;
     private readonly InputAction m_PlayerShip_Brakes;
     private readonly InputAction m_PlayerShip_Thrust;
     private readonly InputAction m_PlayerShip_Strafe;
@@ -753,6 +775,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @ToggleSlot_3 => m_Wrapper.m_PlayerShip_ToggleSlot_3;
         public InputAction @ToolPrimary => m_Wrapper.m_PlayerShip_ToolPrimary;
         public InputAction @ToolSecondary => m_Wrapper.m_PlayerShip_ToolSecondary;
+        public InputAction @ToolThird => m_Wrapper.m_PlayerShip_ToolThird;
         public InputAction @Brakes => m_Wrapper.m_PlayerShip_Brakes;
         public InputAction @Thrust => m_Wrapper.m_PlayerShip_Thrust;
         public InputAction @Strafe => m_Wrapper.m_PlayerShip_Strafe;
@@ -786,6 +809,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @ToolSecondary.started += instance.OnToolSecondary;
             @ToolSecondary.performed += instance.OnToolSecondary;
             @ToolSecondary.canceled += instance.OnToolSecondary;
+            @ToolThird.started += instance.OnToolThird;
+            @ToolThird.performed += instance.OnToolThird;
+            @ToolThird.canceled += instance.OnToolThird;
             @Brakes.started += instance.OnBrakes;
             @Brakes.performed += instance.OnBrakes;
             @Brakes.canceled += instance.OnBrakes;
@@ -826,6 +852,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @ToolSecondary.started -= instance.OnToolSecondary;
             @ToolSecondary.performed -= instance.OnToolSecondary;
             @ToolSecondary.canceled -= instance.OnToolSecondary;
+            @ToolThird.started -= instance.OnToolThird;
+            @ToolThird.performed -= instance.OnToolThird;
+            @ToolThird.canceled -= instance.OnToolThird;
             @Brakes.started -= instance.OnBrakes;
             @Brakes.performed -= instance.OnBrakes;
             @Brakes.canceled -= instance.OnBrakes;
@@ -1041,6 +1070,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnToggleSlot_3(InputAction.CallbackContext context);
         void OnToolPrimary(InputAction.CallbackContext context);
         void OnToolSecondary(InputAction.CallbackContext context);
+        void OnToolThird(InputAction.CallbackContext context);
         void OnBrakes(InputAction.CallbackContext context);
         void OnThrust(InputAction.CallbackContext context);
         void OnStrafe(InputAction.CallbackContext context);

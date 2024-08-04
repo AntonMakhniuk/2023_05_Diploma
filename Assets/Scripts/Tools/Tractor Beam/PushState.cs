@@ -1,27 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PushState : ITractorBeamState
+namespace Tools.Tractor_Beam
 {
-    public void EnterState(TractorBeamController context)
+    public class PushState : BaseTractorBeamState
     {
-        Rigidbody attractedObject = context.GetAttractedObject();
-
-        if (attractedObject != null)
+        private const float PushForce = 20f;
+        
+        public PushState(TractorBeam context) : base(context)
         {
-            Vector3 pushDirection = (attractedObject.position - context.transform.position).normalized;
-            attractedObject.AddForce(pushDirection * context.pushForce, ForceMode.Impulse);
-            context.SetAttractedObject(null);
         }
-    }
+        
+        public override void Enter()
+        {
+            var pushDirection = (Context.AttractedObject.position - Context.transform.position).normalized;
+            Context.AttractedObject.AddForce(pushDirection * PushForce, ForceMode.Impulse);
+            Context.AttractedObject = null;
+            Context.SetState(TractorBeamState.Idle);
+        }
 
-    public void UpdateState(TractorBeamController context)
-    {
-        context.SetState(new IdleState());
-    }
+        public override void Update()
+        {
+            // No special behavior
+        }
 
-    public void ExitState(TractorBeamController context)
-    {
+        public override void Exit()
+        {
+            // No special behavior
+        }
     }
 }

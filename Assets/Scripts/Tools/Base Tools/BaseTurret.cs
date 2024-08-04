@@ -9,6 +9,8 @@ namespace Tools.Base_Tools
         [SerializeField] private Transform turretBase;
         [SerializeField] private Transform turretLeg;
         [SerializeField] private Transform turretBarrel;
+        
+        [SerializeField] protected Transform muzzlePoint;
 
         protected override IEnumerator WorkCoroutine()
         {

@@ -1,18 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class IdleState : ITractorBeamState
+namespace Tools.Tractor_Beam
 {
-    public void EnterState(TractorBeamController context)
+    public class IdleState : BaseTractorBeamState
     {
-    }
+        public IdleState(TractorBeam context) : base(context)
+        {
+        }
 
-    public void UpdateState(TractorBeamController context)
-    {
-    }
+        public override void Enter()
+        {
+            // No special behavior
+        }
 
-    public void ExitState(TractorBeamController context)
-    {
+        public override void Update()
+        {
+            // No special behavior
+        }
+
+        public override void Exit()
+        {
+            // No special behavior
+        }
     }
 }
