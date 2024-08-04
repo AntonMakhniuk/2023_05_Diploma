@@ -22,34 +22,78 @@ namespace Tools.Base_Tools
 
         private void Start()
         {
-            PlayerActions.InputActions.PlayerShip.ToolPrimary.performed += PrimaryAction;
-            PlayerActions.InputActions.PlayerShip.ToolSecondary.performed += SecondaryAction;
+            PlayerActions.InputActions.PlayerShip.ToolPrimary.started += PrimaryActionStarted;
+            PlayerActions.InputActions.PlayerShip.ToolPrimary.performed += PrimaryActionPerformed;
+            PlayerActions.InputActions.PlayerShip.ToolPrimary.canceled += PrimaryActionCanceled;
+            PlayerActions.InputActions.PlayerShip.ToolSecondary.started += SecondaryActionStarted;
+            PlayerActions.InputActions.PlayerShip.ToolSecondary.performed += SecondaryActionPerformed;
+            PlayerActions.InputActions.PlayerShip.ToolSecondary.canceled += SecondaryActionCanceled;
 
             _workCoroutine = WorkCoroutine();
         }
-
+        
         protected abstract IEnumerator WorkCoroutine();
         
-        private void PrimaryAction(InputAction.CallbackContext _)
+        private void PrimaryActionStarted(InputAction.CallbackContext _)
         {
             if (_isActiveTool)
             {
-                PrimaryAction();
+                PrimaryActionStarted();
             }
         }
-        
-        protected abstract void PrimaryAction();
-        
-        private void SecondaryAction(InputAction.CallbackContext _)
-        {
-            if (_isActiveTool)
-            {
-                SecondaryAction();
-            }
-        }
-        
-        protected abstract void SecondaryAction();
 
+        protected abstract void PrimaryActionStarted();
+        
+        private void PrimaryActionPerformed(InputAction.CallbackContext _)
+        {
+            if (_isActiveTool)
+            {
+                PrimaryActionPerformed();
+            }
+        }
+        
+        protected abstract void PrimaryActionPerformed();
+        
+        private void PrimaryActionCanceled(InputAction.CallbackContext _)
+        {
+            if (_isActiveTool)
+            {
+                PrimaryActionCanceled();
+            }
+        }
+
+        protected abstract void PrimaryActionCanceled();
+        
+        private void SecondaryActionStarted(InputAction.CallbackContext _)
+        {
+            if (_isActiveTool)
+            {
+                SecondaryActionStarted();
+            }
+        }
+
+        protected abstract void SecondaryActionStarted();
+        
+        private void SecondaryActionPerformed(InputAction.CallbackContext _)
+        {
+            if (_isActiveTool)
+            {
+                SecondaryActionPerformed();
+            }
+        }
+        
+        protected abstract void SecondaryActionPerformed();
+        
+        private void SecondaryActionCanceled(InputAction.CallbackContext _)
+        {
+            if (_isActiveTool)
+            {
+                SecondaryActionCanceled();
+            }
+        }
+
+        protected abstract void SecondaryActionCanceled();
+        
         private void ToggleInstrument(bool newState)
         {
             cinematicCamera.gameObject.SetActive(newState);
@@ -77,8 +121,12 @@ namespace Tools.Base_Tools
         
         protected virtual void OnDestroy()
         {
-            PlayerActions.InputActions.PlayerShip.ToolPrimary.performed -= PrimaryAction;
-            PlayerActions.InputActions.PlayerShip.ToolSecondary.performed -= SecondaryAction;
+            PlayerActions.InputActions.PlayerShip.ToolPrimary.started -= PrimaryActionStarted;
+            PlayerActions.InputActions.PlayerShip.ToolPrimary.performed -= PrimaryActionPerformed;
+            PlayerActions.InputActions.PlayerShip.ToolPrimary.canceled -= PrimaryActionCanceled;
+            PlayerActions.InputActions.PlayerShip.ToolSecondary.started -= SecondaryActionStarted;
+            PlayerActions.InputActions.PlayerShip.ToolSecondary.performed -= SecondaryActionPerformed;
+            PlayerActions.InputActions.PlayerShip.ToolSecondary.canceled -= SecondaryActionCanceled;
             
             StopAllCoroutines();
         }

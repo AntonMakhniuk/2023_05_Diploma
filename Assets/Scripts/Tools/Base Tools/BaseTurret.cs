@@ -7,6 +7,7 @@ namespace Tools.Base_Tools
     public abstract class BaseTurret : BaseTool
     {
         [SerializeField] private Transform turretBase;
+        [SerializeField] private Transform turretLeg;
         [SerializeField] private Transform turretBarrel;
 
         protected override IEnumerator WorkCoroutine()
@@ -31,7 +32,7 @@ namespace Tools.Base_Tools
             var relativeDirection = PlayerShip.Instance.transform.InverseTransformDirection(direction);
             
             var legAngle = Mathf.Atan2(relativeDirection.x, relativeDirection.z) * Mathf.Rad2Deg;
-            turretBase.transform.localRotation = Quaternion.Euler(0f, legAngle, 0f);
+            turretLeg.transform.localRotation = Quaternion.Euler(0f, legAngle, 0f);
             
             var barrelAngle = -Mathf.Atan2(relativeDirection.y, 
                 Mathf.Sqrt(relativeDirection.x * relativeDirection.x + relativeDirection.z * relativeDirection.z))
