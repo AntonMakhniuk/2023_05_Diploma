@@ -463,24 +463,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "PlaceBlueprint",
-                    "type": "Button",
-                    "id": "cbc32d01-346f-417c-b8c9-5fcac512eb45",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "RemoveBlueprint",
-                    "type": "Button",
-                    "id": "abb99322-4b38-4588-8303-994f37a3e252",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -582,28 +564,6 @@
                     "action": "ToggleUpgrades",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "dc37e3d3-3af4-4ea9-a296-37885b8f9d39",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "PlaceBlueprint",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a51086d1-2fa6-4092-b379-442e21bdb445",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "RemoveBlueprint",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         },
@@ -630,6 +590,94 @@
                     "processors": "",
                     "groups": "",
                     "action": "CameraMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Building",
+            "id": "3f34f77f-8554-4eed-b8b7-0f71c0bcd64a",
+            "actions": [
+                {
+                    "name": "RotateBlueprintLeft",
+                    "type": "Button",
+                    "id": "c2b411bb-2e07-45c7-b92c-3751bc181498",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RotateBlueprintRight",
+                    "type": "Button",
+                    "id": "19e3544d-5006-47fd-bbab-9a10b62c4db7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PlaceDownBlueprint",
+                    "type": "Button",
+                    "id": "43483b61-9016-4645-a3cd-cd7462e2865e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ClearBlueprint",
+                    "type": "Button",
+                    "id": "462703b2-f19b-429e-944e-342c6707cc7e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "64356dba-9438-4118-a199-ecb240bc861a",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateBlueprintLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ec7778eb-9acb-4d67-8ddb-ff60aa1b46d3",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateBlueprintRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "de891e31-ca69-4ae9-a072-2790a3f72649",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PlaceDownBlueprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2804ce4a-d74a-4841-b71e-df7fcca7ea76",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ClearBlueprint",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

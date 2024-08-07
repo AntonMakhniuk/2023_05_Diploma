@@ -1,4 +1,4 @@
-﻿using Scriptable_Object_Templates.Building;
+﻿using Building.Structures;
 using UnityEngine;
 
 namespace Building.Systems

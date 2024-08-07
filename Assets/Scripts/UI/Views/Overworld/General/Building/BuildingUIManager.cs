@@ -1,5 +1,5 @@
-﻿using Building.Systems;
-using Scriptable_Object_Templates.Building;
+﻿using Scriptable_Object_Templates.Building;
+using Scriptable_Object_Templates.Singletons.Dictionaries;
 using UI.Systems;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,7 +28,7 @@ namespace UI.Views.Overworld.General.Building
 
         private void GenerateBuildingTiles()
         {
-            foreach (var kvp in BuildingManager.Instance.buildingDataByType)
+            foreach (var kvp in BuildingTypeDataDictionary.Instance.dictionary)
             {
                 CreateBuildingTile(kvp.Value);
             }

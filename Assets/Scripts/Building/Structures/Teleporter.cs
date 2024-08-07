@@ -1,10 +1,9 @@
-using Building.Systems;
 using Player.Ship;
 using UnityEngine;
 
 namespace Building.Structures
 {
-    public class Teleporter : BuildingObject
+    public class Teleporter : BaseBuilding
     {
         [SerializeField] private Transform teleportPositionTransform;
         

@@ -5,9 +5,9 @@ using UnityEngine;
 namespace Scriptable_Object_Templates.Singletons.Dictionaries
 {
     [CreateAssetMenu(fileName = "ResourcePrefabDictionary", menuName = "GameData/ResourcePrefabDictionary")]
-    public class ResourceTypePrefabDict : ScriptableSingleton<ResourceTypePrefabDict>
+    public class ResourceTypePrefabDictionary : ScriptableSingleton<ResourceTypePrefabDictionary>
     {
         [SerializedDictionary("Resource Type", "Associated Prefab")]
-        public SerializedDictionary<ResourceType, GameObject> resourceTypePrefabDictionary;
+        public SerializedDictionary<ResourceType, GameObject> dictionary;
     }
 }

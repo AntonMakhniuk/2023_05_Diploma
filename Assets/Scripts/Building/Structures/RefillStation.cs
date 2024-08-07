@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Building.Structures
 {
-    public class RefillStation : BuildingObject
+    public class RefillStation : BaseBuilding
     {
         // If the distance between the refill station and closest gas field center is less than this value,
         // it is treated as being centered on the gas field, so the refill efficiency is 100%

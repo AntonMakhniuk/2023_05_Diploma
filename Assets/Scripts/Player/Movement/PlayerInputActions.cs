@@ -485,24 +485,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""PlaceBlueprint"",
-                    ""type"": ""Button"",
-                    ""id"": ""cbc32d01-346f-417c-b8c9-5fcac512eb45"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""RemoveBlueprint"",
-                    ""type"": ""Button"",
-                    ""id"": ""abb99322-4b38-4588-8303-994f37a3e252"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -604,28 +586,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""ToggleUpgrades"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""dc37e3d3-3af4-4ea9-a296-37885b8f9d39"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""PlaceBlueprint"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a51086d1-2fa6-4092-b379-442e21bdb445"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""RemoveBlueprint"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -652,6 +612,94 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""CameraMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Building"",
+            ""id"": ""3f34f77f-8554-4eed-b8b7-0f71c0bcd64a"",
+            ""actions"": [
+                {
+                    ""name"": ""RotateBlueprintLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""c2b411bb-2e07-45c7-b92c-3751bc181498"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotateBlueprintRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""19e3544d-5006-47fd-bbab-9a10b62c4db7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PlaceDownBlueprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""43483b61-9016-4645-a3cd-cd7462e2865e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ClearBlueprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""462703b2-f19b-429e-944e-342c6707cc7e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""64356dba-9438-4118-a199-ecb240bc861a"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateBlueprintLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ec7778eb-9acb-4d67-8ddb-ff60aa1b46d3"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateBlueprintRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""de891e31-ca69-4ae9-a072-2790a3f72649"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PlaceDownBlueprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2804ce4a-d74a-4841-b71e-df7fcca7ea76"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ClearBlueprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -686,11 +734,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_UI_InteractWithObject = m_UI.FindAction("InteractWithObject", throwIfNotFound: true);
         m_UI_ToggleBuilding = m_UI.FindAction("ToggleBuilding", throwIfNotFound: true);
         m_UI_ToggleUpgrades = m_UI.FindAction("ToggleUpgrades", throwIfNotFound: true);
-        m_UI_PlaceBlueprint = m_UI.FindAction("PlaceBlueprint", throwIfNotFound: true);
-        m_UI_RemoveBlueprint = m_UI.FindAction("RemoveBlueprint", throwIfNotFound: true);
         // PlayerCamera
         m_PlayerCamera = asset.FindActionMap("PlayerCamera", throwIfNotFound: true);
         m_PlayerCamera_CameraMovement = m_PlayerCamera.FindAction("CameraMovement", throwIfNotFound: true);
+        // Building
+        m_Building = asset.FindActionMap("Building", throwIfNotFound: true);
+        m_Building_RotateBlueprintLeft = m_Building.FindAction("RotateBlueprintLeft", throwIfNotFound: true);
+        m_Building_RotateBlueprintRight = m_Building.FindAction("RotateBlueprintRight", throwIfNotFound: true);
+        m_Building_PlaceDownBlueprint = m_Building.FindAction("PlaceDownBlueprint", throwIfNotFound: true);
+        m_Building_ClearBlueprint = m_Building.FindAction("ClearBlueprint", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -903,8 +955,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_InteractWithObject;
     private readonly InputAction m_UI_ToggleBuilding;
     private readonly InputAction m_UI_ToggleUpgrades;
-    private readonly InputAction m_UI_PlaceBlueprint;
-    private readonly InputAction m_UI_RemoveBlueprint;
     public struct UIActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -918,8 +968,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @InteractWithObject => m_Wrapper.m_UI_InteractWithObject;
         public InputAction @ToggleBuilding => m_Wrapper.m_UI_ToggleBuilding;
         public InputAction @ToggleUpgrades => m_Wrapper.m_UI_ToggleUpgrades;
-        public InputAction @PlaceBlueprint => m_Wrapper.m_UI_PlaceBlueprint;
-        public InputAction @RemoveBlueprint => m_Wrapper.m_UI_RemoveBlueprint;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -956,12 +1004,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @ToggleUpgrades.started += instance.OnToggleUpgrades;
             @ToggleUpgrades.performed += instance.OnToggleUpgrades;
             @ToggleUpgrades.canceled += instance.OnToggleUpgrades;
-            @PlaceBlueprint.started += instance.OnPlaceBlueprint;
-            @PlaceBlueprint.performed += instance.OnPlaceBlueprint;
-            @PlaceBlueprint.canceled += instance.OnPlaceBlueprint;
-            @RemoveBlueprint.started += instance.OnRemoveBlueprint;
-            @RemoveBlueprint.performed += instance.OnRemoveBlueprint;
-            @RemoveBlueprint.canceled += instance.OnRemoveBlueprint;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -993,12 +1035,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @ToggleUpgrades.started -= instance.OnToggleUpgrades;
             @ToggleUpgrades.performed -= instance.OnToggleUpgrades;
             @ToggleUpgrades.canceled -= instance.OnToggleUpgrades;
-            @PlaceBlueprint.started -= instance.OnPlaceBlueprint;
-            @PlaceBlueprint.performed -= instance.OnPlaceBlueprint;
-            @PlaceBlueprint.canceled -= instance.OnPlaceBlueprint;
-            @RemoveBlueprint.started -= instance.OnRemoveBlueprint;
-            @RemoveBlueprint.performed -= instance.OnRemoveBlueprint;
-            @RemoveBlueprint.canceled -= instance.OnRemoveBlueprint;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -1062,6 +1098,76 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         }
     }
     public PlayerCameraActions @PlayerCamera => new PlayerCameraActions(this);
+
+    // Building
+    private readonly InputActionMap m_Building;
+    private List<IBuildingActions> m_BuildingActionsCallbackInterfaces = new List<IBuildingActions>();
+    private readonly InputAction m_Building_RotateBlueprintLeft;
+    private readonly InputAction m_Building_RotateBlueprintRight;
+    private readonly InputAction m_Building_PlaceDownBlueprint;
+    private readonly InputAction m_Building_ClearBlueprint;
+    public struct BuildingActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public BuildingActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @RotateBlueprintLeft => m_Wrapper.m_Building_RotateBlueprintLeft;
+        public InputAction @RotateBlueprintRight => m_Wrapper.m_Building_RotateBlueprintRight;
+        public InputAction @PlaceDownBlueprint => m_Wrapper.m_Building_PlaceDownBlueprint;
+        public InputAction @ClearBlueprint => m_Wrapper.m_Building_ClearBlueprint;
+        public InputActionMap Get() { return m_Wrapper.m_Building; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(BuildingActions set) { return set.Get(); }
+        public void AddCallbacks(IBuildingActions instance)
+        {
+            if (instance == null || m_Wrapper.m_BuildingActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_BuildingActionsCallbackInterfaces.Add(instance);
+            @RotateBlueprintLeft.started += instance.OnRotateBlueprintLeft;
+            @RotateBlueprintLeft.performed += instance.OnRotateBlueprintLeft;
+            @RotateBlueprintLeft.canceled += instance.OnRotateBlueprintLeft;
+            @RotateBlueprintRight.started += instance.OnRotateBlueprintRight;
+            @RotateBlueprintRight.performed += instance.OnRotateBlueprintRight;
+            @RotateBlueprintRight.canceled += instance.OnRotateBlueprintRight;
+            @PlaceDownBlueprint.started += instance.OnPlaceDownBlueprint;
+            @PlaceDownBlueprint.performed += instance.OnPlaceDownBlueprint;
+            @PlaceDownBlueprint.canceled += instance.OnPlaceDownBlueprint;
+            @ClearBlueprint.started += instance.OnClearBlueprint;
+            @ClearBlueprint.performed += instance.OnClearBlueprint;
+            @ClearBlueprint.canceled += instance.OnClearBlueprint;
+        }
+
+        private void UnregisterCallbacks(IBuildingActions instance)
+        {
+            @RotateBlueprintLeft.started -= instance.OnRotateBlueprintLeft;
+            @RotateBlueprintLeft.performed -= instance.OnRotateBlueprintLeft;
+            @RotateBlueprintLeft.canceled -= instance.OnRotateBlueprintLeft;
+            @RotateBlueprintRight.started -= instance.OnRotateBlueprintRight;
+            @RotateBlueprintRight.performed -= instance.OnRotateBlueprintRight;
+            @RotateBlueprintRight.canceled -= instance.OnRotateBlueprintRight;
+            @PlaceDownBlueprint.started -= instance.OnPlaceDownBlueprint;
+            @PlaceDownBlueprint.performed -= instance.OnPlaceDownBlueprint;
+            @PlaceDownBlueprint.canceled -= instance.OnPlaceDownBlueprint;
+            @ClearBlueprint.started -= instance.OnClearBlueprint;
+            @ClearBlueprint.performed -= instance.OnClearBlueprint;
+            @ClearBlueprint.canceled -= instance.OnClearBlueprint;
+        }
+
+        public void RemoveCallbacks(IBuildingActions instance)
+        {
+            if (m_Wrapper.m_BuildingActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IBuildingActions instance)
+        {
+            foreach (var item in m_Wrapper.m_BuildingActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_BuildingActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public BuildingActions @Building => new BuildingActions(this);
     public interface IPlayerShipActions
     {
         void OnAlignWithCamera(InputAction.CallbackContext context);
@@ -1089,11 +1195,16 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnInteractWithObject(InputAction.CallbackContext context);
         void OnToggleBuilding(InputAction.CallbackContext context);
         void OnToggleUpgrades(InputAction.CallbackContext context);
-        void OnPlaceBlueprint(InputAction.CallbackContext context);
-        void OnRemoveBlueprint(InputAction.CallbackContext context);
     }
     public interface IPlayerCameraActions
     {
         void OnCameraMovement(InputAction.CallbackContext context);
+    }
+    public interface IBuildingActions
+    {
+        void OnRotateBlueprintLeft(InputAction.CallbackContext context);
+        void OnRotateBlueprintRight(InputAction.CallbackContext context);
+        void OnPlaceDownBlueprint(InputAction.CallbackContext context);
+        void OnClearBlueprint(InputAction.CallbackContext context);
     }
 }

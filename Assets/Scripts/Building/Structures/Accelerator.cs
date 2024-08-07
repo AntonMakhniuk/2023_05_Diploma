@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Building.Structures
 {
     //TODO: Make work for non-player ships if we do add them
-    public class Accelerator : BuildingObject
+    public class Accelerator : BaseBuilding
     {
         //Set to <=0 to unconstrain
         private const int MaxAccelerationCount = 0;

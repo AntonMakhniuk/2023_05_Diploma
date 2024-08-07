@@ -38,7 +38,7 @@ namespace Resource_Nodes.Asteroid
             _wholeAsteroidRb = wholeAsteroid.GetComponent<Rigidbody>();
             _asteroidRotationOffset = wholeAsteroid.transform.localRotation;
             
-            _orePrefab = ResourceTypePrefabDict.Instance.resourceTypePrefabDictionary[associatedResource.resourceType];
+            _orePrefab = ResourceTypePrefabDictionary.Instance.dictionary[associatedResource.resourceType];
             
             foreach (var position in RandomPointSelector.GenerateRandomPointsOnMesh(asteroidMesh,
                          Random.Range(MinPointsCount, MaxPointsCount + 1), 0.1f))
@@ -67,12 +67,12 @@ namespace Resource_Nodes.Asteroid
         {
             var asteroidPosition = wholeAsteroid.transform.position;
             
-            //TODO: do we need both the normal and fractured? cant we just use the fractured on its own
+            // TODO: do we need both the normal and fractured? cant we just use the fractured on its own
             fracturedAsteroid.transform.position = asteroidPosition;
             fracturedAsteroid.transform.rotation = wholeAsteroid.transform.localRotation 
                                                    * Quaternion.Inverse(_asteroidRotationOffset);
             
-            Vector3 explosionPos = fracturedAsteroid.transform.position;
+            var explosionPos = fracturedAsteroid.transform.position;
             var asteroidVelocity = _wholeAsteroidRb.velocity;
         
             wholeAsteroid.SetActive(false);
@@ -95,7 +95,7 @@ namespace Resource_Nodes.Asteroid
         
             foreach (var overlappingCollider in colliders)
             {
-                Rigidbody rb = overlappingCollider.GetComponent<Rigidbody>();
+                var rb = overlappingCollider.GetComponent<Rigidbody>();
         
                 if (rb == null)
                     return;
@@ -103,7 +103,7 @@ namespace Resource_Nodes.Asteroid
                 rb.velocity = asteroidVelocity;
                 rb.AddExplosionForce(explosionPower, explosionPos, explosionRadius, 0);
                 
-                //TODO: could this not accidentally unparent something apart from the asteroid?
+                // TODO: could this not accidentally unparent something apart from the asteroid?
                 rb.transform.parent = null;
             }
         

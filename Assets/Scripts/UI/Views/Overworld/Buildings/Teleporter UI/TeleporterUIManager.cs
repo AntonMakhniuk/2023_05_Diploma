@@ -3,6 +3,7 @@ using System.Linq;
 using Building.Structures;
 using Building.Systems;
 using Scriptable_Object_Templates.Building;
+using Scriptable_Object_Templates.Singletons.Dictionaries;
 using TMPro;
 using UI.Systems;
 using UnityEngine;
@@ -24,12 +25,12 @@ namespace UI.Views.Overworld.Buildings.Teleporter_UI
 
         public void Initialize()
         {
-            if (!BuildingManager.Instance.InstancesByType.TryGetValue(BuildingType.Teleporter, out _))
+            if (!BuildingManager.Instance.BlueprintsByType.TryGetValue(BuildingType.Teleporter, out _))
             {
                 return;
             }
             
-            if (BuildingManager.Instance.InstancesByType[BuildingType.Teleporter].Count > 2)
+            if (BuildingManager.Instance.BlueprintsByType[BuildingType.Teleporter].Count > 2)
             {
                 errorText.enabled = true;
                 grid.enabled = false;
@@ -50,7 +51,7 @@ namespace UI.Views.Overworld.Buildings.Teleporter_UI
 
         public void UpdateElement()
         {
-            if (BuildingManager.Instance.InstancesByType[BuildingType.Teleporter].Count > 2)
+            if (BuildingManager.Instance.BlueprintsByType[BuildingType.Teleporter].Count > 2)
             {
                 errorText.enabled = true;
                 grid.enabled = false;
@@ -84,7 +85,7 @@ namespace UI.Views.Overworld.Buildings.Teleporter_UI
         private void GenerateTeleporterTiles()
         {
             var teleporters = BuildingManager.Instance
-                .InstancesByType[BuildingType.Teleporter].Cast<Teleporter>().ToList();
+                .BlueprintsByType[BuildingType.Teleporter].Cast<Teleporter>().ToList();
 
             teleporters.Remove(_openingTeleporter);
             
@@ -98,7 +99,7 @@ namespace UI.Views.Overworld.Buildings.Teleporter_UI
 
         private void CreateTeleporterTile(Teleporter teleporter)
         {
-            var teleporterData = BuildingManager.Instance.buildingDataByType[BuildingType.Teleporter];
+            var teleporterData = BuildingTypeDataDictionary.Instance.dictionary[BuildingType.Teleporter];
             var teleporterObject = Instantiate(teleporterTilePrefab, grid.transform);
             var teleporterTile = teleporterObject.GetComponent<TeleporterTile>();
 

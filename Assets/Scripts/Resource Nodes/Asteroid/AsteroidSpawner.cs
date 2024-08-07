@@ -12,7 +12,7 @@ namespace Resource_Nodes.Asteroid
         [SerializeField] private int startingNumberOfAsteroids = 10;
         [SerializeField] private int maxNumberOfAsteroids = 100;
 
-        private List<Asteroid> _currentAsteroids = new();
+        private readonly List<Asteroid> _currentAsteroids = new();
         
         [SerializeField] private Vector3 spawnZoneSize = new Vector3(10f, 10f, 10f);
         [SerializeField] private float spawnInterval = 5f;
