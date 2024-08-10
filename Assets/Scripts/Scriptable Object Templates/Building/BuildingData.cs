@@ -1,4 +1,5 @@
-﻿using Building.Structures;
+﻿using Building.Buildings.Base_Classes;
+using Building.Structures;
 using UnityEngine;
 
 namespace Scriptable_Object_Templates.Building

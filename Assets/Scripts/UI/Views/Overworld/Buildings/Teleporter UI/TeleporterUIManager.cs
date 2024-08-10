@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Building.Buildings.Base_Classes;
 using Building.Structures;
 using Building.Systems;
-using Scriptable_Object_Templates.Building;
-using Scriptable_Object_Templates.Singletons.Dictionaries;
+using Scriptable_Object_Templates.Singletons;
 using TMPro;
 using UI.Systems;
 using UnityEngine;
@@ -25,12 +25,13 @@ namespace UI.Views.Overworld.Buildings.Teleporter_UI
 
         public void Initialize()
         {
-            if (!BuildingManager.Instance.BlueprintsByType.TryGetValue(BuildingType.Teleporter, out _))
+            if (!BuildingManager.Instance.BuildingsByType.TryGetValue(BuildingType.Teleporter, out _))
             {
                 return;
             }
             
-            if (BuildingManager.Instance.BlueprintsByType[BuildingType.Teleporter].Count > 2)
+            if (BuildingManager.Instance.BuildingsByType[BuildingType.Teleporter]
+                    .Count(b => b.currentState == BuildingState.Constructed) < 2)
             {
                 errorText.enabled = true;
                 grid.enabled = false;
@@ -51,7 +52,8 @@ namespace UI.Views.Overworld.Buildings.Teleporter_UI
 
         public void UpdateElement()
         {
-            if (BuildingManager.Instance.BlueprintsByType[BuildingType.Teleporter].Count > 2)
+            if (BuildingManager.Instance.BuildingsByType[BuildingType.Teleporter]
+                    .Count(b => b.currentState == BuildingState.Constructed) < 2)
             {
                 errorText.enabled = true;
                 grid.enabled = false;
@@ -85,7 +87,11 @@ namespace UI.Views.Overworld.Buildings.Teleporter_UI
         private void GenerateTeleporterTiles()
         {
             var teleporters = BuildingManager.Instance
-                .BlueprintsByType[BuildingType.Teleporter].Cast<Teleporter>().ToList();
+                .BuildingsByType[BuildingType.Teleporter]
+                .Where(b => b.currentState == BuildingState.Constructed)
+                .Select(b => b.buildingComponent)
+                .Cast<Teleporter>()
+                .ToList();
 
             teleporters.Remove(_openingTeleporter);
             
@@ -99,7 +105,7 @@ namespace UI.Views.Overworld.Buildings.Teleporter_UI
 
         private void CreateTeleporterTile(Teleporter teleporter)
         {
-            var teleporterData = BuildingTypeDataDictionary.Instance.dictionary[BuildingType.Teleporter];
+            var teleporterData = BuildingPrefabDictionary.Instance.dictionary[BuildingType.Teleporter];
             var teleporterObject = Instantiate(teleporterTilePrefab, grid.transform);
             var teleporterTile = teleporterObject.GetComponent<TeleporterTile>();
 
