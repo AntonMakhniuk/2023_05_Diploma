@@ -9,12 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b909beaae3242ef895405c7dd24ea5e, type: 3}
-  m_Name: Space Ore
+  m_Script: {fileID: 11500000, guid: 2d888c5dfd1747269caef106c45204d9, type: 3}
+  m_Name: Resource Prefab Dictionary
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
-  label: Space Ore
-  category: 0
-  mass: 1
-  volume: 1
-  resourceType: 1
+  dictionary:
+    _serializedList:
+    - Key: 1
+      Value: {fileID: 2091035745197971742, guid: 60c3cb11648c8ab4792073d25edaeeb4, type: 3}
