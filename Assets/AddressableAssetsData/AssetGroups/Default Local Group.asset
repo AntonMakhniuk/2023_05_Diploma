@@ -16,7 +16,31 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: f0fcfe0bd5b8e3948b18bc6ead19549f
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 7ebf04b0bd4743c4d8628be590197100
+    m_Address: Assets/Scriptable Objects/Addressables/BuildingPrefabDictionary.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BuildingPrefabDictionary
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f9e0cc7ba3c095941b1156917a21e732
+    m_Address: Assets/Scriptable Objects/Addressables/ResourcePrefabDictionary.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ResourcePrefabDictionary
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 320a284559bf4d140bb59da6479e20a7
+    m_Address: Assets/Scriptable Objects/Addressables/Recipe Dictionary.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - RecipeDictionary
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cc2b315e99806ac4eb02b1862085d9a9
+    m_Address: Assets/Scriptable Objects/Addressables/Resource Node Prefab Dictionary.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ResourceNodePrefabDictionary
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 005580f378fbe434d9656a348286fda1, type: 2}
   m_SchemaSet:

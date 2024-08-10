@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: f0fcfe0bd5b8e3948b18bc6ead19549f
   m_currentHash:
     serializedVersion: 2
-    Hash: 00000000000000000000000000000000
+    Hash: c0cac9d000f6f9ea4eecf34d90b030f7
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -87,6 +87,10 @@ MonoBehaviour:
   m_LabelTable:
     m_LabelNames:
     - default
+    - BuildingPrefabDictionary
+    - ResourcePrefabDictionary
+    - RecipeDictionary
+    - ResourceNodePrefabDictionary
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 478e6e344ca1ef1498694da778e778a3, type: 2}
