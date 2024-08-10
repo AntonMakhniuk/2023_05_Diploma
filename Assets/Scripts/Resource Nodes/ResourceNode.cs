@@ -7,4 +7,9 @@ namespace Resource_Nodes
     {
         public Resource associatedResource;
     }
+
+    public enum ResourceNodeType
+    {
+        GasField, Asteroid
+    }
 }

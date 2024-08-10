@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Scriptable_Object_Templates.Singletons;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -7,14 +8,12 @@ namespace Resource_Nodes.Asteroid
 {
     public class AsteroidSpawner : MonoBehaviour
     {
-        [SerializeField] private GameObject asteroidPrefab;
-        
         [SerializeField] private int startingNumberOfAsteroids = 10;
         [SerializeField] private int maxNumberOfAsteroids = 100;
 
         private readonly List<Asteroid> _currentAsteroids = new();
         
-        [SerializeField] private Vector3 spawnZoneSize = new Vector3(10f, 10f, 10f);
+        [SerializeField] private Vector3 spawnZoneSize = new(10f, 10f, 10f);
         [SerializeField] private float spawnInterval = 5f;
     
         [SerializeField] private SpawnShape spawnShape = SpawnShape.Rectangle;
@@ -51,13 +50,14 @@ namespace Resource_Nodes.Asteroid
             var randomRotation = Quaternion.Euler(Random.Range(0, 360), 
                 Random.Range(0, 360), Random.Range(0, 360));
 
-            var asteroidObject = Instantiate(asteroidPrefab, randomPosition, randomRotation, transform);
+            var asteroidObject = Instantiate(ResourceNodePrefabDictionary.Instance
+                .GetRandomPrefabByType(ResourceNodeType.Asteroid), randomPosition, randomRotation, transform);
 
             var asteroidComponent = asteroidObject.GetComponent<Asteroid>();
             asteroidComponent.OnAsteroidDestroyed += HandleAsteroidDestroyed;
             _currentAsteroids.Add(asteroidComponent);
             
-            var asteroidRb = asteroidObject.GetComponent<Rigidbody>();
+            var asteroidRb = asteroidComponent.wholeAsteroid.GetComponent<Rigidbody>();
         
             asteroidRb.AddForce(Random.onUnitSphere * asteroidSpeed, ForceMode.Impulse);
             asteroidRb.AddTorque(Random.onUnitSphere * asteroidRotationSpeed, ForceMode.Impulse);

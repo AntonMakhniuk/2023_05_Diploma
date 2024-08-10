@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Miscellaneous.Utility;
-using Scriptable_Object_Templates.Singletons.Dictionaries;
+using Scriptable_Object_Templates.Singletons;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -14,7 +14,7 @@ namespace Resource_Nodes.Asteroid
         
         private GameObject _orePrefab;
     
-        [SerializeField] private GameObject wholeAsteroid;
+        public GameObject wholeAsteroid;
         [SerializeField] private GameObject fracturedAsteroid;
         
         private Rigidbody _wholeAsteroidRb;
@@ -38,12 +38,13 @@ namespace Resource_Nodes.Asteroid
             _wholeAsteroidRb = wholeAsteroid.GetComponent<Rigidbody>();
             _asteroidRotationOffset = wholeAsteroid.transform.localRotation;
             
-            _orePrefab = ResourceTypePrefabDictionary.Instance.dictionary[associatedResource.resourceType];
+            _orePrefab = ResourcePrefabDictionary.Instance.dictionary[associatedResource.resourceType];
             
             foreach (var position in RandomPointSelector.GenerateRandomPointsOnMesh(asteroidMesh,
                          Random.Range(MinPointsCount, MaxPointsCount + 1), 0.1f))
             {
-                var pointObject = Instantiate(asteroidPointPrefab, position, Quaternion.identity, transform);
+                var pointObject = Instantiate(asteroidPointPrefab, transform.TransformPoint(position), 
+                    Quaternion.identity, wholeAsteroid.transform);
                 var pointComponent = pointObject.GetComponent<AsteroidPoint>();
 
                 pointComponent.OnPointDestroyed += HandleAsteroidPointDestroyed;

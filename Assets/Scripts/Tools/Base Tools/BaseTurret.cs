@@ -31,7 +31,7 @@ namespace Tools.Base_Tools
             var cameraForward = cinematicCamera.transform.forward;
             
             var direction = cameraPosition + cameraForward * 100f - basePosition;
-            var relativeDirection = PlayerShip.Instance.transform.InverseTransformDirection(direction);
+            var relativeDirection = turretBase.transform.parent.InverseTransformDirection(direction);
             
             var legAngle = Mathf.Atan2(relativeDirection.x, relativeDirection.z) * Mathf.Rad2Deg;
             turretLeg.transform.localRotation = Quaternion.Euler(0f, legAngle, 0f);

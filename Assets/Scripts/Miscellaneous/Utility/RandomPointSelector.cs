@@ -50,7 +50,7 @@ namespace Miscellaneous.Utility
             return vert1 + weight1 * (vert2 - vert1) + weight2 * (vert3 - vert1);
         }
         
-        private static bool IsPointFarEnough(Vector3 point, List<Vector3> selectedPoints, float minDistance)
+        private static bool IsPointFarEnough(Vector3 point, IEnumerable<Vector3> selectedPoints, float minDistance)
         {
             return selectedPoints.All(selectedPoint => 
                 !(Vector3.Distance(point, selectedPoint) < minDistance));
