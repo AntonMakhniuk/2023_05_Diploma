@@ -15,11 +15,12 @@ namespace Resource_Nodes.Materials
             set => currentHp = value;
         }
         
-        public void OnLaserInteraction(float damage)
-        {
-            // Doesn't interact
-        }
+        [SerializeField] private UnityEvent onDestroyed;
+        public UnityEvent OnDestroyed => onDestroyed;
 
-        public UnityEvent OnDestroyed { get; } = new();
+        private void Start()
+        {
+            CurrentHp = MaxHp;
+        }
     }
 }

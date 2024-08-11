@@ -119,7 +119,7 @@ namespace Resource_Nodes.Asteroid
                 asteroidPoint.OnPointDestroyed -= HandleAsteroidPointDestroyed;
             }
             
-            OnAsteroidDestroyed.Invoke(this, this);
+            OnAsteroidDestroyed?.Invoke(this, this);
         }
     }
 }
