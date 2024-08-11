@@ -1,3 +1,4 @@
+using System.Collections;
 using Resource_Nodes;
 using Tools.Base_Tools;
 using UnityEngine;
@@ -11,46 +12,69 @@ namespace Tools.Laser
     
         [SerializeField] private LineRenderer beam;
 
+        private IEnumerator _shootCoroutine;
+        private bool _isShooting;
+        
         private void Awake()
         {
             beam.enabled = false;
             beam.startWidth = 0.1f;
             beam.endWidth = 0.1f;
+
+            _shootCoroutine = ShootCoroutine();
         }
 
+        private IEnumerator ShootCoroutine()
+        {
+            while (true)
+            {
+                var beamRay = new Ray(muzzlePoint.position, muzzlePoint.forward);
+                var castIntersect = Physics.Raycast(beamRay, out var hit, MaxBeamLength);
+                var beamEndPosition =
+                    castIntersect ? hit.point : muzzlePoint.position + muzzlePoint.forward * MaxBeamLength;
+
+                beam.SetPosition(0, muzzlePoint.position);
+                beam.SetPosition(1, beamEndPosition);
+
+                if (castIntersect)
+                {
+                    if (hit.collider.TryGetComponent<IDestructible>(out var destructible))
+                    {
+                        destructible.OnLaserInteraction(LaserDamagePerSecond * Time.deltaTime);
+                    }
+                }
+                
+                yield return null;
+            }
+        }
+        
         protected override void PrimaryActionStarted()
         {
-            beam.enabled = true;
-        }
-
-        protected override void PrimaryActionPerformed()
-        {
-            var beamRay = new Ray(muzzlePoint.position, muzzlePoint.forward);
-            var castIntersect = Physics.Raycast(beamRay, out var hit, MaxBeamLength);
-            var beamEndPosition = castIntersect ? hit.point : 
-                muzzlePoint.position + muzzlePoint.forward * MaxBeamLength;
-            
-            beam.SetPosition(0, muzzlePoint.position);
-            beam.SetPosition(1, beamEndPosition);
-
-            if (!castIntersect)
+            if (_isShooting)
             {
                 return;
             }
             
-            if (hit.collider.TryGetComponent<IDestructible>(out var destructible))
-            {
-                destructible.OnLaserInteraction(LaserDamagePerSecond * Time.deltaTime);
-            }
+            beam.enabled = true;
+            StartCoroutine(_shootCoroutine);
+            _isShooting = true;
+        }
+
+        protected override void PrimaryActionPerformed()
+        {
+            // No action on performed
         }
 
         protected override void PrimaryActionCanceled()
         {
-            beam.enabled = false;
+            if (!_isShooting)
+            {
+                return;
+            }
             
-            var position = muzzlePoint.position;
-            beam.SetPosition(0, position);
-            beam.SetPosition(1, position);
+            beam.enabled = false;
+            StopCoroutine(_shootCoroutine);
+            _isShooting = false;
         }
 
         protected override void SecondaryActionStarted()

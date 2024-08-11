@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using Player.Ship;
 using UnityEngine;
 
 namespace Tools.Base_Tools

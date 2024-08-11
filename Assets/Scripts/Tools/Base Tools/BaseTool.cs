@@ -19,6 +19,7 @@ namespace Tools.Base_Tools
         [SerializeField] protected Canvas crosshairCanvas;
 
         private IEnumerator _workCoroutine;
+        private bool _isWorking;
 
         private void Start()
         {
@@ -32,6 +33,7 @@ namespace Tools.Base_Tools
             PlayerActions.InputActions.PlayerShip.ToolThird.performed += ThirdActionPerformed;
             PlayerActions.InputActions.PlayerShip.ToolThird.canceled += ThirdActionCanceled;
 
+            IsActiveTool = false;
             _workCoroutine = WorkCoroutine();
         }
         
@@ -144,12 +146,26 @@ namespace Tools.Base_Tools
 
         private void Activate()
         {
+            if (_isWorking)
+            {
+                return;
+            }
+            
             StartCoroutine(_workCoroutine);
+            _isActiveTool = true;
+            _isWorking = true;
         }
 
         private void Deactivate()
         {
+            if (!_isWorking)
+            {
+                return;
+            }
+            
             StopCoroutine(_workCoroutine);
+            _isActiveTool = false;
+            _isWorking = false;
         }
         
         protected virtual void OnDestroy()

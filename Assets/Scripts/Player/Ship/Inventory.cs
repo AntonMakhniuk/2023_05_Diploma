@@ -29,22 +29,22 @@ namespace Player.Ship
             PlayerActions.InputActions.PlayerShip.ToggleSlot_3.performed += _toggleInstrument3;
         }
 
-        private void ToggleInstrument(BaseTool baseTool)
+        private void ToggleInstrument(BaseTool tool)
         {
             if (_activeBaseTool != null)
             {
                 _activeBaseTool.IsActiveTool = false;
             }
             
-            if (baseTool == _activeBaseTool)
+            if (tool == _activeBaseTool)
             {
                 _activeBaseTool = null;
             }
             else
             {
-                baseTool.IsActiveTool = true;
+                tool.IsActiveTool = true;
                 
-                _activeBaseTool = baseTool;
+                _activeBaseTool = tool;
             }
         }
 

@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 8665030030848878521}
   - component: {fileID: 8297963799311333165}
   - component: {fileID: 6298407720521082262}
-  - component: {fileID: 3128034925823022374}
+  - component: {fileID: 5664196605334788330}
   m_Layer: 0
   m_Name: Scene Navigation Button
   m_TagString: Untagged
@@ -255,20 +255,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8297963799311333165}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 227816199537901393, guid: e35b20ddd0fa9aa4391029061ab3678d, type: 3}
-        m_TargetAssemblyTypeName: Miscellaneous.LevelManager, Assembly-CSharp
-        m_MethodName: ChangeScene
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: Miscellaneous.SceneTypeContainer, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &3128034925823022374
+      m_Calls: []
+--- !u!114 &5664196605334788330
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -277,7 +265,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3962329633674581355}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db583fa1f7f84438998c1b36d75b1da9, type: 3}
+  m_Script: {fileID: 11500000, guid: 697d87152fd44a559a43982e36c52fd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneType: 1
+  sceneType: 0
