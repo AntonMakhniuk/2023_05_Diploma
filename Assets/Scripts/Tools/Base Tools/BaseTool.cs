@@ -21,7 +21,7 @@ namespace Tools.Base_Tools
         private IEnumerator _workCoroutine;
         private bool _isWorking;
 
-        private void Start()
+        protected virtual void Start()
         {
             PlayerActions.InputActions.PlayerShip.ToolPrimary.started += PrimaryActionStarted;
             PlayerActions.InputActions.PlayerShip.ToolPrimary.performed += PrimaryActionPerformed;

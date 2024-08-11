@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Wagons.Systems;
 
 namespace Player.Movement
@@ -11,7 +10,6 @@ namespace Player.Movement
         
         private PlayerInputActions _playerInputActions;
         private Rigidbody _rb;
-        private Camera _mainCamera;
         
         private bool _isPitchingX, _isYawingY, _isRollingZ;
 
@@ -25,7 +23,6 @@ namespace Player.Movement
         [SerializeField] private float maxAngularVelocity = 1;
         [SerializeField] private float accelerationAngularDrag = 0.1f;
         [SerializeField] private float brakesAngularDrag = 1f;
-        [SerializeField] private float cameraAlignRotationSpeed = 1f;
 
         private const float MaxSpeedModifier = 5, MinSpeedModifier = 0.1f;
         private float _speedModifier = 1;
@@ -71,8 +68,6 @@ namespace Player.Movement
                 WagonManager.Instance.SetDragValuesForAttachedWagons(accelerationDrag, accelerationAngularDrag);
             }
         
-            _mainCamera = Camera.main;
-        
             // Brakes
             _playerInputActions.PlayerShip.Brakes.performed += _ =>
             {
@@ -109,13 +104,6 @@ namespace Player.Movement
             // Roll (Z axis)
             _playerInputActions.PlayerShip.Roll.performed += _ =>  _isRollingZ = true;
             _playerInputActions.PlayerShip.Roll.canceled += _ => _isRollingZ = false;
-
-            SceneManager.sceneLoaded += HandleSceneLoaded;
-        }
-
-        private void HandleSceneLoaded(Scene _, LoadSceneMode __)
-        {
-            _mainCamera = Camera.main;
         }
 
         private void FixedUpdate() 
@@ -144,12 +132,6 @@ namespace Player.Movement
             {
                 Rotate(new Vector3(0, 0, _playerInputActions.PlayerShip.Roll.ReadValue<float>() / 2f));
             }
-        
-            // Check if camera alignment is active, rotate if yes
-            if (_playerInputActions.PlayerShip.AlignWithCamera.IsPressed())
-            {
-                AlignWithCamera();
-            }
         }
     
         // Move along Z and Y axis (forward or backward / up or down)
@@ -163,20 +145,6 @@ namespace Player.Movement
         private void Rotate(Vector3 inputVector) 
         {
             _rb.AddRelativeTorque(rotationSpeed * _speedModifier * Time.deltaTime * inputVector, ForceMode.Force);
-        }
-
-        // Rotate to align with the direction where camera is pointed at
-        private void AlignWithCamera()
-        {
-            _rb.MoveRotation
-            (
-                Quaternion.Slerp
-                (
-                    transform.rotation, 
-                    _mainCamera.transform.rotation, 
-                    cameraAlignRotationSpeed * Time.deltaTime
-                )
-            );
         }
     }
 }

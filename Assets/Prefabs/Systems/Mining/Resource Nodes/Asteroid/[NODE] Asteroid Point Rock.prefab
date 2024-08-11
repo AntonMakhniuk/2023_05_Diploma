@@ -755,7 +755,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 100
-  currentHp: 1
+  currentHp: 100
+  onDestroyed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1084968394051849}
+        m_TargetAssemblyTypeName: Resource_Nodes.Asteroid.AsteroidPoint, Assembly-CSharp
+        m_MethodName: ProcessDestruction
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4890833208991357847
 GameObject:
   m_ObjectHideFlags: 0

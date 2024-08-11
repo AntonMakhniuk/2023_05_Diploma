@@ -10,9 +10,7 @@ namespace Tools.Tractor_Beam
         public Rigidbody AttractedObject { get; set; }
         public Transform holdPoint;
         
-        private const float MaxBeamRange = 100f;
-        private const float MaxAttractableMass = 100f;
-        
+        [SerializeField] private float maxAttractableMass = 100f;
         [SerializeField] private LayerMask attractableLayer;
 
         private Dictionary<TractorBeamState, BaseTractorBeamState> _stateDictionary = new();
@@ -53,7 +51,7 @@ namespace Tools.Tractor_Beam
             }
             
             var beamRay = new Ray(muzzlePoint.position, muzzlePoint.forward);
-            var castIntersect = Physics.Raycast(beamRay, out var hit, MaxBeamRange, attractableLayer);
+            var castIntersect = Physics.Raycast(beamRay, out var hit, maxRange, attractableLayer);
             
             if (!castIntersect)
             {
@@ -65,7 +63,7 @@ namespace Tools.Tractor_Beam
                 return;
             }
             
-            if (rb.mass > MaxAttractableMass)
+            if (rb.mass > maxAttractableMass)
             {
                 return;
             }

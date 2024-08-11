@@ -28,15 +28,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             ""id"": ""40e0c021-8b2b-47c2-8c09-0c07232be718"",
             ""actions"": [
                 {
-                    ""name"": ""AlignWithCamera"",
-                    ""type"": ""Button"",
-                    ""id"": ""e5de1bfa-6c14-42be-b71f-37d99f8fa03e"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""ToggleSlot_1"",
                     ""type"": ""Button"",
                     ""id"": ""0546c9aa-ea63-4dcc-8469-54bf924fb546"",
@@ -379,17 +370,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""147738c2-2120-4d4c-a2bb-20f13d20b836"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""AlignWithCamera"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""0f2b7d38-fc74-45d4-9427-cf514d3659d2"",
                     ""path"": ""<Mouse>/middleButton"",
                     ""interactions"": """",
@@ -710,7 +690,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
 }");
         // PlayerShip
         m_PlayerShip = asset.FindActionMap("PlayerShip", throwIfNotFound: true);
-        m_PlayerShip_AlignWithCamera = m_PlayerShip.FindAction("AlignWithCamera", throwIfNotFound: true);
         m_PlayerShip_ToggleSlot_1 = m_PlayerShip.FindAction("ToggleSlot_1", throwIfNotFound: true);
         m_PlayerShip_ToggleSlot_2 = m_PlayerShip.FindAction("ToggleSlot_2", throwIfNotFound: true);
         m_PlayerShip_ToggleSlot_3 = m_PlayerShip.FindAction("ToggleSlot_3", throwIfNotFound: true);
@@ -804,7 +783,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     // PlayerShip
     private readonly InputActionMap m_PlayerShip;
     private List<IPlayerShipActions> m_PlayerShipActionsCallbackInterfaces = new List<IPlayerShipActions>();
-    private readonly InputAction m_PlayerShip_AlignWithCamera;
     private readonly InputAction m_PlayerShip_ToggleSlot_1;
     private readonly InputAction m_PlayerShip_ToggleSlot_2;
     private readonly InputAction m_PlayerShip_ToggleSlot_3;
@@ -821,7 +799,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     {
         private @PlayerInputActions m_Wrapper;
         public PlayerShipActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @AlignWithCamera => m_Wrapper.m_PlayerShip_AlignWithCamera;
         public InputAction @ToggleSlot_1 => m_Wrapper.m_PlayerShip_ToggleSlot_1;
         public InputAction @ToggleSlot_2 => m_Wrapper.m_PlayerShip_ToggleSlot_2;
         public InputAction @ToggleSlot_3 => m_Wrapper.m_PlayerShip_ToggleSlot_3;
@@ -843,9 +820,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_PlayerShipActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_PlayerShipActionsCallbackInterfaces.Add(instance);
-            @AlignWithCamera.started += instance.OnAlignWithCamera;
-            @AlignWithCamera.performed += instance.OnAlignWithCamera;
-            @AlignWithCamera.canceled += instance.OnAlignWithCamera;
             @ToggleSlot_1.started += instance.OnToggleSlot_1;
             @ToggleSlot_1.performed += instance.OnToggleSlot_1;
             @ToggleSlot_1.canceled += instance.OnToggleSlot_1;
@@ -886,9 +860,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
 
         private void UnregisterCallbacks(IPlayerShipActions instance)
         {
-            @AlignWithCamera.started -= instance.OnAlignWithCamera;
-            @AlignWithCamera.performed -= instance.OnAlignWithCamera;
-            @AlignWithCamera.canceled -= instance.OnAlignWithCamera;
             @ToggleSlot_1.started -= instance.OnToggleSlot_1;
             @ToggleSlot_1.performed -= instance.OnToggleSlot_1;
             @ToggleSlot_1.canceled -= instance.OnToggleSlot_1;
@@ -1170,7 +1141,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     public BuildingActions @Building => new BuildingActions(this);
     public interface IPlayerShipActions
     {
-        void OnAlignWithCamera(InputAction.CallbackContext context);
         void OnToggleSlot_1(InputAction.CallbackContext context);
         void OnToggleSlot_2(InputAction.CallbackContext context);
         void OnToggleSlot_3(InputAction.CallbackContext context);

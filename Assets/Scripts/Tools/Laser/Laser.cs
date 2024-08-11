@@ -7,9 +7,7 @@ namespace Tools.Laser
 {
     public class Laser : BaseTurret
     {
-        private const float LaserDamagePerSecond = 10f;
-        private const float MaxBeamLength = 100f;
-    
+        [SerializeField] private float laserDamagePerSecond = 10f;
         [SerializeField] private LineRenderer beam;
 
         private IEnumerator _shootCoroutine;
@@ -28,19 +26,18 @@ namespace Tools.Laser
         {
             while (true)
             {
-                var beamRay = new Ray(muzzlePoint.position, muzzlePoint.forward);
-                var castIntersect = Physics.Raycast(beamRay, out var hit, MaxBeamLength);
-                var beamEndPosition =
-                    castIntersect ? hit.point : muzzlePoint.position + muzzlePoint.forward * MaxBeamLength;
+                var beamEndPosition = 
+                    LookAtHitData?.point ?? muzzlePoint.position + cinematicCamera.transform.forward * maxRange;
 
+                // Set the beam's positions
                 beam.SetPosition(0, muzzlePoint.position);
                 beam.SetPosition(1, beamEndPosition);
 
-                if (castIntersect)
+                if (LookAtHitData.HasValue)
                 {
-                    if (hit.collider.TryGetComponent<IDestructible>(out var destructible))
+                    if (LookAtHitData.Value.collider.TryGetComponent<IDestructible>(out var destructible))
                     {
-                        destructible.OnLaserInteraction(LaserDamagePerSecond * Time.deltaTime);
+                        destructible.OnLaserInteraction(laserDamagePerSecond * Time.deltaTime);
                     }
                 }
                 

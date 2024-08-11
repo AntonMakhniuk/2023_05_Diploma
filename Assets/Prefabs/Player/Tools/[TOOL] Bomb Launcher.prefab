@@ -220,7 +220,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -40, y: 20}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7431004218360483476
@@ -688,8 +688,10 @@ MonoBehaviour:
   cinematicCamera: {fileID: 3814438030932778981}
   crosshairCanvas: {fileID: 8735723010228229436}
   turretBase: {fileID: 6216801307778149218}
-  turretLeg: {fileID: 6216801307778149218}
+  turretLeg: {fileID: 0}
   turretBarrel: {fileID: 982294045081840691}
+  rotationSpeed: 45
   muzzlePoint: {fileID: 4820939092357914194}
+  maxRange: 10
   bombPrefab: {fileID: 3901345136233167949, guid: 23f2c0d6b859f0547a7966d1a05bf8b4, type: 3}
   explosionRange: 5

@@ -633,7 +633,9 @@ MonoBehaviour:
   turretLeg: {fileID: 2579518270901087767}
   turretBarrel: {fileID: 5858083265528209814}
   muzzlePoint: {fileID: 2916241999863002662}
+  maxRange: 100
   holdPoint: {fileID: 2470502490461313566}
+  maxAttractableMass: 100
   attractableLayer:
     serializedVersion: 2
     m_Bits: 64
