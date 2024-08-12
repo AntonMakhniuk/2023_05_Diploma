@@ -262,7 +262,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5097590701910372502}
-  - component: {fileID: 1010590919539893889}
+  - component: {fileID: 6691581824253575641}
   - component: {fileID: 2890352285335328705}
   - component: {fileID: 8599180780276367676}
   m_Layer: 15
@@ -288,7 +288,7 @@ Transform:
   - {fileID: 7567856738303934612}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1010590919539893889
+--- !u!114 &6691581824253575641
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -297,17 +297,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5577610595510492625}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc5541d6478863e44b2cf05e429e6c1f, type: 3}
+  m_Script: {fileID: 11500000, guid: 5387071e221448dcbd0b1bb6f14b7f2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectIconImage: {fileID: 4392556825123658542}
-  bindIconImage: {fileID: 4675505501151786994}
-  onInteractionStarted:
-    m_PersistentCalls:
-      m_Calls: []
-  onInteractionEnded:
-    m_PersistentCalls:
-      m_Calls: []
+  objectIconImage: {fileID: 0}
+  bindIconImage: {fileID: 0}
 --- !u!135 &2890352285335328705
 SphereCollider:
   m_ObjectHideFlags: 0

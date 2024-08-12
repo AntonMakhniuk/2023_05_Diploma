@@ -1071,6 +1071,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 100
   currentHp: 100
+  onDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2346355606225678142
 GameObject:
   m_ObjectHideFlags: 0

@@ -114,7 +114,7 @@ Transform:
   m_GameObject: {fileID: 629035086836086031}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0040000156, y: 0.0044680834, z: 0.61}
+  m_LocalPosition: {x: 0, y: 0, z: 0.61}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -247,7 +247,7 @@ Transform:
   m_GameObject: {fileID: 2799315343240546374}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0040000156, y: 0.0044680834, z: 1.2}
+  m_LocalPosition: {x: 0, y: 0, z: 3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -632,13 +632,14 @@ MonoBehaviour:
   turretBase: {fileID: 4245789155648179884}
   turretLeg: {fileID: 2579518270901087767}
   turretBarrel: {fileID: 5858083265528209814}
-  muzzlePoint: {fileID: 2916241999863002662}
+  rotationSpeed: 0
   maxRange: 100
+  muzzlePoint: {fileID: 2916241999863002662}
   holdPoint: {fileID: 2470502490461313566}
   maxAttractableMass: 100
   attractableLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 65
 --- !u!65 &6942259310482206587
 BoxCollider:
   m_ObjectHideFlags: 0

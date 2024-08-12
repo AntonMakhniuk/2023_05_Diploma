@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 6535960872229361336}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.104481, y: -0.5744219, z: 20.757044}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -47,8 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b04718ddd909954b8af85259aa24df4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resource: {fileID: 11400000, guid: 6a65a2eba87ee994bb5bedf1a8d41a83, type: 2}
-  gasCapacity: 100
+  associatedResource: {fileID: 11400000, guid: 6a65a2eba87ee994bb5bedf1a8d41a83, type: 2}
+  gasParticleSystem: {fileID: 4937006205942054869}
 --- !u!198 &4937006205942054869
 ParticleSystem:
   m_ObjectHideFlags: 0
