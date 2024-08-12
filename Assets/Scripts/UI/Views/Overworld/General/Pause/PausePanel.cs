@@ -1,4 +1,5 @@
-﻿using Player;
+﻿using Miscellaneous.Scene_Management;
+using Player;
 using UI.Systems.Panels;
 
 namespace UI.Views.Overworld.General.Pause

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Miscellaneous.Scene_Management;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,6 +12,8 @@ namespace UI.Systems.Panels
         public List<InputActionReference> toggleBinds = new();
         public List<UIPanel> childPanels = new();
         public PanelType type;
+
+        protected bool BlocksCamera = true;
         
         [SerializeField] private List<GameObject> uiObjects = new();
         
@@ -39,6 +42,11 @@ namespace UI.Systems.Panels
         {
             gameObject.SetActive(true);
             
+            if (BlocksCamera)
+            {
+                InputStateManager.Instance.SetCameraMovementState(false);
+            }
+            
             foreach (var element in _uiElements)
             {
                 element.UpdateElement();
@@ -49,6 +57,11 @@ namespace UI.Systems.Panels
         {
             gameObject.SetActive(false);
 
+            if (BlocksCamera)
+            {
+                InputStateManager.Instance.SetCameraMovementState(true);
+            }
+            
             foreach (var panel in childPanels.Where(p => p.gameObject.activeSelf))
             {
                 panel.Close();
