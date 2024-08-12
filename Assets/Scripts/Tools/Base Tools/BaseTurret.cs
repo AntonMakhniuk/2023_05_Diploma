@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Tools.Base_Tools
 {
@@ -11,8 +10,8 @@ namespace Tools.Base_Tools
         [SerializeField] private Transform turretBarrel;
         [SerializeField] private float rotationSpeed;
         
-        [SerializeField] protected Transform muzzlePoint;
         [SerializeField] protected float maxRange;
+        [SerializeField] protected Transform muzzlePoint;
 
         protected RaycastHit? LookAtHitData;
 
@@ -27,15 +26,12 @@ namespace Tools.Base_Tools
             
             base.Start();
         }
-
-        protected override IEnumerator WorkCoroutine()
+        
+        protected override void WorkCycle()
         {
-            while (true)
-            {
-                RotateWithCamera();
-
-                yield return null;
-            }
+            RotateWithCamera();
+            
+            base.WorkCycle();
         }
 
         // Rotate the turret to match the direction of the camera

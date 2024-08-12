@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Tools.Bomb_Launcher
 {
+    // TODO: Change it so holding down LMB makes the bomb fire farther, adjustable fire length style
     public class BombLauncher : BaseTurret
     {
         private const float BombSpeed = 5f;

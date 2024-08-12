@@ -16,6 +16,9 @@ namespace Tools.Tractor_Beam
         private Dictionary<TractorBeamState, BaseTractorBeamState> _stateDictionary = new();
         private BaseTractorBeamState _currentState;
         
+        private IEnumerator _shootCoroutine;
+        private bool _isShooting;
+        
         private void Awake()
         {
             _stateDictionary = new Dictionary<TractorBeamState, BaseTractorBeamState>
@@ -26,14 +29,53 @@ namespace Tools.Tractor_Beam
                 { TractorBeamState.Pushing, new PushingState(this) }
             };
 
+            _shootCoroutine = ShootCoroutine();
             SetState(TractorBeamState.Idle);
         }
 
-        protected override IEnumerator WorkCoroutine()
+        private IEnumerator ShootCoroutine()
+        {
+            while (true)
+            {
+                if (_currentState is not IdleState)
+                {
+                    yield return null;
+                    continue;
+                }
+
+                var beamRay = new Ray(muzzlePoint.position, muzzlePoint.forward);
+                var castIntersect = Physics.Raycast(beamRay, out var hit, maxRange, attractableLayer);
+            
+                if (!castIntersect)
+                {
+                    yield return null;
+                    continue;
+                }
+
+                if (!hit.collider.TryGetComponent<Rigidbody>(out var rb))
+                {
+                    yield return null;
+                    continue;
+                }
+
+                if (rb.mass > maxAttractableMass)
+                {
+                    yield return null;
+                    continue;
+                }
+
+                AttractedObject = rb;
+                SetState(TractorBeamState.Attracting);
+
+                yield return null;
+            }
+        }
+        
+        protected override void FixedWorkCycle()
         {
             _currentState.Update();
             
-            return base.WorkCoroutine();
+            base.FixedWorkCycle();
         }
 
         public void SetState(TractorBeamState newState)
@@ -45,31 +87,13 @@ namespace Tools.Tractor_Beam
 
         protected override void PrimaryActionStarted()
         {
-            if (_currentState is not IdleState)
-            {
-                return;
-            }
-            
-            var beamRay = new Ray(muzzlePoint.position, muzzlePoint.forward);
-            var castIntersect = Physics.Raycast(beamRay, out var hit, maxRange, attractableLayer);
-            
-            if (!castIntersect)
+            if (_isShooting)
             {
                 return;
             }
 
-            if (!hit.collider.TryGetComponent<Rigidbody>(out var rb))
-            {
-                return;
-            }
-            
-            if (rb.mass > maxAttractableMass)
-            {
-                return;
-            }
-
-            AttractedObject = rb;
-            SetState(TractorBeamState.Attracting);
+            StartCoroutine(_shootCoroutine);
+            _isShooting = true;
         }
 
         protected override void PrimaryActionPerformed()
@@ -79,7 +103,18 @@ namespace Tools.Tractor_Beam
 
         protected override void PrimaryActionCanceled()
         {
-            SetState(TractorBeamState.Idle);
+            if (!_isShooting)
+            {
+                return;
+            }
+            
+            StopCoroutine(_shootCoroutine);
+            _isShooting = false;
+            
+            if (_currentState is not IdleState)
+            {
+                SetState(TractorBeamState.Idle);
+            }
         }
 
         protected override void SecondaryActionStarted()

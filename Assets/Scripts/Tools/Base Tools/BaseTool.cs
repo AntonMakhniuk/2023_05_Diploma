@@ -19,6 +19,7 @@ namespace Tools.Base_Tools
         [SerializeField] protected Canvas crosshairCanvas;
 
         private IEnumerator _workCoroutine;
+        private IEnumerator _fixedWorkCoroutine;
         private bool _isWorking;
 
         protected virtual void Start()
@@ -35,9 +36,40 @@ namespace Tools.Base_Tools
 
             IsActiveTool = false;
             _workCoroutine = WorkCoroutine();
+            _fixedWorkCoroutine = FixedWorkCoroutine();
         }
         
-        protected abstract IEnumerator WorkCoroutine();
+        // Run akin to an Update, but only when the tool is active
+        private IEnumerator WorkCoroutine()
+        {
+            while (true)
+            {
+                WorkCycle();
+
+                yield return null;
+            }
+        }
+
+        protected virtual void WorkCycle()
+        {
+            
+        }
+        
+        // Run akin to a FixedUpdate, but only when the tool is active
+        private IEnumerator FixedWorkCoroutine()
+        {
+            while (true)
+            {
+                FixedWorkCycle();
+
+                yield return new WaitForFixedUpdate();
+            }
+        }
+
+        protected virtual void FixedWorkCycle()
+        {
+            
+        }
         
         private void PrimaryActionStarted(InputAction.CallbackContext _)
         {
@@ -152,6 +184,7 @@ namespace Tools.Base_Tools
             }
             
             StartCoroutine(_workCoroutine);
+            StartCoroutine(_fixedWorkCoroutine);
             _isActiveTool = true;
             _isWorking = true;
         }
@@ -164,6 +197,7 @@ namespace Tools.Base_Tools
             }
             
             StopCoroutine(_workCoroutine);
+            StopCoroutine(_fixedWorkCoroutine);
             _isActiveTool = false;
             _isWorking = false;
         }

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace UI.Systems.Interactables
 {
-    public abstract class Interactable : MonoBehaviour
+    public class Interactable : MonoBehaviour
     {
         public Image objectIconImage, bindIconImage;
         
