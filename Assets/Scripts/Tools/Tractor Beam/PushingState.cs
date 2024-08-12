@@ -12,7 +12,7 @@ namespace Tools.Tractor_Beam
         
         public override void Enter()
         {
-            var pushDirection = (Context.AttractedObject.position - Context.transform.position).normalized;
+            var pushDirection = (Context.AttractedObject.position - Context.holdPoint.position).normalized;
             Context.AttractedObject.AddForce(pushDirection * PushForce, ForceMode.Impulse);
             Context.AttractedObject = null;
             Context.SetState(TractorBeamState.Idle);

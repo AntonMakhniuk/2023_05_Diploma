@@ -7,7 +7,7 @@ namespace Tools.Laser
 {
     public class Laser : BaseTurret
     {
-        [SerializeField] private float laserDamagePerSecond = 10f;
+        [SerializeField] private float laserDamagePerSecond = 100f;
         [SerializeField] private LineRenderer beam;
 
         private IEnumerator _shootCoroutine;
@@ -33,10 +33,12 @@ namespace Tools.Laser
                 beam.SetPosition(0, muzzlePoint.position);
                 beam.SetPosition(1, beamEndPosition);
 
-                if (LookAtHitData.HasValue)
+                if (LookAtHitData.HasValue && LookAtHitData.Value.collider != null)
                 {
                     if (LookAtHitData.Value.collider.TryGetComponent<IDestructible>(out var destructible))
                     {
+                        Debug.Log(LookAtHitData.Value + " " + LookAtHitData.Value.transform);
+                        
                         destructible.OnLaserInteraction(laserDamagePerSecond * Time.deltaTime);
                     }
                 }
