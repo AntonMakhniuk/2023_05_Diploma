@@ -45,7 +45,8 @@ namespace Testing
                 Move(new Vector2(0, _playerInputActions.PlayerShip.Yaw.ReadValue<float>()));
             }
         }
-        
+
+
         private void Move(Vector2 movementVector) 
         {
             _rb.AddRelativeForce(thrustSpeed * boostMultiplier * Time.deltaTime 
