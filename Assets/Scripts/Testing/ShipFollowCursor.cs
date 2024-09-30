@@ -1,22 +1,25 @@
 using UnityEngine;
 
-public class ShipFollowCursor : MonoBehaviour
+namespace Testing
 {
-    [SerializeField] private Transform lookTarget;  
-    [SerializeField] private float rotationSpeed = 2f;  
-    [SerializeField] private float smoothingFactor = 0.1f; 
-
-    void Update()
+    public class ShipFollowCursor : MonoBehaviour
     {
-     
-        Vector3 directionToTarget = (lookTarget.position - transform.position).normalized;
+        [SerializeField] private Transform lookTarget;
+        [SerializeField] private float rotationSpeed = 2f;
+        [SerializeField] private float smoothingFactor = 0.1f;
 
-    
-        Quaternion targetRotation = Quaternion.LookRotation(directionToTarget, Vector3.up);
+        void Update()
+        {
 
-        
-        float smoothedSpeed = Mathf.Lerp(0f, rotationSpeed, Time.deltaTime / smoothingFactor);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, smoothedSpeed);
+            Vector3 directionToTarget = (lookTarget.position - transform.position).normalized;
 
+
+            Quaternion targetRotation = Quaternion.LookRotation(directionToTarget, Vector3.up);
+
+
+            float smoothedSpeed = Mathf.Lerp(0f, rotationSpeed, Time.deltaTime / smoothingFactor);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, smoothedSpeed);
+
+        }
     }
 }
