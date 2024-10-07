@@ -684,6 +684,34 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""PlayerShipMap"",
+            ""id"": ""7f8af0a8-e42a-4860-af81-ae87cd0cff3c"",
+            ""actions"": [
+                {
+                    ""name"": ""MoveToPoint"",
+                    ""type"": ""Button"",
+                    ""id"": ""2edabceb-2e5a-499b-bdca-d0d47934b7b2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""b6bbaa2a-0e00-48a3-bd7c-fe65459ca5c0"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveToPoint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -722,6 +750,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Building_RotateBlueprintRight = m_Building.FindAction("RotateBlueprintRight", throwIfNotFound: true);
         m_Building_PlaceDownBlueprint = m_Building.FindAction("PlaceDownBlueprint", throwIfNotFound: true);
         m_Building_ClearBlueprint = m_Building.FindAction("ClearBlueprint", throwIfNotFound: true);
+        // PlayerShipMap
+        m_PlayerShipMap = asset.FindActionMap("PlayerShipMap", throwIfNotFound: true);
+        m_PlayerShipMap_MoveToPoint = m_PlayerShipMap.FindAction("MoveToPoint", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1139,6 +1170,52 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         }
     }
     public BuildingActions @Building => new BuildingActions(this);
+
+    // PlayerShipMap
+    private readonly InputActionMap m_PlayerShipMap;
+    private List<IPlayerShipMapActions> m_PlayerShipMapActionsCallbackInterfaces = new List<IPlayerShipMapActions>();
+    private readonly InputAction m_PlayerShipMap_MoveToPoint;
+    public struct PlayerShipMapActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public PlayerShipMapActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @MoveToPoint => m_Wrapper.m_PlayerShipMap_MoveToPoint;
+        public InputActionMap Get() { return m_Wrapper.m_PlayerShipMap; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(PlayerShipMapActions set) { return set.Get(); }
+        public void AddCallbacks(IPlayerShipMapActions instance)
+        {
+            if (instance == null || m_Wrapper.m_PlayerShipMapActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_PlayerShipMapActionsCallbackInterfaces.Add(instance);
+            @MoveToPoint.started += instance.OnMoveToPoint;
+            @MoveToPoint.performed += instance.OnMoveToPoint;
+            @MoveToPoint.canceled += instance.OnMoveToPoint;
+        }
+
+        private void UnregisterCallbacks(IPlayerShipMapActions instance)
+        {
+            @MoveToPoint.started -= instance.OnMoveToPoint;
+            @MoveToPoint.performed -= instance.OnMoveToPoint;
+            @MoveToPoint.canceled -= instance.OnMoveToPoint;
+        }
+
+        public void RemoveCallbacks(IPlayerShipMapActions instance)
+        {
+            if (m_Wrapper.m_PlayerShipMapActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IPlayerShipMapActions instance)
+        {
+            foreach (var item in m_Wrapper.m_PlayerShipMapActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_PlayerShipMapActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public PlayerShipMapActions @PlayerShipMap => new PlayerShipMapActions(this);
     public interface IPlayerShipActions
     {
         void OnToggleSlot_1(InputAction.CallbackContext context);
@@ -1176,5 +1253,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnRotateBlueprintRight(InputAction.CallbackContext context);
         void OnPlaceDownBlueprint(InputAction.CallbackContext context);
         void OnClearBlueprint(InputAction.CallbackContext context);
+    }
+    public interface IPlayerShipMapActions
+    {
+        void OnMoveToPoint(InputAction.CallbackContext context);
     }
 }

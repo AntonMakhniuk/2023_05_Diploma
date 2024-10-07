@@ -662,6 +662,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "PlayerShipMap",
+            "id": "7f8af0a8-e42a-4860-af81-ae87cd0cff3c",
+            "actions": [
+                {
+                    "name": "MoveToPoint",
+                    "type": "Button",
+                    "id": "2edabceb-2e5a-499b-bdca-d0d47934b7b2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b6bbaa2a-0e00-48a3-bd7c-fe65459ca5c0",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveToPoint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
