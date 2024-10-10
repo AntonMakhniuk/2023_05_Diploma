@@ -8,18 +8,15 @@ namespace Testing
         [SerializeField] private float rotationSpeed = 2f;
         [SerializeField] private float smoothingFactor = 0.1f;
 
+        private Vector3 lastLookTargetPosition;
+
         void Update()
         {
-
             Vector3 directionToTarget = (lookTarget.position - transform.position).normalized;
-
-
+            
             Quaternion targetRotation = Quaternion.LookRotation(directionToTarget, Vector3.up);
-
-
-            float smoothedSpeed = Mathf.Lerp(0f, rotationSpeed, Time.deltaTime / smoothingFactor);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, smoothedSpeed);
-
+            
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
     }
 }
