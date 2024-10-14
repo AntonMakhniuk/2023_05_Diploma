@@ -15,16 +15,18 @@ namespace Player.Movement
         
         [SerializeField] private float maxSpeed = 10;
         [SerializeField] private float accelerationRate = 4f;
-        [SerializeField] private float stopDistance = 0.05f;
+        [SerializeField] private float movementStopMargin = 0.05f;
         [SerializeField] private float decelerationDistance = 3.0f;
+        [SerializeField] private float correctionFactor = 1f;
         [SerializeField] private float rotationSpeed = 5f;
         [SerializeField] private float rotationStopMargin = 1f;
 
         private Plane _movementPlane;
         private Vector3 _targetPosition;
-        private Vector3 _velocity = Vector3.zero;
+        private Vector3 _currentVelocity = Vector3.zero;
         private bool _isMoving, _isRotating;
-        private Coroutine _moveCoroutine; 
+        private Coroutine _moveCoroutine;
+        private float _currentSpeed;
         
         private void Awake()
         {
@@ -77,25 +79,30 @@ namespace Player.Movement
             
             while (_isMoving || _isRotating)
             {
-                var newPos = transform.position;
-                var direction = (_targetPosition - newPos).normalized;
+                var pos = transform.position;
+                var direction = (_targetPosition - pos).normalized;
                 
                 if (_isMoving)
                 {
-                    var distance = Vector3.Distance(newPos, _targetPosition);
+                    var distance = Vector3.Distance(pos, _targetPosition);
                     var decelerationFactor = Mathf.Clamp01(distance / decelerationDistance);
-                    var currentSpeed = maxSpeed * decelerationFactor;
-                
-                    _velocity += direction * (accelerationRate * Time.fixedDeltaTime);
-                    _velocity = Vector3.ClampMagnitude(_velocity, currentSpeed);
-                
-                    newPos += _velocity * Time.deltaTime;
+                    
+                    _currentSpeed += accelerationRate * Time.fixedDeltaTime;
+                    _currentSpeed *= decelerationFactor;
+                    _currentSpeed = Math.Min(_currentSpeed, maxSpeed);
+                    
+                    var desiredVelocity = direction * _currentSpeed;
+                    
+                    _currentVelocity = Vector3.Lerp(_currentVelocity, desiredVelocity,
+                        correctionFactor * Time.fixedDeltaTime);
+                    pos += _currentVelocity;
 
-                    transform.position = newPos;
+                    transform.position = pos;
                 
-                    if (distance < stopDistance)
+                    if (distance < movementStopMargin)
                     {
-                        _velocity = Vector3.zero;
+                        _currentSpeed = 0;
+                        _currentVelocity = Vector3.zero;
                         _isMoving = false;
                     }
                 }
@@ -106,9 +113,6 @@ namespace Player.Movement
                 {
                     transform.rotation = Quaternion.Slerp(transform.rotation, 
                         newRotation, Time.fixedDeltaTime * rotationSpeed);
-
-                    Debug.Log(transform.rotation.eulerAngles.y + " current");
-                    Debug.Log(newRotation.eulerAngles.y + " desired");
                     
                     if (Math.Abs(transform.rotation.eulerAngles.y - newRotation.eulerAngles.y) <= rotationStopMargin)
                     {

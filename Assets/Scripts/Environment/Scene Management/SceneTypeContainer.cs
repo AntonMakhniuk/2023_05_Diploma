@@ -9,6 +9,6 @@ namespace Miscellaneous.Scene_Management
 
     public enum SceneType
     {
-        MainMenu, Overworld
+        MainMenu, Overworld, AsteroidField
     }
-}
+}   
