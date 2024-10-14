@@ -176,13 +176,13 @@ namespace Miscellaneous
             
             var initialThickness = _currentThickness;
             var changeTime = stateChangeSpeed * 
-                             Mathf.Clamp01(wireframeThickness - initialThickness / wireframeThickness);
+                             Mathf.Clamp01((wireframeThickness - initialThickness) / wireframeThickness);
             var elapsedTime = 0f;
 
             while (_currentThickness < wireframeThickness)
             {
-                elapsedTime += Time.deltaTime / changeTime;
-                _currentThickness = Mathf.Lerp(initialThickness, wireframeThickness, elapsedTime);
+                elapsedTime += Time.deltaTime;
+                _currentThickness = Mathf.Lerp(initialThickness, wireframeThickness, elapsedTime / changeTime);
                 wireframeMaterial.SetFloat(WireframeThickness, _currentThickness);
                 
                 yield return null;
@@ -248,16 +248,16 @@ namespace Miscellaneous
         {
             wireframeMaterial.SetFloat(WireframeThickness, _currentThickness);
             
+            //TODO: Double-check this math cause its a bit sussy ngl
             var initialThickness = _currentThickness;
-            var changeTime = stateChangeSpeed * 
-                             Mathf.Clamp01(wireframeThickness - initialThickness / wireframeThickness);
+            var changeTime = stateChangeSpeed * Mathf.Clamp01(initialThickness / wireframeThickness);
             var elapsedTime = 0f;
 
             while (_currentThickness > 0f)
             {
-                elapsedTime += Time.deltaTime / changeTime;
+                elapsedTime += Time.deltaTime;
                 
-                _currentThickness = Mathf.Lerp(initialThickness, 0, elapsedTime);
+                _currentThickness = Mathf.Lerp(initialThickness, 0, elapsedTime / changeTime);
                 wireframeMaterial.SetFloat(WireframeThickness, _currentThickness);
                 
                 yield return null;
