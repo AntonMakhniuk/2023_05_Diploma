@@ -353,7 +353,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2552387175657489103, guid: 756a1ab21dcbb1349b3d7c50c908b9cf, type: 3}
       propertyPath: sceneType
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3369844741288541632, guid: 756a1ab21dcbb1349b3d7c50c908b9cf, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -397,7 +397,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4222355694140751795, guid: 756a1ab21dcbb1349b3d7c50c908b9cf, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Miscellaneous.Scene_Management.LevelManager, Assembly-CSharp
+      value: Environment.Scene_Management.LevelManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4222355694140751795, guid: 756a1ab21dcbb1349b3d7c50c908b9cf, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
@@ -405,7 +405,7 @@ PrefabInstance:
       objectReference: {fileID: 1311350992}
     - target: {fileID: 4222355694140751795, guid: 756a1ab21dcbb1349b3d7c50c908b9cf, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: Miscellaneous.Scene_Management.SceneTypeContainer, Assembly-CSharp
+      value: Environment.Scene_Management.SceneTypeContainer, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4346011038309063949, guid: 756a1ab21dcbb1349b3d7c50c908b9cf, type: 3}
       propertyPath: m_Layer
