@@ -7,8 +7,6 @@ namespace Player.Movement
 {
     public class PlayerClickMovement : MonoBehaviour
     {
-        public static PlayerClickMovement Instance;
-        
         private PlayerInputActions _playerInputActions;
         
         [SerializeField] private Camera mainCamera;
@@ -30,16 +28,6 @@ namespace Player.Movement
         
         private void Awake()
         {
-            if (Instance == null)
-            {
-                Instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-            
             _playerInputActions = PlayerActions.InputActions;
             _playerInputActions.Disable();
             _playerInputActions.PlayerShipMap.Enable();
