@@ -10,7 +10,8 @@ namespace Environment.Global_Map.Entities
     
     public class EntryPoint : MonoBehaviour
     {
-        public SceneTypeContainer sceneContainer;
+        public string locationName, description;
+        public SceneTypeContainer sceneTypeContainer;
         
         void Start()
         {

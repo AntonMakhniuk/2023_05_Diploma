@@ -2,14 +2,13 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace Player.Movement
 {
     public class PlayerClickMovement : MonoBehaviour
     {
         private PlayerInputActions _playerInputActions;
-        
-        [SerializeField] private Camera mainCamera;
         
         [SerializeField] private float maxSpeed = 10;
         [SerializeField] private float accelerationRate = 4f;
@@ -19,6 +18,7 @@ namespace Player.Movement
         [SerializeField] private float rotationSpeed = 5f;
         [SerializeField] private float rotationStopMargin = 1f;
 
+        private Camera _mainCamera;
         private Plane _movementPlane;
         private Vector3 _targetPosition;
         private Vector3 _currentVelocity = Vector3.zero;
@@ -33,16 +33,22 @@ namespace Player.Movement
             _playerInputActions.PlayerShipMap.Enable();
 
             _playerInputActions.PlayerShipMap.MoveToPoint.performed += MoveToPoint;
+            SceneManager.sceneLoaded += UpdateMainCamera;
         }
 
         private void Start()
         {
             _movementPlane = new Plane(Vector3.up, Vector3.zero);
         }
+        
+        private void UpdateMainCamera(Scene arg0, LoadSceneMode arg1)
+        {
+            _mainCamera = Camera.main;
+        }
 
         private void MoveToPoint(InputAction.CallbackContext context)
         {
-            var ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+            var ray = _mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
             
             if (!_movementPlane.Raycast(ray, out var enter))
             {
@@ -110,6 +116,12 @@ namespace Player.Movement
                 
                 yield return new WaitForFixedUpdate();
             }
+        }
+
+        private void OnDestroy()
+        {
+            _playerInputActions.PlayerShipMap.MoveToPoint.performed -= MoveToPoint;
+            SceneManager.sceneLoaded -= UpdateMainCamera;
         }
     }
 }

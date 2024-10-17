@@ -1,4 +1,4 @@
-﻿namespace UI.Systems
+﻿namespace UI.Systems.Miscellaneous
 {
     public interface IUIElement
     {

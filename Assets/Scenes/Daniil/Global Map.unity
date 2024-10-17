@@ -832,6 +832,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4114791210751648202, guid: 3030b801bebef4541855aeebf903a8e2, type: 3}
+      propertyPath: sceneType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6344924528039478002, guid: 3030b801bebef4541855aeebf903a8e2, type: 3}
       propertyPath: m_Name
       value: '[MAP] Entry Point Base'

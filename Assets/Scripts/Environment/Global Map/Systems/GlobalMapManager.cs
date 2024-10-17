@@ -8,7 +8,7 @@ namespace Environment.Global_Map.Systems
     public class GlobalMapManager : MonoBehaviour
     {
         public static GlobalMapManager Instance;
-
+        
         private readonly List<EntryPoint> _entryPoints = new();
 
         private void Awake()
@@ -33,7 +33,7 @@ namespace Environment.Global_Map.Systems
             
             _entryPoints.Add(point);
 
-            point.onPlayerShipLeftEntryPointProximity.AddListener(RelayPlayerShipEnteredEntryPointProximity);
+            point.onPlayerShipEnteredEntryPointProximity.AddListener(RelayPlayerShipEnteredEntryPointProximity);
             point.onPlayerShipLeftEntryPointProximity.AddListener(RelayPlayerShipLeftEntryPointProximity);
         }
 

@@ -120,7 +120,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93ab6d7f146bd954fbb4bf9d99f34ddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneContainer: {fileID: 4114791210751648202}
+  locationName: Asteroid Field
+  description: An unusually dense field of asteroids,  potentially contains useful
+    resources.
+  sceneTypeContainer: {fileID: 4114791210751648202}
   onPlayerShipEnteredEntryPointProximity:
     m_PersistentCalls:
       m_Calls:
@@ -163,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 697d87152fd44a559a43982e36c52fd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneType: 1
+  sceneType: 2
 --- !u!114 &351495507604059220
 MonoBehaviour:
   m_ObjectHideFlags: 0
