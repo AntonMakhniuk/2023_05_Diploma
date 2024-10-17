@@ -6,7 +6,6 @@ namespace Testing
     {
         [SerializeField] private Transform lookTarget;
         [SerializeField] private float rotationSpeed = 2f;
-        [SerializeField] private float smoothingFactor = 0.1f;
 
         private Vector3 lastLookTargetPosition;
 

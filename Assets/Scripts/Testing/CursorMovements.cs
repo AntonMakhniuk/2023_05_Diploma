@@ -5,8 +5,6 @@ namespace Testing
 {
     public class CursorMovements : MonoBehaviour
     {
-        [SerializeField] private Transform ship;
-        [SerializeField] private float distanceFromShip = 15f; 
         [SerializeField] private float followSmoothing = 0.1f;
         [SerializeField] private float cursorMovementScale = 0.1f;
 

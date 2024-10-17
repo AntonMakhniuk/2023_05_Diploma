@@ -9,7 +9,6 @@ namespace Testing
         public static DroneMovements Instance;
         
         [SerializeField] private float thrustSpeed = 50f;
-        [SerializeField] private float strafeSpeed = 30f;
         [SerializeField] private float boostMultiplier = 2f;
         
         
