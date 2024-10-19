@@ -49,6 +49,7 @@ MonoBehaviour:
   cursorMovementScale: 0.02
   distanceToShip: 20
   droneSetupCenter: {fileID: 4419199951300823825}
+  droneBody: {fileID: 736340287016629624}
 --- !u!1 &5617199671526830313
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,7 +185,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6368694750182162959}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.074162856, y: 0.01661384, z: -0.0012357045, w: 0.997107}
+  m_LocalRotation: {x: 0.074162856, y: 0.016613835, z: -0.0012357044, w: 0.997107}
   m_LocalPosition: {x: 0, y: 1.72, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

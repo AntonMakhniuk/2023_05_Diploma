@@ -10,14 +10,14 @@ namespace Testing
         [SerializeField] private float cursorMovementScale = 0.1f;
         [SerializeField] private float distanceToShip = 20f;
         [SerializeField] private Transform droneSetupCenter;
-        
+        [SerializeField] private Transform droneBody;
 
         private Vector3 _currentVelocity = Vector3.zero;
         private PlayerInputActions _playerInputActions;
         private Vector3 _targetPosition;
         private Vector3 _posCenteredUnscaled;
         private Transform _mainCam;
-       
+        private Vector3 _lastDronePosition;
 
 
         private void Awake()
@@ -26,6 +26,7 @@ namespace Testing
             _playerInputActions.PlayerCamera.Enable();
 
             _mainCam = Camera.main.transform;
+            _lastDronePosition = droneBody.position;
         }
 
         private void OnEnable()
@@ -57,9 +58,12 @@ namespace Testing
 
         private void FixedUpdate()
         {
+            Vector3 droneMovementDelta = droneBody.position - _lastDronePosition;
+            _targetPosition += droneMovementDelta;
             
             Vector3 smoothPosition = Vector3.SmoothDamp(transform.position, _targetPosition, ref _currentVelocity, followSmoothing);
             transform.position = smoothPosition;
+            _lastDronePosition = droneBody.position;
         }
     }
 }
