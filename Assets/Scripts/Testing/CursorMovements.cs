@@ -42,18 +42,17 @@ namespace Testing
         private void OnMouseMovement(UnityEngine.InputSystem.InputAction.CallbackContext context)
         {
             Vector2 mouseDelta = _playerInputActions.PlayerCamera.CameraMovement.ReadValue<Vector2>();
-            
             Vector3 rightMovement = _mainCam.right * mouseDelta.x;
             Vector3 forwardMovement = _mainCam.up * mouseDelta.y;
             
             Vector3 deltaWorld = (rightMovement + forwardMovement) * cursorMovementScale;
 
-            _posCenteredUnscaled = ((_targetPosition + deltaWorld) - droneSetupCenter.position);
+            _posCenteredUnscaled = ((_targetPosition + deltaWorld) - droneBody.position);
             
             _targetPosition = distanceToShip / Mathf.Sqrt(
                 Mathf.Pow(_posCenteredUnscaled.x, 2) +  
                 Mathf.Pow(_posCenteredUnscaled.y, 2) + 
-                Mathf.Pow(_posCenteredUnscaled.z, 2)) * _posCenteredUnscaled + droneSetupCenter.position;
+                Mathf.Pow(_posCenteredUnscaled.z, 2)) * _posCenteredUnscaled + droneBody.position;
         }
 
         private void FixedUpdate()
