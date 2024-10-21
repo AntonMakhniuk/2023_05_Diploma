@@ -697,6 +697,42 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MoveCamera"",
+                    ""type"": ""Value"",
+                    ""id"": ""24f41c06-edf3-4b39-af29-65001327eaec"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ReturnCameraToShip"",
+                    ""type"": ""Button"",
+                    ""id"": ""3d95991f-a496-4a8c-8397-969ddc8bceef"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ZoomCamera"",
+                    ""type"": ""Value"",
+                    ""id"": ""8a4637b7-7678-4b82-ad21-17439f72ae79"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""RotateCamera"",
+                    ""type"": ""Button"",
+                    ""id"": ""9502bada-b2a9-4a78-a794-395368f20342"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -710,6 +746,138 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""MoveToPoint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""13cfea5f-779e-41f5-9b38-8c14e8488062"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveCamera"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""9dfe13f1-6ad9-4482-8d21-acd2c5751cf0"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""740389d3-aa87-4a3f-9516-ea811c7b1429"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""4e56ba20-72e6-445a-a174-7e8eb16393df"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""3c358bb5-4054-4c0f-be72-4049167c1b7f"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7b819545-a017-4acb-971b-23944a8ee661"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ReturnCameraToShip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""ed0f4941-8b21-4f40-8a7e-d5d5f9e8c094"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ZoomCamera"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""8f858896-ec82-4bd5-bf10-e6bacb323e34"",
+                    ""path"": ""<Mouse>/scroll/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ZoomCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""960ffc83-2eaa-440b-abf1-54198d17965b"",
+                    ""path"": ""<Mouse>/scroll/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ZoomCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""d46a7328-ac6e-44a6-8076-7479af02005d"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateCamera"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""d0be9496-9a9e-4f97-bc59-d7f66f56e2da"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""d78af5d0-b19e-47ba-947d-23205d0b0ed3"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -753,6 +921,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         // PlayerShipMap
         m_PlayerShipMap = asset.FindActionMap("PlayerShipMap", throwIfNotFound: true);
         m_PlayerShipMap_MoveToPoint = m_PlayerShipMap.FindAction("MoveToPoint", throwIfNotFound: true);
+        m_PlayerShipMap_MoveCamera = m_PlayerShipMap.FindAction("MoveCamera", throwIfNotFound: true);
+        m_PlayerShipMap_ReturnCameraToShip = m_PlayerShipMap.FindAction("ReturnCameraToShip", throwIfNotFound: true);
+        m_PlayerShipMap_ZoomCamera = m_PlayerShipMap.FindAction("ZoomCamera", throwIfNotFound: true);
+        m_PlayerShipMap_RotateCamera = m_PlayerShipMap.FindAction("RotateCamera", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1175,11 +1347,19 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_PlayerShipMap;
     private List<IPlayerShipMapActions> m_PlayerShipMapActionsCallbackInterfaces = new List<IPlayerShipMapActions>();
     private readonly InputAction m_PlayerShipMap_MoveToPoint;
+    private readonly InputAction m_PlayerShipMap_MoveCamera;
+    private readonly InputAction m_PlayerShipMap_ReturnCameraToShip;
+    private readonly InputAction m_PlayerShipMap_ZoomCamera;
+    private readonly InputAction m_PlayerShipMap_RotateCamera;
     public struct PlayerShipMapActions
     {
         private @PlayerInputActions m_Wrapper;
         public PlayerShipMapActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @MoveToPoint => m_Wrapper.m_PlayerShipMap_MoveToPoint;
+        public InputAction @MoveCamera => m_Wrapper.m_PlayerShipMap_MoveCamera;
+        public InputAction @ReturnCameraToShip => m_Wrapper.m_PlayerShipMap_ReturnCameraToShip;
+        public InputAction @ZoomCamera => m_Wrapper.m_PlayerShipMap_ZoomCamera;
+        public InputAction @RotateCamera => m_Wrapper.m_PlayerShipMap_RotateCamera;
         public InputActionMap Get() { return m_Wrapper.m_PlayerShipMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1192,6 +1372,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @MoveToPoint.started += instance.OnMoveToPoint;
             @MoveToPoint.performed += instance.OnMoveToPoint;
             @MoveToPoint.canceled += instance.OnMoveToPoint;
+            @MoveCamera.started += instance.OnMoveCamera;
+            @MoveCamera.performed += instance.OnMoveCamera;
+            @MoveCamera.canceled += instance.OnMoveCamera;
+            @ReturnCameraToShip.started += instance.OnReturnCameraToShip;
+            @ReturnCameraToShip.performed += instance.OnReturnCameraToShip;
+            @ReturnCameraToShip.canceled += instance.OnReturnCameraToShip;
+            @ZoomCamera.started += instance.OnZoomCamera;
+            @ZoomCamera.performed += instance.OnZoomCamera;
+            @ZoomCamera.canceled += instance.OnZoomCamera;
+            @RotateCamera.started += instance.OnRotateCamera;
+            @RotateCamera.performed += instance.OnRotateCamera;
+            @RotateCamera.canceled += instance.OnRotateCamera;
         }
 
         private void UnregisterCallbacks(IPlayerShipMapActions instance)
@@ -1199,6 +1391,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @MoveToPoint.started -= instance.OnMoveToPoint;
             @MoveToPoint.performed -= instance.OnMoveToPoint;
             @MoveToPoint.canceled -= instance.OnMoveToPoint;
+            @MoveCamera.started -= instance.OnMoveCamera;
+            @MoveCamera.performed -= instance.OnMoveCamera;
+            @MoveCamera.canceled -= instance.OnMoveCamera;
+            @ReturnCameraToShip.started -= instance.OnReturnCameraToShip;
+            @ReturnCameraToShip.performed -= instance.OnReturnCameraToShip;
+            @ReturnCameraToShip.canceled -= instance.OnReturnCameraToShip;
+            @ZoomCamera.started -= instance.OnZoomCamera;
+            @ZoomCamera.performed -= instance.OnZoomCamera;
+            @ZoomCamera.canceled -= instance.OnZoomCamera;
+            @RotateCamera.started -= instance.OnRotateCamera;
+            @RotateCamera.performed -= instance.OnRotateCamera;
+            @RotateCamera.canceled -= instance.OnRotateCamera;
         }
 
         public void RemoveCallbacks(IPlayerShipMapActions instance)
@@ -1257,5 +1461,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     public interface IPlayerShipMapActions
     {
         void OnMoveToPoint(InputAction.CallbackContext context);
+        void OnMoveCamera(InputAction.CallbackContext context);
+        void OnReturnCameraToShip(InputAction.CallbackContext context);
+        void OnZoomCamera(InputAction.CallbackContext context);
+        void OnRotateCamera(InputAction.CallbackContext context);
     }
 }
