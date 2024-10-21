@@ -1480,7 +1480,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1179302613309058629, guid: ebfc1875366a9704baa46753d9c82792, type: 3}
       propertyPath: rotationSpeed
-      value: 10
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1179302613309058629, guid: ebfc1875366a9704baa46753d9c82792, type: 3}
+      propertyPath: boostMultiplier
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2294943190730662383, guid: ebfc1875366a9704baa46753d9c82792, type: 3}
       propertyPath: m_LocalPosition.x

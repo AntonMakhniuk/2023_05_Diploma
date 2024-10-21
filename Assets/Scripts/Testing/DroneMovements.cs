@@ -71,7 +71,7 @@ namespace Testing
 
                 float yawRotation = yawInput * rotationSpeed * Time.deltaTime;
 
-                directionToTarget = Quaternion.Euler(0, yawRotation, 0) * directionToTarget;
+                directionToTarget = Quaternion.Euler(0, yawRotation*-1, 0) * directionToTarget;
 
                 transform.position = lookTarget.position + directionToTarget;
 
