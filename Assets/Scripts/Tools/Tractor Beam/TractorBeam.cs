@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Testing;
 using Tools.Base_Tools;
 using UnityEngine;
 
 namespace Tools.Tractor_Beam
 {
-    public class TractorBeam : BaseTurret
+    public class TractorBeam : DroneBaseTurret
     {
         public Rigidbody AttractedObject { get; set; }
         public Transform holdPoint;

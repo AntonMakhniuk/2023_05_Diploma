@@ -1,4 +1,5 @@
 using System;
+using Testing;
 using Tools.Base_Tools;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,11 +9,11 @@ namespace Player.Ship
 {
     public class Inventory : MonoBehaviour
     {
-        [SerializeField] private BaseTool instrument1;
-        [SerializeField] private BaseTool instrument2;
-        [SerializeField] private BaseTool instrument3;
+        [SerializeField] private DronBaseTool instrument1;
+        [SerializeField] private DronBaseTool instrument2;
+        [SerializeField] private DronBaseTool instrument3;
         
-        private BaseTool _activeBaseTool;
+        private DronBaseTool _activeBaseTool;
         
         private Action<InputAction.CallbackContext> _toggleInstrument1;
         private Action<InputAction.CallbackContext> _toggleInstrument2;
@@ -29,7 +30,7 @@ namespace Player.Ship
             PlayerActions.InputActions.PlayerShip.ToggleSlot_3.performed += _toggleInstrument3;
         }
 
-        private void ToggleInstrument(BaseTool tool)
+        private void ToggleInstrument(DronBaseTool tool)
         {
             if (_activeBaseTool != null)
             {

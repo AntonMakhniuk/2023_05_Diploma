@@ -1,27 +1,36 @@
+using System;
+using Cinemachine;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class Crosshair : MonoBehaviour
 { 
-    public Image crosshairImage;
-    public float maxDistance = 100f;
+    [SerializeField] private RectTransform crosshairUI;
+    private PlayerInputActions _playerInputActions;
+
+    void Awake()
+    {
+        _playerInputActions = new PlayerInputActions();
+    }
+
+    void OnEnable()
+    {
+        _playerInputActions.PlayerCamera.CameraMovement.Enable();
+    }
+
+    void OnDisable()
+    {
+        _playerInputActions.PlayerCamera.CameraMovement.Disable();
+    }
 
     private void Update()
     {
-        Ray ray = new Ray(transform.position, transform.forward);
-        RaycastHit hit;
+        Vector2 mousePosition = Mouse.current.position.ReadValue();
         
-        if (Physics.Raycast(ray, out hit, maxDistance))
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(crosshairUI.parent as RectTransform, mousePosition, null, out Vector2 localPoint))
         {
-            if (hit.collider.CompareTag("AsteroidPoint"))
-            {
-                crosshairImage.color=Color.green;
-            }
-        }
-        
-        else
-        {
-            crosshairImage.color=Color.white;
+            crosshairUI.localPosition = localPoint;
         }
     }
 }
