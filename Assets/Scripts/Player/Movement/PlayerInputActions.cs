@@ -696,7 +696,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""MoveCamera"",
@@ -729,6 +729,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""name"": ""RotateCamera"",
                     ""type"": ""Button"",
                     ""id"": ""9502bada-b2a9-4a78-a794-395368f20342"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FollowShip"",
+                    ""type"": ""Button"",
+                    ""id"": ""3cd79e90-fa29-4832-8b46-886f7bb03857"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -878,6 +887,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""RotateCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""655aa610-92d5-478a-96bc-66d6e362b1dc"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FollowShip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -925,6 +945,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_PlayerShipMap_ReturnCameraToShip = m_PlayerShipMap.FindAction("ReturnCameraToShip", throwIfNotFound: true);
         m_PlayerShipMap_ZoomCamera = m_PlayerShipMap.FindAction("ZoomCamera", throwIfNotFound: true);
         m_PlayerShipMap_RotateCamera = m_PlayerShipMap.FindAction("RotateCamera", throwIfNotFound: true);
+        m_PlayerShipMap_FollowShip = m_PlayerShipMap.FindAction("FollowShip", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1351,6 +1372,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerShipMap_ReturnCameraToShip;
     private readonly InputAction m_PlayerShipMap_ZoomCamera;
     private readonly InputAction m_PlayerShipMap_RotateCamera;
+    private readonly InputAction m_PlayerShipMap_FollowShip;
     public struct PlayerShipMapActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1360,6 +1382,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @ReturnCameraToShip => m_Wrapper.m_PlayerShipMap_ReturnCameraToShip;
         public InputAction @ZoomCamera => m_Wrapper.m_PlayerShipMap_ZoomCamera;
         public InputAction @RotateCamera => m_Wrapper.m_PlayerShipMap_RotateCamera;
+        public InputAction @FollowShip => m_Wrapper.m_PlayerShipMap_FollowShip;
         public InputActionMap Get() { return m_Wrapper.m_PlayerShipMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1384,6 +1407,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @RotateCamera.started += instance.OnRotateCamera;
             @RotateCamera.performed += instance.OnRotateCamera;
             @RotateCamera.canceled += instance.OnRotateCamera;
+            @FollowShip.started += instance.OnFollowShip;
+            @FollowShip.performed += instance.OnFollowShip;
+            @FollowShip.canceled += instance.OnFollowShip;
         }
 
         private void UnregisterCallbacks(IPlayerShipMapActions instance)
@@ -1403,6 +1429,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @RotateCamera.started -= instance.OnRotateCamera;
             @RotateCamera.performed -= instance.OnRotateCamera;
             @RotateCamera.canceled -= instance.OnRotateCamera;
+            @FollowShip.started -= instance.OnFollowShip;
+            @FollowShip.performed -= instance.OnFollowShip;
+            @FollowShip.canceled -= instance.OnFollowShip;
         }
 
         public void RemoveCallbacks(IPlayerShipMapActions instance)
@@ -1465,5 +1494,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnReturnCameraToShip(InputAction.CallbackContext context);
         void OnZoomCamera(InputAction.CallbackContext context);
         void OnRotateCamera(InputAction.CallbackContext context);
+        void OnFollowShip(InputAction.CallbackContext context);
     }
 }

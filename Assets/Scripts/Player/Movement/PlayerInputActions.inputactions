@@ -674,7 +674,7 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 },
                 {
                     "name": "MoveCamera",
@@ -707,6 +707,15 @@
                     "name": "RotateCamera",
                     "type": "Button",
                     "id": "9502bada-b2a9-4a78-a794-395368f20342",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "FollowShip",
+                    "type": "Button",
+                    "id": "3cd79e90-fa29-4832-8b46-886f7bb03857",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -856,6 +865,17 @@
                     "action": "RotateCamera",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "655aa610-92d5-478a-96bc-66d6e362b1dc",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FollowShip",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

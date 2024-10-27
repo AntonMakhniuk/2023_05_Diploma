@@ -11,16 +11,18 @@ namespace Environment.Global_Map.Systems
 {
     public class MapCameraMovement : MonoBehaviour
     {
-        [SerializeField] private Vector3 cameraPositionOffset = new Vector3(0, 20, -30);
-        [SerializeField] private Vector3 cameraRotationOffset = new Vector3(30, 0, 0);
-        [SerializeField] private float cameraMovementSpeed;
-        [SerializeField] private float cameraMaxReturnSpeed;
-        [SerializeField] private float cameraRotationSpeed;
-        [SerializeField] private float cameraZoomSpeed = 0.01f;
+        [SerializeField] private Rigidbody pivotRigidBody;
+        [SerializeField] private float movementSpeed = 100;
+        [SerializeField] private float maxReturnSpeed = 20f;
+        [SerializeField] private float returnAcceleration = 5f;
+        [SerializeField] private float returnDecelerationDistance = 5f;
+        [SerializeField] private float rotationSpeed = 100;
+        [SerializeField] private float zoomSpeed = 0.8f;
         [SerializeField] private float minZoom = 5, maxZoom = 20, defaultZoom = 15;
+        [SerializeField] private float zoomSmoothTime = 0.2f;
         [SerializeField] [OnChangedCall(nameof(HandleFollowModeChanged))]
-        // Should not be changed directly, instead use the property so that
-        // HandleFollowModeChanged is called consistently
+        // Should not be changed directly unless you know what you're doing,
+        // instead use the property so that HandleFollowModeChanged is called consistently
         private bool cameraFollowsShipMovement;
         
         // For use anywhere outside the inspector
@@ -39,7 +41,11 @@ namespace Environment.Global_Map.Systems
         private PlayerInputActions _inputActions;
         private Vector2 _moveDirection;
         private float _rotationDirection;
-        private Coroutine _movementCoroutine, _followShipCoroutine, _rotationCoroutine; 
+        private Coroutine _movementCoroutine, _followShipCoroutine, 
+            _rotationCoroutine, _zoomCoroutine, _returnCoroutine;
+        private Vector3 _cameraPositionOffset, _cameraRotationOffset;
+        private Transform _pivotTransform;
+        private float _targetZoom, _zoomVelocity;
 
         private void Start()
         {
@@ -53,6 +59,9 @@ namespace Environment.Global_Map.Systems
             _inputActions.PlayerShipMap.ZoomCamera.performed += HandleZoomCamera;
             _inputActions.PlayerShipMap.RotateCamera.performed += HandleStartRotateCamera;
             _inputActions.PlayerShipMap.RotateCamera.canceled += HandleStopRotateCamera;
+            _inputActions.PlayerShipMap.FollowShip.performed += HandleFollowShip;
+
+            _pivotTransform = pivotRigidBody.transform;
         }
 
         private void HandleSceneLoaded(Scene arg0, LoadSceneMode loadSceneMode)
@@ -65,7 +74,18 @@ namespace Environment.Global_Map.Systems
         private void HandleStartMoveCamera(InputAction.CallbackContext ctx)
         {
             _moveDirection = ctx.ReadValue<Vector2>();
+            
+            if (CameraFollowsShipMovement)
+            {
+                CameraFollowsShipMovement = false;
+            }
 
+            if (_returnCoroutine != null)
+            {
+                StopCoroutine(_returnCoroutine);
+                _returnCoroutine = null;
+            }
+            
             _movementCoroutine ??= StartCoroutine(MoveCameraCoroutine());
         }
         
@@ -73,12 +93,12 @@ namespace Environment.Global_Map.Systems
         {
             while (true)
             {
-                var zMovementScale = _camera.m_Lens.OrthographicSize / defaultZoom;
-                var dir = new Vector3(_moveDirection.x, 0, _moveDirection.y * zMovementScale) 
-                          * (cameraMovementSpeed * Time.deltaTime);
+                var dirFromPivot = 
+                    _pivotTransform.right * _moveDirection.x + _pivotTransform.forward * _moveDirection.y;
+                var newPos = _pivotTransform.position + dirFromPivot * (movementSpeed * Time.deltaTime);
                 
-                _camera.transform.position += dir;
-                
+                pivotRigidBody.MovePosition(newPos);
+        
                 yield return null;
             }
         }
@@ -94,32 +114,75 @@ namespace Environment.Global_Map.Systems
             _movementCoroutine = null;
         }
         
+        
         private void HandleReturnCameraToShip(InputAction.CallbackContext ctx)
         {
-            var shipPos = PlayerShipMap.Instance.transform.position;
+            if (_movementCoroutine != null)
+            {
+                return;
+            }
             
-            _camera.transform.position = new Vector3(shipPos.x + cameraPositionOffset.x, 
-                shipPos.y + cameraPositionOffset.y, shipPos.z + cameraPositionOffset.z);
-            _camera.m_Lens.OrthographicSize = defaultZoom;
+            _returnCoroutine ??= StartCoroutine(ReturnCameraToShipCoroutine());
+        }
+
+        private IEnumerator ReturnCameraToShipCoroutine()
+        {
+            var targetPosition = PlayerShipMap.Instance.transform.position;
+            var currentSpeed = 0f;
+
+            while ((pivotRigidBody.position - targetPosition).sqrMagnitude > 0.01f)
+            {
+                targetPosition = PlayerShipMap.Instance.transform.position;
+                
+                var distanceToTarget = Vector3.Distance(pivotRigidBody.position, targetPosition);
+                
+                currentSpeed = Mathf.Min(currentSpeed + returnAcceleration * Time.deltaTime, maxReturnSpeed);
+                
+                var decelerationFactor = Mathf.Clamp01(distanceToTarget / returnDecelerationDistance);
+                var adjustedSpeed = currentSpeed * decelerationFactor;
+                
+                var newPosition = Vector3.MoveTowards(pivotRigidBody.position,
+                    targetPosition, adjustedSpeed * Time.deltaTime
+                );
+
+                pivotRigidBody.MovePosition(newPosition);
+
+                yield return null;
+            }
+
+            _followShipCoroutine ??= StartCoroutine(FollowShipCoroutine());
+            _returnCoroutine = null;
         }
 
         private void SetUpCamera()
         {
-            var shipPos = PlayerShipMap.Instance.transform.position;
-            
-            _camera.transform.position = new Vector3(shipPos.x + cameraPositionOffset.x, 
-                shipPos.y + cameraPositionOffset.y, shipPos.z + cameraPositionOffset.z);
+            pivotRigidBody.MovePosition(PlayerShipMap.Instance.transform.position);
+            pivotRigidBody.MoveRotation(Quaternion.Euler(0, 0, 0));
             _camera.m_Lens.OrthographicSize = defaultZoom;
-
-            _camera.transform.rotation = Quaternion.Euler(cameraRotationOffset);
         }
 
         private void HandleZoomCamera(InputAction.CallbackContext ctx)
         {
-            var zoomDir = ctx.ReadValue<float>();
+            _targetZoom += ctx.ReadValue<float>() * zoomSpeed * Time.deltaTime;
+            _targetZoom = Mathf.Clamp(_targetZoom, minZoom, maxZoom);
             
-            _camera.m_Lens.OrthographicSize += zoomDir * cameraZoomSpeed * Time.deltaTime;
-            _camera.m_Lens.OrthographicSize = Mathf.Clamp(_camera.m_Lens.OrthographicSize, minZoom, maxZoom);
+            _zoomCoroutine ??= StartCoroutine(ZoomCameraCoroutine());
+        }
+
+        private IEnumerator ZoomCameraCoroutine()
+        {
+            while (Mathf.Abs(_camera.m_Lens.OrthographicSize - _targetZoom) > 0.01f)
+            {
+                _camera.m_Lens.OrthographicSize = Mathf.SmoothDamp(_camera.m_Lens.OrthographicSize,
+                    _targetZoom,
+                    ref _zoomVelocity,
+                    zoomSmoothTime
+                );
+
+                yield return null;
+            }
+            
+            _zoomCoroutine = null;
         }
         
         private void HandleStartRotateCamera(InputAction.CallbackContext ctx)
@@ -133,23 +196,15 @@ namespace Environment.Global_Map.Systems
         {
             while (true)
             {
-                var cameraPosition = _camera.transform.position;
-                var orbitCenter = cameraPosition - cameraPositionOffset;
-                var directionToCamera = cameraPosition - orbitCenter;
-                var rotation = Quaternion.Euler(0, 
-                    _rotationDirection * cameraRotationSpeed * Time.deltaTime, 0);
+                var rotationDelta = 
+                    Quaternion.Euler(0, _rotationDirection * rotationSpeed * Time.deltaTime, 0);
                 
-                directionToCamera = rotation * directionToCamera;
-                cameraPosition = orbitCenter + directionToCamera;
-                
-                _camera.transform.position = cameraPosition;
-                _camera.transform.rotation = Quaternion.Euler(cameraRotationOffset);
+                pivotRigidBody.MoveRotation(pivotRigidBody.rotation * rotationDelta);
 
                 yield return null;
             }
         }
-
-
+        
         private void HandleStopRotateCamera(InputAction.CallbackContext ctx)
         {
             if (_rotationCoroutine == null)
@@ -166,23 +221,39 @@ namespace Environment.Global_Map.Systems
         {
             if (cameraFollowsShipMovement)
             {
-                _followShipCoroutine ??= StartCoroutine(FollowShipCoroutine());
+                _returnCoroutine ??= StartCoroutine(ReturnCameraToShipCoroutine());
             }
-            else if (_followShipCoroutine != null)
+            else 
             {
-                StopCoroutine(_followShipCoroutine);
-                _followShipCoroutine = null;
+                if (_returnCoroutine != null)
+                {
+                    StopCoroutine(_returnCoroutine);
+                    _returnCoroutine = null;
+                }
+                
+                if (_followShipCoroutine != null)
+                {
+                    StopCoroutine(_followShipCoroutine);
+                    _followShipCoroutine = null;
+                }
             }
+        }
+        
+        private void HandleFollowShip(InputAction.CallbackContext obj)
+        {
+            CameraFollowsShipMovement = !CameraFollowsShipMovement;
         }
 
         private IEnumerator FollowShipCoroutine()
         {
+            if (!cameraFollowsShipMovement)
+            {
+                cameraFollowsShipMovement = true;
+            }
+            
             while (true)
             {
-                var shipPos = PlayerShipMap.Instance.transform.position;
-                
-                _camera.transform.position = new Vector3(shipPos.x + cameraPositionOffset.x, 
-                    shipPos.y + cameraPositionOffset.y, shipPos.z + cameraPositionOffset.z);
+                pivotRigidBody.MovePosition(PlayerShipMap.Instance.transform.position);
 
                 yield return null;
             }
@@ -197,6 +268,7 @@ namespace Environment.Global_Map.Systems
             _inputActions.PlayerShipMap.ZoomCamera.performed -= HandleZoomCamera;
             _inputActions.PlayerShipMap.RotateCamera.performed -= HandleStartRotateCamera;
             _inputActions.PlayerShipMap.RotateCamera.canceled -= HandleStopRotateCamera;
+            _inputActions.PlayerShipMap.FollowShip.performed -= HandleFollowShip;
             
             StopAllCoroutines();
         }
