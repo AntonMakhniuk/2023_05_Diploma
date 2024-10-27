@@ -14,7 +14,8 @@ namespace Testing
 
         [SerializeField] protected float maxRange;
         [SerializeField] protected Transform muzzlePoint;
-
+        [SerializeField] private RectTransform crosshairUI;
+        
         protected RaycastHit? LookAtHitData;
 
         private bool _hasSeparateLeg;
@@ -37,11 +38,11 @@ namespace Testing
         }
 
         // Rotate the turret to match the direction of the camera
-        /*private void RotateWithCamera()
+        private void RotateWithCamera()
         {
-            var screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0f);
+            
 
-            var screenRay = Camera.main.ScreenPointToRay(screenCenter);
+            var screenRay = Camera.main.ScreenPointToRay(crosshairUI.position);
 
             var hasHit = Physics.Raycast(screenRay, out var hit, maxRange);
             LookAtHitData = hasHit ? hit : null;
@@ -70,6 +71,6 @@ namespace Testing
 
             turretBarrel.transform.localRotation = Quaternion.Lerp(turretBarrel.transform.localRotation,
                 targetPitchRotation, Time.deltaTime * rotationSpeed);
-        }*/
+        }
     }
 }
