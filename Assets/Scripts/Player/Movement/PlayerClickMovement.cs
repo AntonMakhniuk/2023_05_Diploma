@@ -12,7 +12,6 @@ namespace Player.Movement
         [SerializeField] private float maxSpeed = 10f;
         [SerializeField] private float accelerationRate = 4f;
         [SerializeField] private float decelerationRate = 4f;
-        [SerializeField] private float sharpTurnThreshold = 90f;
         [SerializeField] private float minDampen = 0.1f;
         [SerializeField] private float maxDampen = 0.8f;
         [SerializeField] private float movementStopMargin = 0.05f;
