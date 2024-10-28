@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,15 +9,18 @@ namespace Player.Movement
     {
         private PlayerInputActions _playerInputActions;
         
-        [SerializeField] private float maxSpeed = 10;
+        [SerializeField] private float maxSpeed = 10f;
         [SerializeField] private float accelerationRate = 4f;
+        [SerializeField] private float decelerationRate = 4f;
+        [SerializeField] private float sharpTurnThreshold = 90f;
+        [SerializeField] private float minDampen = 0.1f;
+        [SerializeField] private float maxDampen = 0.8f;
         [SerializeField] private float movementStopMargin = 0.05f;
-        [SerializeField] private float decelerationDistance = 3.0f;
-        [SerializeField] private float correctionFactor = 1f;
         [SerializeField] private float rotationSpeed = 5f;
         [SerializeField] private float rotationStopMargin = 1f;
 
         private Camera _mainCamera;
+        private Rigidbody _rigidBody;
         private Plane _movementPlane;
         private Vector3 _targetPosition;
         private Vector3 _currentVelocity = Vector3.zero;
@@ -38,6 +40,7 @@ namespace Player.Movement
 
         private void Start()
         {
+            _rigidBody = GetComponent<Rigidbody>();
             _movementPlane = new Plane(Vector3.up, Vector3.zero);
         }
         
@@ -58,12 +61,15 @@ namespace Player.Movement
             _targetPosition = ray.GetPoint(enter);
             _targetPosition.y = 0;
             
-            if (_moveCoroutine != null)
+            if (_moveCoroutine == null)
             {
-                StopCoroutine(_moveCoroutine);
+                _moveCoroutine = StartCoroutine(MoveToPointCoroutine());
             }
-            
-            _moveCoroutine = StartCoroutine(MoveToPointCoroutine());
+            else
+            {
+                _isMoving = true;
+                _isRotating = true;
+            }
         }
 
         private IEnumerator MoveToPointCoroutine()
@@ -74,41 +80,64 @@ namespace Player.Movement
             while (_isMoving || _isRotating)
             {
                 var pos = transform.position;
-                var direction = (_targetPosition - pos).normalized;
+                var targetDirection = (_targetPosition - pos).normalized;
+                var distanceToTarget = Vector3.Distance(pos, _targetPosition);
                 
                 if (_isMoving)
                 {
-                    var distance = Vector3.Distance(pos, _targetPosition);
-                    var decelerationFactor = Mathf.Clamp01(distance / decelerationDistance);
+                    var forwardAlignment = Vector3.Dot(transform.forward, targetDirection);
+                    var angleToTarget = Vector3.Angle(transform.forward, targetDirection);
+                    var currentDampening = Mathf.Lerp(minDampen, maxDampen, angleToTarget / 180f);
                     
-                    _currentSpeed += accelerationRate * Time.fixedDeltaTime;
-                    _currentSpeed *= decelerationFactor;
-                    _currentSpeed = Math.Min(_currentSpeed, maxSpeed);
+                    _currentVelocity = Vector3.Lerp(_currentVelocity, Vector3.zero, 
+                        currentDampening * Time.fixedDeltaTime);
                     
-                    var desiredVelocity = direction * _currentSpeed;
+                    var currentSpeed = _currentVelocity.magnitude;
+                    var stoppingDistance = currentSpeed * currentSpeed / (2 * decelerationRate);
+                    Vector3 desiredVelocity;
                     
-                    _currentVelocity = Vector3.Lerp(_currentVelocity, desiredVelocity,
-                        correctionFactor * Time.fixedDeltaTime);
-                    pos += _currentVelocity;
-
-                    transform.position = pos;
-                
-                    if (distance < movementStopMargin)
+                    if (stoppingDistance >= distanceToTarget)
                     {
-                        _currentSpeed = 0;
+                        desiredVelocity = targetDirection * Mathf.Lerp(_currentVelocity.magnitude, 
+                            0, decelerationRate * Time.fixedDeltaTime);
+                    }
+                    else
+                    {
+                        desiredVelocity = targetDirection * (maxSpeed * Mathf.Lerp(0.5f, 1f, forwardAlignment));
+                    }
+                    
+                    var parallelVelocity = Vector3.Project(_currentVelocity, targetDirection);
+                    var perpendicularVelocity = _currentVelocity - parallelVelocity;
+                    
+                    perpendicularVelocity *= Mathf.Lerp(1f, 0.5f, 
+                        Mathf.InverseLerp(0, 1, forwardAlignment));
+                    
+                    var steeringForce = desiredVelocity - (parallelVelocity + perpendicularVelocity);
+                    var steeringRate = distanceToTarget > stoppingDistance ? accelerationRate : decelerationRate;
+                    
+                    steeringForce = Vector3.ClampMagnitude(steeringForce, steeringRate * Time.fixedDeltaTime);
+                    _currentVelocity += steeringForce;
+                    _currentVelocity = Vector3.ClampMagnitude(_currentVelocity, maxSpeed);
+                    
+                    var newPosition = pos + _currentVelocity * Time.fixedDeltaTime;
+                    
+                    if (distanceToTarget < movementStopMargin)
+                    {
+                        newPosition = _targetPosition;
                         _currentVelocity = Vector3.zero;
                         _isMoving = false;
                     }
-                }
-
-                var newRotation = Quaternion.LookRotation(direction);
-                
-                if (_isRotating)
-                {
-                    transform.rotation = Quaternion.Slerp(transform.rotation, 
-                        newRotation, Time.fixedDeltaTime * rotationSpeed);
                     
-                    if (Math.Abs(transform.rotation.eulerAngles.y - newRotation.eulerAngles.y) <= rotationStopMargin)
+                    _rigidBody.MovePosition(newPosition);
+                }
+                
+                if (_isRotating && targetDirection != Vector3.zero)
+                {
+                    var newRotation = Quaternion.LookRotation(targetDirection);
+                    _rigidBody.MoveRotation(Quaternion.Slerp(transform.rotation, 
+                        newRotation, Time.fixedDeltaTime * rotationSpeed));
+                    
+                    if (Quaternion.Angle(transform.rotation, newRotation) <= rotationStopMargin)
                     {
                         _isRotating = false;
                     }
@@ -116,6 +145,8 @@ namespace Player.Movement
                 
                 yield return new WaitForFixedUpdate();
             }
+                
+            _moveCoroutine = null;
         }
 
         private void OnDestroy()

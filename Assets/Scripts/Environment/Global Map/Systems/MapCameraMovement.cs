@@ -43,7 +43,6 @@ namespace Environment.Global_Map.Systems
         private float _rotationDirection;
         private Coroutine _movementCoroutine, _followShipCoroutine, 
             _rotationCoroutine, _zoomCoroutine, _returnCoroutine;
-        private Vector3 _cameraPositionOffset, _cameraRotationOffset;
         private Transform _pivotTransform;
         private float _targetZoom, _zoomVelocity;
 

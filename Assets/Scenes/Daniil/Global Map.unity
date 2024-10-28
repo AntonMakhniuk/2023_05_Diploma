@@ -371,6 +371,26 @@ PrefabInstance:
       propertyPath: m_Interpolate
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8747384258631202814, guid: 973a607d7a37c204bb839bb2de1614d6, type: 3}
+      propertyPath: maxSpeed
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 8747384258631202814, guid: 973a607d7a37c204bb839bb2de1614d6, type: 3}
+      propertyPath: rotationSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8747384258631202814, guid: 973a607d7a37c204bb839bb2de1614d6, type: 3}
+      propertyPath: accelerationRate
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8747384258631202814, guid: 973a607d7a37c204bb839bb2de1614d6, type: 3}
+      propertyPath: decelerationRate
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8747384258631202814, guid: 973a607d7a37c204bb839bb2de1614d6, type: 3}
+      propertyPath: decelerationDistance
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8885786384416905617, guid: 973a607d7a37c204bb839bb2de1614d6, type: 3}
       propertyPath: m_Name
       value: '[PLR] Player Ship Map'
