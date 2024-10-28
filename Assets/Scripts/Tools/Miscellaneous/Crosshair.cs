@@ -1,27 +1,56 @@
 using UnityEngine;
-using UnityEngine.UI;
+
 
 public class Crosshair : MonoBehaviour
 { 
-    public Image crosshairImage;
-    public float maxDistance = 100f;
+    [SerializeField] private RectTransform crosshairUI;
+    [SerializeField] private float returnSpeed = 5f;
+    [SerializeField] private float smoothing = 0.1f;
+    
+    private PlayerInputActions _playerInputActions;
+    private Vector2 targetPosition;
+    private Vector2 smoothPosition;
+    private Vector2 screenCenter;
 
-    private void Update()
+    void Awake()
     {
-        Ray ray = new Ray(transform.position, transform.forward);
-        RaycastHit hit;
-        
-        if (Physics.Raycast(ray, out hit, maxDistance))
+        _playerInputActions = new PlayerInputActions();
+        screenCenter = new Vector2(Screen.width / 2, Screen.height / 2);
+        targetPosition = screenCenter;
+        smoothPosition = screenCenter;
+    }
+
+    void OnEnable()
+    {
+        _playerInputActions.PlayerCamera.CameraMovement.Enable();
+    }
+
+    void OnDisable()
+    {
+        _playerInputActions.PlayerCamera.CameraMovement.Disable();
+    }
+
+    private void FixedUpdate()
+    {
+        Vector2 mouseDelta = _playerInputActions.PlayerCamera.CameraMovement.ReadValue<Vector2>();
+
+        if (mouseDelta != Vector2.zero)
         {
-            if (hit.collider.CompareTag("AsteroidPoint"))
-            {
-                crosshairImage.color=Color.green;
-            }
+            targetPosition += mouseDelta;
         }
-        
         else
         {
-            crosshairImage.color=Color.white;
+            targetPosition = Vector2.Lerp(targetPosition, screenCenter, Time.deltaTime * returnSpeed);
+        }
+        
+        targetPosition.x = Mathf.Clamp(targetPosition.x, 0, Screen.width);
+        targetPosition.y = Mathf.Clamp(targetPosition.y, 0, Screen.height);
+        
+        smoothPosition = Vector2.Lerp(smoothPosition, targetPosition, smoothing);
+        
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(crosshairUI.parent as RectTransform, smoothPosition, null, out Vector2 localPoint))
+        {
+            crosshairUI.localPosition = localPoint;
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using Cinemachine;
 using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -14,9 +13,6 @@ namespace Tools.Base_Tools
             get => _isActiveTool;
             set => ToggleInstrument(value);
         }
-        
-        [SerializeField] protected CinemachineVirtualCamera cinematicCamera;
-        [SerializeField] protected Canvas crosshairCanvas;
 
         private IEnumerator _workCoroutine;
         private IEnumerator _fixedWorkCoroutine;
@@ -163,9 +159,6 @@ namespace Tools.Base_Tools
         
         private void ToggleInstrument(bool newState)
         {
-            cinematicCamera.gameObject.SetActive(newState);
-            crosshairCanvas.gameObject.SetActive(newState);
-
             if (newState)
             {
                 Activate();
