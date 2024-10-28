@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Tools.Tractor_Beam
 {
-    public class TractorBeam : DroneBaseTurret
+    public class TractorBeam : BaseTurret
     {
         public Rigidbody AttractedObject { get; set; }
         public Transform holdPoint;

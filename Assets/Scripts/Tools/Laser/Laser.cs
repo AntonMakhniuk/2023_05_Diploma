@@ -1,12 +1,11 @@
 using System.Collections;
 using Resource_Nodes;
-using Testing;
 using Tools.Base_Tools;
 using UnityEngine;
 
 namespace Tools.Laser
 {
-    public class Laser : DroneBaseTurret
+    public class Laser : BaseTurret
     {
         [SerializeField] private float laserDamagePerSecond = 100f;
         [SerializeField] private LineRenderer beam;
@@ -28,7 +27,7 @@ namespace Tools.Laser
             while (true)
             {
                 var beamEndPosition = 
-                    LookAtHitData?.point ?? muzzlePoint.position + /*cinematicCamera.*/transform.forward * maxRange;
+                    LookAtHitData?.point ?? muzzlePoint.position + transform.forward * maxRange;
 
                 // Set the beam's positions
                 beam.SetPosition(0, muzzlePoint.position);

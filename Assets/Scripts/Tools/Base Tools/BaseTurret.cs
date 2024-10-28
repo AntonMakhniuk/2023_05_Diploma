@@ -9,6 +9,7 @@ namespace Tools.Base_Tools
         [SerializeField] private Transform turretLeg;
         [SerializeField] private Transform turretBarrel;
         [SerializeField] private float rotationSpeed;
+        [SerializeField] private RectTransform crosshairPos;
         
         [SerializeField] protected float maxRange;
         [SerializeField] protected Transform muzzlePoint;
@@ -19,10 +20,7 @@ namespace Tools.Base_Tools
 
         protected override void Start()
         {
-            if (turretLeg == null)
-            {
-                _hasSeparateLeg = false;
-            }
+            _hasSeparateLeg = turretLeg != null;
             
             base.Start();
         }
@@ -37,35 +35,35 @@ namespace Tools.Base_Tools
         // Rotate the turret to match the direction of the camera
         private void RotateWithCamera() 
         {
-            var screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0f);
-            
-            var screenRay = Camera.main.ScreenPointToRay(screenCenter);
-            
+            var screenRay = Camera.main.ScreenPointToRay(crosshairPos.position);
+    
             var hasHit = Physics.Raycast(screenRay, out var hit, maxRange);
             LookAtHitData = hasHit ? hit : null;
-            
+    
             var targetPoint = hasHit ? hit.point : screenRay.GetPoint(maxRange);
             var relativeTargetPoint = turretBase.transform.parent.InverseTransformPoint(targetPoint);
 
-            var yawAngle = Mathf.Atan2(relativeTargetPoint.x, relativeTargetPoint.z) * Mathf.Rad2Deg;
-            var targetYawRotation = Quaternion.Euler(0f, yawAngle, 0f);
-            
+            // Calculate rotation around the Z-axis for leg rotation
+            var zRotationAngle = Mathf.Atan2(relativeTargetPoint.y, relativeTargetPoint.x) * Mathf.Rad2Deg;
+            var targetZRotation = Quaternion.Euler(0f, 0f, zRotationAngle);
+
             if (_hasSeparateLeg)
             {
+                // Rotate the leg on its Z-axis
                 turretLeg.transform.localRotation = Quaternion.Lerp(turretLeg.transform.localRotation, 
-                    targetYawRotation, Time.deltaTime * rotationSpeed);
+                    targetZRotation, Time.deltaTime * rotationSpeed);
             }
             else
             {
                 turretBase.transform.localRotation = Quaternion.Lerp(turretBase.transform.localRotation, 
-                    targetYawRotation, Time.deltaTime * rotationSpeed);
+                    targetZRotation, Time.deltaTime * rotationSpeed);
             }
-            
+    
+            // Calculate pitch for the barrel (up and down rotation)
             var pitchAngle = -Mathf.Atan2(relativeTargetPoint.y, 
-                Mathf.Sqrt(relativeTargetPoint.x * relativeTargetPoint.x 
-                           + relativeTargetPoint.z * relativeTargetPoint.z)) * Mathf.Rad2Deg;
+                Mathf.Sqrt(relativeTargetPoint.x * relativeTargetPoint.x + relativeTargetPoint.z * relativeTargetPoint.z)) * Mathf.Rad2Deg;
             var targetPitchRotation = Quaternion.Euler(pitchAngle, 0f, 0f);
-            
+    
             turretBarrel.transform.localRotation = Quaternion.Lerp(turretBarrel.transform.localRotation, 
                 targetPitchRotation, Time.deltaTime * rotationSpeed);
         }
