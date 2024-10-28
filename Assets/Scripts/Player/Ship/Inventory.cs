@@ -9,11 +9,11 @@ namespace Player.Ship
 {
     public class Inventory : MonoBehaviour
     {
-        [SerializeField] private DronBaseTool instrument1;
-        [SerializeField] private DronBaseTool instrument2;
-        [SerializeField] private DronBaseTool instrument3;
+        [SerializeField] private BaseTool instrument1;
+        [SerializeField] private BaseTool instrument2;
+        [SerializeField] private BaseTool instrument3;
         
-        private DronBaseTool _activeBaseTool;
+        private BaseTool _activeBaseTool;
         
         private Action<InputAction.CallbackContext> _toggleInstrument1;
         private Action<InputAction.CallbackContext> _toggleInstrument2;
@@ -30,7 +30,7 @@ namespace Player.Ship
             PlayerActions.InputActions.PlayerShip.ToggleSlot_3.performed += _toggleInstrument3;
         }
 
-        private void ToggleInstrument(DronBaseTool tool)
+        private void ToggleInstrument(BaseTool tool)
         {
             if (_activeBaseTool != null)
             {
