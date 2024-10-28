@@ -5,7 +5,7 @@ using Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Miscellaneous.Scene_Management
+namespace Environment.Scene_Management
 {
     public class InputStateManager : MonoBehaviour
     {
@@ -66,11 +66,11 @@ namespace Miscellaneous.Scene_Management
 
         public void SetCameraMovementState(bool newState)
         {
-            if (_mainCameraBrain == null)
+            if (_mainCameraBrain == null || _mainCameraBrain.ActiveVirtualCamera == null)
             {
                 return;
             }
-
+            
             if (_mainCameraBrain.ActiveVirtualCamera.VirtualCameraGameObject
                 .TryGetComponent<CinemachineInputProvider>(out var provider))
             {

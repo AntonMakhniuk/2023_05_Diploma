@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Miscellaneous.Scene_Management
+namespace Environment.Scene_Management
 {
     public class SceneTypeContainer : MonoBehaviour
     {
@@ -9,6 +9,6 @@ namespace Miscellaneous.Scene_Management
 
     public enum SceneType
     {
-        MainMenu, Overworld
+        MainMenu, Overworld, AsteroidField, GlobalMap
     }
-}
+}   

@@ -3,7 +3,7 @@ using AYellowpaper.SerializedCollections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Miscellaneous.Scene_Management
+namespace Environment.Scene_Management
 {
     public class LevelManager : MonoBehaviour
     {
@@ -36,7 +36,7 @@ namespace Miscellaneous.Scene_Management
                 return;
             }
             
-            for (int i = 1; i < scenesToLoad.Count; i++)
+            for (var i = 1; i < scenesToLoad.Count; i++)
             {
                 SceneManager.LoadScene(scenesToLoad[i], LoadSceneMode.Additive);
             }

@@ -143,12 +143,12 @@ namespace UI.Systems.Panels
             {
                 return;
             }
-
+            
             if (!_mainPanel.childPanels.Contains(panel))
             {
                 return;
             }
-
+            
             panel.Open();
             _childPanels.Add(panel);
         }
