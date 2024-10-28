@@ -19,7 +19,7 @@ namespace Environment.Scene_Management
         {
             var sceneType = LevelManager.Instance.scenesDict.FirstOrDefault(i => 
                 i.Value.Contains(scene.name)).Key;
-
+            
             PlayerShip.Instance.gameObject.SetActive(!scenesNoShip.Contains(sceneType));
         }
     }
