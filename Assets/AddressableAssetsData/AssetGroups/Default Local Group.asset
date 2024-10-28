@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: f0fcfe0bd5b8e3948b18bc6ead19549f
+  m_SerializeEntries:
+  - m_GUID: 7ebf04b0bd4743c4d8628be590197100
+    m_Address: Assets/Scriptable Objects/Addressables/BuildingPrefabDictionary.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BuildingPrefabDictionary
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f9e0cc7ba3c095941b1156917a21e732
+    m_Address: Assets/Scriptable Objects/Addressables/ResourcePrefabDictionary.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ResourcePrefabDictionary
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 320a284559bf4d140bb59da6479e20a7
+    m_Address: Assets/Scriptable Objects/Addressables/Recipe Dictionary.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - RecipeDictionary
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cc2b315e99806ac4eb02b1862085d9a9
+    m_Address: Assets/Scriptable Objects/Addressables/Resource Node Prefab Dictionary.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ResourceNodePrefabDictionary
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 005580f378fbe434d9656a348286fda1, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: ecbbfa9df0b4cb6499039571a12a37fe, type: 2}
+    - {fileID: 11400000, guid: 9d967d597dd52f94b96e4e36a233f6c6, type: 2}

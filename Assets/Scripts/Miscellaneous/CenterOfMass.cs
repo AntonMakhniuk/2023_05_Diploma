@@ -1,27 +1,27 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
-public class CenterOfMass : MonoBehaviour
+namespace Miscellaneous
 {
-    [SerializeField] private Vector3 centerOfMass;
-    protected Rigidbody rd;
-    
-    void Start()
+    [RequireComponent(typeof(Rigidbody))]
+    public class CenterOfMass : MonoBehaviour
     {
-        rd = GetComponent<Rigidbody>();
-    }
-    
-    void Update()
-    {
-        centerOfMass = rd.centerOfMass;
-    }
+        [SerializeField] private Vector3 centerOfMass;
+        private Rigidbody _rb;
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(transform.position + transform.rotation * centerOfMass, 1f);
+        private void Start()
+        {
+            _rb = GetComponent<Rigidbody>();
+        }
+
+        private void Update()
+        {
+            centerOfMass = _rb.centerOfMass;
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(transform.position + transform.rotation * centerOfMass, 1f);
+        }
     }
 }

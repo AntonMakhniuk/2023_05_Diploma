@@ -1,15 +1,16 @@
-﻿using Player;
+﻿using System.Collections.Generic;
+using Player;
 using UI.Systems.Interactables.States;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace UI.Systems.Interactables
 {
-    public class Interactable : InteractableStateMachine
+    public class Interactable : MonoBehaviour
     {
         public Image objectIconImage, bindIconImage;
+        
         private Sprite _objectIcon, _bindIcon;
         public Sprite ObjectIcon
         {
@@ -30,44 +31,81 @@ namespace UI.Systems.Interactables
             }
         }
         
-        public UnityEvent onInteractionStarted, onInteractionEnded;
-
-        private void Start()
+        private Dictionary<InteractableState, BaseInteractableState> _stateDictionary = new();
+        private BaseInteractableState _currentState;
+        
+        private void Awake()
         {
-            State = new Hidden(this);
+            _stateDictionary = new Dictionary<InteractableState, BaseInteractableState>
+            {
+                { InteractableState.Hidden, new HiddenState(this) },
+                { InteractableState.Shown, new ShownState(this) },
+                { InteractableState.Highlit, new HighlitState(this) },
+                { InteractableState.Activated, new ActivatedState(this) }
+            };
+
             PlayerActions.InputActions.UI.InteractWithObject.performed += ToggleActivated;
+            
+            SetState(InteractableState.Hidden);
         }
 
         public void HandleCameraLooking()
         {
-            if (State is Shown)
+            if (_currentState is ShownState)
             {
-                SetState(new Highlit(this));
+                SetState(InteractableState.Highlit);
+            }
+        }
+        
+        private void SetState(InteractableState newState)
+        {
+            _currentState.Exit();
+            _currentState = _stateDictionary[newState];
+            _currentState.Enter();
+        }
+        
+        private void ToggleActivated(InputAction.CallbackContext _)
+        {
+            switch (_currentState)
+            {
+                case HighlitState:
+                {
+                    SetState(InteractableState.Activated);
+                    
+                    break;
+                }
+                case ActivatedState:
+                {
+                    SetState(InteractableState.Highlit);
+                    
+                    break;
+                }
             }
         }
         
         private void OnTriggerEnter(Collider other)
         {
-            SetState(new Shown(this));
+            if (!other.CompareTag("Player"))
+            {
+                return;
+            }
+            
+            SetState(InteractableState.Shown);
         }
 
         private void OnTriggerExit(Collider other)
         {
-            SetState(new Hidden(this));
+            if (!other.CompareTag("Player"))
+            {
+                return;
+            }
+            
+            SetState(InteractableState.Hidden);
         }
 
-        private void ToggleActivated(InputAction.CallbackContext callbackContext)
+        private void OnDestroy()
         {
-            if (State is not Activated)
-            {
-                SetState(new Activated(this));
-                onInteractionStarted.Invoke();
-            }
-            else
-            {
-                SetState(new Highlit(this));
-                onInteractionEnded.Invoke();
-            }
+            PlayerActions.InputActions.UI.InteractWithObject.performed -= ToggleActivated;
         }
     }
 }

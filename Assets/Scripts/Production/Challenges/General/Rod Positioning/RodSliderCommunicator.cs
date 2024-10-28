@@ -95,7 +95,7 @@ namespace Production.Challenges.General.Rod_Positioning
                     throw new ArgumentOutOfRangeException();
             }
             
-            Utility.CreateGradientSpriteAndApplyToSlider(associatedSlider, sliderBackground, colorKeys.ToArray());
+            UtilityFunctions.CreateGradientSpriteAndApplyToSlider(associatedSlider, sliderBackground, colorKeys.ToArray());
             
             InvokeRepeating(nameof(UpdateSlider), 0, _associatedChallenge.updateRate);
         }

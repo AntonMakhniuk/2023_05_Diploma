@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Scriptable_Object_Templates.Crafting;
+using Scriptable_Object_Templates.Singletons;
 using UI.Systems;
 using UnityEngine;
 using UnityEngine.UI;
@@ -34,7 +35,8 @@ namespace UI.Views.Overworld.General.Production
         
         private void GenerateRecipeTiles()
         {
-            var recipes = new List<Recipe>(Resources.LoadAll<Recipe>("Recipes"));
+            var recipes = 
+                new List<Recipe>(RecipeDictionary.Instance.dictionary.Values.SelectMany(i => i));
             
             foreach (var recipe in recipes)
             {

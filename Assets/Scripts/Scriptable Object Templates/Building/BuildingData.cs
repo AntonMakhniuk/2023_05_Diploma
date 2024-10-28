@@ -1,3 +1,5 @@
+﻿using Building.Buildings.Base_Classes;
+using Building.Structures;
 using UnityEngine;
 
 namespace Scriptable_Object_Templates.Building
@@ -9,10 +11,5 @@ namespace Scriptable_Object_Templates.Building
         public string label;
         public BuildingType type;
         public GameObject prefab;
-    }
-    
-    public enum BuildingType
-    {
-        Teleporter, RefillStation, Accelerator
     }
 }

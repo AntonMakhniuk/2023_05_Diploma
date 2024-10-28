@@ -1,26 +1,29 @@
+using System.Collections;
 using System.Collections.Generic;
-using AYellowpaper.SerializedCollections;
+using System.Linq;
+using Building.Buildings.Base_Classes;
 using Player;
-using Scriptable_Object_Templates.Building;
+using Player.Ship;
+using Scriptable_Object_Templates.Singletons;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Building.Systems
 {
+    // TODO: further rework cause this is ehhhh
     public class BuildingManager : MonoBehaviour
     {
+        private const float MaxBuildingDistance = 25f;
+        private const float RotationSpeed = 45f;
+        
         public static BuildingManager Instance;
-
-        [SerializedDictionary("Building Object", "Building Prefab")]
-        public SerializedDictionary<BuildingType, BuildingData> buildingDataByType = new();
         
-        public readonly Dictionary<BuildingType, List<BuildingObject>> InstancesByType = new();
+        public readonly Dictionary<BuildingType, List<BuildingParent>> BuildingsByType = new();
 
-        [SerializeField] private float buildingOffset;
+        private IEnumerator _updateBlueprintCoroutine;
+        private BuildingParent _currentParent;
+        private Quaternion _currentRotation;
         
-        private BuildingType _currentType;
-        private GameObject _currentBlueprint;
-
         private void Awake()
         {
             if (Instance == null)
@@ -36,66 +39,159 @@ namespace Building.Systems
 
         private void Start()
         {
-            //TODO: make this less messy later, Im fucking sleepy
-            PlayerActions.InputActions.UI.PlaceBlueprint.performed += PlaceDownBuilding;
-            PlayerActions.InputActions.UI.RemoveBlueprint.performed += RemoveCurrentBlueprint;
+            PlayerActions.InputActions.Building.PlaceDownBlueprint.performed += HandlePlaceBlueprint;
+            PlayerActions.InputActions.Building.ClearBlueprint.performed += HandleClearBlueprint;
+            PlayerActions.InputActions.Building.RotateBlueprintLeft.performed += HandleRotateLeft;
+            PlayerActions.InputActions.Building.RotateBlueprintRight.performed += HandleRotateRight;
+            
+            _updateBlueprintCoroutine = UpdateBlueprintCoroutine();
         }
 
-        public static void InstantiateBuildingBlueprint(BuildingTypeContainer container)
+        private void HandleRotateLeft(InputAction.CallbackContext _)
+        {
+            if (_currentParent == null)
+            {
+                return;
+            }
+
+            var tempAngles = _currentRotation.eulerAngles;
+            tempAngles.z -= RotationSpeed * Time.deltaTime;
+            _currentRotation.eulerAngles = tempAngles;
+        }
+        
+        private void HandleRotateRight(InputAction.CallbackContext obj)
+        {
+            if (_currentParent == null)
+            {
+                return;
+            }
+
+            var tempAngles = _currentRotation.eulerAngles;
+            tempAngles.z -= RotationSpeed * Time.deltaTime;
+            _currentRotation.eulerAngles = tempAngles;
+        }
+
+        public void InstantiateBuildingBlueprint(BuildingTypeContainer container)
         {
             InstantiateBuildingBlueprint(container.buildingType);
         }
     
-        public static void InstantiateBuildingBlueprint(BuildingType buildingType)
+        public void InstantiateBuildingBlueprint(BuildingType buildingType)
         {
-            var shipTransform = PlayerShip.Instance.transform;
-
-            var spawnPosition = shipTransform.position + shipTransform.forward * Instance.buildingOffset;
-
-            Instance._currentType = buildingType;
-            Instance._currentBlueprint = Instantiate(Instance.buildingDataByType[buildingType].prefab,
-                spawnPosition, shipTransform.rotation, shipTransform);
-        }
-
-        private static void RemoveCurrentBlueprint(InputAction.CallbackContext callbackContext)
-        {
-            RemoveCurrentBlueprint();
-        }
-        
-        private static void RemoveCurrentBlueprint()
-        {
-            if (Instance._currentBlueprint == null)
-            {
-                return;
-            }
+            var ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+            var groundPlane = new Plane(Vector3.up, Vector3.zero);
             
-            Destroy(Instance._currentBlueprint);
+            if (groundPlane.Raycast(ray, out var intersect))
+            {
+                var spawnPosition = ray.GetPoint(intersect);
                 
-            Instance._currentBlueprint = null;
+                if (Vector3.Distance(Camera.main.transform.position, spawnPosition) > MaxBuildingDistance)
+                {
+                    var direction = (spawnPosition - Camera.main.transform.position).normalized;
+                    spawnPosition = Camera.main.transform.position + direction * MaxBuildingDistance;
+                    spawnPosition.y = 0;    
+                }
+
+                _currentRotation = PlayerShip.Instance.transform.rotation;
+                
+                var currentObject = Instantiate(BuildingPrefabDictionary.Instance.dictionary[buildingType].prefab,
+                    spawnPosition, _currentRotation, transform);
+                
+                _currentParent = currentObject.GetComponent<BuildingParent>();
+
+                StartCoroutine(_updateBlueprintCoroutine);
+            }
         }
 
-        private static void PlaceDownBuilding(InputAction.CallbackContext obj)
+        private IEnumerator UpdateBlueprintCoroutine()
         {
-            PlaceDownBuilding();
+            var groundPlane = new Plane(Vector3.up, Vector3.zero);
+
+            while (true)
+            {
+                var ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+                
+                if (groundPlane.Raycast(ray, out var intersect))
+                {
+                    var spawnPosition = ray.GetPoint(intersect);
+                
+                    if (Vector3.Distance(Camera.main.transform.position, spawnPosition) > MaxBuildingDistance)
+                    {
+                        var direction = (spawnPosition - Camera.main.transform.position).normalized;
+                        spawnPosition = Camera.main.transform.position + direction * MaxBuildingDistance;
+                        spawnPosition.y = 0;    
+                    }
+
+                    _currentParent.gameObject.transform.position = spawnPosition;
+                    _currentParent.gameObject.transform.rotation = _currentRotation;
+                }
+                
+                yield return null;
+            }
         }
         
-        private static void PlaceDownBuilding()
+        private void HandleClearBlueprint(InputAction.CallbackContext _)
         {
-            if (Instance._currentBlueprint == null)
+            HandleClearBlueprint();
+        }
+        
+        private void HandleClearBlueprint()
+        {
+            if (_currentParent == null)
             {
                 return;
             }
             
-            if (!Instance.InstancesByType.TryAdd(Instance._currentType,
-                    new List<BuildingObject> { Instance._currentBlueprint.GetComponent<BuildingObject>() }))
+            Destroy(_currentParent.gameObject);
+                
+            _currentParent = null;
+            
+            StopCoroutine(_updateBlueprintCoroutine);
+        }
+
+        private void HandlePlaceBlueprint(InputAction.CallbackContext _)
+        {
+            HandlePlaceBlueprint();
+        }
+        
+        private void HandlePlaceBlueprint()
+        {
+            if (_currentParent == null)
             {
-                Instance.InstancesByType[Instance._currentType]
-                    .Add(Instance._currentBlueprint.GetComponent<BuildingObject>());
+                return;
             }
             
-            Instance._currentBlueprint.transform.parent = Instance.transform;
+            if (!BuildingsByType.TryAdd(_currentParent.buildingType, new List<BuildingParent> { _currentParent }))
+            {
+                BuildingsByType[_currentParent.buildingType].Add(_currentParent);
+            }
+
+            _currentParent.blueprintComponent.OnBlueprintResourcesFulfilled += HandleConstructBlueprint;
+            _currentParent = null;
             
-            Instance._currentBlueprint = null;
+            StopCoroutine(_updateBlueprintCoroutine);
+        }
+
+        private void HandleConstructBlueprint(object sender, BaseBlueprint blueprint)
+        {
+            BuildingsByType.Values
+                .SelectMany(i => i)
+                .Single(b => b.blueprintComponent == blueprint)
+                .SetState(BuildingState.Constructed);
+        }
+        
+        private void OnDestroy()
+        {
+            foreach (var building in BuildingsByType.Values)
+            {
+                building.ForEach(b => b.blueprintComponent
+                    .OnBlueprintResourcesFulfilled -= HandleConstructBlueprint);
+            }
+            
+            PlayerActions.InputActions.Building.PlaceDownBlueprint.performed -= HandlePlaceBlueprint;
+            PlayerActions.InputActions.Building.ClearBlueprint.performed -= HandleClearBlueprint;
+            PlayerActions.InputActions.Building.RotateBlueprintLeft.performed -= HandleRotateLeft;
+            PlayerActions.InputActions.Building.RotateBlueprintRight.performed -= HandleRotateRight;
         }
     }
 }
