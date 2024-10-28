@@ -7,7 +7,6 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] Transform target;
     [SerializeField] float movementSpeed = 20f;
     [SerializeField] float rotationalDamp = 0.9f;
-    // Update is called once per frame
     void Update()
     {
         Turn();
