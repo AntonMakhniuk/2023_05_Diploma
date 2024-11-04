@@ -12,4 +12,9 @@ namespace Scriptable_Object_Templates.Resources
     {
         FuelGas, SpaceOre
     }
+
+    public enum ResourceState
+    {
+        Gas, Solid, Liquid
+    }
 }
