@@ -210,4 +210,9 @@ namespace Tools.Base_Tools
             StopAllCoroutines();
         }
     }
+
+    public enum ToolType
+    {
+        Laser, BombLauncher
+    }
 }
