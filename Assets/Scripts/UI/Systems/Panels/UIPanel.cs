@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Miscellaneous.Scene_Management;
+using Environment.Scene_Management;
+using UI.Systems.Miscellaneous;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
