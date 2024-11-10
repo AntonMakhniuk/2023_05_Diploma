@@ -261,7 +261,7 @@
                 {
                     "name": "negative",
                     "id": "2a8e5547-52ca-4d5d-8427-8c448a0225c5",
-                    "path": "<Keyboard>/upArrow",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -272,7 +272,7 @@
                 {
                     "name": "positive",
                     "id": "8e62f3be-6868-4f20-8451-b59dcbd09003",
-                    "path": "<Keyboard>/downArrow",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -568,6 +568,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "DroneOrbitCamera",
+                    "type": "Button",
+                    "id": "10cc2ae2-829f-4196-9093-3db16b263b9d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -590,6 +599,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "MousePosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "321b3fba-90f6-4395-b9a4-11a3dd1e85c2",
+                    "path": "<Keyboard>/leftCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DroneOrbitCamera",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
