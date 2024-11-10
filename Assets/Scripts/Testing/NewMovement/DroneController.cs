@@ -1,7 +1,6 @@
 using Cinemachine;
 using Player;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class DroneController : MonoBehaviour
 {
@@ -14,7 +13,6 @@ public class DroneController : MonoBehaviour
     [SerializeField] private float rollForce = 50f;
     [SerializeField] private float rotateXForce = 50f;
     [SerializeField] private float deadZoneRadius = 0.1f;
-    [FormerlySerializedAs("mainCamera")]
     [Header("Camera Movement Values")]
     [SerializeField] private CinemachineVirtualCamera thirdPersonCamera;
     [SerializeField] private CinemachineFreeLook orbitCamera;
@@ -110,19 +108,5 @@ public class DroneController : MonoBehaviour
     {
         _cinemachineBrain.ActiveVirtualCamera.Priority += _priorityDiff * -1;
         this.enabled = !this.enabled;
-    }
-
-    private void ActivateMainCamera()
-    {
-        thirdPersonCamera.Priority = 10;
-        orbitCamera.Priority = 5;
-        this.enabled = true;
-    }
-
-    private void ActivateOrbitCamera()
-    {
-        thirdPersonCamera.Priority = 5;
-        orbitCamera.Priority = 10;
-        this.enabled = false; 
     }
 }
