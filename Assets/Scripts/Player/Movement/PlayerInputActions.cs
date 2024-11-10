@@ -283,7 +283,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""negative"",
                     ""id"": ""2a8e5547-52ca-4d5d-8427-8c448a0225c5"",
-                    ""path"": ""<Keyboard>/upArrow"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -294,7 +294,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""positive"",
                     ""id"": ""8e62f3be-6868-4f20-8451-b59dcbd09003"",
-                    ""path"": ""<Keyboard>/downArrow"",
+                    ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -590,6 +590,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DroneOrbitCamera"",
+                    ""type"": ""Button"",
+                    ""id"": ""10cc2ae2-829f-4196-9093-3db16b263b9d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -612,6 +621,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""MousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""321b3fba-90f6-4395-b9a4-11a3dd1e85c2"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DroneOrbitCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -953,6 +973,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_PlayerCamera = asset.FindActionMap("PlayerCamera", throwIfNotFound: true);
         m_PlayerCamera_CameraMovement = m_PlayerCamera.FindAction("CameraMovement", throwIfNotFound: true);
         m_PlayerCamera_MousePosition = m_PlayerCamera.FindAction("MousePosition", throwIfNotFound: true);
+        m_PlayerCamera_DroneOrbitCamera = m_PlayerCamera.FindAction("DroneOrbitCamera", throwIfNotFound: true);
         // Building
         m_Building = asset.FindActionMap("Building", throwIfNotFound: true);
         m_Building_RotateBlueprintLeft = m_Building.FindAction("RotateBlueprintLeft", throwIfNotFound: true);
@@ -1274,12 +1295,14 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private List<IPlayerCameraActions> m_PlayerCameraActionsCallbackInterfaces = new List<IPlayerCameraActions>();
     private readonly InputAction m_PlayerCamera_CameraMovement;
     private readonly InputAction m_PlayerCamera_MousePosition;
+    private readonly InputAction m_PlayerCamera_DroneOrbitCamera;
     public struct PlayerCameraActions
     {
         private @PlayerInputActions m_Wrapper;
         public PlayerCameraActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @CameraMovement => m_Wrapper.m_PlayerCamera_CameraMovement;
         public InputAction @MousePosition => m_Wrapper.m_PlayerCamera_MousePosition;
+        public InputAction @DroneOrbitCamera => m_Wrapper.m_PlayerCamera_DroneOrbitCamera;
         public InputActionMap Get() { return m_Wrapper.m_PlayerCamera; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1295,6 +1318,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @MousePosition.started += instance.OnMousePosition;
             @MousePosition.performed += instance.OnMousePosition;
             @MousePosition.canceled += instance.OnMousePosition;
+            @DroneOrbitCamera.started += instance.OnDroneOrbitCamera;
+            @DroneOrbitCamera.performed += instance.OnDroneOrbitCamera;
+            @DroneOrbitCamera.canceled += instance.OnDroneOrbitCamera;
         }
 
         private void UnregisterCallbacks(IPlayerCameraActions instance)
@@ -1305,6 +1331,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @MousePosition.started -= instance.OnMousePosition;
             @MousePosition.performed -= instance.OnMousePosition;
             @MousePosition.canceled -= instance.OnMousePosition;
+            @DroneOrbitCamera.started -= instance.OnDroneOrbitCamera;
+            @DroneOrbitCamera.performed -= instance.OnDroneOrbitCamera;
+            @DroneOrbitCamera.canceled -= instance.OnDroneOrbitCamera;
         }
 
         public void RemoveCallbacks(IPlayerCameraActions instance)
@@ -1509,6 +1538,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     {
         void OnCameraMovement(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
+        void OnDroneOrbitCamera(InputAction.CallbackContext context);
     }
     public interface IBuildingActions
     {
