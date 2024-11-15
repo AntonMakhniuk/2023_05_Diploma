@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Scriptable_Object_Templates.Resources
+namespace Scriptable_Object_Templates.Systems.Mining.Resource_Data
 {
     public class ItemBase : ScriptableObject
     {

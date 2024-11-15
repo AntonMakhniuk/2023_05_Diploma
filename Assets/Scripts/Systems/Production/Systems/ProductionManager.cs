@@ -76,7 +76,7 @@ namespace Production.Systems
                 Instance.challengeRegistry
                     .GetPermittedResourceChallenges
                     (
-                        craftingData.Recipe.resources.Select(res => res.resource).ToArray()
+                        craftingData.Recipe.resources.Select(res => res.resourceData).ToArray()
                     )
             );
 

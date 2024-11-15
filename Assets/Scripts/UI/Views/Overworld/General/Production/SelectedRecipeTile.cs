@@ -6,7 +6,7 @@ namespace UI.Views.Overworld.General.Production
 {
     public class SelectedRecipeTile : RecipeTile
     {
-        public readonly Dictionary<Resource, float> RequiredResources = new();
+        public readonly Dictionary<ResourceData, float> RequiredResources = new();
         public TMP_Text requirementsText;
         
         public void GenerateRequirementsList()

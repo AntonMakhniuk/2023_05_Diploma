@@ -1,9 +1,9 @@
 using System.Collections;
-using Resource_Nodes;
+using Systems.Mining.Resource_Nodes.Base;
 using Tools.Base_Tools;
 using UnityEngine;
 
-namespace Tools.Laser
+namespace Systems.Mining.Tools.Laser
 {
     public class Laser : BaseTurret
     {
@@ -24,6 +24,10 @@ namespace Tools.Laser
 
         private IEnumerator ShootCoroutine()
         {
+            Collider lastHitCollider = null;
+            ResourceNodeWithHealth lastNodeWithHealth = null;
+            ResourceNode lastNode = null;
+            
             while (true)
             {
                 var beamEndPosition = 
@@ -32,15 +36,42 @@ namespace Tools.Laser
                 // Set the beam's positions
                 beam.SetPosition(0, muzzlePoint.position);
                 beam.SetPosition(1, beamEndPosition);
-
+                
                 if (LookAtHitData.HasValue && LookAtHitData.Value.collider != null)
                 {
-                    if (LookAtHitData.Value.collider.TryGetComponent<IDestructible>(out var destructible))
+                    var currCollider = LookAtHitData.Value.collider;
+                    
+                    if (currCollider != lastHitCollider)
                     {
-                        Debug.Log(LookAtHitData.Value + " " + LookAtHitData.Value.transform);
+                        lastNodeWithHealth = null;
+                        lastNode = null;
                         
-                        destructible.OnLaserInteraction(laserDamagePerSecond * Time.deltaTime);
+                        if (currCollider.TryGetComponent<ResourceNodeWithHealth>(out var nodeWithHealth))
+                        {
+                            lastNodeWithHealth = nodeWithHealth;
+                        }
+                        else if (currCollider.TryGetComponent<ResourceNode>(out var node))
+                        {
+                            lastNode = node;
+                        }
+
+                        lastHitCollider = currCollider;
                     }
+                        
+                    if (lastNodeWithHealth != null)
+                    {
+                        lastNodeWithHealth.Interact(ToolType.Laser, laserDamagePerSecond * Time.deltaTime);
+                    }
+                    else if (lastNode != null)
+                    {
+                        lastNode.Interact(ToolType.Laser);
+                    }
+                }
+                else
+                {
+                    lastHitCollider = null;
+                    lastNodeWithHealth = null;
+                    lastNode = null;
                 }
                 
                 yield return null;

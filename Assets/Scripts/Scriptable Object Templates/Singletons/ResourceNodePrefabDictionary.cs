@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
-using Resource_Nodes;
+using Systems.Mining.Resource_Nodes.Base;
 using UnityEngine;
 
 namespace Scriptable_Object_Templates.Singletons

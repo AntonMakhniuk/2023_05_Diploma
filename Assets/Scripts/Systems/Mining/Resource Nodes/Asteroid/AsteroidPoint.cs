@@ -1,21 +1,17 @@
-using System;
-using UnityEngine;
+using Systems.Mining.Resource_Nodes.Base;
 
-namespace Resource_Nodes.Asteroid
+namespace Systems.Mining.Resource_Nodes.Asteroid
 {
-    public class AsteroidPoint : MonoBehaviour
+    public class AsteroidPoint : ResourceNodeWithHealth
     {
-        public event EventHandler<AsteroidPoint> OnPointDestroyed;
-
-        // Should be added as the method called by the UnityEvent inside the material associated with the point
-        public void ProcessDestruction()
+        protected override void OnLaserInteraction()
         {
-            //A bit of a dumb way to do it, but makes communication really easy
-            OnPointDestroyed?.Invoke(this, this);
-            
-            //TODO: Play some kind of animation?
-            
-            Destroy(gameObject);
+            // No special interaction
+        }
+
+        protected override void OnBombInteraction()
+        {
+            // No special interaction
         }
     }
 }

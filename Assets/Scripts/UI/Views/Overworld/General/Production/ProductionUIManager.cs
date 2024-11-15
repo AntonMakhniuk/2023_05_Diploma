@@ -64,7 +64,7 @@ namespace UI.Views.Overworld.General.Production
 
             foreach (var kvp in recipeTile.recipe.resources)
             {
-                selectedRecipeTile.RequiredResources.Add(kvp.resource, kvp.quantity);
+                selectedRecipeTile.RequiredResources.Add(kvp.resourceData, kvp.quantity);
             }
 
             selectedRecipeTile.GenerateRequirementsList();

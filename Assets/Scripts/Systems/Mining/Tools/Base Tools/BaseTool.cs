@@ -213,6 +213,6 @@ namespace Tools.Base_Tools
 
     public enum ToolType
     {
-        Laser, BombLauncher
+        Laser, Bomb
     }
 }

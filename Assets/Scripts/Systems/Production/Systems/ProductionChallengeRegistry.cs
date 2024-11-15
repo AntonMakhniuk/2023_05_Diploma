@@ -69,7 +69,7 @@ namespace Production.Systems
             return challengeData;
         }
         
-        public GameObject[] GetPermittedResourceChallenges(Resource[] resources)
+        public GameObject[] GetPermittedResourceChallenges(ResourceData[] resources)
         {
             return resourceChallengePrefabs
                 .Where(prefab => 
