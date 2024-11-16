@@ -297,67 +297,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!1 &426439321 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6598632352929226522, guid: 3598bdabceccfaa4586fee9a68e4c25a, type: 3}
-  m_PrefabInstance: {fileID: 630616272}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &426439327
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 426439321}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09e5278f6dea4ba79cf71419a06d2c0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lastInteractedTool: 0
-  destroyed:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1876724881}
-        m_TargetAssemblyTypeName: Systems.Mining.Transitions.Transition_Addons.ShatterAddon,
-          Assembly-CSharp
-        m_MethodName: ApplyEffect
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  destroyedByLaser:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1876724881}
-        m_TargetAssemblyTypeName: Systems.Mining.Transitions.Transition_Addons.ShatterAddon,
-          Assembly-CSharp
-        m_MethodName: ApplyEffect
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  destroyedByBomb:
-    m_PersistentCalls:
-      m_Calls: []
-  maxHealth: 100
-  currentHealth: 0
-  damagingToolList: 0100000000000000
-  wholeAsteroid: {fileID: 426439321}
-  asteroidPointPrefab: {fileID: 4703297094795255101, guid: 6beb19776bbe38f458ca5e8e8fa3602e, type: 3}
-  minDistanceBetweenPoints: 0.1
-  minPointsCount: 3
-  maxPointsCount: 6
 --- !u!1001 &630616272
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -366,18 +305,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 975465174826476725, guid: 3598bdabceccfaa4586fee9a68e4c25a, type: 3}
-      propertyPath: maxHealth
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 975465174826476725, guid: 3598bdabceccfaa4586fee9a68e4c25a, type: 3}
-      propertyPath: damagingToolList.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 975465174826476725, guid: 3598bdabceccfaa4586fee9a68e4c25a, type: 3}
-      propertyPath: damagingToolList.Array.data[1]
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2046288533405979194, guid: 3598bdabceccfaa4586fee9a68e4c25a, type: 3}
       propertyPath: m_Name
       value: '[NODE] Asteroid Rock Big_01'
@@ -423,29 +350,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6174049716089576881, guid: 3598bdabceccfaa4586fee9a68e4c25a, type: 3}
-      propertyPath: minOreCount
-      value: 2
+      propertyPath: maxSpawnDistanceOffset
+      value: 1.2
       objectReference: {fileID: 0}
-    - target: {fileID: 6528339550891244912, guid: 3598bdabceccfaa4586fee9a68e4c25a, type: 3}
-      propertyPath: explosionPower
-      value: 0
+    - target: {fileID: 6174049716089576881, guid: 3598bdabceccfaa4586fee9a68e4c25a, type: 3}
+      propertyPath: minSpawnDistanceOffset
+      value: 0.3
       objectReference: {fileID: 0}
-    - target: {fileID: 6528339550891244912, guid: 3598bdabceccfaa4586fee9a68e4c25a, type: 3}
-      propertyPath: nextTransition
-      value: 
-      objectReference: {fileID: 1876724880}
-    - target: {fileID: 6528339550891244912, guid: 3598bdabceccfaa4586fee9a68e4c25a, type: 3}
-      propertyPath: explosionRadius
-      value: 0.75
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 975465174826476725, guid: 3598bdabceccfaa4586fee9a68e4c25a, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6598632352929226522, guid: 3598bdabceccfaa4586fee9a68e4c25a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 426439327}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3598bdabceccfaa4586fee9a68e4c25a, type: 3}
 --- !u!4 &734829277 stripped
 Transform:
@@ -1587,28 +1502,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55a433a272c7da245889e4183048bbba, type: 3}
---- !u!114 &1876724880 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6174049716089576881, guid: 3598bdabceccfaa4586fee9a68e4c25a, type: 3}
-  m_PrefabInstance: {fileID: 630616272}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d54b42d1e6c456d9944cb9db8e0820a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1876724881 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6528339550891244912, guid: 3598bdabceccfaa4586fee9a68e4c25a, type: 3}
-  m_PrefabInstance: {fileID: 630616272}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6035d2b58d3e4c6684f8e98bf97df56f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1986946768 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8257711728351979687, guid: 0c3bcc54ae5b4a34bb6d58f7fe3548e7, type: 3}
