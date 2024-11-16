@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//TODO:Delete when ExecuteAlways when creating build 
 [ExecuteAlways]
 public class MapBoundaryController : MonoBehaviour
 {
