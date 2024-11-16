@@ -54,11 +54,11 @@ namespace Systems.Mining.Resource_Nodes.Asteroid
             var asteroidObject = Instantiate(ResourceNodePrefabDictionary.Instance
                 .GetRandomPrefabByType(ResourceNodeType.Asteroid), randomPosition, randomRotation, transform);
 
-            var asteroidComponent = asteroidObject.GetComponent<Asteroid>();
+            var asteroidComponent = asteroidObject.GetComponentInChildren<Asteroid>();
             asteroidComponent.destroyed.AddListener(HandleAsteroidDestroyed);
             _currentAsteroids.Add(asteroidComponent);
             
-            var asteroidRb = asteroidComponent.wholeAsteroid.GetComponent<Rigidbody>();
+            var asteroidRb = asteroidComponent.GetComponent<Rigidbody>();
         
             asteroidRb.AddForce(Random.onUnitSphere * asteroidSpeed, ForceMode.Impulse);
             asteroidRb.AddTorque(Random.onUnitSphere * asteroidRotationSpeed, ForceMode.Impulse);

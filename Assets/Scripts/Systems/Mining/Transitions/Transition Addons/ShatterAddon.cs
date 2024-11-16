@@ -41,5 +41,11 @@ namespace Systems.Mining.Transitions.Transition_Addons
             
             base.ApplyEffect();
         }
+        
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(wholeMesh.transform.position, explosionRadius);
+        }
     }
 }

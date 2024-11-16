@@ -1487,6 +1487,7 @@ GameObject:
   - component: {fileID: 7956072973522353587}
   - component: {fileID: 3244592869257844244}
   - component: {fileID: 511814562209689300}
+  - component: {fileID: 5533294135518058593}
   m_Layer: 0
   m_Name: Asteroid_Big_02_Whole
   m_TagString: Untagged
@@ -1608,6 +1609,62 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6211236363758091838, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &5533294135518058593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3000224648836883803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09e5278f6dea4ba79cf71419a06d2c0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastInteractedTool: 0
+  destroyed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8051010865962548745}
+        m_TargetAssemblyTypeName: Systems.Mining.Transitions.Transition_Addons.ShatterAddon,
+          Assembly-CSharp
+        m_MethodName: ApplyEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  destroyedByLaser:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8051010865962548745}
+        m_TargetAssemblyTypeName: Systems.Mining.Transitions.Transition_Addons.ShatterAddon,
+          Assembly-CSharp
+        m_MethodName: ApplyEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  destroyedByBomb:
+    m_PersistentCalls:
+      m_Calls: []
+  maxHealth: 100
+  currentHealth: 0
+  damagingToolList: 0100000000000000
+  wholeAsteroid: {fileID: 0}
+  asteroidPointPrefab: {fileID: 4703297094795255101, guid: 6beb19776bbe38f458ca5e8e8fa3602e, type: 3}
+  minDistanceBetweenPoints: 0.1
+  minPointsCount: 3
+  maxPointsCount: 6
 --- !u!1 &3314190693054997882
 GameObject:
   m_ObjectHideFlags: 0
@@ -6304,6 +6361,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6528339550891244912, guid: 3598bdabceccfaa4586fee9a68e4c25a, type: 3}
+      propertyPath: wholeMesh
+      value: 
+      objectReference: {fileID: 3000224648836883803}
+    - target: {fileID: 6528339550891244912, guid: 3598bdabceccfaa4586fee9a68e4c25a, type: 3}
+      propertyPath: shatteredMesh
+      value: 
+      objectReference: {fileID: 7355428853414514930}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1538936725393093780, guid: 3598bdabceccfaa4586fee9a68e4c25a, type: 3}
@@ -6322,3 +6387,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2182683697636308001, guid: 3598bdabceccfaa4586fee9a68e4c25a, type: 3}
   m_PrefabInstance: {fileID: 3829112475790377849}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8051010865962548745 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6528339550891244912, guid: 3598bdabceccfaa4586fee9a68e4c25a, type: 3}
+  m_PrefabInstance: {fileID: 3829112475790377849}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6035d2b58d3e4c6684f8e98bf97df56f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
