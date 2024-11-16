@@ -109,4 +109,9 @@ public class DroneController : MonoBehaviour
         _cinemachineBrain.ActiveVirtualCamera.Priority += _priorityDiff * -1;
         this.enabled = !this.enabled;
     }
+
+    public void SetThrust(float setThrust)
+    {
+        thrustForce = setThrust;
+    }
 }
