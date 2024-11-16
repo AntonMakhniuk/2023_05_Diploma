@@ -318,7 +318,7 @@ MonoBehaviour:
   destroyed:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1876724877}
+      - m_Target: {fileID: 1876724881}
         m_TargetAssemblyTypeName: Systems.Mining.Transitions.Transition_Addons.ShatterAddon,
           Assembly-CSharp
         m_MethodName: ApplyEffect
@@ -333,7 +333,20 @@ MonoBehaviour:
         m_CallState: 2
   destroyedByLaser:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1876724881}
+        m_TargetAssemblyTypeName: Systems.Mining.Transitions.Transition_Addons.ShatterAddon,
+          Assembly-CSharp
+        m_MethodName: ApplyEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   destroyedByBomb:
     m_PersistentCalls:
       m_Calls: []
@@ -415,7 +428,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6528339550891244912, guid: 3598bdabceccfaa4586fee9a68e4c25a, type: 3}
       propertyPath: explosionPower
-      value: 0.05
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6528339550891244912, guid: 3598bdabceccfaa4586fee9a68e4c25a, type: 3}
+      propertyPath: nextTransition
+      value: 
+      objectReference: {fileID: 1876724880}
+    - target: {fileID: 6528339550891244912, guid: 3598bdabceccfaa4586fee9a68e4c25a, type: 3}
+      propertyPath: explosionRadius
+      value: 0.75
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 975465174826476725, guid: 3598bdabceccfaa4586fee9a68e4c25a, type: 3}
@@ -1566,7 +1587,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55a433a272c7da245889e4183048bbba, type: 3}
---- !u!114 &1876724877 stripped
+--- !u!114 &1876724880 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6174049716089576881, guid: 3598bdabceccfaa4586fee9a68e4c25a, type: 3}
+  m_PrefabInstance: {fileID: 630616272}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d54b42d1e6c456d9944cb9db8e0820a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1876724881 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6528339550891244912, guid: 3598bdabceccfaa4586fee9a68e4c25a, type: 3}
   m_PrefabInstance: {fileID: 630616272}

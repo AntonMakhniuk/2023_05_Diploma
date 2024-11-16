@@ -8,9 +8,6 @@ namespace Systems.Mining.Resource_Nodes.Asteroid
 {
     public class Asteroid : ResourceNodeWithHealth
     {
-        [Header("Asteroid Data")]
-        public GameObject wholeAsteroid;
-        [Space]
         [Header("Child Point Data")]
         [SerializeField] private GameObject asteroidPointPrefab;
         [SerializeField] private float minDistanceBetweenPoints = 0.1f;
@@ -21,7 +18,7 @@ namespace Systems.Mining.Resource_Nodes.Asteroid
 
         protected override void Start()
         {
-            var mesh = wholeAsteroid.GetComponent<MeshFilter>().mesh;
+            var mesh = GetComponent<MeshFilter>().mesh;
             
             foreach (var position in RandomPointSelector.GenerateRandomPointsOnMesh(
                          mesh,
@@ -29,7 +26,7 @@ namespace Systems.Mining.Resource_Nodes.Asteroid
                          minDistanceBetweenPoints))
             {
                 var pointObject = Instantiate(asteroidPointPrefab, transform.TransformPoint(position), 
-                    Quaternion.identity, wholeAsteroid.transform);
+                    Quaternion.identity, transform);
                 var pointComponent = pointObject.GetComponent<AsteroidPoint>();
 
                 pointComponent.destroyed.AddListener(HandleAsteroidPointDestroyed);
