@@ -2,6 +2,7 @@
 using System.Linq;
 using AYellowpaper.SerializedCollections;
 using Scriptable_Object_Templates.Resources;
+using Scriptable_Object_Templates.Systems.Mining.Resource_Data;
 using UnityEngine;
 
 namespace Building.Buildings.Base_Classes

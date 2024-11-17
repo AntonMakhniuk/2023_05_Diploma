@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using Scriptable_Object_Templates.Singletons;
+using Systems.Mining.Resource_Nodes.Base;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Resource_Nodes.Asteroid
+namespace Systems.Mining.Resource_Nodes.Asteroid
 {
     public class AsteroidSpawner : MonoBehaviour
     {
         [SerializeField] private int startingNumberOfAsteroids = 10;
         [SerializeField] private int maxNumberOfAsteroids = 100;
 
-        private readonly List<Asteroid> _currentAsteroids = new();
+        private readonly List<ResourceNode> _currentAsteroids = new();
         
         [SerializeField] private Vector3 spawnZoneSize = new(10f, 10f, 10f);
         [SerializeField] private float spawnInterval = 5f;
@@ -53,11 +54,11 @@ namespace Resource_Nodes.Asteroid
             var asteroidObject = Instantiate(ResourceNodePrefabDictionary.Instance
                 .GetRandomPrefabByType(ResourceNodeType.Asteroid), randomPosition, randomRotation, transform);
 
-            var asteroidComponent = asteroidObject.GetComponent<Asteroid>();
-            asteroidComponent.OnAsteroidDestroyed += HandleAsteroidDestroyed;
+            var asteroidComponent = asteroidObject.GetComponentInChildren<Asteroid>();
+            asteroidComponent.destroyed.AddListener(HandleAsteroidDestroyed);
             _currentAsteroids.Add(asteroidComponent);
             
-            var asteroidRb = asteroidComponent.wholeAsteroid.GetComponent<Rigidbody>();
+            var asteroidRb = asteroidComponent.GetComponent<Rigidbody>();
         
             asteroidRb.AddForce(Random.onUnitSphere * asteroidSpeed, ForceMode.Impulse);
             asteroidRb.AddTorque(Random.onUnitSphere * asteroidRotationSpeed, ForceMode.Impulse);
@@ -68,7 +69,7 @@ namespace Resource_Nodes.Asteroid
             }
         }
 
-        private void HandleAsteroidDestroyed(object sender, Asteroid asteroid)
+        private void HandleAsteroidDestroyed(ResourceNode asteroid)
         {
             _currentAsteroids.Remove(asteroid);
         }

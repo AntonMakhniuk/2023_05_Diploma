@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
-using Resource_Nodes;
+using Systems.Mining.Resource_Nodes;
+using Systems.Mining.Resource_Nodes.Base;
+using Tools.Base_Tools;
 using UnityEngine;
 
-namespace Tools.Bomb_Launcher
+namespace Systems.Mining.Tools.Bomb_Launcher
 {
     public class Bomb : MonoBehaviour
     {
@@ -43,12 +45,14 @@ namespace Tools.Bomb_Launcher
             
             foreach (var overlappingCollider in colliders)
             {
-                if (overlappingCollider.TryGetComponent<IDestructible>(out var destructible))
+                if (overlappingCollider.TryGetComponent<ResourceNodeWithHealth>(out var nodeWithHealth))
                 {
-                    //Explosion damage is linearly proportional to the distance from the bomb
-                    destructible.OnExplosivesInteraction(
-                        Vector3.Distance(transform.position, overlappingCollider.transform.position) 
-                        / ExplosionRadius * MaxExplosionDamage);
+                    nodeWithHealth.Interact(ToolType.Bomb, Vector3.Distance(transform.position, 
+                        overlappingCollider.transform.position) / ExplosionRadius * MaxExplosionDamage);
+                }
+                else if (overlappingCollider.TryGetComponent<ResourceNode>(out var node))
+                {
+                    node.Interact(ToolType.Bomb);
                 }
             }
 
