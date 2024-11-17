@@ -412,7 +412,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7003466251505313734}
   m_Layer: 6
-  m_Name: Asteroid_Big_01_Fractured
+  m_Name: Shattered
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -934,11 +934,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextTransition: {fileID: 0}
-  orePrefab: {fileID: 2091035745197971742, guid: 60c3cb11648c8ab4792073d25edaeeb4, type: 3}
-  minOreCount: 2
-  maxOreCount: 5
+  objectPrefab: {fileID: 2091035745197971742, guid: 60c3cb11648c8ab4792073d25edaeeb4, type: 3}
+  minCount: 2
+  maxCount: 4
   minSpawnDistanceOffset: 0.3
   maxSpawnDistanceOffset: 1.2
+  nodeToSpawnAt: {fileID: 3717007284400026015}
   spawnDelay: 0.5
   maxRetriesOnOverlap: 100
 --- !u!1 &2108424874975755351
@@ -3100,7 +3101,7 @@ GameObject:
   - component: {fileID: 3068715132172456353}
   - component: {fileID: 3717007284400026015}
   m_Layer: 6
-  m_Name: Asteroid_Big_01_Whole
+  m_Name: Whole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

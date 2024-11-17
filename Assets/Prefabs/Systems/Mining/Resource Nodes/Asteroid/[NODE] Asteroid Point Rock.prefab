@@ -710,11 +710,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextTransition: {fileID: 0}
-  orePrefab: {fileID: 2091035745197971742, guid: 60c3cb11648c8ab4792073d25edaeeb4, type: 3}
-  minOreCount: 1
-  maxOreCount: 1
+  objectPrefab: {fileID: 2091035745197971742, guid: 60c3cb11648c8ab4792073d25edaeeb4, type: 3}
+  minCount: 0
+  maxCount: 1
   minSpawnDistanceOffset: 0
   maxSpawnDistanceOffset: 0.3
+  nodeToSpawnAt: {fileID: 6605293385103611712}
   spawnDelay: 0.5
   maxRetriesOnOverlap: 100
 --- !u!1 &4890833208991357847
