@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using Cinemachine;
 using Player;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class DroneController : MonoBehaviour
 {
@@ -16,6 +18,9 @@ public class DroneController : MonoBehaviour
     [Header("Camera Movement Values")]
     [SerializeField] private CinemachineVirtualCamera thirdPersonCamera;
     [SerializeField] private CinemachineFreeLook orbitCamera;
+    [Header("Visual Effects")]
+    [SerializeField] private  VisualEffect engine;
+    [SerializeField] private  VisualEffect engine2;
 
     private CinemachineBrain _cinemachineBrain;
     private int _priorityDiff = 10;
@@ -44,6 +49,8 @@ public class DroneController : MonoBehaviour
         _playerInputActions.PlayerCamera.DroneOrbitCamera.canceled += _ => ToggleCameras();
 
         _cinemachineBrain = Camera.main.GetComponent<CinemachineBrain>();
+        engine.Stop();
+        engine2.Stop();
     }
     private float CalculateMouseX(Vector3 mousePosition)
     {
@@ -72,6 +79,16 @@ public class DroneController : MonoBehaviour
         _playerInputActions.PlayerShip.Pitch.performed += _ => _pitchAmount = _playerInputActions.PlayerShip.Pitch.ReadValue<float>();
         _playerInputActions.PlayerShip.Pitch.canceled += _ => _pitchAmount = _playerInputActions.PlayerShip.Pitch.ReadValue<float>();
         ApplyMovementForces();
+        _playerInputActions.PlayerShip.Thrust.performed += _ =>
+        {
+            engine.Play();
+            engine2.Play();
+        };
+        _playerInputActions.PlayerShip.Thrust.canceled += _ =>
+        {
+            engine.Stop();
+            engine2.Stop();
+        };
     }
 
     private void ApplyMovementForces()
