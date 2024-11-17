@@ -29,8 +29,6 @@ namespace Systems.Mining.Resource_Nodes.Asteroid
                 var pointObject = Instantiate(asteroidPointPrefab, transform.TransformPoint(position), 
                     Quaternion.identity, transform);
                 var pointComponent = pointObject.GetComponentInChildren<AsteroidPoint>();
-
-                Debug.Log(pointObject + " " +  count++);
                 
                 pointComponent.destroyed.AddListener(HandleAsteroidPointDestroyed);
                 _asteroidPoints.Add(pointComponent);
