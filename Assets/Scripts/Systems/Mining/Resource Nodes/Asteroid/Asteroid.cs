@@ -19,6 +19,7 @@ namespace Systems.Mining.Resource_Nodes.Asteroid
         protected override void Start()
         {
             var mesh = GetComponent<MeshFilter>().mesh;
+            var count = 0;
             
             foreach (var position in RandomPointSelector.GenerateRandomPointsOnMesh(
                          mesh,
@@ -29,6 +30,8 @@ namespace Systems.Mining.Resource_Nodes.Asteroid
                     Quaternion.identity, transform);
                 var pointComponent = pointObject.GetComponentInChildren<AsteroidPoint>();
 
+                Debug.Log(pointObject + " " +  count++);
+                
                 pointComponent.destroyed.AddListener(HandleAsteroidPointDestroyed);
                 _asteroidPoints.Add(pointComponent);
             }
@@ -42,10 +45,24 @@ namespace Systems.Mining.Resource_Nodes.Asteroid
 
             _asteroidPoints.Remove(point);
             
+            point.transform.parent.parent = transform.parent;
+            
             if (_asteroidPoints.Count <= 0)
             {
-                Destroy(gameObject);
+                InitiateDestroy();
             }
+        }
+
+        public override void InitiateDestroy()
+        {
+            foreach (var asteroidPoint in _asteroidPoints)
+            {
+                asteroidPoint.destroyed.RemoveListener(HandleAsteroidPointDestroyed);
+                asteroidPoint.transform.parent.parent = transform.parent;
+                asteroidPoint.InitiateDestroy();
+            }
+            
+            base.InitiateDestroy();
         }
 
         protected override void OnLaserInteraction()
@@ -56,18 +73,6 @@ namespace Systems.Mining.Resource_Nodes.Asteroid
         protected override void OnBombInteraction()
         {
             // No special behavior
-        }
-
-        protected override void OnDestroy()
-        {
-            foreach (var asteroidPoint in _asteroidPoints)
-            {
-                asteroidPoint.destroyed.RemoveListener(HandleAsteroidPointDestroyed);
-                
-                Destroy(asteroidPoint);
-            }
-            
-            base.OnDestroy();
         }
     }
 }

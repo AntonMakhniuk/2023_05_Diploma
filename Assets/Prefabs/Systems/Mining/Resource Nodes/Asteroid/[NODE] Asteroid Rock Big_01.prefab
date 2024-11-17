@@ -937,10 +937,10 @@ MonoBehaviour:
   orePrefab: {fileID: 2091035745197971742, guid: 60c3cb11648c8ab4792073d25edaeeb4, type: 3}
   minOreCount: 2
   maxOreCount: 5
-  minSpawnDistanceOffset: 0.4
-  maxSpawnDistanceOffset: 0.9
-  collisionDelay: 1
-  maxRetriesOnOverlap: 10
+  minSpawnDistanceOffset: 0.3
+  maxSpawnDistanceOffset: 1.2
+  spawnDelay: 0.5
+  maxRetriesOnOverlap: 100
 --- !u!1 &2108424874975755351
 GameObject:
   m_ObjectHideFlags: 0
@@ -3099,7 +3099,6 @@ GameObject:
   - component: {fileID: 5724554392477144806}
   - component: {fileID: 3068715132172456353}
   - component: {fileID: 3717007284400026015}
-  - component: {fileID: 1271869390162805735}
   m_Layer: 6
   m_Name: Asteroid_Big_01_Whole
   m_TagString: Untagged
@@ -3222,61 +3221,6 @@ Rigidbody:
   m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &3717007284400026015
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6598632352929226522}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09e5278f6dea4ba79cf71419a06d2c0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lastInteractedTool: 0
-  destroyed:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6528339550891244912}
-        m_TargetAssemblyTypeName: Systems.Mining.Transitions.Transition_Addons.ShatterAddon,
-          Assembly-CSharp
-        m_MethodName: ApplyEffect
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  destroyedByLaser:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6528339550891244912}
-        m_TargetAssemblyTypeName: Systems.Mining.Transitions.Transition_Addons.ShatterAddon,
-          Assembly-CSharp
-        m_MethodName: ApplyEffect
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  destroyedByBomb:
-    m_PersistentCalls:
-      m_Calls: []
-  maxHealth: 100
-  currentHealth: 0
-  damagingToolList: 0100000000000000
-  asteroidPointPrefab: {fileID: 4703297094795255101, guid: 6beb19776bbe38f458ca5e8e8fa3602e, type: 3}
-  minDistanceBetweenPoints: 0.1
-  minPointsCount: 3
-  maxPointsCount: 6
---- !u!114 &1271869390162805735
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

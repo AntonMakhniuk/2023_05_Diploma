@@ -34,7 +34,7 @@ namespace Systems.Mining.Resource_Nodes.Base
 
             if (currentHealth <= 0)
             {
-                Destroy(gameObject);
+                InitiateDestroy();
             }
         }
     }

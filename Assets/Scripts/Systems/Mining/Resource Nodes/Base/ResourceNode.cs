@@ -1,6 +1,4 @@
-﻿using System;
-using Systems.Mining.Transitions.Transition_Addons;
-using Tools.Base_Tools;
+﻿using Tools.Base_Tools;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -41,9 +39,16 @@ namespace Systems.Mining.Resource_Nodes.Base
         [Header("Tool-specific cases of destruction")]
         public UnityEvent<ResourceNode> destroyedByLaser;
         public UnityEvent<ResourceNode> destroyedByBomb;
+
+        private bool _isBeingDestroyed;
         
-        private void InitiateDestroy()
+        public virtual void InitiateDestroy()
         {
+            if (_isBeingDestroyed)
+            {
+                return;
+            }
+            
             switch (lastInteractedTool)
             {
                 case ToolType.Laser:
@@ -58,18 +63,20 @@ namespace Systems.Mining.Resource_Nodes.Base
 
                     break;
                 }
-                default:
-                {
-                    destroyed?.Invoke(this);
-                    
-                    break;
-                }
             }
+           
+            Debug.Log(111 + " " + this);
+            
+            destroyed?.Invoke(this);
+
+            Destroy(gameObject);
+            
+            _isBeingDestroyed = true;
         }
 
         protected virtual void OnDestroy()
         {
-            InitiateDestroy();
+            
         }
     }
 

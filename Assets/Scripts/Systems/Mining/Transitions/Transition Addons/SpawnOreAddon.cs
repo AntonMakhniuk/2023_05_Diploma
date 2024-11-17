@@ -40,11 +40,15 @@ namespace Systems.Mining.Transitions.Transition_Addons
 
                     for (var i = 0; i < 3; i++)
                     {
-                        orePos[i] += Random.Range(minSpawnDistanceOffset, maxSpawnDistanceOffset);
+                        orePos[i] += Random.Range(minSpawnDistanceOffset, maxSpawnDistanceOffset) 
+                                     * (Random.value < 0.5f ? -1 : 1);;
                     }
 
                     isOverlapping = Physics.CheckSphere(orePos, minSpawnDistanceOffset);
                     retries++;
+                    
+                    Debug.Log("spawn ore " + this);
+                    
                 } while (isOverlapping && retries < maxRetriesOnOverlap);
 
                 if (!isOverlapping)

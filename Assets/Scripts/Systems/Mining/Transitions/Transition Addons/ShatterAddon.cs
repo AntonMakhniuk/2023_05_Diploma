@@ -14,6 +14,8 @@ namespace Systems.Mining.Transitions.Transition_Addons
 
         public override void ApplyEffect()
         {
+            Debug.Log("shatter 1");
+            
             var position = wholeMesh.transform.position;
             
             shatteredMesh.transform.position = position;
@@ -21,23 +23,31 @@ namespace Systems.Mining.Transitions.Transition_Addons
             
             var initialVelocity = wholeMesh.GetComponent<Rigidbody>().velocity;
             
+            Debug.Log("shatter 2");
+            
             Destroy(wholeMesh);
+            Debug.Log("shatter 2.1");
             shatteredMesh.SetActive(true);
+            Debug.Log("shatter 2.2");
         
             var colliders = Physics.OverlapSphere(position, explosionRadius);
         
+            Debug.Log("shatter 2.3");
+            
             foreach (var overlappingCollider in colliders)
             {
                 var rb = overlappingCollider.GetComponent<Rigidbody>();
         
                 if (rb == null)
                 {
-                    return;
+                    continue;   
                 }
 
                 rb.velocity = initialVelocity;
                 rb.AddExplosionForce(explosionPower, position, explosionRadius, 0);
             }
+            
+            Debug.Log("shatter 3");
             
             base.ApplyEffect();
         }
