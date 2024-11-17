@@ -573,12 +573,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   droneController: {fileID: 777353061}
   droneBody: {fileID: 777353060}
-  zone1Radius: 50
-  zone2Radius: 100
-  zone3Radius: 150
+  zone1Radius: 1000
+  zone2Radius: 1500
+  zone3Radius: 3000
   decelerationMultiplier: 1
-  alignmentValue: 0.1
-  forcedReturnSpeed: 10
+  alignmentValue: 0.9
+  forcedReturnSpeed: 20
 --- !u!1 &1323560868
 GameObject:
   m_ObjectHideFlags: 0
@@ -980,15 +980,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8146088431402102376, guid: 86b0990032484b548b85e96d12dff321, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -5.3843108e-27
       objectReference: {fileID: 0}
     - target: {fileID: 8146088431402102376, guid: 86b0990032484b548b85e96d12dff321, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -2.2737368e-13
       objectReference: {fileID: 0}
     - target: {fileID: 8146088431402102376, guid: 86b0990032484b548b85e96d12dff321, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 3.8963516e-20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
