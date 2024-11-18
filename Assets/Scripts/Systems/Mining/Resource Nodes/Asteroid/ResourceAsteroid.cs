@@ -19,20 +19,14 @@ namespace Systems.Mining.Resource_Nodes.Asteroid
         protected override void Start()
         {
             var mesh = GetComponent<MeshFilter>().mesh;
-            var count = 0;
             
-            Debug.Log(RandomPointSelector.GenerateRandomPointsOnMesh(
-                mesh,
-                Random.Range(minPointsCount, maxPointsCount + 1), 
-                minDistanceBetweenPoints).Count);
-            
-            foreach (var position in RandomPointSelector.GenerateRandomPointsOnMesh(
+            foreach (var (position, rotation) in RandomPointSelector.GenerateRandomPointsOnMesh(
                          mesh,
                          Random.Range(minPointsCount, maxPointsCount + 1), 
                          minDistanceBetweenPoints))
             {
                 var pointObject = Instantiate(asteroidPointPrefab, transform.TransformPoint(position), 
-                    Quaternion.identity, transform);
+                    rotation, transform);
                 var pointComponent = pointObject.GetComponentInChildren<AsteroidPoint>();
                 
                 pointComponent.destroyed.AddListener(HandleAsteroidPointDestroyed);

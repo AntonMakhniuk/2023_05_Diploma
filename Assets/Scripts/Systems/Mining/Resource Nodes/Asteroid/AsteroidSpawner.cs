@@ -33,6 +33,8 @@ namespace Systems.Mining.Resource_Nodes.Asteroid
         [SerializeField] private float asteroidSpeed = 1f;
         [Foldout("Asteroid Properties")]
         [SerializeField] private float asteroidRotationSpeed = 5f;
+        [Foldout("Asteroid Properties")] [MinMaxSlider(1f, 20f)]
+        [SerializeField] private Vector2 minMaxAsteroidScale = new Vector2(3f, 7f);
 
         private readonly List<ResourceNode> _currentAsteroids = new();
         
@@ -72,6 +74,8 @@ namespace Systems.Mining.Resource_Nodes.Asteroid
                 : Instantiate(ResourceNodePrefabDictionary.Instance
                         .GetRandomPrefabByType(ResourceNodeType.FillerAsteroid), randomPosition, randomRotation,
                     transform);
+
+            asteroidObject.transform.localScale *= Random.Range(minMaxAsteroidScale.x, minMaxAsteroidScale.y);
             
             var asteroidComponent = asteroidObject.GetComponentInChildren<Asteroid>();
             
