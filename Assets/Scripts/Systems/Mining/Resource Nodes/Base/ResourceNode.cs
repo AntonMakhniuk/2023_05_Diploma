@@ -75,6 +75,6 @@ namespace Systems.Mining.Resource_Nodes.Base
 
     public enum ResourceNodeType
     {
-        GasField, Asteroid
+        GasField, FillerAsteroid, ResourceAsteroid
     }
 }

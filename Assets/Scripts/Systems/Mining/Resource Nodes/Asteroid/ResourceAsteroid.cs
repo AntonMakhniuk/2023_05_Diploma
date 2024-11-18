@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 namespace Systems.Mining.Resource_Nodes.Asteroid
 {
-    public class ResourceAsteroid : ResourceNodeWithHealth
+    public class ResourceAsteroid : Asteroid
     {
         [Header("Child Point Data")]
         [SerializeField] private GameObject asteroidPointPrefab;
@@ -20,6 +20,11 @@ namespace Systems.Mining.Resource_Nodes.Asteroid
         {
             var mesh = GetComponent<MeshFilter>().mesh;
             var count = 0;
+            
+            Debug.Log(RandomPointSelector.GenerateRandomPointsOnMesh(
+                mesh,
+                Random.Range(minPointsCount, maxPointsCount + 1), 
+                minDistanceBetweenPoints).Count);
             
             foreach (var position in RandomPointSelector.GenerateRandomPointsOnMesh(
                          mesh,

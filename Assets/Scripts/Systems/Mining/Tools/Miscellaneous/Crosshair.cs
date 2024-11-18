@@ -1,38 +1,42 @@
+using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Crosshair : MonoBehaviour
-{ 
-    [SerializeField] private RectTransform crosshairUI;
-    [SerializeField] public float maxRadius = 100f;
-    private PlayerInputActions _playerInputActions;
+namespace Systems.Mining.Tools.Miscellaneous
+{
+    public class Crosshair : MonoBehaviour
+    { 
+        [SerializeField] private RectTransform crosshairUI;
+        [SerializeField] public float maxRadius = 100f;
+        private PlayerInputActions _playerInputActions;
 
-    void Awake()
-    {
-        _playerInputActions = new PlayerInputActions();
-    }
-
-    void OnEnable()
-    {
-        _playerInputActions.PlayerCamera.CameraMovement.Enable();
-    }
-
-    void OnDisable()
-    {
-        _playerInputActions.PlayerCamera.CameraMovement.Disable();
-    }
-
-    void Update()
-    {
-        Vector2 mousePosition = Mouse.current.position.ReadValue();
-        
-        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(crosshairUI.parent as RectTransform, mousePosition, null, out Vector2 localPoint))
+        void Awake()
         {
-            if (localPoint.magnitude > maxRadius)
+            _playerInputActions = PlayerActions.InputActions;
+        }
+
+        void OnEnable()
+        {
+            _playerInputActions.PlayerCamera.CameraMovement.Enable();
+        }
+
+        void OnDisable()
+        {
+            _playerInputActions.PlayerCamera.CameraMovement.Disable();
+        }
+
+        void Update()
+        {
+            Vector2 mousePosition = Mouse.current.position.ReadValue();
+        
+            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(crosshairUI.parent as RectTransform, mousePosition, null, out Vector2 localPoint))
             {
-                localPoint = localPoint.normalized * maxRadius;
+                if (localPoint.magnitude > maxRadius)
+                {
+                    localPoint = localPoint.normalized * maxRadius;
+                }
+                crosshairUI.localPosition = localPoint;
             }
-            crosshairUI.localPosition = localPoint;
         }
     }
 }

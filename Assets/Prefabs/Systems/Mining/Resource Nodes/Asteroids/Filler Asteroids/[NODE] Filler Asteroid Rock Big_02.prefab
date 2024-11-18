@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 7766045033934794062}
   - component: {fileID: 2752546751692324533}
   - component: {fileID: 4402781842155846898}
+  - component: {fileID: 1867221495607245761}
+  - component: {fileID: 1713861615160353113}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.084
   m_TagString: Untagged
@@ -64,6 +66,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -134,6 +137,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -8694982160272256112, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &1867221495607245761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 583231660124900526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &1713861615160353113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 583231660124900526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &590558660351989402
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,6 +181,8 @@ GameObject:
   - component: {fileID: 3196330873135169827}
   - component: {fileID: 2212497159813019175}
   - component: {fileID: 4337544966975315862}
+  - component: {fileID: 1116025878866426575}
+  - component: {fileID: 7212805536092266045}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.081
   m_TagString: Untagged
@@ -198,6 +234,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -268,6 +305,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 1728440497122984178, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &1116025878866426575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 590558660351989402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &7212805536092266045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 590558660351989402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &883813268615404476
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,6 +349,8 @@ GameObject:
   - component: {fileID: 4918567414364266492}
   - component: {fileID: 1069276672766772362}
   - component: {fileID: 2336245696005388635}
+  - component: {fileID: 8750386441618338073}
+  - component: {fileID: 7963574862598886823}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.064
   m_TagString: Untagged
@@ -332,6 +402,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -402,6 +473,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5097490681132894861, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &8750386441618338073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883813268615404476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &7963574862598886823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883813268615404476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &1375472015940354997
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,6 +517,8 @@ GameObject:
   - component: {fileID: 6487660502616596552}
   - component: {fileID: 6575393889272245155}
   - component: {fileID: 1741426231617336195}
+  - component: {fileID: 3840812535384044032}
+  - component: {fileID: 6208116229631025772}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.086
   m_TagString: Untagged
@@ -466,6 +570,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -536,6 +641,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -203395673249720720, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &3840812535384044032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375472015940354997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &6208116229631025772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375472015940354997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &1415649259461661271
 GameObject:
   m_ObjectHideFlags: 0
@@ -549,6 +685,8 @@ GameObject:
   - component: {fileID: 6544796414250519890}
   - component: {fileID: 7908756198541706537}
   - component: {fileID: 8207067768275993173}
+  - component: {fileID: 1633857789006950288}
+  - component: {fileID: 2025348489594176358}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.083
   m_TagString: Untagged
@@ -600,6 +738,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -670,6 +809,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -393146370994707723, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &1633857789006950288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1415649259461661271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &2025348489594176358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1415649259461661271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &1662574328989785756
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,6 +853,8 @@ GameObject:
   - component: {fileID: 5741349013074420211}
   - component: {fileID: 7759050998555867312}
   - component: {fileID: 464973698889517721}
+  - component: {fileID: 6460151121179026183}
+  - component: {fileID: 5701708815455491466}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.072
   m_TagString: Untagged
@@ -734,6 +906,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -804,6 +977,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -4436394111864655789, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &6460151121179026183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1662574328989785756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &5701708815455491466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1662574328989785756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &1885509665020198551
 GameObject:
   m_ObjectHideFlags: 0
@@ -817,6 +1021,8 @@ GameObject:
   - component: {fileID: 6492138978683422418}
   - component: {fileID: 8771736280908139102}
   - component: {fileID: 2438869882859047875}
+  - component: {fileID: 5375360617009944043}
+  - component: {fileID: 5071531407160423031}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.063
   m_TagString: Untagged
@@ -868,6 +1074,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -938,6 +1145,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6563855831663668653, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &5375360617009944043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885509665020198551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &5071531407160423031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885509665020198551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &2188984466405745858
 GameObject:
   m_ObjectHideFlags: 0
@@ -951,6 +1189,8 @@ GameObject:
   - component: {fileID: 9187278044848185246}
   - component: {fileID: 6248347393518272433}
   - component: {fileID: 7403862389355837947}
+  - component: {fileID: 8509308430479604724}
+  - component: {fileID: 3853234931140399435}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.071
   m_TagString: Untagged
@@ -1002,6 +1242,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1072,6 +1313,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6415322530735386456, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &8509308430479604724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2188984466405745858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &3853234931140399435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2188984466405745858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &2222782700312457705
 GameObject:
   m_ObjectHideFlags: 0
@@ -1085,6 +1357,8 @@ GameObject:
   - component: {fileID: 2018906046712106845}
   - component: {fileID: 852673522365918867}
   - component: {fileID: 3674622565725672420}
+  - component: {fileID: 8313142102396232107}
+  - component: {fileID: 2691755442074841355}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.082
   m_TagString: Untagged
@@ -1136,6 +1410,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1206,6 +1481,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 8202533642116410601, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &8313142102396232107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2222782700312457705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &2691755442074841355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2222782700312457705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &2471640977424248322
 GameObject:
   m_ObjectHideFlags: 0
@@ -1219,6 +1525,8 @@ GameObject:
   - component: {fileID: 5709468352335331181}
   - component: {fileID: 3056794369280784296}
   - component: {fileID: 3147842075500253439}
+  - component: {fileID: 6202635003406405839}
+  - component: {fileID: 8232201845477160589}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.028
   m_TagString: Untagged
@@ -1270,6 +1578,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1340,6 +1649,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5106124918799879659, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &6202635003406405839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2471640977424248322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &8232201845477160589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2471640977424248322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &2566107541250867604
 GameObject:
   m_ObjectHideFlags: 0
@@ -1353,6 +1693,8 @@ GameObject:
   - component: {fileID: 5002455373360348183}
   - component: {fileID: 2171233184892141565}
   - component: {fileID: 5843159514125209391}
+  - component: {fileID: 2537562403170846721}
+  - component: {fileID: 5183175962007239539}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.004
   m_TagString: Untagged
@@ -1404,6 +1746,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1474,6 +1817,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -7928677033870520503, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &2537562403170846721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2566107541250867604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &5183175962007239539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2566107541250867604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &3637134069041775223
 GameObject:
   m_ObjectHideFlags: 0
@@ -1487,6 +1861,8 @@ GameObject:
   - component: {fileID: 7835268482094496176}
   - component: {fileID: 3121225730639407858}
   - component: {fileID: 6131681287163554638}
+  - component: {fileID: 7191947229827081473}
+  - component: {fileID: 4524687080338272077}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.076
   m_TagString: Untagged
@@ -1538,6 +1914,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1608,6 +1985,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4862757298983866112, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &7191947229827081473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3637134069041775223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &4524687080338272077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3637134069041775223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &3829008605853634951
 GameObject:
   m_ObjectHideFlags: 0
@@ -1621,6 +2029,8 @@ GameObject:
   - component: {fileID: 6462923858428009226}
   - component: {fileID: 5787025188815717075}
   - component: {fileID: 6030135743465373238}
+  - component: {fileID: 3967848725075044500}
+  - component: {fileID: 8767548034337484907}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.080
   m_TagString: Untagged
@@ -1672,6 +2082,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1742,6 +2153,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 5707411736957464656, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &3967848725075044500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3829008605853634951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &8767548034337484907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3829008605853634951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &4079891831054544176
 GameObject:
   m_ObjectHideFlags: 0
@@ -1755,6 +2197,8 @@ GameObject:
   - component: {fileID: 3008283177309963025}
   - component: {fileID: 8762678950276771470}
   - component: {fileID: 8461252573303385429}
+  - component: {fileID: 5686442601978635920}
+  - component: {fileID: 2712237767792412712}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.061
   m_TagString: Untagged
@@ -1806,6 +2250,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1876,6 +2321,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 5133826373077359975, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &5686442601978635920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4079891831054544176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &2712237767792412712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4079891831054544176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &4208200511381442139
 GameObject:
   m_ObjectHideFlags: 0
@@ -1889,6 +2365,8 @@ GameObject:
   - component: {fileID: 1114237314894465292}
   - component: {fileID: 4662411661303061951}
   - component: {fileID: 3409653912989427620}
+  - component: {fileID: 6412807598735663603}
+  - component: {fileID: 4984404995500354091}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.054
   m_TagString: Untagged
@@ -1940,6 +2418,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2010,6 +2489,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -1795868721828368763, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &6412807598735663603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4208200511381442139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &4984404995500354091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4208200511381442139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &4246566117615232047
 GameObject:
   m_ObjectHideFlags: 0
@@ -2023,6 +2533,8 @@ GameObject:
   - component: {fileID: 4793088474652938464}
   - component: {fileID: 4798292544457372022}
   - component: {fileID: 8172004817021364168}
+  - component: {fileID: 5975655682342316567}
+  - component: {fileID: 5960074750935077495}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.085
   m_TagString: Untagged
@@ -2074,6 +2586,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2144,6 +2657,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 1319956316015809350, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &5975655682342316567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4246566117615232047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &5960074750935077495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4246566117615232047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &4363665329606616246
 GameObject:
   m_ObjectHideFlags: 0
@@ -2157,6 +2701,8 @@ GameObject:
   - component: {fileID: 8696545805679171110}
   - component: {fileID: 678335161341949061}
   - component: {fileID: 4650335364451347441}
+  - component: {fileID: 7866407720710390007}
+  - component: {fileID: 1055873990567118969}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.088
   m_TagString: Untagged
@@ -2208,6 +2754,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2278,6 +2825,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -6622816872087567706, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &7866407720710390007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4363665329606616246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &1055873990567118969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4363665329606616246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &4580804990925113608
 GameObject:
   m_ObjectHideFlags: 0
@@ -2291,6 +2869,8 @@ GameObject:
   - component: {fileID: 6679483749259698605}
   - component: {fileID: 8861181551507958280}
   - component: {fileID: 7297078839723292807}
+  - component: {fileID: 5880089395930932213}
+  - component: {fileID: 1957131618420133113}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.062
   m_TagString: Untagged
@@ -2342,6 +2922,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2412,6 +2993,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4399499269817537748, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &5880089395930932213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4580804990925113608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &1957131618420133113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4580804990925113608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &4724191419761612262
 GameObject:
   m_ObjectHideFlags: 0
@@ -2425,6 +3037,8 @@ GameObject:
   - component: {fileID: 3377869613970176782}
   - component: {fileID: 5447695847687141596}
   - component: {fileID: 1107219592186263540}
+  - component: {fileID: 844039231658591455}
+  - component: {fileID: 7053862729468432180}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.070
   m_TagString: Untagged
@@ -2476,6 +3090,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2546,6 +3161,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -8364486118234754544, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &844039231658591455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4724191419761612262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &7053862729468432180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4724191419761612262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &5091829208098433890
 GameObject:
   m_ObjectHideFlags: 0
@@ -2559,6 +3205,8 @@ GameObject:
   - component: {fileID: 7235067352422936403}
   - component: {fileID: 1082093886146859096}
   - component: {fileID: 2688715393322652905}
+  - component: {fileID: 7559796699459120445}
+  - component: {fileID: 3994505535234322474}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.065
   m_TagString: Untagged
@@ -2610,6 +3258,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2680,6 +3329,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -3635534202710691695, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &7559796699459120445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5091829208098433890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &3994505535234322474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5091829208098433890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &5460677701242318098
 GameObject:
   m_ObjectHideFlags: 0
@@ -2693,6 +3373,8 @@ GameObject:
   - component: {fileID: 3419570719573152392}
   - component: {fileID: 8034984770476289233}
   - component: {fileID: 5917608440548499743}
+  - component: {fileID: 6687357349378384613}
+  - component: {fileID: 8238448243935335503}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.069
   m_TagString: Untagged
@@ -2744,6 +3426,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2814,6 +3497,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -3630585692930018581, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &6687357349378384613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5460677701242318098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &8238448243935335503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5460677701242318098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &5638736696054267819
 GameObject:
   m_ObjectHideFlags: 0
@@ -2827,6 +3541,8 @@ GameObject:
   - component: {fileID: 3501861680394245163}
   - component: {fileID: 8152941763791323473}
   - component: {fileID: 8160198063193380903}
+  - component: {fileID: 5716565566591645359}
+  - component: {fileID: 7942720654428313575}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.089
   m_TagString: Untagged
@@ -2878,6 +3594,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2948,6 +3665,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -2799792732936296732, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &5716565566591645359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5638736696054267819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &7942720654428313575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5638736696054267819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &5990340413186113376
 GameObject:
   m_ObjectHideFlags: 0
@@ -2961,6 +3709,8 @@ GameObject:
   - component: {fileID: 7152790975208012422}
   - component: {fileID: 7171777452040329943}
   - component: {fileID: 3472550363356747298}
+  - component: {fileID: 7439404021038628461}
+  - component: {fileID: 1784254173101792535}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.053
   m_TagString: Untagged
@@ -3012,6 +3762,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3082,6 +3833,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 7438656865544288477, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &7439404021038628461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5990340413186113376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &1784254173101792535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5990340413186113376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &6153192256354175076
 GameObject:
   m_ObjectHideFlags: 0
@@ -3095,6 +3877,8 @@ GameObject:
   - component: {fileID: 1694591501475736050}
   - component: {fileID: 4104149690797220871}
   - component: {fileID: 2044739181626470900}
+  - component: {fileID: 8961470059436845900}
+  - component: {fileID: 3866966364746938389}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.079
   m_TagString: Untagged
@@ -3146,6 +3930,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3216,6 +4001,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -3852612125754524392, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &8961470059436845900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6153192256354175076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &3866966364746938389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6153192256354175076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &6266637687907594634
 GameObject:
   m_ObjectHideFlags: 0
@@ -3229,6 +4045,8 @@ GameObject:
   - component: {fileID: 7332102619803342851}
   - component: {fileID: 1282545467479614840}
   - component: {fileID: 6244501010971553923}
+  - component: {fileID: 8175301701772864597}
+  - component: {fileID: 8939090009386923898}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.057
   m_TagString: Untagged
@@ -3280,6 +4098,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3350,6 +4169,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -2146700029918897722, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &8175301701772864597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6266637687907594634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &8939090009386923898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6266637687907594634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &6508051460267404289
 GameObject:
   m_ObjectHideFlags: 0
@@ -3363,6 +4213,8 @@ GameObject:
   - component: {fileID: 2215124735382907898}
   - component: {fileID: 5580982970375552296}
   - component: {fileID: 5031149527317805741}
+  - component: {fileID: 4536545494726511784}
+  - component: {fileID: 7558372986320448123}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.087
   m_TagString: Untagged
@@ -3414,6 +4266,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3484,6 +4337,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -8630739381551806991, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &4536545494726511784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6508051460267404289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &7558372986320448123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6508051460267404289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &6584433649075566054
 GameObject:
   m_ObjectHideFlags: 0
@@ -3497,6 +4381,8 @@ GameObject:
   - component: {fileID: 4607453741385460108}
   - component: {fileID: 8657669348635126165}
   - component: {fileID: 4922898397022775373}
+  - component: {fileID: 557201120364615841}
+  - component: {fileID: 2703051371945614702}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.035
   m_TagString: Untagged
@@ -3548,6 +4434,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3618,6 +4505,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -6896168213846664782, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &557201120364615841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6584433649075566054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &2703051371945614702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6584433649075566054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &6601714007825748679
 GameObject:
   m_ObjectHideFlags: 0
@@ -3631,6 +4549,8 @@ GameObject:
   - component: {fileID: 7526418029089719000}
   - component: {fileID: 7650542340421566282}
   - component: {fileID: 1928049441346745474}
+  - component: {fileID: 6848275417481743713}
+  - component: {fileID: 3309746794545689789}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.056
   m_TagString: Untagged
@@ -3682,6 +4602,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3752,6 +4673,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -9211555946889145051, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &6848275417481743713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6601714007825748679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &3309746794545689789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6601714007825748679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &6715641208208513252
 GameObject:
   m_ObjectHideFlags: 0
@@ -3765,6 +4717,8 @@ GameObject:
   - component: {fileID: 8477654192592763865}
   - component: {fileID: 8577028002776348377}
   - component: {fileID: 5045458438120252381}
+  - component: {fileID: 3756478624669724272}
+  - component: {fileID: 3214874404340807084}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.078
   m_TagString: Untagged
@@ -3816,6 +4770,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3886,6 +4841,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 724615056991471676, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &3756478624669724272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6715641208208513252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &3214874404340807084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6715641208208513252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &6840626476477567019
 GameObject:
   m_ObjectHideFlags: 0
@@ -3899,6 +4885,8 @@ GameObject:
   - component: {fileID: 8067892938592302372}
   - component: {fileID: 1608367377352871612}
   - component: {fileID: 7714807804618316929}
+  - component: {fileID: 99894511586366422}
+  - component: {fileID: 9207692371863913640}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.058
   m_TagString: Untagged
@@ -3950,6 +4938,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4020,6 +5009,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -7641905822596422211, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &99894511586366422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6840626476477567019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &9207692371863913640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6840626476477567019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &7022120039297624070
 GameObject:
   m_ObjectHideFlags: 0
@@ -4033,6 +5053,8 @@ GameObject:
   - component: {fileID: 4093605227468020096}
   - component: {fileID: 705691463875823314}
   - component: {fileID: 186586892194811841}
+  - component: {fileID: 2106972223023017675}
+  - component: {fileID: 7338599770068402204}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.060
   m_TagString: Untagged
@@ -4084,6 +5106,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4154,6 +5177,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 7224981399241733219, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &2106972223023017675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7022120039297624070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &7338599770068402204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7022120039297624070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &7024066404463411828
 GameObject:
   m_ObjectHideFlags: 0
@@ -4167,6 +5221,8 @@ GameObject:
   - component: {fileID: 9143333010571596201}
   - component: {fileID: 4666987232444813943}
   - component: {fileID: 2490229404426173394}
+  - component: {fileID: 3511182257005496693}
+  - component: {fileID: 3781543463973872488}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.052
   m_TagString: Untagged
@@ -4218,6 +5274,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4288,6 +5345,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5661669024495559732, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &3511182257005496693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7024066404463411828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &3781543463973872488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7024066404463411828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &7082646069494995266
 GameObject:
   m_ObjectHideFlags: 0
@@ -4301,6 +5389,8 @@ GameObject:
   - component: {fileID: 4543955661311647492}
   - component: {fileID: 3207642539404834188}
   - component: {fileID: 5376823478391280927}
+  - component: {fileID: 6820967343510937041}
+  - component: {fileID: 1455072730080446460}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.074
   m_TagString: Untagged
@@ -4352,6 +5442,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4422,6 +5513,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2504346882772039013, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &6820967343510937041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7082646069494995266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &1455072730080446460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7082646069494995266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &7235879366889370939
 GameObject:
   m_ObjectHideFlags: 0
@@ -4435,6 +5557,8 @@ GameObject:
   - component: {fileID: 2689137784913852965}
   - component: {fileID: 6781331888456260301}
   - component: {fileID: 4894100007617463180}
+  - component: {fileID: 4934645197195312784}
+  - component: {fileID: 4667935169914158454}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.059
   m_TagString: Untagged
@@ -4486,6 +5610,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4556,6 +5681,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 3063545050089829273, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &4934645197195312784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7235879366889370939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &4667935169914158454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7235879366889370939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &7296456760546271134
 GameObject:
   m_ObjectHideFlags: 0
@@ -4569,6 +5725,8 @@ GameObject:
   - component: {fileID: 998237177885619065}
   - component: {fileID: 8953865002823545967}
   - component: {fileID: 1298795445700720785}
+  - component: {fileID: 4704655363070625834}
+  - component: {fileID: 1965135057220751199}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.068
   m_TagString: Untagged
@@ -4620,6 +5778,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4690,6 +5849,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6715121030915892711, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &4704655363070625834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7296456760546271134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &1965135057220751199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7296456760546271134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &7459737000249376530
 GameObject:
   m_ObjectHideFlags: 0
@@ -4703,6 +5893,8 @@ GameObject:
   - component: {fileID: 355722908515910850}
   - component: {fileID: 2114455459675355001}
   - component: {fileID: 6701370036249164476}
+  - component: {fileID: 767678177921610233}
+  - component: {fileID: 997571054072400048}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.055
   m_TagString: Untagged
@@ -4754,6 +5946,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4824,6 +6017,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -632325449243313975, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &767678177921610233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7459737000249376530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &997571054072400048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7459737000249376530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &7468925820202282853
 GameObject:
   m_ObjectHideFlags: 0
@@ -4837,6 +6061,8 @@ GameObject:
   - component: {fileID: 8057972521709485858}
   - component: {fileID: 1555403385675497666}
   - component: {fileID: 2295550538989695227}
+  - component: {fileID: 2110120708953451828}
+  - component: {fileID: 3476689997894923875}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.077
   m_TagString: Untagged
@@ -4888,6 +6114,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4958,6 +6185,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4260515504704341926, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &2110120708953451828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7468925820202282853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &3476689997894923875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7468925820202282853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &7504188223336892706
 GameObject:
   m_ObjectHideFlags: 0
@@ -4971,6 +6229,8 @@ GameObject:
   - component: {fileID: 8166289583085880268}
   - component: {fileID: 978894283086496330}
   - component: {fileID: 5937463898925314710}
+  - component: {fileID: 9051868333210436800}
+  - component: {fileID: 8239134449342968871}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.075
   m_TagString: Untagged
@@ -5022,6 +6282,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5092,6 +6353,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -8976670830351739238, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &9051868333210436800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7504188223336892706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &8239134449342968871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7504188223336892706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &8137498712509488008
 GameObject:
   m_ObjectHideFlags: 0
@@ -5105,6 +6397,8 @@ GameObject:
   - component: {fileID: 3710284563050144843}
   - component: {fileID: 3874174501192054778}
   - component: {fileID: 7092844873958666927}
+  - component: {fileID: 8373935169065335042}
+  - component: {fileID: 7568076042048312019}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.067
   m_TagString: Untagged
@@ -5156,6 +6450,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5226,6 +6521,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -3417066422442139345, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &8373935169065335042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8137498712509488008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &7568076042048312019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8137498712509488008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &8331000650897186795
 GameObject:
   m_ObjectHideFlags: 0
@@ -5239,6 +6565,8 @@ GameObject:
   - component: {fileID: 1310324385341557359}
   - component: {fileID: 3152460619266292200}
   - component: {fileID: 8658866291494832091}
+  - component: {fileID: 2352041228400913146}
+  - component: {fileID: 4419538751774874989}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.012
   m_TagString: Untagged
@@ -5290,6 +6618,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5360,6 +6689,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2720893585264315377, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &2352041228400913146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8331000650897186795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &4419538751774874989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8331000650897186795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &8478032652316327888
 GameObject:
   m_ObjectHideFlags: 0
@@ -5373,6 +6733,8 @@ GameObject:
   - component: {fileID: 9220454318684590243}
   - component: {fileID: 6326986397052702171}
   - component: {fileID: 7330600195502222933}
+  - component: {fileID: 9176864864515708742}
+  - component: {fileID: 3045374297957410378}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.050
   m_TagString: Untagged
@@ -5424,6 +6786,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5494,6 +6857,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6469530219626505739, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &9176864864515708742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8478032652316327888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &3045374297957410378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8478032652316327888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &8605196133214573434
 GameObject:
   m_ObjectHideFlags: 0
@@ -5507,6 +6901,8 @@ GameObject:
   - component: {fileID: 1222289653354371580}
   - component: {fileID: 4396264017304197226}
   - component: {fileID: 8207029780870353059}
+  - component: {fileID: 8451706133853030625}
+  - component: {fileID: 3971315660100043868}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.051
   m_TagString: Untagged
@@ -5558,6 +6954,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5628,6 +7025,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 1400789472574722152, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &8451706133853030625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8605196133214573434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &3971315660100043868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8605196133214573434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &8859727235511333499
 GameObject:
   m_ObjectHideFlags: 0
@@ -5641,6 +7069,8 @@ GameObject:
   - component: {fileID: 6071804073753197885}
   - component: {fileID: 4875423399634269678}
   - component: {fileID: 8598160210142378789}
+  - component: {fileID: 7677051584755932445}
+  - component: {fileID: 7067260169911225007}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.014
   m_TagString: Untagged
@@ -5692,6 +7122,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5762,6 +7193,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -1617596383292593568, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &7677051584755932445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8859727235511333499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &7067260169911225007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8859727235511333499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &8890331237003727773
 GameObject:
   m_ObjectHideFlags: 0
@@ -5775,6 +7237,8 @@ GameObject:
   - component: {fileID: 6827276708354067751}
   - component: {fileID: 541402608079767024}
   - component: {fileID: 1392835246916610111}
+  - component: {fileID: 7351755485824654637}
+  - component: {fileID: 440184310392807908}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.073
   m_TagString: Untagged
@@ -5826,6 +7290,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5896,6 +7361,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 5262852134908946267, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &7351755485824654637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8890331237003727773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &440184310392807908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8890331237003727773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1 &8935273381645962705
 GameObject:
   m_ObjectHideFlags: 0
@@ -5909,6 +7405,8 @@ GameObject:
   - component: {fileID: 8058799561810432964}
   - component: {fileID: 2146430324564081796}
   - component: {fileID: 6707308239493045211}
+  - component: {fileID: 5173065732561771627}
+  - component: {fileID: 2333644424444134361}
   m_Layer: 0
   m_Name: Asteroid_Big_02_cell.066
   m_TagString: Untagged
@@ -5960,6 +7458,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -4358159176223080315, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+  - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6030,6 +7529,37 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -2342683683356352751, guid: 6826f4303b7471a4ab9565e88015fb7b, type: 3}
+--- !u!114 &5173065732561771627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8935273381645962705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 0
+--- !u!114 &2333644424444134361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8935273381645962705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
+  wireframeThickness: 0.2
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
 --- !u!1001 &1513670668517803208
 PrefabInstance:
   m_ObjectHideFlags: 0
