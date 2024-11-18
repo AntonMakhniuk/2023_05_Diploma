@@ -31,7 +31,7 @@ namespace Systems.Mining.Tools.Laser
             while (true)
             {
                 var beamEndPosition = 
-                    LookAtHitData?.point ?? muzzlePoint.position + transform.forward * maxRange;
+                    LookAtHitData?.point ?? muzzlePoint.position + muzzlePoint.transform.forward * maxRange;
 
                 // Set the beam's positions
                 beam.SetPosition(0, muzzlePoint.position);

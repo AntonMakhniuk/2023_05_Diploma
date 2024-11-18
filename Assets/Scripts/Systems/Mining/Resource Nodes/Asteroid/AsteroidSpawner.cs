@@ -54,7 +54,7 @@ namespace Systems.Mining.Resource_Nodes.Asteroid
             var asteroidObject = Instantiate(ResourceNodePrefabDictionary.Instance
                 .GetRandomPrefabByType(ResourceNodeType.Asteroid), randomPosition, randomRotation, transform);
 
-            var asteroidComponent = asteroidObject.GetComponentInChildren<Asteroid>();
+            var asteroidComponent = asteroidObject.GetComponentInChildren<ResourceAsteroid>();
             asteroidComponent.destroyed.AddListener(HandleAsteroidDestroyed);
             _currentAsteroids.Add(asteroidComponent);
             

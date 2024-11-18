@@ -64,19 +64,12 @@ namespace Systems.Mining.Resource_Nodes.Base
                     break;
                 }
             }
-           
-            Debug.Log(111 + " " + this);
             
             destroyed?.Invoke(this);
 
             Destroy(gameObject);
             
             _isBeingDestroyed = true;
-        }
-
-        protected virtual void OnDestroy()
-        {
-            
         }
     }
 
