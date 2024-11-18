@@ -854,7 +854,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scanBounds: {fileID: 8545984419930793993}
-  boundsExpansionTime: 1
+  boundsExpansionTime: 1.5
 --- !u!1 &4396542510705869874
 GameObject:
   m_ObjectHideFlags: 3
@@ -1996,10 +1996,6 @@ PrefabInstance:
     - target: {fileID: 1707972542024158106, guid: 848f92e4acc9d704c8eecf1136d04774, type: 3}
       propertyPath: m_Name
       value: '[PLR] Scan Bounds'
-      objectReference: {fileID: 0}
-    - target: {fileID: 1707972542024158106, guid: 848f92e4acc9d704c8eecf1136d04774, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9048508909092765343, guid: 848f92e4acc9d704c8eecf1136d04774, type: 3}
       propertyPath: m_LocalPosition.x

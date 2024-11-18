@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using NaughtyAttributes;
 using Systems.Mining.Resource_Nodes.Base;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -7,28 +8,41 @@ namespace Systems.Mining.Transitions.Transition_Addons
 {
     public class SpawnObjectAddon : BaseTransitionAddon
     {
-        [Header("Ore Data")] 
+        [Foldout("Ore Data")] 
         [SerializeField] private GameObject objectPrefab;
+        [Foldout("Ore Data")] 
         [SerializeField] private int minCount = 1;
+        [Foldout("Ore Data")] 
         [SerializeField] private int maxCount = 5;
+        [Foldout("Ore Data")] 
         [SerializeField] private float minSpawnDistanceOffset = 0.4f;
+        [Foldout("Ore Data")] 
         [SerializeField] private float maxSpawnDistanceOffset = 0.9f;
-        [Space]
-        [Header("Miscellaneous")]
+        [Foldout("Ore Data")] [MinMaxSlider(0.5f, 2f)] 
+        [SerializeField] private Vector2 objectScaleInRelationToNode = new Vector2(0.9f, 1.1f);
+        
+        [Foldout("Miscellaneous")]
         [SerializeField] private ResourceNode nodeToSpawnAt;
+        [Foldout("Miscellaneous")]
         [SerializeField] private float spawnDelay = 0.5f;
+        [Foldout("Miscellaneous")]
         [SerializeField] private int maxRetriesOnOverlap = 10;
 
         private Vector3 _baseSpawnPosition;
+        private float _nodeScale;
         
         private void Start()
         {
-            nodeToSpawnAt.destroyed.AddListener(UpdateSpawnLocation);
+            nodeToSpawnAt.destroyed.AddListener(UpdateNodeData);
         }
 
-        private void UpdateSpawnLocation(ResourceNode node)
+        private void UpdateNodeData(ResourceNode node)
         {
-            _baseSpawnPosition = node.transform.position;
+            var nodeTransform = node.transform;
+            var scaleVector = nodeTransform.lossyScale;
+            
+            _baseSpawnPosition = nodeTransform.position;
+            _nodeScale = (scaleVector.x + scaleVector.y + scaleVector.z) / 3f;
         }
 
         public override void ApplyEffect()
@@ -54,11 +68,11 @@ namespace Systems.Mining.Transitions.Transition_Addons
                     
                     for (var i = 0; i < 3; i++)
                     {
-                        spawnPos[i] += Random.Range(minSpawnDistanceOffset, maxSpawnDistanceOffset) 
-                                     * (Random.value < 0.5f ? -1 : 1);;
+                        spawnPos[i] += Random.Range(minSpawnDistanceOffset, maxSpawnDistanceOffset * _nodeScale) 
+                                     * (Random.value < 0.5f ? -1 : 1);
                     }
 
-                    isOverlapping = Physics.CheckSphere(spawnPos, minSpawnDistanceOffset);
+                    isOverlapping = Physics.CheckSphere(spawnPos, minSpawnDistanceOffset * _nodeScale);
                     retries++;
                     
                     
@@ -66,8 +80,13 @@ namespace Systems.Mining.Transitions.Transition_Addons
 
                 if (!isOverlapping)
                 {
-                    var ore = Instantiate(objectPrefab, spawnPos, Quaternion.Euler(Random.Range(0, 360),
+                    var ore = Instantiate(objectPrefab, spawnPos, 
+                        Quaternion.Euler(Random.Range(0, 360),
                         Random.Range(0, 360), Random.Range(0, 360)));
+
+                    ore.transform.localScale 
+                        *= _nodeScale * Random.Range(objectScaleInRelationToNode.x, objectScaleInRelationToNode.y);
+                    
                     oreNumber--;
                 }
                 else
@@ -85,7 +104,7 @@ namespace Systems.Mining.Transitions.Transition_Addons
         {
             StopAllCoroutines();
             
-            nodeToSpawnAt.destroyed.RemoveListener(UpdateSpawnLocation);
+            nodeToSpawnAt.destroyed.RemoveListener(UpdateNodeData);
         }
     }
 }

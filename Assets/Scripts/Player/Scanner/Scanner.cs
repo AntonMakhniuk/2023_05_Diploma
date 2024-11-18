@@ -1,5 +1,4 @@
-﻿using System;
-using DG.Tweening;
+﻿using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,6 +17,7 @@ namespace Player.Scanner
         private void Awake()
         {
             _initialScale = scanBounds.transform.localScale;
+            _currentSequence = DOTween.Sequence();
         }
 
         private void Start()
@@ -29,6 +29,7 @@ namespace Player.Scanner
         {
             _isScanning = !_isScanning;
             _currentSequence?.Kill();
+            _currentSequence = DOTween.Sequence();
             
             if (_isScanning)
             {
