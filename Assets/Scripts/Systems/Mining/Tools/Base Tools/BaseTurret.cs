@@ -36,7 +36,8 @@ namespace Tools.Base_Tools
         {
             var screenRay = Camera.main.ScreenPointToRay(crosshairPos.position);
             
-            var hasHit = Physics.Raycast(screenRay, out var hit, maxRange, LayerMask.NameToLayer("Player"));
+            var hasHit = Physics.Raycast(screenRay, out var hit, maxRange, 
+                ~LayerMask.GetMask("Player", "TransparentFX"));
 
             LookAtHitData = hasHit ? hit : null;
             
