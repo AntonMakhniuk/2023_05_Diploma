@@ -134,6 +134,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ToggleScanner"",
+                    ""type"": ""Button"",
+                    ""id"": ""8286cb57-4647-4a06-aa1b-f033a19bbbc6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -376,6 +385,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ToolThird"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""71c558f6-ab51-4606-9f32-3e392a27cf42"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleScanner"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -958,6 +978,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_PlayerShip_Pitch = m_PlayerShip.FindAction("Pitch", throwIfNotFound: true);
         m_PlayerShip_Yaw = m_PlayerShip.FindAction("Yaw", throwIfNotFound: true);
         m_PlayerShip_Roll = m_PlayerShip.FindAction("Roll", throwIfNotFound: true);
+        m_PlayerShip_ToggleScanner = m_PlayerShip.FindAction("ToggleScanner", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_CloseWindowOpenPause = m_UI.FindAction("CloseWindowOpenPause", throwIfNotFound: true);
@@ -1061,6 +1082,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerShip_Pitch;
     private readonly InputAction m_PlayerShip_Yaw;
     private readonly InputAction m_PlayerShip_Roll;
+    private readonly InputAction m_PlayerShip_ToggleScanner;
     public struct PlayerShipActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1077,6 +1099,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Pitch => m_Wrapper.m_PlayerShip_Pitch;
         public InputAction @Yaw => m_Wrapper.m_PlayerShip_Yaw;
         public InputAction @Roll => m_Wrapper.m_PlayerShip_Roll;
+        public InputAction @ToggleScanner => m_Wrapper.m_PlayerShip_ToggleScanner;
         public InputActionMap Get() { return m_Wrapper.m_PlayerShip; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1122,6 +1145,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Roll.started += instance.OnRoll;
             @Roll.performed += instance.OnRoll;
             @Roll.canceled += instance.OnRoll;
+            @ToggleScanner.started += instance.OnToggleScanner;
+            @ToggleScanner.performed += instance.OnToggleScanner;
+            @ToggleScanner.canceled += instance.OnToggleScanner;
         }
 
         private void UnregisterCallbacks(IPlayerShipActions instance)
@@ -1162,6 +1188,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Roll.started -= instance.OnRoll;
             @Roll.performed -= instance.OnRoll;
             @Roll.canceled -= instance.OnRoll;
+            @ToggleScanner.started -= instance.OnToggleScanner;
+            @ToggleScanner.performed -= instance.OnToggleScanner;
+            @ToggleScanner.canceled -= instance.OnToggleScanner;
         }
 
         public void RemoveCallbacks(IPlayerShipActions instance)
@@ -1521,6 +1550,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnPitch(InputAction.CallbackContext context);
         void OnYaw(InputAction.CallbackContext context);
         void OnRoll(InputAction.CallbackContext context);
+        void OnToggleScanner(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
