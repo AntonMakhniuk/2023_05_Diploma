@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace Environment.Global_Map.Systems
 {
-    public class GlobalMapManager : MonoBehaviour
+    public class EntryPointManager : MonoBehaviour
     {
-        public static GlobalMapManager Instance;
+        public static EntryPointManager Instance;
         
         private readonly List<EntryPoint> _entryPoints = new();
 
@@ -35,6 +35,19 @@ namespace Environment.Global_Map.Systems
 
             point.onPlayerShipEnteredEntryPointProximity.AddListener(RelayPlayerShipEnteredEntryPointProximity);
             point.onPlayerShipLeftEntryPointProximity.AddListener(RelayPlayerShipLeftEntryPointProximity);
+        }
+
+        public void RemoveEntryPoint(EntryPoint point)
+        {
+            if (!_entryPoints.Contains(point))
+            {
+                return;
+            }
+            
+            _entryPoints.Remove(point);
+
+            point.onPlayerShipEnteredEntryPointProximity.RemoveListener(RelayPlayerShipEnteredEntryPointProximity);
+            point.onPlayerShipLeftEntryPointProximity.RemoveListener(RelayPlayerShipLeftEntryPointProximity);
         }
 
         public event EventHandler<EntryPoint> OnRelayPlayerShipEnteredEntryPointProximity, 
