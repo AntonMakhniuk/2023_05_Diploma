@@ -50,6 +50,7 @@ MonoBehaviour:
     - Key: 2
       Value:
       - Drone Overworld
+      - Drone Overworld UI
     - Key: 3
       Value:
       - Global Map
@@ -58,10 +59,6 @@ MonoBehaviour:
       Value:
       - Main Menu
       - Main Menu UI
-    - Key: 1
-      Value:
-      - Overworld
-      - Overworld UI
 --- !u!114 &4961465600136280320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,4 +71,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cd274fae6514c5397c2e8ad90ddcf0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scenesWithNoInput: 
+  scenesWithNoInput: 00000000
