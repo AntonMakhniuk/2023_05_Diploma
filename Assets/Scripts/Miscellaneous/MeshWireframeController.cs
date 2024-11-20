@@ -145,7 +145,6 @@ namespace Miscellaneous
 
         [Foldout("Wireframe settings")] 
         [SerializeField] private Material wireframeMaterial;
-        private static readonly int WireframeThickness = Shader.PropertyToID("_Wireframe_Thickness");
         [Foldout("Wireframe settings")] 
         [SerializeField] private float wireframeThickness = 0.3f;
         [Foldout("Wireframe settings")] 
@@ -156,7 +155,9 @@ namespace Miscellaneous
         [SerializeField] private float minWireframeThickness = 0.1f;
         [Foldout("Pulse settings")]
         [SerializeField] private float pulseInterval = 1f;
-
+        
+        private static readonly int WireframeThickness = Shader.PropertyToID("_Wireframe_Thickness");
+        
         private float _currentThickness;
         private Coroutine _stateChangeCoroutine, _pulseCoroutine;
         private Material _uniqueWireframe;

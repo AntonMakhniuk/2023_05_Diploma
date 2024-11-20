@@ -4,6 +4,8 @@ namespace Player.Scanner
 {
     public class ScanBounds : MonoBehaviour
     {
+        [SerializeField] private bool lockRotation;
+        
         private Quaternion _initialRotation;
 
         private void Start()
@@ -13,7 +15,10 @@ namespace Player.Scanner
 
         private void LateUpdate()
         {
-            transform.rotation = _initialRotation;
+            if (lockRotation)
+            {
+                transform.rotation = _initialRotation;
+            }
         }
 
         private void OnTriggerEnter(Collider other)
