@@ -22,7 +22,7 @@ public class DroneHealth : MonoBehaviour
     }
 
 
-    private void TakeDamage(float damagePercentage)
+    public void TakeDamage(float damagePercentage)
     {
         float damageAmount = maxHealth * (damagePercentage / 100);
         currentHealth -= damageAmount;

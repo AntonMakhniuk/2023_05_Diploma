@@ -9,9 +9,11 @@ namespace Tools.Laser
     {
         [SerializeField] private float laserDamagePerSecond = 100f;
         [SerializeField] private LineRenderer beam;
+        [SerializeField] private Transform target;
 
         private IEnumerator _shootCoroutine;
         private bool _isShooting;
+
         
         private void Awake()
         {
@@ -40,6 +42,14 @@ namespace Tools.Laser
                         Debug.Log(LookAtHitData.Value + " " + LookAtHitData.Value.transform);
                         
                         destructible.OnLaserInteraction(laserDamagePerSecond * Time.deltaTime);
+                    } else
+                    {
+                     
+                        Enemy enemy = LookAtHitData.Value.collider.GetComponent<Enemy>();
+                        if (enemy != null)
+                        {
+                            enemy.TakeDamage(laserDamagePerSecond * Time.deltaTime);
+                        }
                     }
                 }
                 
