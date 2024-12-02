@@ -9,13 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8aaaa7b4980345c2b78a24a6c35b6062, type: 3}
-  m_Name: Interaction Matrix
+  m_Script: {fileID: 11500000, guid: 63c9fe135df845b4aa9a7799683ebc0c, type: 3}
+  m_Name: Material Alpha Dictionary
   m_EditorClassIdentifier: 
-  matrix:
+  opaqueToTransparentDictionary:
     _serializedList:
-    - Key:
-        toolType: 0
-        resourceType: 1
-        resourceState: 1
-      Value: {fileID: 11400000, guid: 3fea3d7598fdbdc4498954ceef0978ab, type: 2}
+    - Key: {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
+      Value: {fileID: 2100000, guid: 85448c6c742a254438113add9e5bd474, type: 2}
