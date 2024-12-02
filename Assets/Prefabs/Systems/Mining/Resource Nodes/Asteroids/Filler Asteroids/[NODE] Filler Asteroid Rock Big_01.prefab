@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -168,6 +168,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &1000565345928252591
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,7 +234,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -336,6 +337,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &1227049775523604110
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,7 +403,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -504,6 +506,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &1538936725393093780
 GameObject:
   m_ObjectHideFlags: 0
@@ -634,7 +637,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -737,6 +740,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &1762717378160943031
 GameObject:
   m_ObjectHideFlags: 0
@@ -802,7 +806,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -905,6 +909,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &1865175027590229435
 GameObject:
   m_ObjectHideFlags: 0
@@ -970,7 +975,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -1073,6 +1078,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &2046288533405979194
 GameObject:
   m_ObjectHideFlags: 0
@@ -1189,7 +1195,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -1292,6 +1298,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &2553107523326543380
 GameObject:
   m_ObjectHideFlags: 0
@@ -1357,7 +1364,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -1460,6 +1467,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &2652100427163059294
 GameObject:
   m_ObjectHideFlags: 0
@@ -1525,7 +1533,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -1628,6 +1636,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &2794668177544926993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1693,7 +1702,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -1796,6 +1805,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &2874565495782738203
 GameObject:
   m_ObjectHideFlags: 0
@@ -1861,7 +1871,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -1964,6 +1974,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &3164426322470702948
 GameObject:
   m_ObjectHideFlags: 0
@@ -2029,7 +2040,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -2132,6 +2143,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &3175242385228691248
 GameObject:
   m_ObjectHideFlags: 0
@@ -2197,7 +2209,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -2300,6 +2312,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &3933152736637019308
 GameObject:
   m_ObjectHideFlags: 0
@@ -2365,7 +2378,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -2468,6 +2481,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &4042108939329941670
 GameObject:
   m_ObjectHideFlags: 0
@@ -2533,7 +2547,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -2636,6 +2650,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &4958236710929888639
 GameObject:
   m_ObjectHideFlags: 0
@@ -2701,7 +2716,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -2804,6 +2819,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &4997548477699332244
 GameObject:
   m_ObjectHideFlags: 0
@@ -2869,7 +2885,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -2972,6 +2988,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &5652223110855607717
 GameObject:
   m_ObjectHideFlags: 0
@@ -3037,7 +3054,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -3140,6 +3157,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &5757977546468911254
 GameObject:
   m_ObjectHideFlags: 0
@@ -3205,7 +3223,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -3308,6 +3326,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &5930196614551016273
 GameObject:
   m_ObjectHideFlags: 0
@@ -3373,7 +3392,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -3476,6 +3495,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &6298987570142050609
 GameObject:
   m_ObjectHideFlags: 0
@@ -3541,7 +3561,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -3644,6 +3664,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &6330470188231804844
 GameObject:
   m_ObjectHideFlags: 0
@@ -3709,7 +3730,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -3812,6 +3833,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &6598632352929226522
 GameObject:
   m_ObjectHideFlags: 0
@@ -3878,7 +3900,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c61fe0ceb55e4c942a8461b229d79a65, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -4019,6 +4041,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &6998346021154952653
 GameObject:
   m_ObjectHideFlags: 0
@@ -4084,7 +4107,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -4187,6 +4210,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &7051335329598034888
 GameObject:
   m_ObjectHideFlags: 0
@@ -4252,7 +4276,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -4355,6 +4379,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &7535486876575488310
 GameObject:
   m_ObjectHideFlags: 0
@@ -4420,7 +4445,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -4523,6 +4548,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &7555667875210989252
 GameObject:
   m_ObjectHideFlags: 0
@@ -4588,7 +4614,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -4691,6 +4717,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &7742580761428718686
 GameObject:
   m_ObjectHideFlags: 0
@@ -4756,7 +4783,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -4859,6 +4886,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &7967563866680926511
 GameObject:
   m_ObjectHideFlags: 0
@@ -4924,7 +4952,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -5027,6 +5055,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &8212877064094360815
 GameObject:
   m_ObjectHideFlags: 0
@@ -5092,7 +5121,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -5195,6 +5224,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &8235373733788698143
 GameObject:
   m_ObjectHideFlags: 0
@@ -5260,7 +5290,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -5363,6 +5393,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &8562529391666068546
 GameObject:
   m_ObjectHideFlags: 0
@@ -5428,7 +5459,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -5531,6 +5562,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &8789648301358607641
 GameObject:
   m_ObjectHideFlags: 0
@@ -5596,7 +5628,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -5699,6 +5731,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &9058165048417244863
 GameObject:
   m_ObjectHideFlags: 0
@@ -5764,7 +5797,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -5867,6 +5900,7 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!1 &9123178764541070256
 GameObject:
   m_ObjectHideFlags: 0
@@ -5932,7 +5966,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4358159176223080315, guid: c5f13141cf3ff1a4d83bed9c94b74375, type: 3}
+  - {fileID: 2100000, guid: fbf86f780440d814192c04c5699f5bce, type: 2}
   - {fileID: 2100000, guid: 52cff3fa1ae3a6149a6ca406be1a02b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -6035,3 +6069,4 @@ MonoBehaviour:
   isPulsating: 0
   minWireframeThickness: 0.1
   pulseInterval: 1
+  wireframeInstance: {fileID: 0}
