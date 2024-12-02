@@ -156,22 +156,23 @@ namespace Miscellaneous
         [Foldout("Pulse settings")]
         [SerializeField] private float pulseInterval = 1f;
         
-        private static readonly int WireframeThickness = Shader.PropertyToID("_Wireframe_Thickness");
+        [HideInInspector] public Material wireframeInstance;
         
+        private static readonly int WireframeThickness = Shader.PropertyToID("_Wireframe_Thickness");
+
         private float _currentThickness;
         private Coroutine _stateChangeCoroutine, _pulseCoroutine;
-        private Material _uniqueWireframe;
 
         private void Awake()
         {
-            _uniqueWireframe = GetComponent<MeshRenderer>().materials
+            wireframeInstance = GetComponent<MeshRenderer>().materials
                 .First(m => m.shader == wireframeMaterial.shader 
                             && m.name == wireframeMaterial.name + " (Instance)");
         }
 
         private void Start()
         {
-            _uniqueWireframe.SetFloat(WireframeThickness, 0);
+            wireframeInstance.SetFloat(WireframeThickness, 0);
         }
         
         public void EnableWireframe()
@@ -186,7 +187,7 @@ namespace Miscellaneous
         
         private IEnumerator EnableWireframeCoroutine()
         {
-            _uniqueWireframe.SetFloat(WireframeThickness, _currentThickness);
+            wireframeInstance.SetFloat(WireframeThickness, _currentThickness);
             
             var initialThickness = _currentThickness;
             var changeTime = stateChangeSpeed * 
@@ -197,13 +198,13 @@ namespace Miscellaneous
             {
                 elapsedTime += Time.deltaTime;
                 _currentThickness = Mathf.Lerp(initialThickness, wireframeThickness, elapsedTime / changeTime);
-                _uniqueWireframe.SetFloat(WireframeThickness, _currentThickness);
+                wireframeInstance.SetFloat(WireframeThickness, _currentThickness);
                 
                 yield return null;
             }
             
             _currentThickness = wireframeThickness;
-            _uniqueWireframe.SetFloat(WireframeThickness, _currentThickness);
+            wireframeInstance.SetFloat(WireframeThickness, _currentThickness);
 
             if (isPulsating)
             {
@@ -223,7 +224,7 @@ namespace Miscellaneous
                     
                     _currentThickness = 
                         Mathf.Lerp(wireframeThickness, minWireframeThickness, elapsedTime / (pulseInterval / 2f));
-                    _uniqueWireframe.SetFloat(WireframeThickness, _currentThickness);
+                    wireframeInstance.SetFloat(WireframeThickness, _currentThickness);
                     
                     yield return null;
                 }
@@ -236,7 +237,7 @@ namespace Miscellaneous
                     
                     _currentThickness = 
                         Mathf.Lerp(minWireframeThickness, wireframeThickness, elapsedTime / (pulseInterval / 2f));
-                    _uniqueWireframe.SetFloat(WireframeThickness, _currentThickness);
+                    wireframeInstance.SetFloat(WireframeThickness, _currentThickness);
                     
                     yield return null;
                 }
@@ -260,7 +261,7 @@ namespace Miscellaneous
         
         private IEnumerator DisableWireframeCoroutine()
         {
-            _uniqueWireframe.SetFloat(WireframeThickness, _currentThickness);
+            wireframeInstance.SetFloat(WireframeThickness, _currentThickness);
             
             //TODO: Double-check this math cause its a bit sussy ngl
             var initialThickness = _currentThickness;
@@ -272,13 +273,13 @@ namespace Miscellaneous
                 elapsedTime += Time.deltaTime;
                 
                 _currentThickness = Mathf.Lerp(initialThickness, 0, elapsedTime / changeTime);
-                _uniqueWireframe.SetFloat(WireframeThickness, _currentThickness);
+                wireframeInstance.SetFloat(WireframeThickness, _currentThickness);
                 
                 yield return null;
             }
 
             _currentThickness = 0f;
-            _uniqueWireframe.SetFloat(WireframeThickness, _currentThickness);
+            wireframeInstance.SetFloat(WireframeThickness, _currentThickness);
         }
     }
 }

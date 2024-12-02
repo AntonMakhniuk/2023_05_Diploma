@@ -1,6 +1,7 @@
 ﻿using System.Linq;
+using DG.Tweening;
 using Miscellaneous;
-using NaughtyAttributes;
+using Scriptable_Object_Templates.Singletons;
 using UnityEngine;
 
 namespace Player.Scanner
@@ -8,9 +9,10 @@ namespace Player.Scanner
     public class Scannable : MonoBehaviour
     {
         private const float TransparencyPercent = 0.5f;
+        private const float AlphaChangeSpeed = 0.5f;
         
         [SerializeField] private bool isValuable;
-
+        
         private MeshRenderer _targetRenderer;
         private MeshWireframeController _wireframeController;
         private bool _isHighlit;
@@ -45,11 +47,27 @@ namespace Player.Scanner
                 {
                     var materials = _targetRenderer.materials.ToList();
                     
-                    foreach (var material in materials)
+                    for (var i = 0; i < materials.Count; i++)
                     {
-                        var color = material.color;
+                        if (!materials[i].name.Contains("Opaque"))
+                        {
+                            continue;
+                        }
+                        
+                        materials[i] = MaterialAlphaDictionary.Instance.OpaqueToTransparent(materials[i]);
+                        
+                        DOTween.Kill(materials[i].color);
+                        
+                        var color = materials[i].color;
                         color.a = TransparencyPercent;
-                        material.color = color;
+
+                        var index = i;
+                        
+                        materials[i].DOColor(color, AlphaChangeSpeed).OnKill(() =>
+                        {
+                            materials[index] = 
+                                MaterialAlphaDictionary.Instance.OpaqueToTransparent(materials[index]);
+                        });
                     }
                     
                     _targetRenderer.materials = materials.ToArray();
@@ -63,11 +81,31 @@ namespace Player.Scanner
                 {
                     var materials = _targetRenderer.materials.ToList();
                     
-                    foreach (var material in materials)
+                    for (var i = 0; i < materials.Count; i++)
                     {
-                        var color = material.color;
+                        if (!materials[i].name.Contains("Transparent"))
+                        {
+                            continue;
+                        }
+                        
+                        DOTween.Kill(materials[i].color);
+                        
+                        var color = materials[i].color;
                         color.a = 1f;
-                        material.color = color;
+                        materials[i].color = color;
+
+                        var index = i;
+                        materials[i].DOColor(color, AlphaChangeSpeed)
+                            .OnComplete(() =>
+                            {
+                                materials[index] = 
+                                    MaterialAlphaDictionary.Instance.TransparentToOpaque(materials[index]);
+                            })
+                            .OnKill(() =>
+                            {
+                                materials[index] = 
+                                    MaterialAlphaDictionary.Instance.TransparentToOpaque(materials[index]);
+                            });
                     }
                     
                     _targetRenderer.materials = materials.ToArray();
