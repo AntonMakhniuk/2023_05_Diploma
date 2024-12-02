@@ -19,14 +19,12 @@ namespace Systems.Mining.Transitions.Transition_Addons
         [Foldout("Ore Data")] 
         [SerializeField] private float maxSpawnDistanceOffset = 0.9f;
         [Foldout("Ore Data")] [MinMaxSlider(0.5f, 2f)] 
-        [SerializeField] private Vector2 objectScaleInRelationToNode = new Vector2(0.9f, 1.1f);
+        [SerializeField] private Vector2 objectScaleInRelationToNode = new(0.9f, 1.1f);
         
         [Foldout("Miscellaneous")]
         [SerializeField] private ResourceNode nodeToSpawnAt;
         [Foldout("Miscellaneous")]
         [SerializeField] private float spawnDelay = 0.5f;
-        [Foldout("Miscellaneous")]
-        [SerializeField] private int maxRetriesOnOverlap = 10;
 
         private Vector3 _baseSpawnPosition;
         private float _nodeScale;
@@ -58,43 +56,22 @@ namespace Systems.Mining.Transitions.Transition_Addons
             
             while (oreNumber > 0)
             {
-                Vector3 spawnPos;
-                bool isOverlapping;
-                var retries = 0;
+                var spawnPos = _baseSpawnPosition;
+                    
+                for (var i = 0; i < 3; i++)
+                {
+                    spawnPos[i] += Random.Range(minSpawnDistanceOffset, maxSpawnDistanceOffset * _nodeScale) 
+                                   * (Random.value < 0.5f ? -1 : 1);
+                }
                 
-                do
-                {
-                    spawnPos = _baseSpawnPosition;
-                    
-                    for (var i = 0; i < 3; i++)
-                    {
-                        spawnPos[i] += Random.Range(minSpawnDistanceOffset, maxSpawnDistanceOffset * _nodeScale) 
-                                     * (Random.value < 0.5f ? -1 : 1);
-                    }
-
-                    isOverlapping = Physics.CheckSphere(spawnPos, minSpawnDistanceOffset * _nodeScale);
-                    retries++;
-                    
-                    
-                } while (isOverlapping && retries < maxRetriesOnOverlap);
-
-                if (!isOverlapping)
-                {
-                    var ore = Instantiate(objectPrefab, spawnPos, 
-                        Quaternion.Euler(Random.Range(0, 360),
+                var ore = Instantiate(objectPrefab, spawnPos, 
+                    Quaternion.Euler(Random.Range(0, 360),
                         Random.Range(0, 360), Random.Range(0, 360)));
-
-                    ore.transform.localScale 
-                        *= _nodeScale * Random.Range(objectScaleInRelationToNode.x, objectScaleInRelationToNode.y);
-                    
-                    oreNumber--;
-                }
-                else
-                {
-                    Debug.LogWarning("Could not find a valid spawn position for ore.");
-                    
-                    oreNumber--;
-                }
+                
+                ore.transform.localScale 
+                    *= _nodeScale * Random.Range(objectScaleInRelationToNode.x, objectScaleInRelationToNode.y);
+                
+                oreNumber--;
             }
             
             base.ApplyEffect();
