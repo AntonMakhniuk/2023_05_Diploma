@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Player.Scanner
+namespace Player.Ship.Tools.Scanner
 {
     public class ScanBounds : MonoBehaviour
     {

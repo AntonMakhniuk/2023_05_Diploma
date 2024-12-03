@@ -3,7 +3,7 @@ using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Player.Scanner
+namespace Player.Ship.Tools.Scanner
 {
     public class Scanner : MonoBehaviour
     {

@@ -4,7 +4,7 @@ using Miscellaneous;
 using Scriptable_Object_Templates.Singletons;
 using UnityEngine;
 
-namespace Player.Scanner
+namespace Player.Ship.Tools.Scanner
 {
     public class Scannable : MonoBehaviour
     {

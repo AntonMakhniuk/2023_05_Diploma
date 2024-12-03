@@ -1,13 +1,12 @@
 using System.Collections;
 using Cinemachine;
-using Player;
 using Player.Ship;
 using Third_Party.Scripts;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-namespace Environment.Global_Map.Systems
+namespace Player.Movement
 {
     public class MapCameraMovement : MonoBehaviour
     {
