@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Systems.Mining.Tools.Bomb_Launcher;
 using Tools.Base_Tools;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Tools.Bomb_Launcher
 {
@@ -83,6 +84,21 @@ namespace Tools.Bomb_Launcher
         protected override void ThirdActionCanceled()
         {
             // No third action
+        }
+
+        protected override void ScrollStarted(InputAction.CallbackContext ctx)
+        {
+            // No scroll action
+        }
+
+        protected override void ScrollPerformed(InputAction.CallbackContext ctx)
+        {
+            // No scroll action
+        }
+
+        protected override void ScrollCanceled(InputAction.CallbackContext ctx)
+        {
+            // No scroll action
         }
 
         private void HandleBombDestroyed(object sender, Bomb bomb)

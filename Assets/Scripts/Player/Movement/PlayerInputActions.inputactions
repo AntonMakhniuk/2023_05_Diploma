@@ -33,7 +33,25 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ToolPrimary",
+                    "name": "ToggleMarker",
+                    "type": "Button",
+                    "id": "62c16712-169c-412f-8007-d13377a27282",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ToggleScanner",
+                    "type": "Button",
+                    "id": "8286cb57-4647-4a06-aa1b-f033a19bbbc6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Primary",
                     "type": "Button",
                     "id": "06370757-8d74-438c-a5fc-234cf5f42477",
                     "expectedControlType": "Button",
@@ -42,7 +60,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ToolSecondary",
+                    "name": "Secondary",
                     "type": "Button",
                     "id": "b2505daa-6e37-4b97-b0f0-9b1bbd690924",
                     "expectedControlType": "Button",
@@ -51,13 +69,22 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ToolThird",
+                    "name": "Tetrary",
                     "type": "Button",
                     "id": "6a6318fa-f9b0-4a83-b1e2-7659e0a3a6ce",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Scroll",
+                    "type": "Value",
+                    "id": "f827c38f-a9fe-4abd-b12c-968e23eb7cc2",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Brakes",
@@ -112,24 +139,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "ToggleScanner",
-                    "type": "Button",
-                    "id": "8286cb57-4647-4a06-aa1b-f033a19bbbc6",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Scroll",
-                    "type": "Value",
-                    "id": "f827c38f-a9fe-4abd-b12c-968e23eb7cc2",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -173,7 +182,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ToolPrimary",
+                    "action": "Primary",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -184,7 +193,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ToolSecondary",
+                    "action": "Secondary",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -371,7 +380,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ToolThird",
+                    "action": "Tetrary",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0d9c4a16-afe4-4eb2-b84e-11290ae956bc",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleMarker",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

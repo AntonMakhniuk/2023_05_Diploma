@@ -20,18 +20,18 @@ namespace Systems.Mining.Tools.Base_Tools
 
         protected virtual void Start()
         {
-            PlayerActions.InputActions.PlayerShip.ToolPrimary.started += PrimaryActionStarted;
-            PlayerActions.InputActions.PlayerShip.ToolPrimary.performed += PrimaryActionPerformed;
-            PlayerActions.InputActions.PlayerShip.ToolPrimary.canceled += PrimaryActionCanceled;
-            PlayerActions.InputActions.PlayerShip.ToolSecondary.started += SecondaryActionStarted;
-            PlayerActions.InputActions.PlayerShip.ToolSecondary.performed += SecondaryActionPerformed;
-            PlayerActions.InputActions.PlayerShip.ToolSecondary.canceled += SecondaryActionCanceled;
-            PlayerActions.InputActions.PlayerShip.ToolThird.started += ThirdActionStarted;
-            PlayerActions.InputActions.PlayerShip.ToolThird.performed += ThirdActionPerformed;
-            PlayerActions.InputActions.PlayerShip.ToolThird.canceled += ThirdActionCanceled;
-            PlayerActions.InputActions.PlayerShip.Scroll.started += ScrollStarted;
-            PlayerActions.InputActions.PlayerShip.Scroll.performed += ScrollPerformed;
-            PlayerActions.InputActions.PlayerShip.Scroll.canceled += ScrollCanceled;
+            PlayerActions.InputActions.PlayerShip.Primary.started += PrimaryActionStarted;
+            PlayerActions.InputActions.PlayerShip.Primary.performed += PrimaryActionPerformed;
+            PlayerActions.InputActions.PlayerShip.Primary.canceled += PrimaryActionCanceled;
+            PlayerActions.InputActions.PlayerShip.Secondary.started += SecondaryActionStarted;
+            PlayerActions.InputActions.PlayerShip.Secondary.performed += SecondaryActionPerformed;
+            PlayerActions.InputActions.PlayerShip.Secondary.canceled += SecondaryActionCanceled;
+            PlayerActions.InputActions.PlayerShip.Tetrary.started += ThirdActionStarted;
+            PlayerActions.InputActions.PlayerShip.Tetrary.performed += ThirdActionPerformed;
+            PlayerActions.InputActions.PlayerShip.Tetrary.canceled += ThirdActionCanceled;
+            PlayerActions.InputActions.PlayerShip.Scroll.started += ScrollActionStarted;
+            PlayerActions.InputActions.PlayerShip.Scroll.performed += ScrollActionPerformed;
+            PlayerActions.InputActions.PlayerShip.Scroll.canceled += ScrollActionCanceled;
 
             IsActiveTool = false;
             _workCoroutine = WorkCoroutine();
@@ -160,29 +160,41 @@ namespace Systems.Mining.Tools.Base_Tools
 
         protected abstract void ThirdActionCanceled();
         
-        protected virtual void ScrollStarted(InputAction.CallbackContext ctx)
+        private void ScrollActionStarted(InputAction.CallbackContext ctx)
         {
             if (!_isActiveTool)
             {
                 return;
             }
+            
+            ScrollStarted(ctx);
+        }
+        
+        protected abstract void ScrollStarted(InputAction.CallbackContext ctx);
+
+        private void ScrollActionPerformed(InputAction.CallbackContext ctx)
+        {
+            if (!_isActiveTool)
+            {
+                return;
+            }
+            
+            ScrollPerformed(ctx);
         }
 
-        protected virtual void ScrollPerformed(InputAction.CallbackContext ctx)
-        {
-            if (!_isActiveTool)
-            {
-                return;
-            }
-        }
+        protected abstract void ScrollPerformed(InputAction.CallbackContext ctx);
 
-        protected virtual void ScrollCanceled(InputAction.CallbackContext ctx)
+        private void ScrollActionCanceled(InputAction.CallbackContext ctx)
         {
             if (!_isActiveTool)
             {
                 return;
             }
+            
+            ScrollCanceled(ctx);
         }
+        
+        protected abstract void ScrollCanceled(InputAction.CallbackContext ctx);
         
         private void ToggleInstrument(bool newState)
         {
@@ -224,18 +236,18 @@ namespace Systems.Mining.Tools.Base_Tools
         
         protected virtual void OnDestroy()
         {
-            PlayerActions.InputActions.PlayerShip.ToolPrimary.started -= PrimaryActionStarted;
-            PlayerActions.InputActions.PlayerShip.ToolPrimary.performed -= PrimaryActionPerformed;
-            PlayerActions.InputActions.PlayerShip.ToolPrimary.canceled -= PrimaryActionCanceled;
-            PlayerActions.InputActions.PlayerShip.ToolSecondary.started -= SecondaryActionStarted;
-            PlayerActions.InputActions.PlayerShip.ToolSecondary.performed -= SecondaryActionPerformed;
-            PlayerActions.InputActions.PlayerShip.ToolSecondary.canceled -= SecondaryActionCanceled;
-            PlayerActions.InputActions.PlayerShip.ToolThird.started -= ThirdActionStarted;
-            PlayerActions.InputActions.PlayerShip.ToolThird.performed -= ThirdActionPerformed;
-            PlayerActions.InputActions.PlayerShip.ToolThird.canceled -= ThirdActionCanceled;
-            PlayerActions.InputActions.PlayerShip.Scroll.started -= ScrollStarted;
-            PlayerActions.InputActions.PlayerShip.Scroll.performed -= ScrollPerformed;
-            PlayerActions.InputActions.PlayerShip.Scroll.canceled -= ScrollCanceled;
+            PlayerActions.InputActions.PlayerShip.Primary.started -= PrimaryActionStarted;
+            PlayerActions.InputActions.PlayerShip.Primary.performed -= PrimaryActionPerformed;
+            PlayerActions.InputActions.PlayerShip.Primary.canceled -= PrimaryActionCanceled;
+            PlayerActions.InputActions.PlayerShip.Secondary.started -= SecondaryActionStarted;
+            PlayerActions.InputActions.PlayerShip.Secondary.performed -= SecondaryActionPerformed;
+            PlayerActions.InputActions.PlayerShip.Secondary.canceled -= SecondaryActionCanceled;
+            PlayerActions.InputActions.PlayerShip.Tetrary.started -= ThirdActionStarted;
+            PlayerActions.InputActions.PlayerShip.Tetrary.performed -= ThirdActionPerformed;
+            PlayerActions.InputActions.PlayerShip.Tetrary.canceled -= ThirdActionCanceled;
+            PlayerActions.InputActions.PlayerShip.Scroll.started -= ScrollActionStarted;
+            PlayerActions.InputActions.PlayerShip.Scroll.performed -= ScrollActionPerformed;
+            PlayerActions.InputActions.PlayerShip.Scroll.canceled -= ScrollActionCanceled;
             
             StopAllCoroutines();
         }

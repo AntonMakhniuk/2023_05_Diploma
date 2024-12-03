@@ -134,12 +134,20 @@ namespace Player.Ship.Tools.Marker
             
         }
 
+        protected override void ScrollStarted(InputAction.CallbackContext ctx)
+        {
+
+        }
+        
         protected override void ScrollPerformed(InputAction.CallbackContext ctx)
         {
-            base.ScrollPerformed(ctx);
-            
             _scanRadius += ctx.ReadValue<float>() * radiusChangeSpeed * Time.deltaTime;
             _scanRadius = Mathf.Clamp(_scanRadius, minRadius, maxRadius);
+        }
+
+        protected override void ScrollCanceled(InputAction.CallbackContext ctx)
+        {
+
         }
     }
 }
