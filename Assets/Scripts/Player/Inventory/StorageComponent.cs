@@ -1,20 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Miscellaneous;
-using Scriptable_Object_Templates;
-using Scriptable_Object_Templates.Resources;
 using Scriptable_Object_Templates.Systems.Mining.Resource_Data;
 using UnityEngine;
 
-namespace Wagons.Inventory
+namespace Player.Inventory
 {
     [Serializable]
     public class StorageComponent : MonoBehaviour
     {
-        // Add mass calculations
-        [HideInInspector] public MassComponent massComponent;
-        
         public ItemCategory[] allowedItemTypes;
         public float maxCapacity;
 
@@ -24,6 +18,11 @@ namespace Wagons.Inventory
         // Derived attributes
         public float OccupiedCapacity => _items.Sum(item => item.DVolume);
         public float FreeCapacity => maxCapacity - OccupiedCapacity;
+
+        private void Start()
+        {
+            InventoryManager.Instance.RegisterComponent(this);
+        }
 
         // Adds the provided count, or maximum available amount if there isn't enough space
         // returns the amount added
@@ -44,7 +43,7 @@ namespace Wagons.Inventory
                 return 0;
             }
             
-            float amountAdded = Mathf.Min(itemCount * item.volume, FreeCapacity);
+            var amountAdded = Mathf.Min(itemCount * item.volume, FreeCapacity);
             
             if (_items.Select(st => st.item).Contains(item))
             {
@@ -56,6 +55,28 @@ namespace Wagons.Inventory
             }
 
             return amountAdded;
+        }
+        
+        // Same as AddItem, except it doesn't modify the actual storage
+        public float PeekAddItem(ItemBase item, float itemCount)
+        {
+            if (!allowedItemTypes.Contains(item.category))
+            {
+                Debug.Log($"Tried to add invalid item type: {item.category} " +
+                          $"to storage component {this} that only allows {allowedItemTypes}");
+                
+                return 0;
+            }
+
+            if (FreeCapacity <= 0)
+            {
+                //TODO: Add player notification that max capacity has been reached
+                
+                return 0;
+            }
+            
+            // Theoretical amount added
+            return Mathf.Min(itemCount * item.volume, FreeCapacity);
         }
 
         // Takes out the provided count, or maximum available amount if there isn't enough
@@ -85,6 +106,28 @@ namespace Wagons.Inventory
             }
             
             return takenOutCount;
+        }
+        
+        // Same as TakeOutItem, except it doesn't modify the actual storage
+        public float PeekTakeOutItem(ItemBase item, float itemCount)
+        {
+            var requestedItem = _items.SingleOrDefault(st => st.item == item);
+            
+            if (requestedItem == null)
+            {
+                Debug.Log("Tried to take out item that doesn't exist in player inventory.");
+                
+                return 0;
+            }
+
+            var takenOutCount = requestedItem.quantity < itemCount ? requestedItem.quantity : itemCount;
+            
+            return takenOutCount;
+        }
+
+        private void OnDestroy()
+        {
+            InventoryManager.Instance.UnregisterComponent(this);
         }
     }
 }
