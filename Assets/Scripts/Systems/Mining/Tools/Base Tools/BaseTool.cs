@@ -3,7 +3,7 @@ using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Tools.Base_Tools 
+namespace Systems.Mining.Tools.Base_Tools 
 {
     public abstract class BaseTool : MonoBehaviour
     {
@@ -29,12 +29,15 @@ namespace Tools.Base_Tools
             PlayerActions.InputActions.PlayerShip.ToolThird.started += ThirdActionStarted;
             PlayerActions.InputActions.PlayerShip.ToolThird.performed += ThirdActionPerformed;
             PlayerActions.InputActions.PlayerShip.ToolThird.canceled += ThirdActionCanceled;
+            PlayerActions.InputActions.PlayerShip.Scroll.started += ScrollStarted;
+            PlayerActions.InputActions.PlayerShip.Scroll.performed += ScrollPerformed;
+            PlayerActions.InputActions.PlayerShip.Scroll.canceled += ScrollCanceled;
 
             IsActiveTool = false;
             _workCoroutine = WorkCoroutine();
             _fixedWorkCoroutine = FixedWorkCoroutine();
         }
-        
+
         // Run akin to an Update, but only when the tool is active
         private IEnumerator WorkCoroutine()
         {
@@ -157,6 +160,30 @@ namespace Tools.Base_Tools
 
         protected abstract void ThirdActionCanceled();
         
+        protected virtual void ScrollStarted(InputAction.CallbackContext ctx)
+        {
+            if (!_isActiveTool)
+            {
+                return;
+            }
+        }
+
+        protected virtual void ScrollPerformed(InputAction.CallbackContext ctx)
+        {
+            if (!_isActiveTool)
+            {
+                return;
+            }
+        }
+
+        protected virtual void ScrollCanceled(InputAction.CallbackContext ctx)
+        {
+            if (!_isActiveTool)
+            {
+                return;
+            }
+        }
+        
         private void ToggleInstrument(bool newState)
         {
             if (newState)
@@ -206,6 +233,9 @@ namespace Tools.Base_Tools
             PlayerActions.InputActions.PlayerShip.ToolThird.started -= ThirdActionStarted;
             PlayerActions.InputActions.PlayerShip.ToolThird.performed -= ThirdActionPerformed;
             PlayerActions.InputActions.PlayerShip.ToolThird.canceled -= ThirdActionCanceled;
+            PlayerActions.InputActions.PlayerShip.Scroll.started -= ScrollStarted;
+            PlayerActions.InputActions.PlayerShip.Scroll.performed -= ScrollPerformed;
+            PlayerActions.InputActions.PlayerShip.Scroll.canceled -= ScrollCanceled;
             
             StopAllCoroutines();
         }
@@ -213,6 +243,6 @@ namespace Tools.Base_Tools
 
     public enum ToolType
     {
-        Laser, Bomb
+        Laser, Bomb, Marker
     }
 }

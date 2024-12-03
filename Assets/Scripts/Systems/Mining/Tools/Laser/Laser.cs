@@ -1,5 +1,6 @@
 using System.Collections;
 using Systems.Mining.Resource_Nodes.Base;
+using Systems.Mining.Tools.Base_Tools;
 using Tools.Base_Tools;
 using UnityEngine;
 
