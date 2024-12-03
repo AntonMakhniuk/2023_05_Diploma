@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 8383738876569932330}
   - component: {fileID: 666823340417159322}
   - component: {fileID: 4611454126861288778}
-  - component: {fileID: 7431335203282253160}
-  - component: {fileID: 349302302716607418}
   - component: {fileID: 5710109185131189043}
   - component: {fileID: 1868631562263621304}
+  - component: {fileID: 7431335203282253160}
+  - component: {fileID: 349302302716607418}
   - component: {fileID: 7678302417101522880}
   m_Layer: 10
   m_Name: '[RES] Space Ore'
@@ -117,38 +117,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &7431335203282253160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2091035745197971742}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isValuable: 1
---- !u!114 &349302302716607418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2091035745197971742}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wireframeMaterial: {fileID: 2100000, guid: 4321e19a0fd92374e8d92b9c49bd6607, type: 2}
-  wireframeThickness: 0.3
-  stateChangeSpeed: 0.5
-  isPulsating: 0
-  minWireframeThickness: 0.1
-  pulseInterval: 1
-  wireframeInstance: {fileID: 0}
 --- !u!64 &5710109185131189043
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -192,6 +160,38 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.25
   m_Center: {x: 0.0062779486, y: 0.029346898, z: -0.00906942}
+--- !u!114 &7431335203282253160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2091035745197971742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb398530759486aa865478308f8f5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isValuable: 1
+--- !u!114 &349302302716607418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2091035745197971742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8afd6ef04d64b2c8a764062244a5d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wireframeMaterial: {fileID: 2100000, guid: 4321e19a0fd92374e8d92b9c49bd6607, type: 2}
+  wireframeThickness: 0.3
+  stateChangeSpeed: 0.5
+  isPulsating: 0
+  minWireframeThickness: 0.1
+  pulseInterval: 1
+  wireframeInstance: {fileID: 0}
 --- !u!114 &7678302417101522880
 MonoBehaviour:
   m_ObjectHideFlags: 0

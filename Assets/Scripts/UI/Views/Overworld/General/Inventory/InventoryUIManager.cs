@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Player.Inventory;
 using Scriptable_Object_Templates.Resources;
 using Scriptable_Object_Templates.Systems.Mining.Resource_Data;
 using TMPro;
@@ -6,7 +7,6 @@ using UI.Systems;
 using UI.Systems.Miscellaneous;
 using UnityEngine;
 using UnityEngine.UI;
-using Wagons.Inventory;
 
 namespace UI.Views.Overworld.General.Inventory
 {
