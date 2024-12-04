@@ -5,9 +5,29 @@ namespace Player.Ship.Tools.Marker
 {
     public class TestMarkerBounds : MonoBehaviour
     {
-        private int _collectablesInside;
+        [Foldout("Color Options")] [SerializeField]
+        private Color testNegativeColor;
+        [Foldout("Color Options")] [SerializeField]
+        private Color testPositiveColor;
+        [Foldout("Color Options")] [SerializeField]
+        private Color testNegativeEmissionColor;
+        [Foldout("Color Options")] [SerializeField]
+        private Color testPositiveEmissionColor;
+        
+        [ReadOnly] public int collectablesInside;
+        
+        private Material _boundsMaterial;
+        private static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
+        private static readonly int EmissionColor = Shader.PropertyToID("_EmissionColor");
 
-        public bool IsValid => _collectablesInside > 0;
+        public bool IsValid => collectablesInside > 0;
+
+        private void Start()
+        {
+            _boundsMaterial = GetComponent<MeshRenderer>().material;
+            _boundsMaterial.SetColor(BaseColor, testNegativeColor);
+            _boundsMaterial.SetColor(EmissionColor, testNegativeEmissionColor);
+        }
 
         private void OnTriggerEnter(Collider other)
         {
@@ -16,7 +36,13 @@ namespace Player.Ship.Tools.Marker
                 return;
             }
             
-            _collectablesInside++;
+            collectablesInside++;
+
+            if (collectablesInside == 1)
+            {
+                _boundsMaterial.SetColor(BaseColor, testPositiveColor);
+                _boundsMaterial.SetColor(EmissionColor, testPositiveEmissionColor);
+            }
         }
 
         private void OnTriggerExit(Collider other)
@@ -26,7 +52,21 @@ namespace Player.Ship.Tools.Marker
                 return;
             }
             
-            _collectablesInside--;
+            collectablesInside--;
+
+            if (collectablesInside == 0)
+            {
+                _boundsMaterial.SetColor(BaseColor, testNegativeColor);
+                _boundsMaterial.SetColor(EmissionColor, testNegativeEmissionColor);
+            }
+        }
+        
+        private void OnDisable()
+        {
+            collectablesInside = 0;
+            
+            _boundsMaterial.SetColor(BaseColor, testNegativeColor);
+            _boundsMaterial.SetColor(EmissionColor, testNegativeEmissionColor);
         }
     }
 }

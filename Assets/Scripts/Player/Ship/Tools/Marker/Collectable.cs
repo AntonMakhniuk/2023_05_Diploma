@@ -6,8 +6,8 @@ namespace Player.Ship.Tools.Marker
 {
     public class Collectable : MonoBehaviour
     {
-        [Foldout("Resource Data")] [SerializeField] 
-        private ResourceData resource;
+        [Foldout("Resource Data")]
+        public ResourceData resource;
         [Foldout("Resource Data")] [SerializeField] 
         private bool isScaleDependent;
 
@@ -43,13 +43,6 @@ namespace Player.Ship.Tools.Marker
             isMarked = false;
             
             associatedMarker.SetActive(false);
-        }
-        
-        public void ToggleMark()
-        {
-            isMarked = !isMarked;
-
-            associatedMarker.SetActive(isMarked);
         }
     }
 }

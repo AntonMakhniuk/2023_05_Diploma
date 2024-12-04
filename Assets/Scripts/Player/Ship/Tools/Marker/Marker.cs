@@ -1,4 +1,5 @@
-﻿using NaughtyAttributes;
+﻿using System;
+using NaughtyAttributes;
 using Systems.Mining.Tools.Base_Tools;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -28,27 +29,27 @@ namespace Player.Ship.Tools.Marker
         private RectTransform crosshairPos;
         
         private float _scanRadius;
-        private bool _testBoundsOn;
         private RaycastHit _hitData;
         private TestMarkerBounds _testBounds;
 
         protected override void Start()
         {
             _scanRadius = defaultRadius;
+            _testBounds = testBoundsObject.GetComponent<TestMarkerBounds>();
             
             base.Start();
         }
 
         protected override void WorkCycle()
         {
-            var screenRay = Camera.main.ScreenPointToRay(crosshairPos.position);
+            var screenRay = Camera.main!.ScreenPointToRay(crosshairPos.position);
             
             var hasHit = Physics.Raycast(screenRay, out var hit, maxRange, 
                 ~LayerMask.GetMask("Player", "TransparentFX"));
-
+            
             _hitData = hit;
             
-            if (hasHit && !_testBoundsOn)
+            if (hasHit && !testBoundsObject.activeSelf)
             {
                 TurnOnTestBounds();
             }
@@ -56,7 +57,7 @@ namespace Player.Ship.Tools.Marker
             {
                 UpdateTestBounds();
             }
-            else if (_testBoundsOn)
+            else if (testBoundsObject.activeSelf)
             {
                 TurnOffTestBounds();
             }
@@ -78,9 +79,18 @@ namespace Player.Ship.Tools.Marker
         private void UpdateTestBounds()
         {
             testBoundsObject.transform.position = _hitData.point;
-            testBoundsObject.transform.localScale = new Vector3(_scanRadius, _scanRadius, _scanRadius);
+            
+            if (Math.Abs(testBoundsObject.transform.localScale.x - _scanRadius) > 0.001f)
+            {
+                testBoundsObject.transform.localScale = new Vector3(_scanRadius, _scanRadius, _scanRadius);
+            }
         }
 
+        protected override void OnActivate()
+        {
+
+        }
+        
         protected override void PrimaryActionStarted()
         {
             if (!_testBounds.enabled || !_testBounds.IsValid)
@@ -88,7 +98,7 @@ namespace Player.Ship.Tools.Marker
                 return;
             }
 
-            var boundsObj = Instantiate(actualBoundsPrefab, _hitData.point, Quaternion.identity, transform);
+            var boundsObj = Instantiate(actualBoundsPrefab, _hitData.point, Quaternion.identity);
             var boundsComp = boundsObj.GetComponent<MarkerBounds>();
             
             boundsComp.StartBounds(_scanRadius, radiusChangeSpeed * _scanRadius / maxRadius);
@@ -148,6 +158,11 @@ namespace Player.Ship.Tools.Marker
         protected override void ScrollCanceled(InputAction.CallbackContext ctx)
         {
 
+        }
+
+        protected override void OnDeactivate()
+        {
+            testBoundsObject.SetActive(false);
         }
     }
 }

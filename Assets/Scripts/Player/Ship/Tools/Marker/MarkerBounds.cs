@@ -17,7 +17,8 @@ namespace Player.Ship.Tools.Marker
             transform.localScale = new Vector3(0,0,0);
             transform.DOScale(targetScale, timeToScale).OnComplete(() =>
             {
-                GetComponent<Renderer>().material.DOFade(0, fadeTime).OnComplete(() => Destroy(this));
+                GetComponent<Renderer>().material.DOFade(0, fadeTime)
+                    .OnComplete(() => Destroy(gameObject));
             });
         }
         
