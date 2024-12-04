@@ -73,6 +73,11 @@ namespace Systems.Mining.Tools.Tractor_Beam
             }
         }
         
+        protected override void OnActivate()
+        {
+            
+        }
+        
         protected override void FixedWorkCycle()
         {
             _currentState.Update();
@@ -165,6 +170,11 @@ namespace Systems.Mining.Tools.Tractor_Beam
         protected override void ScrollCanceled(InputAction.CallbackContext ctx)
         {
             // No scroll action
+        }
+
+        protected override void OnDeactivate()
+        {
+           
         }
     }
 }

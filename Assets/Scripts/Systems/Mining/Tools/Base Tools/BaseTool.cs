@@ -219,7 +219,11 @@ namespace Systems.Mining.Tools.Base_Tools
             StartCoroutine(_fixedWorkCoroutine);
             _isActiveTool = true;
             _isWorking = true;
+            
+            OnActivate();
         }
+
+        protected abstract void OnActivate();
 
         private void Deactivate()
         {
@@ -227,12 +231,16 @@ namespace Systems.Mining.Tools.Base_Tools
             {
                 return;
             }
+
+            OnDeactivate();
             
             StopCoroutine(_workCoroutine);
             StopCoroutine(_fixedWorkCoroutine);
             _isActiveTool = false;
             _isWorking = false;
         }
+
+        protected abstract void OnDeactivate();
         
         protected virtual void OnDestroy()
         {

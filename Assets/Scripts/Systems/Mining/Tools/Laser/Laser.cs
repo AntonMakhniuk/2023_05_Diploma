@@ -80,6 +80,11 @@ namespace Systems.Mining.Tools.Laser
             }
         }
         
+        protected override void OnActivate()
+        {
+            
+        }
+        
         protected override void PrimaryActionStarted()
         {
             if (_isShooting)
@@ -152,6 +157,11 @@ namespace Systems.Mining.Tools.Laser
         protected override void ScrollCanceled(InputAction.CallbackContext ctx)
         {
             // No scroll action
+        }
+
+        protected override void OnDeactivate()
+        {
+            
         }
     }
 }

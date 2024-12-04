@@ -1,10 +1,9 @@
 using System.Collections.Generic;
-using Systems.Mining.Tools.Bomb_Launcher;
 using Tools.Base_Tools;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Tools.Bomb_Launcher
+namespace Systems.Mining.Tools.Bomb_Launcher
 {
     // TODO: Change it so holding down LMB makes the bomb fire farther, adjustable fire length style
     public class BombLauncher : BaseTurret
@@ -28,6 +27,10 @@ namespace Tools.Bomb_Launcher
             Gizmos.DrawWireSphere(transform.position, explosionRange);
         }
 
+        protected override void OnActivate()
+        {
+            
+        }
 
         protected override void PrimaryActionStarted()
         {
@@ -106,7 +109,12 @@ namespace Tools.Bomb_Launcher
             bomb.OnBombDestroyed -= HandleBombDestroyed;
             _activeBombs.Remove(bomb);
         }
-        
+
+        protected override void OnDeactivate()
+        {
+            
+        }
+
         protected override void OnDestroy()
         {
             foreach (var bomb in _activeBombs)
