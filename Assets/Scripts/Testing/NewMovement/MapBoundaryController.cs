@@ -1,3 +1,4 @@
+using Testing.NewMovement;
 using UnityEngine;
 
 //TODO:Delete when ExecuteAlways when creating build 

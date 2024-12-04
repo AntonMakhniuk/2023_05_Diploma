@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Testing
 {
-    public class DroneMovements : MonoBehaviour
+    public class DroneMovement : MonoBehaviour
     {
-        public static DroneMovements Instance;
+        public static DroneMovement Instance;
 
         [SerializeField] private float thrustSpeed = 50f;
         [SerializeField] private float baseRotationSpeed = 0.5f;
