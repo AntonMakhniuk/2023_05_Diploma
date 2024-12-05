@@ -221,6 +221,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resource: {fileID: 11400000, guid: 33bf864ce9159a346ba6b213131f36db, type: 2}
+  containerType: 0
+  resourceAmountConstant: 20
+  resourceAmountRange: {x: 10, y: 25}
   isScaleDependent: 1
   associatedMarker: {fileID: 2132553821174464540}
   isMarked: 0
