@@ -1,25 +1,28 @@
 ﻿using System.Collections;
 using NaughtyAttributes;
 using Systems.Mining.Resource_Nodes.Base;
+using Systems.Mining.Transitions.Transition_Addons;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Systems.Mining.Transitions.Transition_Addons
+namespace Systems.Mining.Addons
 {
     public class SpawnObjectAddon : BaseTransitionAddon
     {
-        [Foldout("Ore Data")] 
-        [SerializeField] private GameObject objectPrefab;
-        [Foldout("Ore Data")] 
-        [SerializeField] private int minCount = 1;
-        [Foldout("Ore Data")] 
-        [SerializeField] private int maxCount = 5;
-        [Foldout("Ore Data")] 
-        [SerializeField] private float minSpawnDistanceOffset = 0.4f;
-        [Foldout("Ore Data")] 
-        [SerializeField] private float maxSpawnDistanceOffset = 0.9f;
-        [Foldout("Ore Data")] [MinMaxSlider(0.5f, 2f)] 
-        [SerializeField] private Vector2 objectScaleInRelationToNode = new(0.9f, 1.1f);
+        [Foldout("Spawned Object Data")] [SerializeField] 
+        private GameObject objectPrefab;
+        [Foldout("Spawned Object Data")] [SerializeField] 
+        private int minCount = 1;
+        [Foldout("Spawned Object Data")] [SerializeField] 
+        private int maxCount = 5;
+        [Foldout("Spawned Object Data")] [SerializeField] 
+        private float minSpawnDistanceOffset = 0.4f;
+        [Foldout("Spawned Object Data")] [SerializeField] 
+        private float maxSpawnDistanceOffset = 0.9f;
+        [Foldout("Spawned Object Data")] [MinMaxSlider(0.5f, 2f)] [SerializeField] 
+        private Vector2 objectScaleInRelationToNode = new(0.9f, 1.1f);
+        [Foldout("Spawned Object Data")] [SerializeField]
+        private float minScale = 0.5f;
         
         [Foldout("Miscellaneous")]
         [SerializeField] private ResourceNode nodeToSpawnAt;
@@ -67,9 +70,13 @@ namespace Systems.Mining.Transitions.Transition_Addons
                 var ore = Instantiate(objectPrefab, spawnPos, 
                     Quaternion.Euler(Random.Range(0, 360),
                         Random.Range(0, 360), Random.Range(0, 360)));
-                
-                ore.transform.localScale 
-                    *= _nodeScale * Random.Range(objectScaleInRelationToNode.x, objectScaleInRelationToNode.y);
+
+                do
+                {
+                    ore.transform.localScale 
+                        *= _nodeScale * Random.Range(objectScaleInRelationToNode.x, objectScaleInRelationToNode.y);
+                } 
+                while (ore.transform.localScale.x < minScale);
                 
                 oreNumber--;
             }
