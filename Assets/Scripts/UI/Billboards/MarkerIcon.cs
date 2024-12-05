@@ -21,8 +21,10 @@ namespace UI.Billboards
         [Foldout("Resource Data")] [SerializeField]
         private Collectable resourceData;
 
-        private void Start()
+         protected override void Start()
         {
+            base.Start();
+            
             resourceSprite.sprite = resourceData.resource.icon;
             resourceNameText.SetText(resourceData.resource.name);
             quantityText.SetText(resourceData.AmountContained.ToString(CultureInfo.InvariantCulture));

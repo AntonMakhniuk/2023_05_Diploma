@@ -8,16 +8,20 @@ namespace UI.Systems.Miscellaneous
 {
     public class BaseBillboard : MonoBehaviour
     {
-        [Foldout("Billboard Data")] [SerializeField]
-        private float scaleMultiplier = 5f;
-        [Foldout("Billboard Data")] [SerializeField]
+        [Foldout("Billboard Scale Data")] [SerializeField]
+        private float scaleMultiplier = 2f;
+        [Foldout("Billboard Scale Data")] [SerializeField]
+        private float minimumScale = 1f;
+        [Foldout("Billboard Scale Data")] [SerializeField]
+        private float scalingAssumedDistance = 25f;
+        [Foldout("Billboard Scale Data")] [CurveRange(0, 0, 1, 1)] [SerializeField]
+        private AnimationCurve scaleDropOffCurve;
+        [Foldout("Billboard Fade Data")] [SerializeField]
         private float fadeStartDistance = 300f;
-        [Foldout("Billboard Data")] [SerializeField]
+        [Foldout("Billboard Fade Data")] [SerializeField]
         private float fadeEndDistance = 500f;
-        [Foldout("Billboard Data")] [SerializeField]
-        private float distanceScaleMultiplier = 5f;
-        [Foldout("Billboard Data")] [SerializeField]
-        private float scaleStartDistance = 100f;
+        [Foldout("Billboard Fade Data")] [SerializeField]
+        private float minimumAlpha = 0.1f;
         [Foldout("Billboard Data")] [SerializeField]
         private CanvasGroup canvasGroup;
         
@@ -25,79 +29,90 @@ namespace UI.Systems.Miscellaneous
         
         private Vector3 _originalScale;
         private List<SpriteRenderer> _sprites;
+        private Transform _transform;
+        private bool _minAlphaSet, _maxAlphaSet;
 
         private void Awake()
         {
-            var parentScale = transform.parent != null ? transform.parent.lossyScale : Vector3.one;
-            var inverseParentScale = 
-                new Vector3(1f / parentScale.x, 1f / parentScale.y, 1f / parentScale.z);
-            
-            transform.localScale = Vector3.Scale(transform.localScale, inverseParentScale) * scaleMultiplier;
-            _originalScale = transform.localScale;
             _sprites = GetComponentsInChildren<SpriteRenderer>().ToList();
+        }
+
+        protected virtual void Start()
+        {
+            _transform = transform;
+            
+            var parent = _transform.parent;
+            
+            _transform.parent = null;
+            _transform.localScale = new Vector3(scaleMultiplier, scaleMultiplier, scaleMultiplier);
+            _transform.parent = parent;
+            
+            _originalScale = _transform.localScale;
         }
 
         protected virtual void LateUpdate()
         {
-            transform.LookAt(Camera.main!.transform.position, Camera.main!.transform.up);
+            _transform.LookAt(Camera.main!.transform.position, Camera.main!.transform.up);
             
             DistanceFromPlayer =
-                Vector3.Distance(transform.position, DroneController.Instance.gameObject.transform.position);
+                Vector3.Distance(_transform.position, DroneController.Instance.gameObject.transform.position);
 
             if (DistanceFromPlayer >= fadeEndDistance)
             {
-                canvasGroup.alpha = 0f;
-
-                foreach (var sprite in _sprites)
+                if (!_minAlphaSet)
                 {
-                    var color = sprite.color;
-                    color.a = 0f;
-                    sprite.color = color;
+                    canvasGroup.alpha = minimumAlpha;
+                
+                    foreach (var sprite in _sprites)
+                    {
+                        var color = sprite.color;
+                        color.a = minimumAlpha;
+                        sprite.color = color;
+                    }
+
+                    _minAlphaSet = true;
                 }
             }
             else if (DistanceFromPlayer >= fadeStartDistance)
             {
-                canvasGroup.alpha = fadeEndDistance - DistanceFromPlayer / fadeEndDistance - fadeStartDistance;
+                var alphaT = (fadeEndDistance - DistanceFromPlayer) / (fadeEndDistance - fadeStartDistance);
+                var alpha = Mathf.InverseLerp(minimumAlpha, 1f, alphaT);
+                
+                canvasGroup.alpha = alpha;
                 
                 foreach (var sprite in _sprites)
                 {
                     var color = sprite.color;
-                    color.a = fadeEndDistance - DistanceFromPlayer / fadeEndDistance - fadeStartDistance;
+                    color.a = alpha;
                     sprite.color = color;
                 }
+
+                _minAlphaSet = _maxAlphaSet = false;
             }
             else
             {
-                canvasGroup.alpha = 1f;
-                
-                foreach (var sprite in _sprites)
+                if (!_maxAlphaSet)
                 {
-                    var color = sprite.color;
-                    color.a = 1f;
-                    sprite.color = color;
+                    canvasGroup.alpha = 1f;
+
+                    foreach (var sprite in _sprites)
+                    {
+                        var color = sprite.color;
+                        color.a = 1f;
+                        sprite.color = color;
+                    }
+
+                    _maxAlphaSet = true;
                 }
             }
 
-            var parentScale = transform.parent != null ? transform.parent.lossyScale : Vector3.one;
-            var inverseParentScale = new Vector3(1f / parentScale.x, 1f / parentScale.y, 1f / parentScale.z);
-            
-            Debug.Log("dist: " + DistanceFromPlayer);
-            
-            if (DistanceFromPlayer > scaleStartDistance)
-            {
-                var normalizedDistance = 
-                    Mathf.InverseLerp(scaleStartDistance, fadeEndDistance, DistanceFromPlayer);
-                Debug.Log("normDist: " + normalizedDistance);
-                
-                var scaleFactor = Mathf.Lerp(_originalScale.x, distanceScaleMultiplier, normalizedDistance);
-                Debug.Log("scale: " + scaleFactor);
-                
-                transform.localScale = Vector3.Scale(_originalScale * scaleFactor, inverseParentScale);
-            }
-            else
-            {
-                transform.localScale = Vector3.Scale(_originalScale, inverseParentScale);
-            }
+            var scaleFactor = DistanceFromPlayer / scalingAssumedDistance;
+            var curveT = Mathf.InverseLerp(0, fadeEndDistance, DistanceFromPlayer);
+
+            scaleFactor *= scaleDropOffCurve.Evaluate(curveT);
+            _transform.localScale = 
+                scaleFactor < minimumScale ? _originalScale * minimumScale : _originalScale * scaleFactor;
+
         }
     }
 }
