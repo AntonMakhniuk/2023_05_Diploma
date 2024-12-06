@@ -10,7 +10,12 @@ namespace Player.Ship.Tools.Scanner
 
         private void Start()
         {
-            _initialRotation = transform.rotation;
+            _initialRotation = transform.parent.rotation;
+        }
+
+        private void OnEnable()
+        {
+            _initialRotation = transform.parent.rotation;
         }
 
         private void LateUpdate()
