@@ -19,8 +19,7 @@ public class DroneController : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera thirdPersonCamera;
     [SerializeField] private CinemachineFreeLook orbitCamera;
     [Header("Visual Effects")]
-    [SerializeField] private  VisualEffect engine;
-    [SerializeField] private  VisualEffect engine2;
+    [SerializeField] private List<VisualEffect> engineEffects;
 
     private CinemachineBrain _cinemachineBrain;
     private int _priorityDiff = 10;
@@ -49,8 +48,7 @@ public class DroneController : MonoBehaviour
         _playerInputActions.PlayerCamera.DroneOrbitCamera.canceled += _ => ToggleCameras();
 
         _cinemachineBrain = Camera.main.GetComponent<CinemachineBrain>();
-        engine.Stop();
-        engine2.Stop();
+        
     }
     private float CalculateMouseX(Vector3 mousePosition)
     {
@@ -70,25 +68,20 @@ public class DroneController : MonoBehaviour
         
         _mouseX = CalculateMouseX(mousePosition);
         _mouseY = CalculateMouseY(mousePosition);
-        _playerInputActions.PlayerShip.Roll.performed += _ =>_rollAmount = _playerInputActions.PlayerShip.Roll.ReadValue<float>();
-        _playerInputActions.PlayerShip.Roll.canceled += _ =>_rollAmount = _playerInputActions.PlayerShip.Roll.ReadValue<float>() ;
         _playerInputActions.PlayerShip.Thrust.performed += _ => _thrustAmount = _playerInputActions.PlayerShip.Thrust.ReadValue<float>();
-        _playerInputActions.PlayerShip.Thrust.canceled += _ => _thrustAmount = _playerInputActions.PlayerShip.Thrust.ReadValue<float>();
-        _playerInputActions.PlayerShip.Yaw.performed += _ => _yawAmount = _playerInputActions.PlayerShip.Yaw.ReadValue<float>();
-        _playerInputActions.PlayerShip.Yaw.canceled += _ => _yawAmount = _playerInputActions.PlayerShip.Yaw.ReadValue<float>();
+        _playerInputActions.PlayerShip.Thrust.canceled += _ => _thrustAmount = 0f;
+
         _playerInputActions.PlayerShip.Pitch.performed += _ => _pitchAmount = _playerInputActions.PlayerShip.Pitch.ReadValue<float>();
-        _playerInputActions.PlayerShip.Pitch.canceled += _ => _pitchAmount = _playerInputActions.PlayerShip.Pitch.ReadValue<float>();
+        _playerInputActions.PlayerShip.Pitch.canceled += _ => _pitchAmount = 0f;
+
+        _playerInputActions.PlayerShip.Yaw.performed += _ => _yawAmount = _playerInputActions.PlayerShip.Yaw.ReadValue<float>();
+        _playerInputActions.PlayerShip.Yaw.canceled += _ => _yawAmount = 0f;
+
+        _playerInputActions.PlayerShip.Roll.performed += _ => _rollAmount = _playerInputActions.PlayerShip.Roll.ReadValue<float>();
+        _playerInputActions.PlayerShip.Roll.canceled += _ => _rollAmount = 0f;
+
         ApplyMovementForces();
-        _playerInputActions.PlayerShip.Thrust.performed += _ =>
-        {
-            engine.Play();
-            engine2.Play();
-        };
-        _playerInputActions.PlayerShip.Thrust.canceled += _ =>
-        {
-            engine.Stop();
-            engine2.Stop();
-        };
+        UpdateEngineEffects();
     }
 
     private void ApplyMovementForces()
@@ -119,6 +112,60 @@ public class DroneController : MonoBehaviour
         if (!Mathf.Approximately(0f, _pitchAmount))
         {
             _rigidBody.AddForce(transform.up * (pitchForce * _pitchAmount * Time.fixedDeltaTime));
+        }
+    }
+    private void UpdateEngineEffects()
+    {
+        foreach (var engine in engineEffects)
+        {
+            engine.Stop();
+        }
+
+        if (_thrustAmount > 0f)
+        {
+            ActivateEngines(new int[] { 0, 1, 2, 3 });
+        }
+        else if (_thrustAmount < 0f)
+        {
+            ActivateEngines(new int[] { 4, 5 });
+        }
+
+        if (_pitchAmount > 0f)
+        {
+            ActivateEngines(new int[] { 6, 7, 8, 9 }); 
+        }
+        else if (_pitchAmount < 0f)
+        {
+            ActivateEngines(new int[] { 10, 11, 12, 13 });
+        }
+
+        if (_yawAmount > 0f)
+        {
+            ActivateEngines(new int[] { 14, 15, 16, 17 });
+        }
+        else if (_yawAmount < 0f)
+        {
+            ActivateEngines(new int[] { 18, 19, 20, 21 });
+        }
+        if (_rollAmount > 0f)
+        {
+            ActivateEngines(new int[] {10, 11, 12, 13, 18, 19, 20, 21 });
+        }
+        else if (_rollAmount < 0f)
+        {
+            ActivateEngines(new int[] { 10, 11, 12, 13, 14, 15, 16, 17 });
+        }
+    }
+
+    private void ActivateEngines(int[] engineIndices)
+    {
+        foreach (var index in engineIndices)
+        {
+            if (index >= 0 && index < engineEffects.Count)
+            {
+                engineEffects[index].Play();
+                engineEffects[index].SetFloat("duration", +0.5f);
+            }
         }
     }
     private void ToggleCameras()
