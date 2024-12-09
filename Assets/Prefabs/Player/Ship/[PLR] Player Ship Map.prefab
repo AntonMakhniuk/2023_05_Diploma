@@ -739,7 +739,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5598291935534836957}
-  m_Mesh: {fileID: 8547471881871753710, guid: 7827b2d1aa5ddcc4a87b6e25ff28aa0e, type: 3}
+  m_Mesh: {fileID: 6438715599615534934, guid: c75b0208db69b4e40acfdad24a96a945, type: 3}
 --- !u!23 &6566892595893476317
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2096,6 +2096,34 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 8a4637b7-7678-4b82-ad21-17439f72ae79
     m_ActionName: PlayerShipMap/ZoomCamera[/Mouse/scroll/down,/Mouse/scroll/up]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 62c16712-169c-412f-8007-d13377a27282
+    m_ActionName: PlayerShip/ToggleMarker[/Keyboard/4]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8286cb57-4647-4a06-aa1b-f033a19bbbc6
+    m_ActionName: PlayerShip/ToggleScanner[/Keyboard/tab]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f827c38f-a9fe-4abd-b12c-968e23eb7cc2
+    m_ActionName: PlayerShip/Scroll[/Mouse/scroll/up,/Mouse/scroll/down]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2ed60cd4-b949-41b7-93dd-40c068de4109
+    m_ActionName: PlayerCamera/MousePosition[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 10cc2ae2-829f-4196-9093-3db16b263b9d
+    m_ActionName: PlayerCamera/DroneOrbitCamera[/Keyboard/leftCtrl]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9502bada-b2a9-4a78-a794-395368f20342
+    m_ActionName: PlayerShipMap/RotateCamera[/Keyboard/e,/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3cd79e90-fa29-4832-8b46-886f7bb03857
+    m_ActionName: PlayerShipMap/FollowShip[/Keyboard/f]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerShip
@@ -2115,9 +2143,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 0.5
   accelerationRate: 0.3
+  decelerationRate: 4
+  minDampen: 0.1
+  maxDampen: 0.8
   movementStopMargin: 0.05
-  decelerationDistance: 8
-  correctionFactor: 2
   rotationSpeed: 1
   rotationStopMargin: 1
 --- !u!114 &5391779961114595883

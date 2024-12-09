@@ -35,6 +35,9 @@ namespace Player.Ship.Tools.Scanner
         private void Awake()
         {
             _initialScale = new Vector3(boundsRadius, boundsRadius, boundsRadius);
+            
+            Debug.Log(scanBounds);
+            
             _boundsMaterial = scanBounds.GetComponent<MeshRenderer>().material;
             _maskScale = baseMaskScale * boundsRadius / 100;
             _boundsMaterial.SetVector(MaskScale, 
