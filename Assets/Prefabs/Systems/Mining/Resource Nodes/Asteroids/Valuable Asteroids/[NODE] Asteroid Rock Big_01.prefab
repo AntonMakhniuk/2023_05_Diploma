@@ -1150,9 +1150,9 @@ MonoBehaviour:
   minSpawnDistanceOffset: 0
   maxSpawnDistanceOffset: 0.7
   objectScaleInRelationToNode: {x: 0.5, y: 1}
+  minScale: 3
   nodeToSpawnAt: {fileID: 3717007284400026015}
   spawnDelay: 0.5
-  maxRetriesOnOverlap: 100
 --- !u!1 &2108424874975755351
 GameObject:
   m_ObjectHideFlags: 0

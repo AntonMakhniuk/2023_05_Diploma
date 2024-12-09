@@ -365,7 +365,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7192380100177610561}
   - {fileID: 8866370872925034716}
@@ -617,9 +617,9 @@ MonoBehaviour:
   minSpawnDistanceOffset: 0
   maxSpawnDistanceOffset: 0.3
   objectScaleInRelationToNode: {x: 0.5, y: 1}
+  minScale: 1
   nodeToSpawnAt: {fileID: 6605293385103611712}
   spawnDelay: 0.5
-  maxRetriesOnOverlap: 100
 --- !u!1 &4810031930873740870
 GameObject:
   m_ObjectHideFlags: 0

@@ -55,7 +55,25 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ToolPrimary"",
+                    ""name"": ""ToggleMarker"",
+                    ""type"": ""Button"",
+                    ""id"": ""62c16712-169c-412f-8007-d13377a27282"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleScanner"",
+                    ""type"": ""Button"",
+                    ""id"": ""8286cb57-4647-4a06-aa1b-f033a19bbbc6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Primary"",
                     ""type"": ""Button"",
                     ""id"": ""06370757-8d74-438c-a5fc-234cf5f42477"",
                     ""expectedControlType"": ""Button"",
@@ -64,7 +82,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ToolSecondary"",
+                    ""name"": ""Secondary"",
                     ""type"": ""Button"",
                     ""id"": ""b2505daa-6e37-4b97-b0f0-9b1bbd690924"",
                     ""expectedControlType"": ""Button"",
@@ -73,13 +91,22 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ToolThird"",
+                    ""name"": ""Tetrary"",
                     ""type"": ""Button"",
                     ""id"": ""6a6318fa-f9b0-4a83-b1e2-7659e0a3a6ce"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Scroll"",
+                    ""type"": ""Value"",
+                    ""id"": ""f827c38f-a9fe-4abd-b12c-968e23eb7cc2"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""Brakes"",
@@ -134,15 +161,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""ToggleScanner"",
-                    ""type"": ""Button"",
-                    ""id"": ""8286cb57-4647-4a06-aa1b-f033a19bbbc6"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -186,7 +204,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ToolPrimary"",
+                    ""action"": ""Primary"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -197,7 +215,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ToolSecondary"",
+                    ""action"": ""Secondary"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -384,7 +402,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ToolThird"",
+                    ""action"": ""Tetrary"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0d9c4a16-afe4-4eb2-b84e-11290ae956bc"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleMarker"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -398,6 +427,39 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""ToggleScanner"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""222e4686-46c6-437a-8a06-0b1c0cb89731"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Scroll"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""3db6a7db-124e-49e0-9a5e-88267e655f27"",
+                    ""path"": ""<Mouse>/scroll/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Scroll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""de4e012b-d437-41a5-8aa5-8ce88028bc3b"",
+                    ""path"": ""<Mouse>/scroll/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Scroll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -969,16 +1031,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_PlayerShip_ToggleSlot_1 = m_PlayerShip.FindAction("ToggleSlot_1", throwIfNotFound: true);
         m_PlayerShip_ToggleSlot_2 = m_PlayerShip.FindAction("ToggleSlot_2", throwIfNotFound: true);
         m_PlayerShip_ToggleSlot_3 = m_PlayerShip.FindAction("ToggleSlot_3", throwIfNotFound: true);
-        m_PlayerShip_ToolPrimary = m_PlayerShip.FindAction("ToolPrimary", throwIfNotFound: true);
-        m_PlayerShip_ToolSecondary = m_PlayerShip.FindAction("ToolSecondary", throwIfNotFound: true);
-        m_PlayerShip_ToolThird = m_PlayerShip.FindAction("ToolThird", throwIfNotFound: true);
+        m_PlayerShip_ToggleMarker = m_PlayerShip.FindAction("ToggleMarker", throwIfNotFound: true);
+        m_PlayerShip_ToggleScanner = m_PlayerShip.FindAction("ToggleScanner", throwIfNotFound: true);
+        m_PlayerShip_Primary = m_PlayerShip.FindAction("Primary", throwIfNotFound: true);
+        m_PlayerShip_Secondary = m_PlayerShip.FindAction("Secondary", throwIfNotFound: true);
+        m_PlayerShip_Tetrary = m_PlayerShip.FindAction("Tetrary", throwIfNotFound: true);
+        m_PlayerShip_Scroll = m_PlayerShip.FindAction("Scroll", throwIfNotFound: true);
         m_PlayerShip_Brakes = m_PlayerShip.FindAction("Brakes", throwIfNotFound: true);
         m_PlayerShip_Thrust = m_PlayerShip.FindAction("Thrust", throwIfNotFound: true);
         m_PlayerShip_Strafe = m_PlayerShip.FindAction("Strafe", throwIfNotFound: true);
         m_PlayerShip_Pitch = m_PlayerShip.FindAction("Pitch", throwIfNotFound: true);
         m_PlayerShip_Yaw = m_PlayerShip.FindAction("Yaw", throwIfNotFound: true);
         m_PlayerShip_Roll = m_PlayerShip.FindAction("Roll", throwIfNotFound: true);
-        m_PlayerShip_ToggleScanner = m_PlayerShip.FindAction("ToggleScanner", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_CloseWindowOpenPause = m_UI.FindAction("CloseWindowOpenPause", throwIfNotFound: true);
@@ -1073,16 +1137,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerShip_ToggleSlot_1;
     private readonly InputAction m_PlayerShip_ToggleSlot_2;
     private readonly InputAction m_PlayerShip_ToggleSlot_3;
-    private readonly InputAction m_PlayerShip_ToolPrimary;
-    private readonly InputAction m_PlayerShip_ToolSecondary;
-    private readonly InputAction m_PlayerShip_ToolThird;
+    private readonly InputAction m_PlayerShip_ToggleMarker;
+    private readonly InputAction m_PlayerShip_ToggleScanner;
+    private readonly InputAction m_PlayerShip_Primary;
+    private readonly InputAction m_PlayerShip_Secondary;
+    private readonly InputAction m_PlayerShip_Tetrary;
+    private readonly InputAction m_PlayerShip_Scroll;
     private readonly InputAction m_PlayerShip_Brakes;
     private readonly InputAction m_PlayerShip_Thrust;
     private readonly InputAction m_PlayerShip_Strafe;
     private readonly InputAction m_PlayerShip_Pitch;
     private readonly InputAction m_PlayerShip_Yaw;
     private readonly InputAction m_PlayerShip_Roll;
-    private readonly InputAction m_PlayerShip_ToggleScanner;
     public struct PlayerShipActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1090,16 +1156,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @ToggleSlot_1 => m_Wrapper.m_PlayerShip_ToggleSlot_1;
         public InputAction @ToggleSlot_2 => m_Wrapper.m_PlayerShip_ToggleSlot_2;
         public InputAction @ToggleSlot_3 => m_Wrapper.m_PlayerShip_ToggleSlot_3;
-        public InputAction @ToolPrimary => m_Wrapper.m_PlayerShip_ToolPrimary;
-        public InputAction @ToolSecondary => m_Wrapper.m_PlayerShip_ToolSecondary;
-        public InputAction @ToolThird => m_Wrapper.m_PlayerShip_ToolThird;
+        public InputAction @ToggleMarker => m_Wrapper.m_PlayerShip_ToggleMarker;
+        public InputAction @ToggleScanner => m_Wrapper.m_PlayerShip_ToggleScanner;
+        public InputAction @Primary => m_Wrapper.m_PlayerShip_Primary;
+        public InputAction @Secondary => m_Wrapper.m_PlayerShip_Secondary;
+        public InputAction @Tetrary => m_Wrapper.m_PlayerShip_Tetrary;
+        public InputAction @Scroll => m_Wrapper.m_PlayerShip_Scroll;
         public InputAction @Brakes => m_Wrapper.m_PlayerShip_Brakes;
         public InputAction @Thrust => m_Wrapper.m_PlayerShip_Thrust;
         public InputAction @Strafe => m_Wrapper.m_PlayerShip_Strafe;
         public InputAction @Pitch => m_Wrapper.m_PlayerShip_Pitch;
         public InputAction @Yaw => m_Wrapper.m_PlayerShip_Yaw;
         public InputAction @Roll => m_Wrapper.m_PlayerShip_Roll;
-        public InputAction @ToggleScanner => m_Wrapper.m_PlayerShip_ToggleScanner;
         public InputActionMap Get() { return m_Wrapper.m_PlayerShip; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1118,15 +1186,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @ToggleSlot_3.started += instance.OnToggleSlot_3;
             @ToggleSlot_3.performed += instance.OnToggleSlot_3;
             @ToggleSlot_3.canceled += instance.OnToggleSlot_3;
-            @ToolPrimary.started += instance.OnToolPrimary;
-            @ToolPrimary.performed += instance.OnToolPrimary;
-            @ToolPrimary.canceled += instance.OnToolPrimary;
-            @ToolSecondary.started += instance.OnToolSecondary;
-            @ToolSecondary.performed += instance.OnToolSecondary;
-            @ToolSecondary.canceled += instance.OnToolSecondary;
-            @ToolThird.started += instance.OnToolThird;
-            @ToolThird.performed += instance.OnToolThird;
-            @ToolThird.canceled += instance.OnToolThird;
+            @ToggleMarker.started += instance.OnToggleMarker;
+            @ToggleMarker.performed += instance.OnToggleMarker;
+            @ToggleMarker.canceled += instance.OnToggleMarker;
+            @ToggleScanner.started += instance.OnToggleScanner;
+            @ToggleScanner.performed += instance.OnToggleScanner;
+            @ToggleScanner.canceled += instance.OnToggleScanner;
+            @Primary.started += instance.OnPrimary;
+            @Primary.performed += instance.OnPrimary;
+            @Primary.canceled += instance.OnPrimary;
+            @Secondary.started += instance.OnSecondary;
+            @Secondary.performed += instance.OnSecondary;
+            @Secondary.canceled += instance.OnSecondary;
+            @Tetrary.started += instance.OnTetrary;
+            @Tetrary.performed += instance.OnTetrary;
+            @Tetrary.canceled += instance.OnTetrary;
+            @Scroll.started += instance.OnScroll;
+            @Scroll.performed += instance.OnScroll;
+            @Scroll.canceled += instance.OnScroll;
             @Brakes.started += instance.OnBrakes;
             @Brakes.performed += instance.OnBrakes;
             @Brakes.canceled += instance.OnBrakes;
@@ -1145,9 +1222,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Roll.started += instance.OnRoll;
             @Roll.performed += instance.OnRoll;
             @Roll.canceled += instance.OnRoll;
-            @ToggleScanner.started += instance.OnToggleScanner;
-            @ToggleScanner.performed += instance.OnToggleScanner;
-            @ToggleScanner.canceled += instance.OnToggleScanner;
         }
 
         private void UnregisterCallbacks(IPlayerShipActions instance)
@@ -1161,15 +1235,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @ToggleSlot_3.started -= instance.OnToggleSlot_3;
             @ToggleSlot_3.performed -= instance.OnToggleSlot_3;
             @ToggleSlot_3.canceled -= instance.OnToggleSlot_3;
-            @ToolPrimary.started -= instance.OnToolPrimary;
-            @ToolPrimary.performed -= instance.OnToolPrimary;
-            @ToolPrimary.canceled -= instance.OnToolPrimary;
-            @ToolSecondary.started -= instance.OnToolSecondary;
-            @ToolSecondary.performed -= instance.OnToolSecondary;
-            @ToolSecondary.canceled -= instance.OnToolSecondary;
-            @ToolThird.started -= instance.OnToolThird;
-            @ToolThird.performed -= instance.OnToolThird;
-            @ToolThird.canceled -= instance.OnToolThird;
+            @ToggleMarker.started -= instance.OnToggleMarker;
+            @ToggleMarker.performed -= instance.OnToggleMarker;
+            @ToggleMarker.canceled -= instance.OnToggleMarker;
+            @ToggleScanner.started -= instance.OnToggleScanner;
+            @ToggleScanner.performed -= instance.OnToggleScanner;
+            @ToggleScanner.canceled -= instance.OnToggleScanner;
+            @Primary.started -= instance.OnPrimary;
+            @Primary.performed -= instance.OnPrimary;
+            @Primary.canceled -= instance.OnPrimary;
+            @Secondary.started -= instance.OnSecondary;
+            @Secondary.performed -= instance.OnSecondary;
+            @Secondary.canceled -= instance.OnSecondary;
+            @Tetrary.started -= instance.OnTetrary;
+            @Tetrary.performed -= instance.OnTetrary;
+            @Tetrary.canceled -= instance.OnTetrary;
+            @Scroll.started -= instance.OnScroll;
+            @Scroll.performed -= instance.OnScroll;
+            @Scroll.canceled -= instance.OnScroll;
             @Brakes.started -= instance.OnBrakes;
             @Brakes.performed -= instance.OnBrakes;
             @Brakes.canceled -= instance.OnBrakes;
@@ -1188,9 +1271,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Roll.started -= instance.OnRoll;
             @Roll.performed -= instance.OnRoll;
             @Roll.canceled -= instance.OnRoll;
-            @ToggleScanner.started -= instance.OnToggleScanner;
-            @ToggleScanner.performed -= instance.OnToggleScanner;
-            @ToggleScanner.canceled -= instance.OnToggleScanner;
         }
 
         public void RemoveCallbacks(IPlayerShipActions instance)
@@ -1541,16 +1621,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnToggleSlot_1(InputAction.CallbackContext context);
         void OnToggleSlot_2(InputAction.CallbackContext context);
         void OnToggleSlot_3(InputAction.CallbackContext context);
-        void OnToolPrimary(InputAction.CallbackContext context);
-        void OnToolSecondary(InputAction.CallbackContext context);
-        void OnToolThird(InputAction.CallbackContext context);
+        void OnToggleMarker(InputAction.CallbackContext context);
+        void OnToggleScanner(InputAction.CallbackContext context);
+        void OnPrimary(InputAction.CallbackContext context);
+        void OnSecondary(InputAction.CallbackContext context);
+        void OnTetrary(InputAction.CallbackContext context);
+        void OnScroll(InputAction.CallbackContext context);
         void OnBrakes(InputAction.CallbackContext context);
         void OnThrust(InputAction.CallbackContext context);
         void OnStrafe(InputAction.CallbackContext context);
         void OnPitch(InputAction.CallbackContext context);
         void OnYaw(InputAction.CallbackContext context);
         void OnRoll(InputAction.CallbackContext context);
-        void OnToggleScanner(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
