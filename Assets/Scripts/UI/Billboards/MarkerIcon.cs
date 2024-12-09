@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using NaughtyAttributes;
+using Player.Inventory;
 using Player.Ship.Tools.Marker;
 using TMPro;
 using UI.Systems.Miscellaneous;

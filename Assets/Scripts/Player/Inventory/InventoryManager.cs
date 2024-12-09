@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
+using Player.Inventory.Drone_Based_Storage;
+using Player.Ship.Tools.Marker;
 using Scriptable_Object_Templates.Systems.Mining.Resource_Data;
 using UnityEngine;
 
@@ -24,6 +26,18 @@ namespace Player.Inventory
             {
                 Destroy(gameObject);
             }
+
+            Collectable.OnCollectableMarked += HandleCollectableMarked;
+        }
+
+        private void HandleCollectableMarked(object sender, Collectable collectable)
+        {
+            var droneDeliveryStorage = _shipStorageComponents
+                .OfType<DroneDeliveryStorage>()
+                .OrderBy(comp => comp.CurrentlyAssignedCollectableCount)
+                .FirstOrDefault();
+
+            droneDeliveryStorage.AssignCollectable(collectable);
         }
 
         public void RegisterComponent(StorageComponent newComponent)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using NaughtyAttributes;
 using Scriptable_Object_Templates.Systems.Mining.Resource_Data;
 using UnityEngine;
 
@@ -9,7 +10,9 @@ namespace Player.Inventory
     [Serializable]
     public class StorageComponent : MonoBehaviour
     {
+        [Foldout("Storage Data")]
         public ItemCategory[] allowedItemTypes;
+        [Foldout("Storage Data")]
         public float maxCapacity;
 
         private List<ItemStack> _items = new();

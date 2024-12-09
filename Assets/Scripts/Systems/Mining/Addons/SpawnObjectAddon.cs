@@ -29,6 +29,8 @@ namespace Systems.Mining.Addons
         [Foldout("Miscellaneous")]
         [SerializeField] private float spawnDelay = 0.5f;
 
+        private const int MaxScaleTries = 100;
+        
         private Vector3 _baseSpawnPosition;
         private float _nodeScale;
         
@@ -71,12 +73,16 @@ namespace Systems.Mining.Addons
                     Quaternion.Euler(Random.Range(0, 360),
                         Random.Range(0, 360), Random.Range(0, 360)));
 
+                var tryCount = 0;
+                
                 do
                 {
                     ore.transform.localScale 
                         *= _nodeScale * Random.Range(objectScaleInRelationToNode.x, objectScaleInRelationToNode.y);
+
+                    tryCount++;
                 } 
-                while (ore.transform.localScale.x < minScale);
+                while (ore.transform.localScale.x < minScale && tryCount < MaxScaleTries);
                 
                 oreNumber--;
             }

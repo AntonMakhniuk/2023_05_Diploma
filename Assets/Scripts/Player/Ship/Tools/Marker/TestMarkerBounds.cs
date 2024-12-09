@@ -1,4 +1,5 @@
 ﻿using NaughtyAttributes;
+using Player.Inventory;
 using UnityEngine;
 
 namespace Player.Ship.Tools.Marker
@@ -31,7 +32,8 @@ namespace Player.Ship.Tools.Marker
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.TryGetComponent<Collectable>(out var collectable) || collectable.isMarked)
+            if (!other.TryGetComponent<Collectable>(out var collectable) 
+                || collectable.state != CollectableState.Unmarked)
             {
                 return;
             }
@@ -47,7 +49,8 @@ namespace Player.Ship.Tools.Marker
 
         private void OnTriggerExit(Collider other)
         {
-            if (!other.TryGetComponent<Collectable>(out var collectable) || !collectable.isMarked)
+            if (!other.TryGetComponent<Collectable>(out var collectable) 
+                || collectable.state != CollectableState.Unmarked)
             {
                 return;
             }
