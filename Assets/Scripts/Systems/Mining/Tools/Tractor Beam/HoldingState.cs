@@ -1,3 +1,4 @@
+using Systems.Mining.Tools.Tractor_Beam;
 using UnityEngine;
 
 namespace Tools.Tractor_Beam

@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using Testing;
 using Tools.Base_Tools;
+using Tools.Tractor_Beam;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-namespace Tools.Tractor_Beam
+namespace Systems.Mining.Tools.Tractor_Beam
 {
     public class TractorBeam : BaseTurret
     {
@@ -70,6 +71,11 @@ namespace Tools.Tractor_Beam
 
                 yield return null;
             }
+        }
+        
+        protected override void OnActivate()
+        {
+            
         }
         
         protected override void FixedWorkCycle()
@@ -149,6 +155,26 @@ namespace Tools.Tractor_Beam
         protected override void ThirdActionCanceled()
         {
             // No third action
+        }
+
+        protected override void ScrollStarted(InputAction.CallbackContext ctx)
+        {
+            // No scroll action
+        }
+
+        protected override void ScrollPerformed(InputAction.CallbackContext ctx)
+        {
+            // No scroll action
+        }
+
+        protected override void ScrollCanceled(InputAction.CallbackContext ctx)
+        {
+            // No scroll action
+        }
+
+        protected override void OnDeactivate()
+        {
+           
         }
     }
 }

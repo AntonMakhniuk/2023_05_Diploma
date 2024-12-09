@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using NaughtyAttributes;
+using Systems.Mining.Tools.Base_Tools;
 using Tools.Base_Tools;
 using UnityEngine;
 

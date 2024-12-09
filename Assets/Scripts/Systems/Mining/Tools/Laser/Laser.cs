@@ -1,7 +1,9 @@
 using System.Collections;
 using Systems.Mining.Resource_Nodes.Base;
+using Systems.Mining.Tools.Base_Tools;
 using Tools.Base_Tools;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Systems.Mining.Tools.Laser
 {
@@ -78,6 +80,11 @@ namespace Systems.Mining.Tools.Laser
             }
         }
         
+        protected override void OnActivate()
+        {
+            
+        }
+        
         protected override void PrimaryActionStarted()
         {
             if (_isShooting)
@@ -135,6 +142,26 @@ namespace Systems.Mining.Tools.Laser
         protected override void ThirdActionCanceled()
         {
             // No third action
+        }
+
+        protected override void ScrollStarted(InputAction.CallbackContext ctx)
+        {
+            // No scroll action
+        }
+
+        protected override void ScrollPerformed(InputAction.CallbackContext ctx)
+        {
+            // No scroll action
+        }
+
+        protected override void ScrollCanceled(InputAction.CallbackContext ctx)
+        {
+            // No scroll action
+        }
+
+        protected override void OnDeactivate()
+        {
+            
         }
     }
 }
