@@ -3,42 +3,30 @@ using UnityEngine;
 
 public class EnemyLaser : MonoBehaviour
 {
-    [Header("Laser Settings")]
-    [SerializeField] private float laserDamagePerSecond = 10f;
-    [SerializeField] private LineRenderer beam;
+    [Header("Blast Settings")]
+    [SerializeField] private float laserDamage = 10f;
+    [SerializeField] private float blastInterval = 1.0f; 
+    [SerializeField] private GameObject blastPrefab;
     [SerializeField] private Transform muzzlePoint;
-    [SerializeField] private float maxRange = 50f;
-    [SerializeField] private Transform target; 
+    [SerializeField] private Transform target;
 
     [Header("Detection Settings")]
-    [SerializeField] private float sightAngle = 90f; 
+    [SerializeField] private float sightAngle = 90f;
     [SerializeField] private float detectionRange = 50f;
 
     private bool _isShooting;
-    private IEnumerator _shootCoroutine;
-
-    private void Awake()
-    {
-        beam.enabled = false;
-        beam.startWidth = 0.1f;
-        beam.endWidth = 0.1f;
-        _shootCoroutine = ShootCoroutine();
-    }
+    private float _lastBlastTime; 
 
     private void Update()
     {
+        if (target == null) return;
+
         if (InFront() && HaveLineOfSight())
         {
-            if (!_isShooting)
+            if (Time.time >= _lastBlastTime + blastInterval)
             {
-                StartFiring();
-            }
-        }
-        else
-        {
-            if (_isShooting)
-            {
-                StopFiring();
+                ShootBlast();
+                _lastBlastTime = Time.time; 
             }
         }
     }
@@ -53,18 +41,13 @@ public class EnemyLaser : MonoBehaviour
 
     private bool HaveLineOfSight()
     {
-        if (target == null)
-            return false;
-
         RaycastHit hit;
         Vector3 direction = (target.position - muzzlePoint.position).normalized;
 
         if (Physics.Raycast(muzzlePoint.position, direction, out hit, detectionRange))
         {
-            Debug.Log(hit.transform.CompareTag("Player"));
-
             if (hit.transform.CompareTag("Player"))
-            { 
+            {
                 Debug.DrawRay(muzzlePoint.position, direction * hit.distance, Color.red);
                 return true;
             }
@@ -76,45 +59,29 @@ public class EnemyLaser : MonoBehaviour
 
         return false;
     }
-    private void StartFiring()
-    {
-        beam.enabled = true;
-        StartCoroutine(_shootCoroutine);
-        _isShooting = true;
-    }
 
-    private void StopFiring()
+    private void ShootBlast()
     {
-        beam.enabled = false;
-        StopCoroutine(_shootCoroutine);
-        _isShooting = false;
-    }
+        if (target == null) return;
 
-    private IEnumerator ShootCoroutine()
-    {
-        while (true)
+        Vector3 spawnPosition = muzzlePoint.position + muzzlePoint.forward / 2f - muzzlePoint.up / 2f;
+
+        Vector3 targetAdjustedPosition = new Vector3(target.position.x, target.position.y - 0.8f, target.position.z);
+        Vector3 direction = (targetAdjustedPosition - spawnPosition).normalized;
+
+        Debug.DrawRay(spawnPosition, direction * detectionRange, Color.red, 2f);
+
+        if (blastPrefab != null)
         {
-            var beamEndPosition = target.position; 
+            GameObject blast = Instantiate(blastPrefab, spawnPosition, Quaternion.LookRotation(direction));
+            Debug.Log("Blast fired!");
 
-            beam.SetPosition(0, muzzlePoint.position);
-            beam.SetPosition(1, beamEndPosition);
-
-            RaycastHit hit;
-            Vector3 direction = (target.position - muzzlePoint.position).normalized;
-
-            if (Physics.Raycast(muzzlePoint.position, direction, out hit, maxRange))
+            Blast blastScript = blast.GetComponent<Blast>();
+            if (blastScript != null)
             {
-                if (hit.transform.CompareTag("Player"))
-                {
-                    DroneHealth player = hit.transform.GetComponent<DroneHealth>();
-                    if (player != null)
-                    {
-                        player.TakeDamage(laserDamagePerSecond * Time.deltaTime);
-                    }
-                }
+                blastScript.SetDamage(laserDamage); 
             }
-
-            yield return null;
         }
     }
+
 }

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float maxHealth = 100f;
-    [SerializeField] private Slider healthBar; // Reference to the health bar UI
+    [SerializeField] private Slider healthBar; 
     private float currentHealth;
 
     private void Awake()
@@ -36,12 +36,14 @@ public class Enemy : MonoBehaviour
 
     private void UpdateHealthBarVisibility()
     {
-        healthBar.gameObject.SetActive(currentHealth < maxHealth);
+        if (healthBar != null)
+        {
+            healthBar.gameObject.SetActive(currentHealth < maxHealth);
+        }
     }
 
     private void Die()
     {
-        // Optional: Add visual effects, sounds, or other logic here.
-        Destroy(gameObject); // Destroy the enemy
+        Destroy(gameObject);
     }
 }

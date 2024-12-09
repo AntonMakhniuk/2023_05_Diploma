@@ -28,10 +28,9 @@ namespace Tools.Laser
         {
             while (true)
             {
-                var beamEndPosition = 
+                var beamEndPosition =
                     LookAtHitData?.point ?? muzzlePoint.position + transform.forward * maxRange;
 
-                // Set the beam's positions
                 beam.SetPosition(0, muzzlePoint.position);
                 beam.SetPosition(1, beamEndPosition);
 
@@ -40,23 +39,31 @@ namespace Tools.Laser
                     if (LookAtHitData.Value.collider.TryGetComponent<IDestructible>(out var destructible))
                     {
                         Debug.Log(LookAtHitData.Value + " " + LookAtHitData.Value.transform);
-                        
                         destructible.OnLaserInteraction(laserDamagePerSecond * Time.deltaTime);
-                    } else
+                    }
+                    else
                     {
-                     
                         Enemy enemy = LookAtHitData.Value.collider.GetComponent<Enemy>();
                         if (enemy != null)
                         {
                             enemy.TakeDamage(laserDamagePerSecond * Time.deltaTime);
                         }
+                        else
+                        {
+                            HomingRocket rocket = LookAtHitData.Value.collider.GetComponent<HomingRocket>();
+                            if (rocket != null)
+                            {
+                                rocket.OnLaserInteraction(laserDamagePerSecond * Time.deltaTime);
+                            }
+                        }
                     }
                 }
-                
+
                 yield return null;
             }
         }
-        
+
+
         protected override void PrimaryActionStarted()
         {
             if (_isShooting)

@@ -13,25 +13,17 @@ public class DroneHealth : MonoBehaviour
         UpdateHealthBar();
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Enemy"))
-        {
-            TakeDamage(10f);
-        }
-    }
 
-
-    public void TakeDamage(float damagePercentage)
+    public void TakeDamage(float damage)
     {
-        float damageAmount = maxHealth * (damagePercentage / 100);
-        currentHealth -= damageAmount;
+        currentHealth -= damage; 
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         UpdateHealthBar();
 
+        Debug.Log(damage);
         if (currentHealth <= 0)
         {
-            // Handle the drone being destroyed or game over state
+
             Debug.Log("Drone Destroyed!");
         }
     }
