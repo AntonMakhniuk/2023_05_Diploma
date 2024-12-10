@@ -74,17 +74,17 @@ namespace Systems.Mining.Tools.Bomb_Launcher
             // No action on end
         }
 
-        protected override void ThirdActionStarted()
+        protected override void TetriaryActionStarted()
         {
             // No third action
         }
 
-        protected override void ThirdActionPerformed()
+        protected override void TetriaryActionPerformed()
         {
             // No third action
         }
 
-        protected override void ThirdActionCanceled()
+        protected override void TetriaryActionCanceled()
         {
             // No third action
         }

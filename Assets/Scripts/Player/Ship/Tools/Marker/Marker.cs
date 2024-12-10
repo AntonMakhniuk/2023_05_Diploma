@@ -129,17 +129,17 @@ namespace Player.Ship.Tools.Marker
             
         }
 
-        protected override void ThirdActionStarted()
+        protected override void TetriaryActionStarted()
         {
             
         }
 
-        protected override void ThirdActionPerformed()
+        protected override void TetriaryActionPerformed()
         {
             
         }
 
-        protected override void ThirdActionCanceled()
+        protected override void TetriaryActionCanceled()
         {
             
         }

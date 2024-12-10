@@ -35,13 +35,13 @@ namespace Building.Structures
 
         private static IEnumerator SpeedBoostCoroutine()
         {
-            PlayerMovement.Instance.SpeedModifier *= AccelerationPercent;
+            //PlayerMovement.Instance.SpeedModifier *= AccelerationPercent;
                 
             _accelerationCount++;
 
             yield return new WaitForSeconds(AccelerationLength);
 
-            PlayerMovement.Instance.SpeedModifier /= AccelerationPercent;
+            //PlayerMovement.Instance.SpeedModifier /= AccelerationPercent;
 
             _accelerationCount--;
         }

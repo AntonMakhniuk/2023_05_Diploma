@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Player;
+using Player.Movement.Miscellaneous;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -26,9 +27,9 @@ namespace Systems.Mining.Tools.Base_Tools
             PlayerActions.InputActions.PlayerShip.Secondary.started += SecondaryActionStarted;
             PlayerActions.InputActions.PlayerShip.Secondary.performed += SecondaryActionPerformed;
             PlayerActions.InputActions.PlayerShip.Secondary.canceled += SecondaryActionCanceled;
-            PlayerActions.InputActions.PlayerShip.Tetrary.started += ThirdActionStarted;
-            PlayerActions.InputActions.PlayerShip.Tetrary.performed += ThirdActionPerformed;
-            PlayerActions.InputActions.PlayerShip.Tetrary.canceled += ThirdActionCanceled;
+            PlayerActions.InputActions.PlayerShip.Tetriary.started += TetriaryActionStarted;
+            PlayerActions.InputActions.PlayerShip.Tetriary.performed += TetriaryActionPerformed;
+            PlayerActions.InputActions.PlayerShip.Tetriary.canceled += TetriaryActionCanceled;
             PlayerActions.InputActions.PlayerShip.Scroll.started += ScrollActionStarted;
             PlayerActions.InputActions.PlayerShip.Scroll.performed += ScrollActionPerformed;
             PlayerActions.InputActions.PlayerShip.Scroll.canceled += ScrollActionCanceled;
@@ -130,35 +131,35 @@ namespace Systems.Mining.Tools.Base_Tools
 
         protected abstract void SecondaryActionCanceled();
         
-        private void ThirdActionStarted(InputAction.CallbackContext _)
+        private void TetriaryActionStarted(InputAction.CallbackContext _)
         {
             if (_isActiveTool)
             {
-                ThirdActionStarted();
+                TetriaryActionStarted();
             }
         }
 
-        protected abstract void ThirdActionStarted();
+        protected abstract void TetriaryActionStarted();
         
-        private void ThirdActionPerformed(InputAction.CallbackContext _)
+        private void TetriaryActionPerformed(InputAction.CallbackContext _)
         {
             if (_isActiveTool)
             {
-                ThirdActionPerformed();
+                TetriaryActionPerformed();
             }
         }
         
-        protected abstract void ThirdActionPerformed();
+        protected abstract void TetriaryActionPerformed();
         
-        private void ThirdActionCanceled(InputAction.CallbackContext _)
+        private void TetriaryActionCanceled(InputAction.CallbackContext _)
         {
             if (_isActiveTool)
             {
-                ThirdActionCanceled();
+                TetriaryActionCanceled();
             }
         }
 
-        protected abstract void ThirdActionCanceled();
+        protected abstract void TetriaryActionCanceled();
         
         private void ScrollActionStarted(InputAction.CallbackContext ctx)
         {
@@ -250,9 +251,9 @@ namespace Systems.Mining.Tools.Base_Tools
             PlayerActions.InputActions.PlayerShip.Secondary.started -= SecondaryActionStarted;
             PlayerActions.InputActions.PlayerShip.Secondary.performed -= SecondaryActionPerformed;
             PlayerActions.InputActions.PlayerShip.Secondary.canceled -= SecondaryActionCanceled;
-            PlayerActions.InputActions.PlayerShip.Tetrary.started -= ThirdActionStarted;
-            PlayerActions.InputActions.PlayerShip.Tetrary.performed -= ThirdActionPerformed;
-            PlayerActions.InputActions.PlayerShip.Tetrary.canceled -= ThirdActionCanceled;
+            PlayerActions.InputActions.PlayerShip.Tetriary.started -= TetriaryActionStarted;
+            PlayerActions.InputActions.PlayerShip.Tetriary.performed -= TetriaryActionPerformed;
+            PlayerActions.InputActions.PlayerShip.Tetriary.canceled -= TetriaryActionCanceled;
             PlayerActions.InputActions.PlayerShip.Scroll.started -= ScrollActionStarted;
             PlayerActions.InputActions.PlayerShip.Scroll.performed -= ScrollActionPerformed;
             PlayerActions.InputActions.PlayerShip.Scroll.canceled -= ScrollActionCanceled;
