@@ -1,27 +1,45 @@
 using System.Collections;
 using Cinemachine;
+using NaughtyAttributes;
+using Player.Movement.Miscellaneous;
 using Player.Ship;
-using Third_Party.Scripts;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-namespace Player.Movement
+namespace Player.Movement.Global_Map_Movement
 {
     public class MapCameraMovement : MonoBehaviour
     {
-        [SerializeField] private Rigidbody pivotRigidBody;
-        [SerializeField] private float movementSpeed = 100;
-        [SerializeField] private float maxReturnSpeed = 20f;
-        [SerializeField] private float returnAcceleration = 5f;
-        [SerializeField] private float returnDecelerationDistance = 5f;
-        [SerializeField] private float rotationSpeed = 100;
-        [SerializeField] private float zoomSpeed = 0.8f;
-        [SerializeField] private float minZoom = 5, maxZoom = 20, defaultZoom = 15;
-        [SerializeField] private float zoomSmoothTime = 0.2f;
-        [SerializeField] [OnChangedCall(nameof(HandleFollowModeChanged))]
+        [Foldout("Camera Data")] [SerializeField] 
+        private Rigidbody pivotRigidBody;
+        
+        [Foldout("Camera Movement Data")] [SerializeField] 
+        private float movementSpeed = 100;
+        [Foldout("Camera Movement Data")] [SerializeField] 
+        private float maxReturnSpeed = 20f;
+        [Foldout("Camera Movement Data")] [SerializeField] 
+        private float returnAcceleration = 5f;
+        [Foldout("Camera Movement Data")] [SerializeField] 
+        private float returnDecelerationDistance = 5f;
+        
+        [Foldout("Camera Rotation Data")] [SerializeField] 
+        private float rotationSpeed = 100;
+
+        [Foldout("Camera Zoom Data")] [SerializeField]
+        private float zoomSpeed = 0.8f;
+        [Foldout("Camera Zoom Data")] [SerializeField]
+        private float minZoom = 5;
+        [Foldout("Camera Zoom Data")] [SerializeField]
+        private float maxZoom = 20; 
+        [Foldout("Camera Zoom Data")] [SerializeField]
+        private float defaultZoom = 15;
+        [Foldout("Camera Zoom Data")] [SerializeField] 
+        private float zoomSmoothTime = 0.2f;
+        
         // Should not be changed directly unless you know what you're doing,
         // instead use the property so that HandleFollowModeChanged is called consistently
+        [Foldout("Camera Data")] [SerializeField] [OnValueChanged(nameof(HandleFollowModeChanged))]
         private bool cameraFollowsShipMovement;
         
         // For use anywhere outside the inspector

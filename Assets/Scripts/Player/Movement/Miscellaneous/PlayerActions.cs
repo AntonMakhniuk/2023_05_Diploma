@@ -1,4 +1,4 @@
-﻿namespace Player
+﻿namespace Player.Movement.Miscellaneous
 {
     public static class PlayerActions
     {

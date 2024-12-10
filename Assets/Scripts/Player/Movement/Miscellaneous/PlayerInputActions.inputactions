@@ -69,7 +69,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Tetrary",
+                    "name": "Tetriary",
                     "type": "Button",
                     "id": "6a6318fa-f9b0-4a83-b1e2-7659e0a3a6ce",
                     "expectedControlType": "Button",
@@ -139,6 +139,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Boost",
+                    "type": "Button",
+                    "id": "35fa74d4-4618-45df-add9-3af1915b057b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -299,7 +308,7 @@
                 {
                     "name": "positive",
                     "id": "8e62f3be-6868-4f20-8451-b59dcbd09003",
-                    "path": "<Keyboard>/leftShift",
+                    "path": "<Keyboard>/leftCtrl",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -380,7 +389,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Tetrary",
+                    "action": "Tetriary",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -438,6 +447,17 @@
                     "action": "Scroll",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "8981f636-3aae-4f0b-a029-f802cb286843",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Boost",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -687,7 +707,7 @@
                 {
                     "name": "",
                     "id": "321b3fba-90f6-4395-b9a4-11a3dd1e85c2",
-                    "path": "<Keyboard>/leftCtrl",
+                    "path": "<Keyboard>/leftAlt",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

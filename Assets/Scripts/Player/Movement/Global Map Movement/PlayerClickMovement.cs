@@ -1,9 +1,10 @@
 using System.Collections;
+using Player.Movement.Miscellaneous;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-namespace Player.Movement
+namespace Player.Movement.Global_Map_Movement
 {
     public class PlayerClickMovement : MonoBehaviour
     {

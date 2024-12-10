@@ -1,7 +1,9 @@
 using System;
 using UnityEngine;
 
-namespace Player.Movement
+// DEPRECATED
+
+namespace Player.Movement.Miscellaneous
 {
     public class FuelSystem : MonoBehaviour
     {
