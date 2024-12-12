@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using Tools.Base_Tools;
-using Tools.Tractor_Beam;
+using Player.Ship.Tools.Base_Tools;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Systems.Mining.Tools.Tractor_Beam
+namespace Player.Ship.Tools.Tractor_Beam
 {
     public class TractorBeam : BaseTurret
     {

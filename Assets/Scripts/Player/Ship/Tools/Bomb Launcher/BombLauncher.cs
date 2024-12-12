@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using Tools.Base_Tools;
+using Player.Ship.Tools.Base_Tools;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Systems.Mining.Tools.Bomb_Launcher
+namespace Player.Ship.Tools.Bomb_Launcher
 {
     // TODO: Change it so holding down LMB makes the bomb fire farther, adjustable fire length style
     public class BombLauncher : BaseTurret

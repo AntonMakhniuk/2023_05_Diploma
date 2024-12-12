@@ -1,10 +1,9 @@
 ﻿using System.Collections;
-using Player;
 using Player.Movement.Miscellaneous;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Systems.Mining.Tools.Base_Tools 
+namespace Player.Ship.Tools.Base_Tools 
 {
     public abstract class BaseTool : MonoBehaviour
     {

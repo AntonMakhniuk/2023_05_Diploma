@@ -1,6 +1,4 @@
-using Systems.Mining.Tools.Tractor_Beam;
-
-namespace Tools.Tractor_Beam
+namespace Player.Ship.Tools.Tractor_Beam
 {
     public class IdleState : BaseTractorBeamState
     {

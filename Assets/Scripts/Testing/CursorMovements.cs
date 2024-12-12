@@ -1,6 +1,6 @@
 using Player;
 using Player.Movement.Miscellaneous;
-using Systems.Mining.Tools.Miscellaneous;
+using Player.Ship.Tools.Miscellaneous;
 using UnityEngine;
 
 namespace Testing

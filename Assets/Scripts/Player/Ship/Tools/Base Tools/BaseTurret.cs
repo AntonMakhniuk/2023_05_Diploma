@@ -1,7 +1,6 @@
-﻿using Systems.Mining.Tools.Base_Tools;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Tools.Base_Tools
+namespace Player.Ship.Tools.Base_Tools
 {
     public abstract class BaseTurret : BaseTool
     {

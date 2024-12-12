@@ -1,6 +1,6 @@
 ﻿using System;
 using NaughtyAttributes;
-using Systems.Mining.Tools.Base_Tools;
+using Player.Ship.Tools.Base_Tools;
 using UnityEngine;
 using UnityEngine.InputSystem;
 

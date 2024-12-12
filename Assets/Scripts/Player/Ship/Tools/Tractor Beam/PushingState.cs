@@ -1,7 +1,6 @@
-using Systems.Mining.Tools.Tractor_Beam;
 using UnityEngine;
 
-namespace Tools.Tractor_Beam
+namespace Player.Ship.Tools.Tractor_Beam
 {
     public class PushingState : BaseTractorBeamState
     {

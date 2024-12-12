@@ -1,9 +1,8 @@
-using Player;
 using Player.Movement.Miscellaneous;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Systems.Mining.Tools.Miscellaneous
+namespace Player.Ship.Tools.Miscellaneous
 {
     public class Crosshair : MonoBehaviour
     { 

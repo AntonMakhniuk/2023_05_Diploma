@@ -1,11 +1,10 @@
 using System.Collections;
+using Player.Ship.Tools.Base_Tools;
 using Systems.Mining.Resource_Nodes.Base;
-using Systems.Mining.Tools.Base_Tools;
-using Tools.Base_Tools;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Systems.Mining.Tools.Laser
+namespace Player.Ship.Tools.Laser
 {
     public class Laser : BaseTurret
     {

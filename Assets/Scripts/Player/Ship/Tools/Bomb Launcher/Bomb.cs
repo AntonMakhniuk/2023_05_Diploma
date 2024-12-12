@@ -1,12 +1,10 @@
 using System;
 using System.Collections;
-using Systems.Mining.Resource_Nodes;
+using Player.Ship.Tools.Base_Tools;
 using Systems.Mining.Resource_Nodes.Base;
-using Systems.Mining.Tools.Base_Tools;
-using Tools.Base_Tools;
 using UnityEngine;
 
-namespace Systems.Mining.Tools.Bomb_Launcher
+namespace Player.Ship.Tools.Bomb_Launcher
 {
     public class Bomb : MonoBehaviour
     {
