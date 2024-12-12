@@ -232,6 +232,10 @@ namespace Player.Ship.Tools.Base_Tools
                 return;
             }
 
+            PrimaryActionCanceled();
+            SecondaryActionCanceled();
+            TetriaryActionCanceled();
+            
             OnDeactivate();
             
             StopCoroutine(_workCoroutine);

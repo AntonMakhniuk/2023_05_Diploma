@@ -160,7 +160,7 @@ namespace Player.Ship.Tools.Laser
 
         protected override void OnDeactivate()
         {
-            
+
         }
     }
 }
