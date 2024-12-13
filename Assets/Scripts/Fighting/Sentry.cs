@@ -5,13 +5,15 @@ public class Sentry : MonoBehaviour
 {
     [Header("Rocket Settings")]
     [SerializeField] private GameObject rocketPrefab; // Prefab for the rocket
-    [SerializeField] private Transform firePoint; // Point from where rockets are fired
+    [SerializeField] private Transform firePoint1; // First fire point
+    [SerializeField] private Transform firePoint2; // Second fire point
     [SerializeField] private float fireInterval = 2.0f; // Time interval between firing rockets
     [SerializeField] private Transform target; // Player target
     [SerializeField] private int maxFiredRockets = 5; // Maximum number of active rockets
 
     private int _activeRockets = 0; // Counter for active rockets
     private bool _isFiring = false; // Ensure only one coroutine runs at a time
+    private bool _useFirstFirePoint = true; // Toggle for alternating fire points
 
     private void Start()
     {
@@ -32,23 +34,32 @@ public class Sentry : MonoBehaviour
 
     private void FireRocket()
     {
-        if (rocketPrefab != null && firePoint != null)
+        if (rocketPrefab != null)
         {
-            // Instantiate the rocket at the fire point
-            GameObject rocket = Instantiate(rocketPrefab, firePoint.position, firePoint.rotation);
+            // Determine the current fire point to use
+            Transform currentFirePoint = _useFirstFirePoint ? firePoint1 : firePoint2;
 
-            // Increment the active rocket count
-            _activeRockets++;
-
-            // Assign the target to the rocket
-            HomingRocket rocketScript = rocket.GetComponent<HomingRocket>();
-            if (rocketScript != null)
+            if (currentFirePoint != null)
             {
-                rocketScript.SetTarget(target);
-                rocketScript.SetSentry(this); // Pass reference to this sentry
+                // Instantiate the rocket at the selected fire point
+                GameObject rocket = Instantiate(rocketPrefab, currentFirePoint.position, currentFirePoint.rotation);
+
+                // Increment the active rocket count
+                _activeRockets++;
+
+                // Assign the target to the rocket
+                HomingRocket rocketScript = rocket.GetComponent<HomingRocket>();
+                if (rocketScript != null)
+                {
+                    rocketScript.SetTarget(target);
+                    rocketScript.SetSentry(this); // Pass reference to this sentry
+                }
+
+                Debug.Log($"Rocket fired from {currentFirePoint.name}!");
             }
 
-            Debug.Log("Rocket fired!");
+            // Toggle fire point for next rocket
+            _useFirstFirePoint = !_useFirstFirePoint;
         }
     }
 

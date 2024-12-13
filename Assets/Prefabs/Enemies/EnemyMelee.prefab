@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6767565176443003261}
   - component: {fileID: 1537507541649749385}
   - component: {fileID: 1129860403763261708}
+  - component: {fileID: -5335848016695696941}
   m_Layer: 0
   m_Name: EnemyMelee
   m_TagString: Untagged
@@ -84,6 +85,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-5335848016695696941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779388377293232428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95c859bf7e48ca54490a73080b4c53a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  movementSpeed: 20
+  rotationalDamp: 0.9
 --- !u!1 &3166192829880894288
 GameObject:
   m_ObjectHideFlags: 0

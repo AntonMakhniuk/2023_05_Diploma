@@ -58,7 +58,6 @@ public class HomingRocket : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Check if the rocket hit the target layer (e.g., Player)
         if (((1 << other.gameObject.layer) & targetLayer) != 0)
         {
             Debug.Log($"Rocket hit: {other.name}");
