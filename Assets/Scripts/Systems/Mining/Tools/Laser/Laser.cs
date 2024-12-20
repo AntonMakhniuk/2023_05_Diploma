@@ -78,7 +78,6 @@ namespace Tools.Laser
 
         protected override void PrimaryActionPerformed()
         {
-            // No action on performed
         }
 
         protected override void PrimaryActionCanceled()
@@ -95,32 +94,26 @@ namespace Tools.Laser
 
         protected override void SecondaryActionStarted()
         {
-            // No secondary action
         }
 
         protected override void SecondaryActionPerformed()
         {
-            // No secondary action
         }
 
         protected override void SecondaryActionCanceled()
         {
-            // No secondary action
         }
 
         protected override void ThirdActionStarted()
         {
-            // No third action
         }
 
         protected override void ThirdActionPerformed()
         {
-            // No third action
         }
 
         protected override void ThirdActionCanceled()
         {
-            // No third action
         }
     }
 }

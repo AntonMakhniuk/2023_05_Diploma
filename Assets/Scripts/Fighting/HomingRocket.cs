@@ -26,12 +26,10 @@ public class HomingRocket : MonoBehaviour
     {
         if (target == null) return;
 
-        // Rotate toward the target
         Vector3 direction = (target.position - _transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         _transform.rotation = Quaternion.Slerp(_transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
 
-        // Move forward
         _transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
 
