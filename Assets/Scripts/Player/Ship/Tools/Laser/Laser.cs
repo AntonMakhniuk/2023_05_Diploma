@@ -10,6 +10,7 @@ namespace Player.Ship.Tools.Laser
     {
         [SerializeField] private float laserDamagePerSecond = 100f;
         [SerializeField] private LineRenderer beam;
+        [SerializeField] private Transform target;
 
         private IEnumerator _shootCoroutine;
         private bool _isShooting;
@@ -28,6 +29,8 @@ namespace Player.Ship.Tools.Laser
             Collider lastHitCollider = null;
             ResourceNodeWithHealth lastNodeWithHealth = null;
             ResourceNode lastNode = null;
+            Enemy lastEnemy = null;
+            HomingRocket lastHomingRocket = null;
             
             while (true)
             {
@@ -55,6 +58,14 @@ namespace Player.Ship.Tools.Laser
                         {
                             lastNode = node;
                         }
+                        else if (currCollider.TryGetComponent<Enemy>(out var enemy))
+                        {
+                            lastEnemy = enemy;
+                        }
+                        else if (currCollider.TryGetComponent<HomingRocket>(out var homingRocket))
+                        {
+                            lastHomingRocket = homingRocket;
+                        }
 
                         lastHitCollider = currCollider;
                     }
@@ -67,12 +78,22 @@ namespace Player.Ship.Tools.Laser
                     {
                         lastNode.Interact(ToolType.Laser);
                     }
+                    else if (lastEnemy != null)
+                    {
+                        lastEnemy.TakeDamage(laserDamagePerSecond * Time.deltaTime);
+                    }
+                    else if (lastHomingRocket != null)
+                    {
+                        lastHomingRocket.OnLaserInteraction(laserDamagePerSecond * Time.deltaTime);
+                    }
                 }
                 else
                 {
                     lastHitCollider = null;
                     lastNodeWithHealth = null;
                     lastNode = null;
+                    lastEnemy = null;
+                    lastHomingRocket = null;
                 }
                 
                 yield return null;
