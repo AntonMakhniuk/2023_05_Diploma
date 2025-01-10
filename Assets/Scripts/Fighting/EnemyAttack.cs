@@ -4,16 +4,36 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
-    [SerializeField] private Transform target; 
-    private Transform _transform; 
+    private Transform target; 
+    private Transform _transform;
 
     private void Start()
     {
         _transform = transform;
+
+        GameObject targetObject = GameObject.FindGameObjectWithTag("Player");
+
+        if (targetObject != null)
+        {
+            Transform droneBody = targetObject.transform.Find("DroneBody");
+            if (droneBody != null)
+            {
+                target = droneBody;
+            }
+            else
+            {
+                Debug.LogError("DroneBody not found as a child of PlayerDroneSetup!");
+            }
+        }
+        else
+        {
+            Debug.LogError("Player tag not found in the scene!");
+        }
     }
 
     private void Update()
     {
+        if (target == null) return;
         InFront();
     }
 
