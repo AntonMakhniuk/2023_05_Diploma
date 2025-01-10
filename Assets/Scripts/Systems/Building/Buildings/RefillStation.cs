@@ -1,9 +1,10 @@
 using System.Collections;
 using Building.Buildings.Base_Classes;
 using Player.Movement;
+using Player.Movement.Miscellaneous;
 using Player.Ship;
-using Resource_Nodes.Gas_Cloud;
 using Scriptable_Object_Templates.Resources;
+using Systems.Mining.Resource_Nodes.Gas_Cloud;
 using UnityEngine;
 
 namespace Building.Structures
@@ -67,10 +68,11 @@ namespace Building.Structures
                     continue;
                 }
 
-                if (gasCloudNode.associatedResource.resourceType != ResourceType.FuelGas)
-                {
-                    continue;
-                }
+                // TODO: fix later
+                // if (gasCloudNode.associatedResourceData.resourceType != ResourceType.FuelGas)
+                // {
+                //     continue;
+                // }
 
                 var distanceFromCloud
                     = Vector3.Distance(transform.position, overlappingCollider.transform.position);

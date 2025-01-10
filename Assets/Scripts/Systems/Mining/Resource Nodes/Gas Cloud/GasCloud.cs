@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using Systems.Mining.Resource_Nodes.Base;
 using UnityEngine;
 
-namespace Resource_Nodes.Gas_Cloud
+namespace Systems.Mining.Resource_Nodes.Gas_Cloud
 {
     public class GasCloud : ResourceNode
     {
@@ -27,6 +28,16 @@ namespace Resource_Nodes.Gas_Cloud
             }
             
             gasParticleSystem.SetTriggerParticles(ParticleSystemTriggerEventType.Enter,_particles);
+        }
+
+        protected override void OnLaserInteraction()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override void OnBombInteraction()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

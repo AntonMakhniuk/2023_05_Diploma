@@ -2,6 +2,7 @@
 using System.Linq;
 using Cinemachine;
 using Player;
+using Player.Movement.Miscellaneous;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

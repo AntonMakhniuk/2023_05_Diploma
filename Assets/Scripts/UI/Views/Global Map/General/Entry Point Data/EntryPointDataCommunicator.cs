@@ -13,14 +13,12 @@ namespace UI.Views.Global_Map.General.Entry_Point_Data
         
         void Start()
         {
-            GlobalMapManager.Instance.OnRelayPlayerShipEnteredEntryPointProximity += ShowEntryPointData;
-            GlobalMapManager.Instance.OnRelayPlayerShipLeftEntryPointProximity += HideEntryPointData;
+            EntryPointManager.Instance.OnRelayPlayerShipEnteredEntryPointProximity += ShowEntryPointData;
+            EntryPointManager.Instance.OnRelayPlayerShipLeftEntryPointProximity += HideEntryPointData;
         }
 
         private void ShowEntryPointData(object sender, EntryPoint entryPoint)
-        {
-            Debug.Log(1);
-            
+        {   
             PanelManager.ToggleParentPanel(entryPointUIPanel);
             
             entryPointUIManager.UpdateEntryPointData(entryPoint);
@@ -28,15 +26,13 @@ namespace UI.Views.Global_Map.General.Entry_Point_Data
 
         private void HideEntryPointData(object sender, EntryPoint _)
         {
-            Debug.Log(2);
-            
             PanelManager.ToggleParentPanel(entryPointUIPanel);
         }
 
         private void OnDestroy()
         {
-            GlobalMapManager.Instance.OnRelayPlayerShipEnteredEntryPointProximity -= ShowEntryPointData;
-            GlobalMapManager.Instance.OnRelayPlayerShipLeftEntryPointProximity -= HideEntryPointData;
+            EntryPointManager.Instance.OnRelayPlayerShipEnteredEntryPointProximity -= ShowEntryPointData;
+            EntryPointManager.Instance.OnRelayPlayerShipLeftEntryPointProximity -= HideEntryPointData;
         }
     }
 }

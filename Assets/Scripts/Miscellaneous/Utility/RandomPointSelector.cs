@@ -6,22 +6,33 @@ namespace Miscellaneous.Utility
 {
     public static class RandomPointSelector
     {
-        public static List<Vector3> GenerateRandomPointsOnMesh(Mesh targetMesh, int numOfPoints, float minDistance)
+        public static List<(Vector3 position, Quaternion rotation)> 
+            GenerateRandomPointsOnMesh(Mesh targetMesh, int numOfPoints, float minDistance)
         {
-            var selectedPoints = new List<Vector3>();
+            var selectedPoints = new List<(Vector3 position, Quaternion rotation)>();
             var vertices = targetMesh.vertices;
             var triangles = targetMesh.triangles;
-            
-            for (int i = 0; i < numOfPoints; i++)
-            {
-                var pointCoords = GetRandomPointOnMesh(vertices, triangles);
 
-                while (!IsPointFarEnough(pointCoords, selectedPoints, minDistance))
+            for (var i = 0; i < numOfPoints; i++)
+            {
+                Vector3 pointCoords;
+
+                do
                 {
                     pointCoords = GetRandomPointOnMesh(vertices, triangles);
-                }
+                } 
+                while (!IsPointFarEnough(pointCoords, selectedPoints
+                           .Select(p => p.position).ToList(), minDistance));
+
+                var center = vertices
+                    .Aggregate(Vector3.zero, (current, vertex) => current + vertex);
+                center /= vertices.Length;
                 
-                selectedPoints.Add(pointCoords);
+                var centerToPosition = (pointCoords - center).normalized;
+                var tangent = Vector3.Cross(centerToPosition, Vector3.up).normalized;
+                var rotation = Quaternion.LookRotation(tangent, centerToPosition);
+                
+                selectedPoints.Add((pointCoords, rotation));
             }
 
             return selectedPoints;
@@ -36,18 +47,11 @@ namespace Miscellaneous.Utility
             var vert2 = vertices[triangles[randomTriangleIndex + 1]];
             var vert3 = vertices[triangles[randomTriangleIndex + 2]];
 
-            // Barycentric coordinate weights, with the third being implicit
-            var weight1 = Random.value;
-            var weight2 = Random.value;
-
-            // Inverting the weights if they are outside the triangle
-            if (weight1 + weight2 > 1)
-            {
-                weight1 = 1 - weight1;
-                weight2 = 1 - weight2;
-            }
-
-            return vert1 + weight1 * (vert2 - vert1) + weight2 * (vert3 - vert1);
+            var rand1 = Mathf.Sqrt(Random.value);
+            var rand2 = Random.value;
+            var randomPoint = (1 - rand1) * vert1 + rand1 * (1 - rand2) * vert2 + rand1 * rand2 * vert3;
+            
+            return randomPoint;
         }
         
         private static bool IsPointFarEnough(Vector3 point, IEnumerable<Vector3> selectedPoints, float minDistance)

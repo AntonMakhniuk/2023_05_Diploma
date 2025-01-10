@@ -6,7 +6,7 @@ namespace Production.Crafting
     [Serializable]
     public class ResourceQuantityAssociation
     {
-        public Resource resource;
+        public ResourceData resourceData;
         public int quantity;
     }
 }

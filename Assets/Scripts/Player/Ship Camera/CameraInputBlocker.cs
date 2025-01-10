@@ -1,4 +1,6 @@
-﻿namespace Player.Ship_Camera
+﻿using Player.Movement.Miscellaneous;
+
+namespace Player.Ship_Camera
 {
     public static class CameraInputBlocker
     {

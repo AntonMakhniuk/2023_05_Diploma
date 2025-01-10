@@ -5,6 +5,7 @@ using Production.Crafting;
 using Production.Systems;
 using Scriptable_Object_Templates;
 using Scriptable_Object_Templates.Resources;
+using Scriptable_Object_Templates.Systems.Mining.Resource_Data;
 using UnityEngine;
 
 namespace Production.Challenges.Resource_Specific

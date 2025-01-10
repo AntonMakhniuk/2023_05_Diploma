@@ -1,30 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
+using NaughtyAttributes;
 using Scriptable_Object_Templates.Singletons;
+using Systems.Mining.Resource_Nodes.Base;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Resource_Nodes.Asteroid
+namespace Systems.Mining.Resource_Nodes.Asteroid
 {
     public class AsteroidSpawner : MonoBehaviour
     {
-        [SerializeField] private int startingNumberOfAsteroids = 10;
-        [SerializeField] private int maxNumberOfAsteroids = 100;
-
-        private readonly List<Asteroid> _currentAsteroids = new();
-        
+        [Foldout("Spawn Zone Properties")]
         [SerializeField] private Vector3 spawnZoneSize = new(10f, 10f, 10f);
+        [Foldout("Spawn Zone Properties")]
         [SerializeField] private float spawnInterval = 5f;
-    
+        [Foldout("Spawn Zone Properties")]
         [SerializeField] private SpawnShape spawnShape = SpawnShape.Rectangle;
+        [Foldout("Spawn Zone Properties")] [ShowIf("spawnShape", SpawnShape.Circle)] 
         [SerializeField] private float circleRadius = 5f;
+        [Foldout("Spawn Zone Properties")]
         [SerializeField] private bool drawGizmos = true;
+        [Foldout("Spawn Zone Properties")]
         [SerializeField] private bool isRoom;
 
-        [Header("Asteroid Movement Properties")]
+        [Foldout("Asteroid Properties")] [Range(0f, 1f)]
+        [SerializeField] private float fillerRatio = 0.7f;
+        [Foldout("Asteroid Properties")]
+        [SerializeField] private int startingNumberOfAsteroids = 10;
+        [Foldout("Asteroid Properties")]
+        [SerializeField] private int maxNumberOfAsteroids = 100;
+        [Foldout("Asteroid Properties")]
         [SerializeField] private float asteroidSpeed = 1f;
+        [Foldout("Asteroid Properties")]
         [SerializeField] private float asteroidRotationSpeed = 5f;
+        [Foldout("Asteroid Properties")] [MinMaxSlider(1f, 20f)]
+        [SerializeField] private Vector2 minMaxAsteroidScale = new Vector2(3f, 7f);
 
+        private readonly List<ResourceNode> _currentAsteroids = new();
+        
         private void Start()
         {
             SpawnStartingAsteroids();
@@ -33,7 +46,7 @@ namespace Resource_Nodes.Asteroid
 
         private void SpawnStartingAsteroids()
         {
-            for (int i = 0; i < startingNumberOfAsteroids; i++)
+            for (var i = 0; i < startingNumberOfAsteroids; i++)
             {
                 SpawnSingleAsteroid();
             }
@@ -49,15 +62,27 @@ namespace Resource_Nodes.Asteroid
             var randomPosition = GetRandomPosition();
             var randomRotation = Quaternion.Euler(Random.Range(0, 360), 
                 Random.Range(0, 360), Random.Range(0, 360));
+            
+            var asteroidType = Random.value > fillerRatio
+                ? ResourceNodeType.ResourceAsteroid
+                : ResourceNodeType.FillerAsteroid;
 
-            var asteroidObject = Instantiate(ResourceNodePrefabDictionary.Instance
-                .GetRandomPrefabByType(ResourceNodeType.Asteroid), randomPosition, randomRotation, transform);
+            var asteroidObject = asteroidType == ResourceNodeType.ResourceAsteroid
+                ? Instantiate(ResourceNodePrefabDictionary.Instance
+                        .GetRandomPrefabByType(ResourceNodeType.ResourceAsteroid), randomPosition, randomRotation,
+                    transform)
+                : Instantiate(ResourceNodePrefabDictionary.Instance
+                        .GetRandomPrefabByType(ResourceNodeType.FillerAsteroid), randomPosition, randomRotation,
+                    transform);
 
-            var asteroidComponent = asteroidObject.GetComponent<Asteroid>();
-            asteroidComponent.OnAsteroidDestroyed += HandleAsteroidDestroyed;
+            asteroidObject.transform.localScale *= Random.Range(minMaxAsteroidScale.x, minMaxAsteroidScale.y);
+            
+            var asteroidComponent = asteroidObject.GetComponentInChildren<Asteroid>();
+            
+            asteroidComponent.destroyed.AddListener(HandleAsteroidDestroyed);
             _currentAsteroids.Add(asteroidComponent);
             
-            var asteroidRb = asteroidComponent.wholeAsteroid.GetComponent<Rigidbody>();
+            var asteroidRb = asteroidComponent.GetComponent<Rigidbody>();
         
             asteroidRb.AddForce(Random.onUnitSphere * asteroidSpeed, ForceMode.Impulse);
             asteroidRb.AddTorque(Random.onUnitSphere * asteroidRotationSpeed, ForceMode.Impulse);
@@ -68,7 +93,7 @@ namespace Resource_Nodes.Asteroid
             }
         }
 
-        private void HandleAsteroidDestroyed(object sender, Asteroid asteroid)
+        private void HandleAsteroidDestroyed(ResourceNode asteroid)
         {
             _currentAsteroids.Remove(asteroid);
         }

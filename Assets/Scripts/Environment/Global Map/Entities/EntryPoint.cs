@@ -1,3 +1,4 @@
+using System;
 using Environment.Global_Map.Systems;
 using Environment.Scene_Management;
 using UnityEngine;
@@ -15,7 +16,7 @@ namespace Environment.Global_Map.Entities
         
         void Start()
         {
-            GlobalMapManager.Instance.AddEntryPoint(this);
+            EntryPointManager.Instance.AddEntryPoint(this);
         }
 
         public EntryPointEvent onPlayerShipEnteredEntryPointProximity;
@@ -35,6 +36,11 @@ namespace Environment.Global_Map.Entities
             {
                 onPlayerShipLeftEntryPointProximity?.Invoke(this);
             }
+        }
+
+        private void OnDestroy()
+        {
+            EntryPointManager.Instance.RemoveEntryPoint(this);
         }
     }
 }
