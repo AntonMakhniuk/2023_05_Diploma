@@ -6,14 +6,15 @@ public class RangeEnemyMovement : MonoBehaviour
     private Transform target;
     [SerializeField] private float movementSpeed = 20f;
     [SerializeField] private float rotationalDamp = 2f;
-    [SerializeField] private float stopMinDistance = 10f; 
+    [SerializeField] private float stopMinDistance = 10f;
     [SerializeField] private float stopMaxDistance = 20f;
+    [SerializeField] private float detectionRange = 100f; 
     [SerializeField] private float avoidanceRadius = 2f;
     [SerializeField] private LayerMask enemyLayer;
 
     [SerializeField] private float dodgeDistance = 5f;
-    [SerializeField] private float dodgeSpeed = 4f; 
-    private bool isDodging = false; 
+    [SerializeField] private float dodgeSpeed = 4f;
+    private bool isDodging = false;
     private bool isDodgingRight = true;
     private float currentDodgeDistance = 0f;
 
@@ -35,12 +36,20 @@ public class RangeEnemyMovement : MonoBehaviour
     {
         if (target == null) return;
 
+        float distanceToTarget = Vector3.Distance(transform.position, target.position);
+
+        if (distanceToTarget > detectionRange)
+        {
+            StopActions();
+            return;
+        }
+
         AvoidOverlapping();
         Turn();
 
-        if (!isDodging) 
+        if (!isDodging)
         {
-            MoveOrDodge();
+            MoveOrDodge(distanceToTarget);
         }
     }
 
@@ -53,10 +62,8 @@ public class RangeEnemyMovement : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, damp * Time.deltaTime);
     }
 
-    private void MoveOrDodge()
+    private void MoveOrDodge(float distanceToTarget)
     {
-        float distanceToTarget = Vector3.Distance(transform.position, target.position);
-
         if (distanceToTarget < stopMinDistance)
         {
             transform.position -= transform.forward * movementSpeed * Time.deltaTime;
@@ -78,19 +85,19 @@ public class RangeEnemyMovement : MonoBehaviour
         Vector3 dodgeDirection = isDodgingRight ? transform.right : -transform.right;
         float randomizedDodgeDistance = dodgeDistance * Random.Range(0.8f, 1.2f);
 
-        currentDodgeDistance = 0f; 
+        currentDodgeDistance = 0f;
 
         while (currentDodgeDistance < randomizedDodgeDistance)
         {
-            float randomSpeedFactor = Random.Range(0.8f, 1.2f); 
+            float randomSpeedFactor = Random.Range(0.8f, 1.2f);
             float movement = dodgeSpeed * randomSpeedFactor * Time.deltaTime;
             transform.position += dodgeDirection * movement;
             currentDodgeDistance += movement;
             yield return null;
         }
 
-        isDodgingRight = !isDodgingRight; 
-        isDodging = false; 
+        isDodgingRight = !isDodgingRight;
+        isDodging = false;
     }
 
     private void AvoidOverlapping()
@@ -105,5 +112,16 @@ public class RangeEnemyMovement : MonoBehaviour
 
             transform.position += directionAway.normalized * movementSpeed * Time.deltaTime * 0.5f;
         }
+    }
+
+    private void StopActions()
+    {
+        if (isDodging)
+        {
+            StopCoroutine(Dodge());
+            isDodging = false;
+        }
+
+        Debug.Log("Target is out of detection range. Enemy stops moving.");
     }
 }

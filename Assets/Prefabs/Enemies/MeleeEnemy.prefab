@@ -743,6 +743,9 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 65536
+  collisionBackoffDistance: 2
+  backoffTime: 0.5
+  detectionRange: 100
 --- !u!114 &1820530648547002776
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,8 +10,9 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float sharpTurnDistance = 3f;
     [SerializeField] private float avoidanceRadius = 2f;
     [SerializeField] private LayerMask enemyLayer;
-    [SerializeField] private float collisionBackoffDistance = 2f; 
-    [SerializeField] private float backoffTime = 0.5f; 
+    [SerializeField] private float collisionBackoffDistance = 2f;
+    [SerializeField] private float backoffTime = 0.5f;
+    [SerializeField] private float detectionRange = 100f; 
 
     private bool isBackingOff = false;
 
@@ -32,6 +33,13 @@ public class EnemyMovement : MonoBehaviour
     private void FixedUpdate()
     {
         if (target == null || isBackingOff) return;
+
+        float distanceToTarget = Vector3.Distance(transform.position, target.position);
+
+        if (distanceToTarget > detectionRange)
+        {
+            return;
+        }
 
         AvoidOverlapping();
         Turn();
@@ -100,4 +108,5 @@ public class EnemyMovement : MonoBehaviour
 
         isBackingOff = false;
     }
+
 }

@@ -194,7 +194,7 @@ MonoBehaviour:
   blastPrefab: {fileID: 4320530832249801640, guid: 879eb79d22359a24a91f3860aff5c3a8, type: 3}
   muzzlePoint: {fileID: 8498521897705914198}
   sightAngle: 180
-  detectionRange: 50
+  detectionRange: 100
 --- !u!114 &340359870715974435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,6 +247,7 @@ MonoBehaviour:
   rotationalDamp: 2
   stopMinDistance: 10
   stopMaxDistance: 20
+  detectionRange: 40
   avoidanceRadius: 2
   enemyLayer:
     serializedVersion: 2

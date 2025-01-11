@@ -4,19 +4,20 @@ using UnityEngine;
 public class Sentry : MonoBehaviour
 {
     [Header("Rocket Settings")]
-    [SerializeField] private GameObject rocketPrefab; 
-    [SerializeField] private Transform firePoint1; 
-    [SerializeField] private Transform firePoint2; 
-    [SerializeField] private float fireInterval = 2.0f; 
+    [SerializeField] private GameObject rocketPrefab;
+    [SerializeField] private Transform firePoint1;
+    [SerializeField] private Transform firePoint2;
+    [SerializeField] private float fireInterval = 2.0f;
     [SerializeField] private int maxFiredRockets = 5;
-    private Transform target; 
+    private Transform target;
 
-    private int _activeRockets = 0; 
-    private bool _isFiring = false; 
+    private int _activeRockets = 0;
     private bool _useFirstFirePoint = true;
 
-    [SerializeField] private Transform turretHead; 
-    private float rotationSpeed = 3f; 
+    [Header("Turret Settings")]
+    [SerializeField] private Transform turretHead;
+    [SerializeField] private float rotationSpeed = 3f;
+    [SerializeField] private float detectionRange = 100f; 
 
     private void Start()
     {
@@ -27,7 +28,7 @@ public class Sentry : MonoBehaviour
             if (playerObject.name == "Drone Body")
             {
                 target = playerObject.transform;
-                break; 
+                break;
             }
         }
 
@@ -38,17 +39,28 @@ public class Sentry : MonoBehaviour
     {
         while (true)
         {
-            if (_activeRockets < maxFiredRockets) 
+            if (IsTargetWithinRange() && _activeRockets < maxFiredRockets)
             {
                 FireRocket();
             }
-            yield return new WaitForSeconds(fireInterval); 
+            yield return new WaitForSeconds(fireInterval);
         }
     }
 
     private void Update()
     {
-        RotateTurretHead(); 
+        if (IsTargetWithinRange())
+        {
+            RotateTurretHead();
+        }
+    }
+
+    private bool IsTargetWithinRange()
+    {
+        if (target == null) return false;
+
+        float distanceToTarget = Vector3.Distance(transform.position, target.position);
+        return distanceToTarget <= detectionRange; 
     }
 
     private void RotateTurretHead()
@@ -66,7 +78,6 @@ public class Sentry : MonoBehaviour
         turretHead.rotation = Quaternion.Slerp(turretHead.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
-
     private void FireRocket()
     {
         if (rocketPrefab != null)
@@ -83,7 +94,7 @@ public class Sentry : MonoBehaviour
                 if (rocketScript != null)
                 {
                     rocketScript.SetTarget(target);
-                    rocketScript.SetSentry(this); 
+                    rocketScript.SetSentry(this);
                 }
             }
 

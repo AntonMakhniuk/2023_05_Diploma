@@ -6,11 +6,17 @@ public class DroneHealth : MonoBehaviour
     [SerializeField] private float maxHealth = 100f;
     private float currentHealth;
     [SerializeField] private Slider healthBar;
+    [SerializeField] private GameObject deathScreenPanel; 
 
     private void Start()
     {
         currentHealth = maxHealth;
         UpdateHealthBar();
+
+        if (deathScreenPanel != null)
+        {
+            deathScreenPanel.SetActive(false); 
+        }
     }
 
     public void TakeDamage(float damage)
@@ -21,7 +27,7 @@ public class DroneHealth : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            DestroyDrone();
+            TriggerDeath();
         }
     }
 
@@ -33,9 +39,14 @@ public class DroneHealth : MonoBehaviour
         }
     }
 
-    private void DestroyDrone()
+    private void TriggerDeath()
     {
         Debug.Log("Drone Destroyed!");
+
+        if (deathScreenPanel != null)
+        {
+            deathScreenPanel.SetActive(true);
+        }
 
         if (transform.parent != null)
         {
