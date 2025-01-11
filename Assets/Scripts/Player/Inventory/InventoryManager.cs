@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using Player.Inventory.Drone_Based_Storage;
-using Player.Ship.Tools.Marker;
 using Scriptable_Object_Templates.Systems.Mining.Resource_Data;
 using UnityEngine;
 

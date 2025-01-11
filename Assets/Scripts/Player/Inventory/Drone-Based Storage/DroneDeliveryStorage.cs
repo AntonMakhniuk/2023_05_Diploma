@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using NaughtyAttributes;
-using Player.Ship.Tools.Marker;
 using UnityEngine;
 
 namespace Player.Inventory.Drone_Based_Storage
@@ -9,7 +8,7 @@ namespace Player.Inventory.Drone_Based_Storage
     public class DroneDeliveryStorage : StorageComponent
     {
         [Foldout("Drone Storage Data")] [SerializeField]
-        private GameObject spawnPoint;
+        private List<Transform> droneSpawnPoints;
         
         [Foldout("Drone Data")] [SerializeField] [MinValue(1)]
         private int maxDroneCapacity;
@@ -20,17 +19,26 @@ namespace Player.Inventory.Drone_Based_Storage
         
         private readonly List<Collectable> _currentlyAssignedCollectables = new();
         private readonly Dictionary<GameObject, StorageDrone> _dronesObjectComponent = new();
+        private readonly Dictionary<StorageDrone, Transform> _droneSpawnPoints = new();
 
         private void Awake()
         {
             for (var i = 0; i < maxDroneCapacity; i++)
             {
+                var spawnPoint = droneSpawnPoints
+                    .First(sp => !_droneSpawnPoints.Values.Contains(sp));
+                
                 var droneObject = 
-                    Instantiate(dronePrefab, spawnPoint.transform.position, spawnPoint.transform.rotation, transform);
+                    Instantiate(dronePrefab, spawnPoint.position, spawnPoint.rotation, transform);
                 
                 droneObject.SetActive(false);
+
+                var droneComponent = droneObject.GetComponent<StorageDrone>();
                 
-                _dronesObjectComponent.Add(droneObject, droneObject.GetComponent<StorageDrone>());
+                droneComponent.Setup(this);
+                
+                _dronesObjectComponent.Add(droneObject, droneComponent);
+                _droneSpawnPoints.Add(droneComponent, spawnPoint);
             }
         }
 
@@ -48,6 +56,11 @@ namespace Player.Inventory.Drone_Based_Storage
                 _dronesObjectComponent[droneObject].AssignCollectable(collectable);
                 _currentlyAssignedCollectables.Add(collectable);
             }
+        }
+
+        public Transform GetSpawnPointByDrone(StorageDrone drone)
+        {
+            return _droneSpawnPoints[drone];
         }
     }
 }
