@@ -1,3 +1,5 @@
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using AYellowpaper.SerializedCollections;
 using Cinemachine;
@@ -5,12 +7,13 @@ using NaughtyAttributes;
 using Player.Movement.Miscellaneous;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.VFX;
 
 namespace Player.Movement.Drone_Movement
 {
-    public class DroneController : MonoBehaviour
+    public class TestEngineEffect : MonoBehaviour
     {
-        public static DroneController Instance;
+        public static TestEngineEffect Instance;
     
         [Foldout("Drone Movement Data")] [SerializeField] [MinValue(0f)]
         private float thrustForce = 1500f;
@@ -40,11 +43,24 @@ namespace Player.Movement.Drone_Movement
         [Foldout("Visual Effects Data")] [SerializeField] 
         [SerializedDictionary("Engine Group Type", "Associated Engines")]
         private SerializedDictionary<EngineGroupType, EngineGroup> engineGroupDictionary;
+        [Foldout("Visual Effects Data")] [SerializeField] 
+        [SerializedDictionary("Engine Group Type", "effect duration time")]
+        private float duration;
+        [Foldout("Visual Effects Data")] [SerializeField] 
+        [SerializedDictionary("Engine Group Type", "Engine States")]
+        private Dictionary<EngineGroupType, EngineStateInfo> _engineStates;
+        
+        private class EngineStateInfo
+        {
+            public EngineVFXState CurrentState;
+            public float StartTimer;
+        }
 
         private PlayerInputActions _playerInputActions;
         private CinemachineBrain _cinemachineBrain;
         private Rigidbody _rigidBody;
         private Coroutine engineCoroutine;
+        
         
         [Range(-1f, 1f)]
         private float _mouseX, 
@@ -67,6 +83,26 @@ namespace Player.Movement.Drone_Movement
         private static Vector2 ScreenCenter => new(Screen.width * 0.5f, Screen.height * 0.5f);
 
         private ICinemachineCamera _thirdPersonCameraInterface, _orbitCameraInterface;
+        
+        private enum EngineVFXState
+        {
+            Start,
+            Active,
+            End
+        }
+        
+        private void InitializeEngineStates()
+        {
+            _engineStates = new Dictionary<EngineGroupType, EngineStateInfo>();
+            foreach (var key in engineGroupDictionary.Keys)
+            {
+                _engineStates[key] = new EngineStateInfo
+                {
+                    CurrentState = EngineVFXState.End,
+                    StartTimer = 0f
+                };
+            }
+        }
 
         private void Awake()
         {
@@ -105,6 +141,8 @@ namespace Player.Movement.Drone_Movement
             _orbitCameraInterface = orbitCamera.GetComponent<ICinemachineCamera>();
             
             thirdPersonCamera.MoveToTopOfPrioritySubqueue();
+
+            InitializeEngineStates();
         }
 
         private void UpdateDroneDirection(InputAction.CallbackContext _)
@@ -204,114 +242,117 @@ namespace Player.Movement.Drone_Movement
             }
         }
         
-        public enum EngineVFXState
+        private bool IsInputActiveForEngineType(EngineGroupType engineType)
         {
-            Start,
-            Active,
-            End
+            bool isActive = engineType switch
+            {
+                EngineGroupType.Back => _thrustAmount > 0f,
+                EngineGroupType.Front => _thrustAmount < 0f,
+                EngineGroupType.Top => _pitchAmount < 0f || _rollAmount > 0f,
+                EngineGroupType.Bottom => _pitchAmount > 0f || _rollAmount < 0f,
+                EngineGroupType.Left => _yawAmount > 0f || _rollAmount > 0f,
+                EngineGroupType.Right => _yawAmount < 0f || _rollAmount < 0f,
+                _ => false
+            };
+            
+            return isActive;
         }
         
         private void UpdateEngineEffects()
         {
-            foreach (var engineGroup in engineGroupDictionary.Values)
+            foreach (var kvp in _engineStates)
             {
-                StopEngines(engineGroup);
-            }
+                var engineType = kvp.Key;
+                var stateInfo  = kvp.Value;
+                var engineGroup = engineGroupDictionary[engineType];
 
-            if (_thrustAmount > 0f)
-            {
-                ActivateEngines(engineGroupDictionary[EngineGroupType.Back], EngineVFXState.Active);
-            }
-            else if (_thrustAmount < 0f)
-            {
-                ActivateEngines(engineGroupDictionary[EngineGroupType.Front], EngineVFXState.Active);
-            }
+                bool inputActive = IsInputActiveForEngineType(engineType); 
 
-            if (_pitchAmount > 0f)
-            {
-                ActivateEngines(engineGroupDictionary[EngineGroupType.Bottom], EngineVFXState.Active); 
-            }
-            else if (_pitchAmount < 0f)
-            {
-                ActivateEngines(engineGroupDictionary[EngineGroupType.Top], EngineVFXState.Active);
-            }
-
-            if (_yawAmount > 0f)
-            {
-                ActivateEngines(engineGroupDictionary[EngineGroupType.Left], EngineVFXState.Active);
-            }
-            else if (_yawAmount < 0f)
-            {
-                ActivateEngines(engineGroupDictionary[EngineGroupType.Right], EngineVFXState.Active);
-            }
-
-            if (_rollAmount > 0f)
-            {
-                ActivateEngines(new[] { engineGroupDictionary[EngineGroupType.Top],
-                    engineGroupDictionary[EngineGroupType.Right] }, EngineVFXState.Active);
-            }
-            else if (_rollAmount < 0f)
-            {
-                ActivateEngines(new[] { engineGroupDictionary[EngineGroupType.Top],
-                    engineGroupDictionary[EngineGroupType.Left] }, EngineVFXState.Active);
-            }
-        }
-
-        private void ActivateEngines(EngineGroup engineGroup, EngineVFXState state)
-        {
-            switch (state)
-            {
-                case EngineVFXState.Start:
-                    foreach (var effect in engineGroup.engineStartEffects)
-                    {
-                        if (!engineGroup.IsEffectActive(effect))
+                switch (stateInfo.CurrentState)
+                {
+                    case EngineVFXState.Start:
+                        stateInfo.StartTimer += Time.deltaTime;
+                        
+                        if (inputActive && stateInfo.StartTimer >= duration)
                         {
-                            effect.Play();
-                            engineGroup.SetEffectActive(effect, true);
+                            StopEffects(engineGroup.engineStartEffects, engineGroup);
+                            stateInfo.CurrentState = EngineVFXState.Active;
+                            PlayEffects(engineGroup.engineActiveEffects, engineGroup);
                         }
-                    }
-                    break;
-
-                case EngineVFXState.Active:
-                    foreach (var effect in engineGroup.engineActiveEffects)
-                    {
-                        if (!engineGroup.IsEffectActive(effect))
+                        else if (!inputActive)
                         {
-                            effect.Play();
-                            engineGroup.SetEffectActive(effect, true);
+                            StopEffects(engineGroup.engineStartEffects, engineGroup);
+                            stateInfo.CurrentState = EngineVFXState.End;
+                            StartCoroutine(EndSequence(engineGroup, stateInfo));
                         }
-                    }
-                    break;
+                        break;
 
-                case EngineVFXState.End:
-                    foreach (var effect in engineGroup.engineEndEffects)
-                    {
-                        if (!engineGroup.IsEffectActive(effect))
+                    case EngineVFXState.Active:
+                        if (!inputActive)
                         {
-                            effect.Play();
-                            engineGroup.SetEffectActive(effect, false);
-                        }
-                    }
-                    break;
-            }
-        }
-        private void StopEngines(EngineGroup engineGroup)
-        {
-            foreach (var effect in engineGroup.engineStartEffects.Concat(engineGroup.engineActiveEffects))
-            {
-                effect.Stop();
-                engineGroup.SetEffectActive(effect, false);
-            }
-        }
+                            StopEffects(engineGroup.engineActiveEffects, engineGroup);
 
-        private void ActivateEngines(EngineGroup[] engineGroups, EngineVFXState state)
-        {
-            foreach (var engineGroup in engineGroups)
-            {
-                ActivateEngines(engineGroup, state);
+                            stateInfo.CurrentState = EngineVFXState.End;
+                            StartCoroutine(EndSequence(engineGroup, stateInfo));
+                        }
+                        break;
+
+                    case EngineVFXState.End:
+                        if (inputActive)
+                        {
+                            stateInfo.CurrentState = EngineVFXState.Start;
+                            stateInfo.StartTimer = 0f;
+                            PlayEffects(engineGroup.engineStartEffects, engineGroup);
+                        }
+                        break;
+
+                    default:
+                        if (inputActive)
+                        {
+                            stateInfo.CurrentState = EngineVFXState.Start;
+                            stateInfo.StartTimer = 0f;
+                            PlayEffects(engineGroup.engineStartEffects, engineGroup);
+                        }
+                        break;
+
+                }
             }
         }
         
+        private void PlayEffects(IEnumerable<VisualEffect> effects, EngineGroup engineGroup)
+        {
+            foreach (var effect in effects)
+            {
+                if (!engineGroup.IsEffectActive(effect))
+                {
+                    effect.Play();
+                    engineGroup.SetEffectActive(effect, true);
+                }
+            }
+        }
+
+        private void StopEffects(IEnumerable<VisualEffect> effects, EngineGroup engineGroup)
+        {
+            foreach (var effect in effects)
+            {
+                if (engineGroup.IsEffectActive(effect))
+                {
+                    effect.Stop();
+                    engineGroup.SetEffectActive(effect, false);
+                }
+            }
+        }
+        
+        private IEnumerator EndSequence(EngineGroup engineGroup, EngineStateInfo stateInfo)
+        {
+            PlayEffects(engineGroup.engineEndEffects, engineGroup);
+            
+            yield return new WaitForSeconds(duration);
+            
+            StopEffects(engineGroup.engineEndEffects, engineGroup);
+            
+            stateInfo.CurrentState = EngineVFXState.End;
+        }
         
         private void ToggleCameras(InputAction.CallbackContext _)
         {
