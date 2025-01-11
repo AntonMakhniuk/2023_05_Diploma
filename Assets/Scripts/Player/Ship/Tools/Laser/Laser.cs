@@ -67,6 +67,15 @@ namespace Player.Ship.Tools.Laser
                     {
                         lastNode.Interact(ToolType.Laser);
                     }
+
+                    if (currCollider.TryGetComponent<Enemy>(out var enemy))
+                    {
+                        enemy.TakeDamage(laserDamagePerSecond * Time.deltaTime);
+                    }
+                    else if (currCollider.TryGetComponent<HomingRocket>(out var rocket))
+                    {
+                        rocket.OnLaserInteraction(laserDamagePerSecond * Time.deltaTime);
+                    }
                 }
                 else
                 {
