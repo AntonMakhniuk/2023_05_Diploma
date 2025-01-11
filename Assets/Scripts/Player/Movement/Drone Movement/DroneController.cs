@@ -102,9 +102,6 @@ namespace Player.Movement.Drone_Movement
 
             _thirdPersonCameraInterface = thirdPersonCamera.GetComponent<ICinemachineCamera>();
             _orbitCameraInterface = orbitCamera.GetComponent<ICinemachineCamera>();
-
-            thirdPersonCamera.Priority = 10;
-            orbitCamera.Priority = 0;
         }
 
         private void UpdateDroneDirection(InputAction.CallbackContext _)
@@ -270,13 +267,11 @@ namespace Player.Movement.Drone_Movement
         {
             if (_cinemachineBrain.ActiveVirtualCamera == _orbitCameraInterface)
             {
-                thirdPersonCamera.Priority = 10;
-                orbitCamera.Priority = 0;
+                thirdPersonCamera.Priority += 10;
             }
             else if (_cinemachineBrain.ActiveVirtualCamera == _thirdPersonCameraInterface)
             {
-                thirdPersonCamera.Priority = 0;
-                orbitCamera.Priority = 10;
+                thirdPersonCamera.Priority -= 10;
             }
         }
 
