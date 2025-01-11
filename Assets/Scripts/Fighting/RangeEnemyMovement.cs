@@ -121,7 +121,5 @@ public class RangeEnemyMovement : MonoBehaviour
             StopCoroutine(Dodge());
             isDodging = false;
         }
-
-        Debug.Log("Target is out of detection range. Enemy stops moving.");
     }
 }
