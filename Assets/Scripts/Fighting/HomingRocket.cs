@@ -28,7 +28,7 @@ public class HomingRocket : MonoBehaviour
         Invoke(nameof(DestroyRocket), lifetime);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (target == null) return;
 

@@ -190,7 +190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   laserDamage: 10
-  blastInterval: 1
+  blastInterval: 2
   blastPrefab: {fileID: 4320530832249801640, guid: 879eb79d22359a24a91f3860aff5c3a8, type: 3}
   muzzlePoint: {fileID: 8498521897705914198}
   sightAngle: 180
@@ -382,7 +382,7 @@ Transform:
   m_GameObject: {fileID: 6800025683178012966}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3.02}
+  m_LocalPosition: {x: 0, y: -0.33, z: 3.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

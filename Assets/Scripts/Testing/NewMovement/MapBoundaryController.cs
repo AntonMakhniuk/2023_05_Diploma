@@ -52,6 +52,7 @@ namespace Testing.NewMovement
 
         private void FixedUpdate()
         {
+            if (droneBody == null) { return; }
             float distance = Vector3.Distance(droneBody.position, transform.position);
             Vector3 directionToStation = (transform.position - droneBody.position).normalized;
 

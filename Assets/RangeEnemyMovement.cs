@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RangeEnemyMovement : MonoBehaviour
@@ -8,12 +7,13 @@ public class RangeEnemyMovement : MonoBehaviour
     [SerializeField] private float movementSpeed = 20f;
     [SerializeField] private float rotationalDamp = 2f;
     [SerializeField] private float stopMinDistance = 10f; 
-    [SerializeField] private float stopMaxDistance = 20f; 
+    [SerializeField] private float stopMaxDistance = 20f;
     [SerializeField] private float avoidanceRadius = 2f;
     [SerializeField] private LayerMask enemyLayer;
 
-    [SerializeField] private float dodgeDistance = 5f; 
+    [SerializeField] private float dodgeDistance = 5f;
     [SerializeField] private float dodgeSpeed = 4f; 
+    private bool isDodging = false; 
     private bool isDodgingRight = true;
     private float currentDodgeDistance = 0f;
 
@@ -31,13 +31,17 @@ public class RangeEnemyMovement : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (target == null) return;
 
         AvoidOverlapping();
         Turn();
-        Move();
+
+        if (!isDodging) 
+        {
+            MoveOrDodge();
+        }
     }
 
     private void Turn()
@@ -49,7 +53,7 @@ public class RangeEnemyMovement : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, damp * Time.deltaTime);
     }
 
-    private void Move()
+    private void MoveOrDodge()
     {
         float distanceToTarget = Vector3.Distance(transform.position, target.position);
 
@@ -63,27 +67,30 @@ public class RangeEnemyMovement : MonoBehaviour
         }
         else
         {
-            Dodge();
+            StartCoroutine(Dodge());
         }
     }
 
-    private void Dodge()
+    private IEnumerator Dodge()
     {
+        isDodging = true;
+
         Vector3 dodgeDirection = isDodgingRight ? transform.right : -transform.right;
-
-        float randomSpeedFactor = Random.Range(0.8f, 1.2f); 
-        float movement = dodgeSpeed * randomSpeedFactor * Time.deltaTime;
-        transform.position += dodgeDirection * movement;
-
-        currentDodgeDistance += movement;
-
         float randomizedDodgeDistance = dodgeDistance * Random.Range(0.8f, 1.2f);
 
-        if (currentDodgeDistance >= randomizedDodgeDistance)
+        currentDodgeDistance = 0f; 
+
+        while (currentDodgeDistance < randomizedDodgeDistance)
         {
-            isDodgingRight = !isDodgingRight; 
-            currentDodgeDistance = 0f;       
+            float randomSpeedFactor = Random.Range(0.8f, 1.2f); 
+            float movement = dodgeSpeed * randomSpeedFactor * Time.deltaTime;
+            transform.position += dodgeDirection * movement;
+            currentDodgeDistance += movement;
+            yield return null;
         }
+
+        isDodgingRight = !isDodgingRight; 
+        isDodging = false; 
     }
 
     private void AvoidOverlapping()

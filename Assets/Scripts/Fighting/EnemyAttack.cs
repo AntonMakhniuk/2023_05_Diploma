@@ -25,7 +25,7 @@ public class EnemyAttack : MonoBehaviour
     }
 
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (target == null) return;
         InFront();

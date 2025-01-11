@@ -29,7 +29,7 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (target == null || isBackingOff) return;
 
