@@ -6,8 +6,13 @@ public class HomingRocket : MonoBehaviour
     [SerializeField] private float speed = 15f;
     [SerializeField] private float rotationSpeed = 5f;
     [SerializeField] private float damage = 20f;
-    [SerializeField] private float maxHealth = 50f; 
+    [SerializeField] private float maxHealth = 50f;
     [SerializeField] private LayerMask targetLayer;
+    [SerializeField] private float avoidanceRadius = 2f; 
+    [SerializeField] private LayerMask enemyLayer; 
+    [SerializeField] private float avoidanceSpeedFactor = 0.5f; 
+    private float lifetime = 10f;
+
 
     private Transform target;
     private Transform _transform;
@@ -20,17 +25,36 @@ public class HomingRocket : MonoBehaviour
         currentHealth = maxHealth;
 
         Physics.IgnoreLayerCollision(gameObject.layer, gameObject.layer);
+        Invoke(nameof(DestroyRocket), lifetime);
     }
 
     private void Update()
     {
         if (target == null) return;
 
+        AvoidOverlapping();
+
         Vector3 direction = (target.position - _transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         _transform.rotation = Quaternion.Slerp(_transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
 
         _transform.Translate(Vector3.forward * speed * Time.deltaTime);
+    }
+
+    private void AvoidOverlapping()
+    {
+        Collider[] nearbyObjects = Physics.OverlapSphere(transform.position, avoidanceRadius, enemyLayer);
+
+        foreach (Collider obj in nearbyObjects)
+        {
+            if (obj.gameObject == gameObject) continue;
+
+            Vector3 directionAway = transform.position - obj.transform.position;
+
+            _transform.position += directionAway.normalized * speed * Time.deltaTime * avoidanceSpeedFactor;
+
+            Debug.Log($"Avoiding object: {obj.name}, Direction Away: {directionAway}");
+        }
     }
 
     public void SetTarget(Transform newTarget)

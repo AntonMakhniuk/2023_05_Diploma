@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4347453815550918244}
   m_Layer: 0
   m_Name: Turret
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48,9 +48,9 @@ MonoBehaviour:
   rocketPrefab: {fileID: 3512763340965508060, guid: 1407d84ddb2d6fc498f75736bd101a01, type: 3}
   firePoint1: {fileID: 6966473417285713699}
   firePoint2: {fileID: 9116190365112693506}
-  fireInterval: 2
-  target: {fileID: 0}
+  fireInterval: 4
   maxFiredRockets: 3
+  turretHead: {fileID: 8421567627811307263}
 --- !u!1 &435587667255278382
 GameObject:
   m_ObjectHideFlags: 0
@@ -463,7 +463,7 @@ RectTransform:
   m_GameObject: {fileID: 9145366216102160232}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1.61}
-  m_LocalScale: {x: 0.05, y: 0.1, z: 1}
+  m_LocalScale: {x: 0.021878056, y: 0.043756112, z: 0.43756112}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4322103792799316542}
@@ -551,6 +551,14 @@ PrefabInstance:
     - target: {fileID: 1658294672893661859, guid: 688941beb3ab27945806e335033fef05, type: 3}
       propertyPath: m_Name
       value: EnemyTurret
+      objectReference: {fileID: 0}
+    - target: {fileID: 4032198147984599942, guid: 688941beb3ab27945806e335033fef05, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4032198147984599942, guid: 688941beb3ab27945806e335033fef05, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6756183865963203115, guid: 688941beb3ab27945806e335033fef05, type: 3}
       propertyPath: m_LocalPosition.x

@@ -5,7 +5,7 @@ public class DroneHealth : MonoBehaviour
 {
     [SerializeField] private float maxHealth = 100f;
     private float currentHealth;
-    [SerializeField] private Slider healthBar; 
+    [SerializeField] private Slider healthBar;
 
     private void Start()
     {
@@ -13,18 +13,15 @@ public class DroneHealth : MonoBehaviour
         UpdateHealthBar();
     }
 
-
     public void TakeDamage(float damage)
     {
-        currentHealth -= damage; 
+        currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         UpdateHealthBar();
 
-        Debug.Log(damage);
         if (currentHealth <= 0)
         {
-
-            Debug.Log("Drone Destroyed!");
+            DestroyDrone();
         }
     }
 
@@ -33,6 +30,20 @@ public class DroneHealth : MonoBehaviour
         if (healthBar != null)
         {
             healthBar.value = currentHealth / maxHealth;
+        }
+    }
+
+    private void DestroyDrone()
+    {
+        Debug.Log("Drone Destroyed!");
+
+        if (transform.parent != null)
+        {
+            Destroy(transform.parent.gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 }

@@ -42,6 +42,9 @@ public class Enemy : MonoBehaviour
         }
     }
 
+
+
+
     private void Die()
     {
         if (transform.parent != null)

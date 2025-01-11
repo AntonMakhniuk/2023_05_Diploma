@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3741065689874548165}
   - component: {fileID: 8011248964740290519}
   - component: {fileID: 791108397753895314}
-  m_Layer: 5
+  m_Layer: 16
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,9 +91,9 @@ GameObject:
   - component: {fileID: 340359870715974435}
   - component: {fileID: 8895491575488741932}
   - component: {fileID: 6466617089983432943}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: RangeEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -251,6 +251,8 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 65536
+  dodgeDistance: 5
+  dodgeSpeed: 5
 --- !u!1 &2359433813000956857
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,7 +264,7 @@ GameObject:
   - component: {fileID: 5691724687858897822}
   - component: {fileID: 4678984355642525372}
   - component: {fileID: 972271993982549096}
-  m_Layer: 5
+  m_Layer: 16
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,7 +280,7 @@ RectTransform:
   m_GameObject: {fileID: 2359433813000956857}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 48.72}
-  m_LocalScale: {x: 0.05, y: 0.1, z: 1}
+  m_LocalScale: {x: 0.021878056, y: 0.043756112, z: 0.43756112}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3741065689874548165}
@@ -364,7 +366,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8498521897705914198}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: MuzzlePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -397,7 +399,7 @@ GameObject:
   - component: {fileID: 2267808909672461327}
   - component: {fileID: 6077037736402426684}
   - component: {fileID: 8415002228048829227}
-  m_Layer: 5
+  m_Layer: 16
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -470,7 +472,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3534551487821830928}
-  m_Layer: 5
+  m_Layer: 16
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -508,7 +510,7 @@ GameObject:
   - component: {fileID: 7906671233956391416}
   - component: {fileID: 1776628907686845511}
   - component: {fileID: 2361885905124031934}
-  m_Layer: 5
+  m_Layer: 16
   m_Name: Canvas (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -607,7 +609,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4368465292528634257}
-  m_Layer: 5
+  m_Layer: 16
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -4,28 +4,25 @@ using UnityEngine;
 
 public class RangeEnemyMovement : MonoBehaviour
 {
-    private Transform target; 
-    [SerializeField] float movementSpeed = 20f; 
-    [SerializeField] float rotationalDamp = 2f; 
-    [SerializeField] float stopMinDistance = 10f; 
-    [SerializeField] float stopMaxDistance = 20f; 
-    [SerializeField] float avoidanceRadius = 2f; 
-    [SerializeField] LayerMask enemyLayer; 
+    private Transform target;
+    [SerializeField] private float movementSpeed = 20f;
+    [SerializeField] private float rotationalDamp = 2f;
+    [SerializeField] private float stopMinDistance = 10f; 
+    [SerializeField] private float stopMaxDistance = 20f; 
+    [SerializeField] private float avoidanceRadius = 2f;
+    [SerializeField] private LayerMask enemyLayer;
 
-    float dodgeDistance = 3f; 
-    float dodgeSpeed = 4f; 
+    [SerializeField] private float dodgeDistance = 5f; 
+    [SerializeField] private float dodgeSpeed = 4f; 
     private bool isDodgingRight = true;
     private float currentDodgeDistance = 0f;
 
-
     private void Start()
     {
-
         GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
 
         foreach (GameObject playerObject in playerObjects)
         {
-
             if (playerObject.name == "Drone Body")
             {
                 target = playerObject.transform;
@@ -37,8 +34,8 @@ public class RangeEnemyMovement : MonoBehaviour
     private void Update()
     {
         if (target == null) return;
-        AvoidOverlapping(); 
 
+        AvoidOverlapping();
         Turn();
         Move();
     }
@@ -46,11 +43,9 @@ public class RangeEnemyMovement : MonoBehaviour
     private void Turn()
     {
         Vector3 directionToTarget = target.position - transform.position;
-
-        
-        float damp = rotationalDamp;
-
         Quaternion rotation = Quaternion.LookRotation(directionToTarget);
+
+        float damp = rotationalDamp;
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, damp * Time.deltaTime);
     }
 
@@ -58,14 +53,16 @@ public class RangeEnemyMovement : MonoBehaviour
     {
         float distanceToTarget = Vector3.Distance(transform.position, target.position);
 
-        if (distanceToTarget > stopMaxDistance || distanceToTarget < stopMinDistance)
+        if (distanceToTarget < stopMinDistance)
         {
-           
+            transform.position -= transform.forward * movementSpeed * Time.deltaTime;
+        }
+        else if (distanceToTarget > stopMaxDistance)
+        {
             transform.position += transform.forward * movementSpeed * Time.deltaTime;
         }
         else
         {
-        
             Dodge();
         }
     }
@@ -74,11 +71,15 @@ public class RangeEnemyMovement : MonoBehaviour
     {
         Vector3 dodgeDirection = isDodgingRight ? transform.right : -transform.right;
 
-        float movement = dodgeSpeed * Time.deltaTime;
+        float randomSpeedFactor = Random.Range(0.8f, 1.2f); 
+        float movement = dodgeSpeed * randomSpeedFactor * Time.deltaTime;
         transform.position += dodgeDirection * movement;
+
         currentDodgeDistance += movement;
 
-        if (currentDodgeDistance >= dodgeDistance)
+        float randomizedDodgeDistance = dodgeDistance * Random.Range(0.8f, 1.2f);
+
+        if (currentDodgeDistance >= randomizedDodgeDistance)
         {
             isDodgingRight = !isDodgingRight; 
             currentDodgeDistance = 0f;       
@@ -91,11 +92,11 @@ public class RangeEnemyMovement : MonoBehaviour
 
         foreach (Collider enemy in nearbyEnemies)
         {
-            if (enemy.gameObject == gameObject) continue; 
+            if (enemy.gameObject == gameObject) continue;
 
             Vector3 directionAway = transform.position - enemy.transform.position;
 
-            transform.position += directionAway.normalized * movementSpeed * Time.deltaTime * 0.5f; 
+            transform.position += directionAway.normalized * movementSpeed * Time.deltaTime * 0.5f;
         }
     }
 }

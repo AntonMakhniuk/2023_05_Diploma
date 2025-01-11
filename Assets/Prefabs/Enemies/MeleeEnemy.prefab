@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4855408116286365474}
   - component: {fileID: 3530345067794674990}
   - component: {fileID: 1127347531647673126}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: EnemyMeleeBlade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 9149707203151336087}
   - component: {fileID: 3800733157162703489}
   - component: {fileID: 8844077831232287623}
-  m_Layer: 5
+  m_Layer: 16
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,7 +185,7 @@ RectTransform:
   m_Father: {fileID: 778687587058956883}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -236,7 +236,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 778687587058956883}
-  m_Layer: 5
+  m_Layer: 16
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -274,7 +274,7 @@ GameObject:
   - component: {fileID: 2661876351657403742}
   - component: {fileID: 8019937714588748338}
   - component: {fileID: 401541623480495491}
-  m_Layer: 5
+  m_Layer: 16
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -351,7 +351,7 @@ GameObject:
   - component: {fileID: 2312565194607279067}
   - component: {fileID: 3652215433954380367}
   - component: {fileID: 6673817920259363243}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: EnemyMelee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -473,7 +473,7 @@ GameObject:
   - component: {fileID: 2570665119285052670}
   - component: {fileID: 1149986310112558000}
   - component: {fileID: 218877042182599145}
-  m_Layer: 5
+  m_Layer: 16
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -572,7 +572,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3323932765917427893}
-  m_Layer: 5
+  m_Layer: 16
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -608,7 +608,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2868677376380087478}
   - component: {fileID: 3368069151464653346}
-  m_Layer: 5
+  m_Layer: 16
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -624,7 +624,7 @@ RectTransform:
   m_GameObject: {fileID: 4543417575137461724}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 258.13}
-  m_LocalScale: {x: 0.05, y: 0.1, z: 1}
+  m_LocalScale: {x: 0.021878056, y: 0.043756112, z: 0.43756112}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2661876351657403742}
@@ -634,7 +634,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 111.99, y: 72.52}
+  m_AnchoredPosition: {x: 112.32, y: 72.52}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3368069151464653346
@@ -700,9 +700,9 @@ GameObject:
   - component: {fileID: 2656722102180670206}
   - component: {fileID: 1820530648547002776}
   - component: {fileID: 7043822112249939896}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: MeleeEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -739,6 +739,10 @@ MonoBehaviour:
   rotationalDamp: 2
   stopDistance: 2
   sharpTurnDistance: 5
+  avoidanceRadius: 2
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 65536
 --- !u!114 &1820530648547002776
 MonoBehaviour:
   m_ObjectHideFlags: 0

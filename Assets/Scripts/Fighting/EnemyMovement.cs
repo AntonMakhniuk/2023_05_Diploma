@@ -1,27 +1,26 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class EnemyMovement : MonoBehaviour
 {
-    private Transform target; 
-    [SerializeField] float movementSpeed = 20f; 
-    [SerializeField] float rotationalDamp = 2f; 
-    [SerializeField] float stopDistance = 2f; 
-    [SerializeField] float sharpTurnDistance = 3f;
-    [SerializeField] float avoidanceRadius = 2f; 
-    [SerializeField] LayerMask enemyLayer; 
+    private Transform target;
+    [SerializeField] private float movementSpeed = 20f;
+    [SerializeField] private float rotationalDamp = 2f;
+    [SerializeField] private float stopDistance = 2f;
+    [SerializeField] private float sharpTurnDistance = 3f;
+    [SerializeField] private float avoidanceRadius = 2f;
+    [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private float collisionBackoffDistance = 2f; 
+    [SerializeField] private float backoffTime = 0.5f; 
 
+    private bool isBackingOff = false;
 
     private void Start()
     {
-
         GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
 
         foreach (GameObject playerObject in playerObjects)
         {
-
             if (playerObject.name == "Drone Body")
             {
                 target = playerObject.transform;
@@ -30,13 +29,11 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-
-
     private void Update()
     {
-        if (target == null) return;
-        AvoidOverlapping(); 
-                          
+        if (target == null || isBackingOff) return;
+
+        AvoidOverlapping();
         Turn();
         Move();
     }
@@ -71,12 +68,36 @@ public class EnemyMovement : MonoBehaviour
 
         foreach (Collider enemy in nearbyEnemies)
         {
-            if (enemy.gameObject == gameObject) continue; 
+            if (enemy.gameObject == gameObject) continue;
 
             Vector3 directionAway = transform.position - enemy.transform.position;
 
-            transform.position += directionAway.normalized * movementSpeed * Time.deltaTime * 0.5f; 
+            transform.position += directionAway.normalized * movementSpeed * Time.deltaTime * 0.5f;
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            StartCoroutine(HandleCollisionWithPlayer());
+        }
+    }
+
+    private IEnumerator HandleCollisionWithPlayer()
+    {
+        isBackingOff = true;
+
+        Vector3 backoffDirection = -transform.forward * collisionBackoffDistance;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < backoffTime)
+        {
+            transform.position += backoffDirection * Time.deltaTime / backoffTime;
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        isBackingOff = false;
+    }
 }
