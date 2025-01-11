@@ -24,7 +24,7 @@ namespace Environment.Scene_Management
                 Destroy(gameObject);
             }
         }
-
+        
         public static void ChangeScene(SceneTypeContainer sceneTypeContainer)
         {
             var scenesToLoad = Instance.scenesDict[sceneTypeContainer.sceneType];

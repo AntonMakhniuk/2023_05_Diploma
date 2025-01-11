@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Production.Challenges.General;
 using Production.Crafting;
+using Systems.Production.Challenges.General;
 using UnityEngine;
 
 namespace Production.Systems

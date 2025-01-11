@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Production.Systems;
+using Systems.Production.Challenges.General;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
