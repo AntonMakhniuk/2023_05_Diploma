@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Collections;
 using AYellowpaper.SerializedCollections;
 using Cinemachine;
 using NaughtyAttributes;
@@ -11,49 +12,77 @@ namespace Player.Movement.Drone_Movement
     public class DroneController : MonoBehaviour
     {
         public static DroneController Instance;
-    
-        [Foldout("Drone Movement Data")] [SerializeField] [MinValue(0f)]
+
+        [Foldout("Drone Movement Data")]
+        [SerializeField]
+        [MinValue(0f)]
         private float thrustForce = 1500f;
-        [Foldout("Drone Movement Data")] [SerializeField] [MinValue(0f)]
+        [Foldout("Drone Movement Data")]
+        [SerializeField]
+        [MinValue(0f)]
         private float yawForce = 1500f;
-        [Foldout("Drone Movement Data")] [SerializeField] [MinValue(0f)]
+        [Foldout("Drone Movement Data")]
+        [SerializeField]
+        [MinValue(0f)]
         private float pitchForce = 1500f;
-        [Foldout("Drone Movement Data")] [SerializeField] [MinValue(1f)]
+        [Foldout("Drone Movement Data")]
+        [SerializeField]
+        [MinValue(1f)]
         private Vector3 speedBoostMultiplier = new(3f, 1.5f, 1.5f);
-        
-        [Foldout("Drone Rotation Data")] [SerializeField] 
+
+ 
+        [Foldout("Drone Movement Data")]
+        [SerializeField]
+        [MinValue(0f)]
+        private float dodgeForce = 20f;
+        [SerializeField]
+        [MinValue(0f)]
+        private float dodgeCooldown = 1f; 
+
+        [Foldout("Drone Rotation Data")]
+        [SerializeField]
         private float rotateXForce = 50f;
-        [Foldout("Drone Rotation Data")] [SerializeField] 
+        [Foldout("Drone Rotation Data")]
+        [SerializeField]
         private float rotateYForce = 50f;
-        [Foldout("Drone Rotation Data")] [SerializeField] 
+        [Foldout("Drone Rotation Data")]
+        [SerializeField]
         private float rollForce = 50f;
-        [Foldout("Drone Rotation Data")] [SerializeField] [MinValue(1f)]
+        [Foldout("Drone Rotation Data")]
+        [SerializeField]
+        [MinValue(1f)]
         private Vector3 rotationBoostMultiplier = new(1.25f, 1.25f, 1.25f);
-        [Foldout("Drone Rotation Data")] [SerializeField] 
+        [Foldout("Drone Rotation Data")]
+        [SerializeField]
         private float deadZoneRadius = 0.1f;
-        
-        [Foldout("Camera Data")] [SerializeField] 
+
+        [Foldout("Camera Data")]
+        [SerializeField]
         private CinemachineVirtualCamera thirdPersonCamera;
-        [Foldout("Camera Data")] [SerializeField] 
+        [Foldout("Camera Data")]
+        [SerializeField]
         private CinemachineFreeLook orbitCamera;
-        
-        [Foldout("Visual Effects Data")] [SerializeField] 
+
+        [Foldout("Visual Effects Data")]
+        [SerializeField]
         [SerializedDictionary("Engine Group Type", "Associated Engines")]
         private SerializedDictionary<EngineGroupType, EngineGroup> engineGroupDictionary;
 
         private PlayerInputActions _playerInputActions;
         private CinemachineBrain _cinemachineBrain;
         private Rigidbody _rigidBody;
-        
+
         [Range(-1f, 1f)]
-        private float _mouseX, 
-            _mouseY, 
-            _rollAmount, 
-            _thrustAmount, 
-            _yawAmount, 
+        private float _mouseX,
+            _mouseY,
+            _rollAmount,
+            _thrustAmount,
+            _yawAmount,
             _pitchAmount;
-        
+
         private bool _isBoosted;
+        private bool _isDodging = false; 
+        private float _dodgeCooldownTimer = 0f; 
 
         [MinValue(0f)]
         private float _thrustMultiplier = 1f,
@@ -78,16 +107,16 @@ namespace Player.Movement.Drone_Movement
             {
                 Destroy(gameObject);
             }
-            
+
             _rigidBody = GetComponent<Rigidbody>();
             _playerInputActions = PlayerActions.InputActions;
-            
+
             _playerInputActions.PlayerCamera.Enable();
-            
+
             _playerInputActions.PlayerCamera.DroneOrbitCamera.started += ToggleCameras;
             _playerInputActions.PlayerCamera.DroneOrbitCamera.canceled += ToggleCameras;
 
-            _playerInputActions.PlayerShip.Thrust.performed += UpdateDroneDirection; 
+            _playerInputActions.PlayerShip.Thrust.performed += UpdateDroneDirection;
             _playerInputActions.PlayerShip.Thrust.canceled += RemoveThrust;
             _playerInputActions.PlayerShip.Pitch.performed += UpdateDroneDirection;
             _playerInputActions.PlayerShip.Pitch.canceled += RemovePitch;
@@ -97,12 +126,13 @@ namespace Player.Movement.Drone_Movement
             _playerInputActions.PlayerShip.Roll.canceled += RemoveRoll;
             _playerInputActions.PlayerShip.Boost.started += ApplyBoost;
             _playerInputActions.PlayerShip.Boost.canceled += RemoveBoost;
+            _playerInputActions.PlayerShip.Dodge.performed += PerformDodge;
 
             _cinemachineBrain = Camera.main.GetComponent<CinemachineBrain>();
 
             _thirdPersonCameraInterface = thirdPersonCamera.GetComponent<ICinemachineCamera>();
             _orbitCameraInterface = orbitCamera.GetComponent<ICinemachineCamera>();
-            
+
             thirdPersonCamera.MoveToTopOfPrioritySubqueue();
         }
 
@@ -113,22 +143,22 @@ namespace Player.Movement.Drone_Movement
             _yawAmount = _playerInputActions.PlayerShip.Yaw.ReadValue<float>();
             _rollAmount = _playerInputActions.PlayerShip.Roll.ReadValue<float>();
         }
-        
+
         private void RemoveThrust(InputAction.CallbackContext _)
         {
             _thrustAmount = 0f;
         }
-        
+
         private void RemovePitch(InputAction.CallbackContext _)
         {
             _pitchAmount = 0f;
         }
-        
+
         private void RemoveYaw(InputAction.CallbackContext _)
         {
             _yawAmount = 0f;
         }
-        
+
         private void RemoveRoll(InputAction.CallbackContext _)
         {
             _rollAmount = 0f;
@@ -139,10 +169,15 @@ namespace Player.Movement.Drone_Movement
             var mousePosition = _playerInputActions.PlayerCamera.MousePosition.ReadValue<Vector2>();
             (_mouseX, _mouseY) = CalculateMousePos(mousePosition);
 
+            if (_dodgeCooldownTimer > 0f)
+            {
+                _dodgeCooldownTimer -= Time.fixedDeltaTime;
+            }
+
             ApplyMovementForces();
             UpdateEngineEffects();
         }
-        
+
         private (float, float) CalculateMousePos(Vector2 mousePosition)
         {
             var calculateMouseX = (mousePosition.x - ScreenCenter.x) / ScreenCenter.x;
@@ -154,9 +189,9 @@ namespace Player.Movement.Drone_Movement
 
         private void ApplyBoost(InputAction.CallbackContext _)
         {
-            (_thrustMultiplier, _yawMultiplier, _pitchMultiplier) = 
+            (_thrustMultiplier, _yawMultiplier, _pitchMultiplier) =
                 (speedBoostMultiplier.x, speedBoostMultiplier.y, speedBoostMultiplier.z);
-            (_rotateXMultiplier, _rotateYMultiplier, _rollMultiplier) = 
+            (_rotateXMultiplier, _rotateYMultiplier, _rollMultiplier) =
                 (rotationBoostMultiplier.x, rotationBoostMultiplier.y, rotationBoostMultiplier.z);
         }
 
@@ -164,6 +199,33 @@ namespace Player.Movement.Drone_Movement
         {
             (_thrustMultiplier, _yawMultiplier, _pitchMultiplier) = (1f, 1f, 1f);
             (_rotateXMultiplier, _rotateYMultiplier, _rollMultiplier) = (1f, 1f, 1f);
+        }
+
+        private void PerformDodge(InputAction.CallbackContext context)
+        {
+            if (_isDodging || _dodgeCooldownTimer > 0f) return;
+
+            float dodgeDirection = context.ReadValue<float>();
+            if (Mathf.Approximately(dodgeDirection, 0f)) return;
+
+            _isDodging = true;
+            Vector3 dodgeVector = transform.right * dodgeDirection; 
+            _rigidBody.AddForce(dodgeVector * dodgeForce, ForceMode.Impulse);
+
+            StartCoroutine(DodgeCooldown());
+        }
+
+        private IEnumerator DodgeCooldown()
+        {
+            _dodgeCooldownTimer = dodgeCooldown;
+
+            while (_dodgeCooldownTimer > 0f)
+            {
+                _dodgeCooldownTimer -= Time.deltaTime;
+                yield return null;
+            }
+
+            _isDodging = false;
         }
 
         private void ApplyMovementForces()
@@ -175,7 +237,7 @@ namespace Player.Movement.Drone_Movement
             }
             if (!Mathf.Approximately(0f, _yawAmount))
             {
-                _rigidBody.AddForce(transform.right * (yawForce * _yawMultiplier * 
+                _rigidBody.AddForce(transform.right * (yawForce * _yawMultiplier *
                                                        _yawAmount * Time.fixedDeltaTime));
             }
             if (!Mathf.Approximately(0f, _pitchAmount))
@@ -183,13 +245,13 @@ namespace Player.Movement.Drone_Movement
                 _rigidBody.AddForce(transform.up * (pitchForce * _pitchMultiplier *
                                                     _pitchAmount * Time.fixedDeltaTime));
             }
-            
+
             if (!Mathf.Approximately(0f, _mouseX))
             {
                 _rigidBody.AddTorque(transform.up * (rotateXForce * _rotateXMultiplier *
                                                      _mouseX * Time.fixedDeltaTime));
             }
-            
+
             if (!Mathf.Approximately(0f, _mouseY))
             {
                 _rigidBody.AddTorque(transform.right * (rotateYForce * _rotateYMultiplier *
@@ -202,6 +264,7 @@ namespace Player.Movement.Drone_Movement
                                                           _rollAmount * Time.fixedDeltaTime));
             }
         }
+
         private void UpdateEngineEffects()
         {
             foreach (var engine in engineGroupDictionary.Values.SelectMany(e => e.engines))
@@ -220,7 +283,7 @@ namespace Player.Movement.Drone_Movement
 
             if (_pitchAmount > 0f)
             {
-                ActivateEngines(engineGroupDictionary[EngineGroupType.Bottom]); 
+                ActivateEngines(engineGroupDictionary[EngineGroupType.Bottom]);
             }
             else if (_pitchAmount < 0f)
             {
@@ -235,15 +298,15 @@ namespace Player.Movement.Drone_Movement
             {
                 ActivateEngines(engineGroupDictionary[EngineGroupType.Right]);
             }
-            
+
             if (_rollAmount > 0f)
             {
-                ActivateEngines(new [] { engineGroupDictionary[EngineGroupType.Top],
+                ActivateEngines(new[] { engineGroupDictionary[EngineGroupType.Top],
                     engineGroupDictionary[EngineGroupType.Right] });
             }
             else if (_rollAmount < 0f)
             {
-                ActivateEngines(new [] { engineGroupDictionary[EngineGroupType.Top], 
+                ActivateEngines(new[] { engineGroupDictionary[EngineGroupType.Top],
                     engineGroupDictionary[EngineGroupType.Left] });
             }
         }
@@ -255,16 +318,16 @@ namespace Player.Movement.Drone_Movement
                 ActivateEngines(engineGroup);
             }
         }
-        
+
         private void ActivateEngines(EngineGroup engineGroup)
         {
             foreach (var engine in engineGroup.engines)
             {
                 engine.Play();
-                engine.SetFloat("duration", +0.5f);
+                //engine.SetFloat("duration", +0.5f);
             }
         }
-        
+
         private void ToggleCameras(InputAction.CallbackContext _)
         {
             if (_cinemachineBrain.ActiveVirtualCamera == _orbitCameraInterface)
@@ -286,8 +349,8 @@ namespace Player.Movement.Drone_Movement
         {
             _playerInputActions.PlayerCamera.DroneOrbitCamera.started -= ToggleCameras;
             _playerInputActions.PlayerCamera.DroneOrbitCamera.canceled -= ToggleCameras;
-            
-            _playerInputActions.PlayerShip.Thrust.performed -= UpdateDroneDirection; 
+
+            _playerInputActions.PlayerShip.Thrust.performed -= UpdateDroneDirection;
             _playerInputActions.PlayerShip.Thrust.canceled -= RemoveThrust;
             _playerInputActions.PlayerShip.Pitch.performed -= UpdateDroneDirection;
             _playerInputActions.PlayerShip.Pitch.canceled -= RemovePitch;
@@ -297,6 +360,7 @@ namespace Player.Movement.Drone_Movement
             _playerInputActions.PlayerShip.Roll.canceled -= RemoveRoll;
             _playerInputActions.PlayerShip.Boost.performed -= ApplyBoost;
             _playerInputActions.PlayerShip.Boost.canceled -= RemoveBoost;
+            _playerInputActions.PlayerShip.Dodge.performed -= PerformDodge;
         }
     }
 }

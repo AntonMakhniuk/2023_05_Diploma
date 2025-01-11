@@ -120,13 +120,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 40
-  lifetime: 2
+  lifetime: 1
   damage: 10
   targetLayer:
     serializedVersion: 2
     m_Bits: 512
-  redMaterial: {fileID: 2100000, guid: b7a697ce82b2832478af00d50e90cf6c, type: 2}
-  greenMaterial: {fileID: 2100000, guid: 1a36693faac91f1479f710ee8ec32a4a, type: 2}
 --- !u!54 &9200130264850609059
 Rigidbody:
   m_ObjectHideFlags: 0

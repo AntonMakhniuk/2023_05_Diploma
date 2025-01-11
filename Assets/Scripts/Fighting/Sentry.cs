@@ -8,15 +8,29 @@ public class Sentry : MonoBehaviour
     [SerializeField] private Transform firePoint1; 
     [SerializeField] private Transform firePoint2; 
     [SerializeField] private float fireInterval = 2.0f; 
-    [SerializeField] private Transform target; 
-    [SerializeField] private int maxFiredRockets = 5; 
+    [SerializeField] private int maxFiredRockets = 5;
+    private Transform target; 
 
     private int _activeRockets = 0; 
     private bool _isFiring = false; 
-    private bool _useFirstFirePoint = true; 
+    private bool _useFirstFirePoint = true;
+
+    [SerializeField] private Transform turretHead; 
+    private float rotationSpeed = 3f; 
 
     private void Start()
     {
+        GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
+
+        foreach (GameObject playerObject in playerObjects)
+        {
+            if (playerObject.name == "Drone Body")
+            {
+                target = playerObject.transform;
+                break; 
+            }
+        }
+
         StartCoroutine(FireRocketRoutine());
     }
 
@@ -31,6 +45,27 @@ public class Sentry : MonoBehaviour
             yield return new WaitForSeconds(fireInterval); 
         }
     }
+
+    private void Update()
+    {
+        RotateTurretHead(); 
+    }
+
+    private void RotateTurretHead()
+    {
+        if (turretHead == null || target == null) return;
+
+        Vector3 direction = (target.position - turretHead.position).normalized;
+
+        direction.y = 0;
+
+        direction.Normalize();
+
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+
+        turretHead.rotation = Quaternion.Slerp(turretHead.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+    }
+
 
     private void FireRocket()
     {

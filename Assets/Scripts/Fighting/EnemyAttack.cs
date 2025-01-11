@@ -11,25 +11,19 @@ public class EnemyAttack : MonoBehaviour
     {
         _transform = transform;
 
-        GameObject targetObject = GameObject.FindGameObjectWithTag("Player");
+        GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
 
-        if (targetObject != null)
+        foreach (GameObject playerObject in playerObjects)
         {
-            Transform droneBody = targetObject.transform.Find("DroneBody");
-            if (droneBody != null)
+
+            if (playerObject.name == "Drone Body")
             {
-                target = droneBody;
+                target = playerObject.transform;
+                return; 
             }
-            else
-            {
-                Debug.LogError("DroneBody not found as a child of PlayerDroneSetup!");
-            }
-        }
-        else
-        {
-            Debug.LogError("Player tag not found in the scene!");
         }
     }
+
 
     private void Update()
     {

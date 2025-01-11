@@ -3,9 +3,10 @@ using UnityEngine;
 public class Blast : MonoBehaviour
 {
     [SerializeField] private float speed = 20f;
-    [SerializeField] private float lifetime = 2f;
     [SerializeField] private float damage = 10f;
     [SerializeField] private LayerMask targetLayer;
+    private float lifetime = 3f;
+
 
     private Transform _transform; 
 
@@ -46,5 +47,12 @@ public class Blast : MonoBehaviour
         {
             Debug.Log($"Ignored collision with: {other.name}");
         }
+    }
+
+    private void OnDestroy()
+    {
+
+            Destroy(transform.parent.gameObject);
+
     }
 }

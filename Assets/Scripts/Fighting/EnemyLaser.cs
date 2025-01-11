@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class EnemyLaser : MonoBehaviour
 {
@@ -8,14 +9,31 @@ public class EnemyLaser : MonoBehaviour
     [SerializeField] private float blastInterval = 1.0f; 
     [SerializeField] private GameObject blastPrefab;
     [SerializeField] private Transform muzzlePoint;
-    [SerializeField] private Transform target;
+    private Transform target;
 
     [Header("Detection Settings")]
     [SerializeField] private float sightAngle = 90f;
     [SerializeField] private float detectionRange = 50f;
 
     private bool _isShooting;
-    private float _lastBlastTime; 
+    private float _lastBlastTime;
+
+
+    private void Start()
+    {
+
+        GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
+
+        foreach (GameObject playerObject in playerObjects)
+        {
+
+            if (playerObject.name == "Drone Body")
+            {
+                target = playerObject.transform;
+                return;
+            }
+        }
+    }
 
     private void Update()
     {
@@ -74,7 +92,6 @@ public class EnemyLaser : MonoBehaviour
         if (blastPrefab != null)
         {
             GameObject blast = Instantiate(blastPrefab, spawnPosition, Quaternion.LookRotation(direction));
-            Debug.Log("Blast fired!");
 
             Blast blastScript = blast.GetComponent<Blast>();
             if (blastScript != null)

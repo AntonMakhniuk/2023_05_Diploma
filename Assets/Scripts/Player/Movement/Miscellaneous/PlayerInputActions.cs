@@ -170,6 +170,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Dodge"",
+                    ""type"": ""Button"",
+                    ""id"": ""ffd4b6eb-75d7-4075-b30e-3dbe213ec227"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -480,6 +489,39 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Boost"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""DodgeKB"",
+                    ""id"": ""b17916d6-2176-42a2-9eb6-f72292c08868"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dodge"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""45a8ce25-22cd-447f-aaba-31a41928a5fb"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dodge"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""5d6adcb7-9257-4067-8826-fccda7027531"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dodge"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -1064,6 +1106,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_PlayerShip_Yaw = m_PlayerShip.FindAction("Yaw", throwIfNotFound: true);
         m_PlayerShip_Roll = m_PlayerShip.FindAction("Roll", throwIfNotFound: true);
         m_PlayerShip_Boost = m_PlayerShip.FindAction("Boost", throwIfNotFound: true);
+        m_PlayerShip_Dodge = m_PlayerShip.FindAction("Dodge", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_CloseWindowOpenPause = m_UI.FindAction("CloseWindowOpenPause", throwIfNotFound: true);
@@ -1171,6 +1214,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerShip_Yaw;
     private readonly InputAction m_PlayerShip_Roll;
     private readonly InputAction m_PlayerShip_Boost;
+    private readonly InputAction m_PlayerShip_Dodge;
     public struct PlayerShipActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1191,6 +1235,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Yaw => m_Wrapper.m_PlayerShip_Yaw;
         public InputAction @Roll => m_Wrapper.m_PlayerShip_Roll;
         public InputAction @Boost => m_Wrapper.m_PlayerShip_Boost;
+        public InputAction @Dodge => m_Wrapper.m_PlayerShip_Dodge;
         public InputActionMap Get() { return m_Wrapper.m_PlayerShip; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1248,6 +1293,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Boost.started += instance.OnBoost;
             @Boost.performed += instance.OnBoost;
             @Boost.canceled += instance.OnBoost;
+            @Dodge.started += instance.OnDodge;
+            @Dodge.performed += instance.OnDodge;
+            @Dodge.canceled += instance.OnDodge;
         }
 
         private void UnregisterCallbacks(IPlayerShipActions instance)
@@ -1300,6 +1348,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Boost.started -= instance.OnBoost;
             @Boost.performed -= instance.OnBoost;
             @Boost.canceled -= instance.OnBoost;
+            @Dodge.started -= instance.OnDodge;
+            @Dodge.performed -= instance.OnDodge;
+            @Dodge.canceled -= instance.OnDodge;
         }
 
         public void RemoveCallbacks(IPlayerShipActions instance)
@@ -1663,6 +1714,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnYaw(InputAction.CallbackContext context);
         void OnRoll(InputAction.CallbackContext context);
         void OnBoost(InputAction.CallbackContext context);
+        void OnDodge(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

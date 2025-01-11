@@ -86,11 +86,11 @@ GameObject:
   - component: {fileID: 1366487887898702170}
   - component: {fileID: 7899397564847705689}
   - component: {fileID: 2877534495623426662}
-  - component: {fileID: 3404580424124648419}
   - component: {fileID: 6553099384311665169}
   - component: {fileID: 5129360397271400655}
   - component: {fileID: 340359870715974435}
   - component: {fileID: 8895491575488741932}
+  - component: {fileID: 6466617089983432943}
   m_Layer: 0
   m_Name: RangeEnemy
   m_TagString: Untagged
@@ -106,7 +106,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1864781014445203393}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -14.253786, y: 0, z: 20.648964}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -165,21 +165,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3404580424124648419
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1864781014445203393}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95c859bf7e48ca54490a73080b4c53a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  movementSpeed: 10
-  rotationalDamp: 2
 --- !u!114 &6553099384311665169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,7 +177,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19559202cf3c5d84c837f65cec8f4ead, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
 --- !u!114 &5129360397271400655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,7 +193,6 @@ MonoBehaviour:
   blastInterval: 1
   blastPrefab: {fileID: 4320530832249801640, guid: 879eb79d22359a24a91f3860aff5c3a8, type: 3}
   muzzlePoint: {fileID: 8498521897705914198}
-  target: {fileID: 0}
   sightAngle: 180
   detectionRange: 50
 --- !u!114 &340359870715974435
@@ -248,6 +231,26 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 1242030538849649964, guid: 974e19cacdea42b4486ec54ac3cf8aaa, type: 3}
+--- !u!114 &6466617089983432943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1864781014445203393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 451b5bd13090d5a42ae57ef8aae4089a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 20
+  rotationalDamp: 2
+  stopMinDistance: 10
+  stopMaxDistance: 20
+  avoidanceRadius: 2
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 65536
 --- !u!1 &2359433813000956857
 GameObject:
   m_ObjectHideFlags: 0
