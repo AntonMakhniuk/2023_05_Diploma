@@ -27,7 +27,12 @@ namespace Environment.Scene_Management
 
         public static void ChangeScene(SceneTypeContainer sceneTypeContainer)
         {
-            var scenesToLoad = Instance.scenesDict[sceneTypeContainer.sceneType];
+            ChangeScene(sceneTypeContainer.sceneType);
+        }
+        
+        public static void ChangeScene(SceneType sceneType)
+        {
+            var scenesToLoad = Instance.scenesDict[sceneType];
 
             SceneManager.LoadScene(scenesToLoad[0]);
 
