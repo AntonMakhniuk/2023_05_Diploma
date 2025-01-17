@@ -1,4 +1,5 @@
 ﻿using System;
+using Unity.Entities.UniversalDelegates;
 using UnityEngine;
 
 namespace Environment.Level_Pathfinding.Octree
@@ -17,18 +18,17 @@ namespace Environment.Level_Pathfinding.Octree
             id = _nextId++;
             _bounds = gameObject.GetComponent<Collider>().bounds;
             
-            if (OctreeGenerator.Instance == null)
-            {
-                OctreeGenerator.OnInstantiated += RegisterObject;
-            }
-            else
-            {
-                RegisterObject(null, null);    
-            }   
+            OctreeGenerator.OnInstantiated += RegisterObject;
+            RegisterObject(this, EventArgs.Empty);
         }
 
         private void RegisterObject(object sender, EventArgs e)
         {
+            if (OctreeGenerator.Instance == null)
+            {
+                return;
+            }
+            
             OctreeGenerator.Instance.AddObject(this);
             OctreeGenerator.OnInstantiated -= RegisterObject;
         }
@@ -40,7 +40,10 @@ namespace Environment.Level_Pathfinding.Octree
 
         private void OnDestroy()
         {
-            OctreeGenerator.Instance.RemoveObject(this);
+            if (OctreeGenerator.Instance != null)
+            {
+                OctreeGenerator.Instance.RemoveObject(this);    
+            }
         }
 
         public override int GetHashCode()

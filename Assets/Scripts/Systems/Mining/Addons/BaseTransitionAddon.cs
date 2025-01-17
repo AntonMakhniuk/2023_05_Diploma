@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Systems.Mining.Transitions.Transition_Addons
+namespace Systems.Mining.Addons
 {
     public abstract class BaseTransitionAddon : MonoBehaviour
     {

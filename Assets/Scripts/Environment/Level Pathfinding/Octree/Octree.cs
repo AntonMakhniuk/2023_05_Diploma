@@ -16,7 +16,7 @@ namespace Environment.Level_Pathfinding.Octree
             CreateTree(objects, minNodeSize);
         }
 
-        public void CreateTree(HashSet<OctreeObject> objects, float minNodeSize)
+        private void CreateTree(HashSet<OctreeObject> objects, float minNodeSize)
         {
             RootNode = new OctreeNode(Bounds, minNodeSize);
 

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Systems.Mining.Addons;
+using UnityEngine;
 
 namespace Systems.Mining.Transitions.Transition_Addons
 {
