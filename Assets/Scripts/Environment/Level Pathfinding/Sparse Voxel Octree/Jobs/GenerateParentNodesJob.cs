@@ -15,7 +15,7 @@ namespace Environment.Level_Pathfinding.Sparse_Voxel_Octree.Jobs
         
         public void Execute()
         {
-            var parentNodeMap = new NativeHashMap<long, int>(ChildNodes.Length, Allocator.Temp);
+            var parentNodeMap = new NativeHashMap<ulong, int>(ChildNodes.Length, Allocator.Temp);
 
             foreach (var childNode in ChildNodes)
             {

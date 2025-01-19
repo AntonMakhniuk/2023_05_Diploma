@@ -1,11 +1,10 @@
 ﻿using System;
+using Environment.Level_Pathfinding.Level_Boundary;
 using Environment.Level_Pathfinding.Sparse_Voxel_Octree.Jobs;
-using Scriptable_Object_Templates.Singletons;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Environment.Level_Pathfinding.Sparse_Voxel_Octree
 {
@@ -15,6 +14,7 @@ namespace Environment.Level_Pathfinding.Sparse_Voxel_Octree
 
         private readonly float _voxelSize;
         private readonly int _maxLevels;
+        private readonly float3 _gameSpaceMin;
 
         public SparseVoxelOctree(float voxelSize, int maxLevels)
         {
@@ -23,6 +23,8 @@ namespace Environment.Level_Pathfinding.Sparse_Voxel_Octree
             Levels = new NativeArray<SparseNode>[maxLevels];
             
             var gameSpaceBounds = CreateGameSpaceBounds();
+            _gameSpaceMin = gameSpaceBounds.min;
+            Debug.Log("game space min " + _gameSpaceMin);
             
             var layer1VoxelSize = _voxelSize * 4f * 2f;
             var layer1MortonCodes = RasterizeToMorton(gameSpaceBounds, layer1VoxelSize);
@@ -67,32 +69,29 @@ namespace Environment.Level_Pathfinding.Sparse_Voxel_Octree
 
         private static Bounds CreateGameSpaceBounds()
         {
-            var radius = LevelBoundaryDictionary.Instance
-                .dictionary[SceneManager.GetActiveScene().name]
-                .zone3Radius;
-            
-            return new Bounds
-            {
-                extents = new Vector3(radius, radius, radius)
-            };
+            return LevelBoundaryController.Instance.GetWorldBounds();
         }
         
-        private NativeList<long> RasterizeToMorton(Bounds gameSpaceBounds, float nodeSize)
+        private NativeList<ulong> RasterizeToMorton(Bounds gameSpaceBounds, float nodeSize)
         {
-            var occupiedMortonCodes = new NativeList<long>(Allocator.Temp);
+            var occupiedMortonCodes = new NativeList<ulong>(Allocator.Temp);
             var offset = nodeSize * 0.5f;
             var boxOffsets = new float3(offset);
             
-            var minInt = new int3(gameSpaceBounds.min / nodeSize);
-            var maxInt = new int3(gameSpaceBounds.max / nodeSize);
+            var minLong = new Long3((long)math.floor((gameSpaceBounds.min.x - _gameSpaceMin.x) / nodeSize),
+                                    (long)math.floor((gameSpaceBounds.min.y - _gameSpaceMin.y) / nodeSize),
+                                    (long)math.floor((gameSpaceBounds.min.z - _gameSpaceMin.z) / nodeSize));
+            var maxLong = new Long3((long)math.ceil((gameSpaceBounds.max.x - _gameSpaceMin.x) / nodeSize),
+                                    (long)math.ceil((gameSpaceBounds.max.y - _gameSpaceMin.y) / nodeSize),
+                                    (long)math.ceil((gameSpaceBounds.max.z - _gameSpaceMin.z) / nodeSize));
 
-            for (var x = minInt.x; x < maxInt.x; x++)
+            for (var x = minLong.x; x < maxLong.x; x++)
             {
-                for (var y = minInt.y; y < maxInt.y; y++)
+                for (var y = minLong.y; y < maxLong.y; y++)
                 {
-                    for (var z = minInt.z; z < maxInt.z; z++)
+                    for (var z = minLong.z; z < maxLong.z; z++)
                     {
-                        var nodeCenter = new float3(x + 0.5f, y + 0.5f, z + 0.5f) * nodeSize;
+                        var nodeCenter = new float3(x + 0.5f, y + 0.5f, z + 0.5f) * nodeSize + _gameSpaceMin;
                         
                         if (Physics.CheckBox(nodeCenter, boxOffsets))
                         {
@@ -103,7 +102,7 @@ namespace Environment.Level_Pathfinding.Sparse_Voxel_Octree
             }
             
             var uniqueMortonCodesSet = 
-                new NativeHashSet<long>(occupiedMortonCodes.Length, Allocator.Temp);
+                new NativeHashSet<ulong>(occupiedMortonCodes.Length, Allocator.Temp);
             
             foreach (var mortonCode in occupiedMortonCodes)
             {
@@ -112,7 +111,7 @@ namespace Environment.Level_Pathfinding.Sparse_Voxel_Octree
             
             occupiedMortonCodes.Dispose();
             
-            var uniqueMortonCodes = new NativeList<long>(uniqueMortonCodesSet.Count, Allocator.TempJob);
+            var uniqueMortonCodes = new NativeList<ulong>(uniqueMortonCodesSet.Count, Allocator.TempJob);
             
             uniqueMortonCodes.CopyFrom(uniqueMortonCodesSet.ToNativeArray(Allocator.Temp));
             uniqueMortonCodesSet.Dispose();
@@ -120,7 +119,7 @@ namespace Environment.Level_Pathfinding.Sparse_Voxel_Octree
             return uniqueMortonCodes;
         }
 
-        private void GenerateLeafNodes(NativeList<long> parentMortonCodes)
+        private void GenerateLeafNodes(NativeList<ulong> parentMortonCodes)
         {
             var generateLeafNodesJob = new GenerateLeafNodesJob
             {
@@ -197,8 +196,8 @@ namespace Environment.Level_Pathfinding.Sparse_Voxel_Octree
             for (var i = 0; i < Levels[0].Length; i++)
             {
                 var node = Levels[0][i];
-                var nodeCoords = MortonCodeEncoding.DecodeMortonTo3DFloat3(node.MortonCode);
-                var nodeMinPosition = nodeCoords * nodeSize + (float3)gameSpaceBounds.min;
+                var nodeCoords = MortonCodeEncoding.DecodeMortonTo3D(node.MortonCode);
+                var nodeMinPosition = (float3)nodeCoords * nodeSize + _gameSpaceMin;
                 var occupationData = 0UL;
 
                 for (var j = 0; j < 64; j++)

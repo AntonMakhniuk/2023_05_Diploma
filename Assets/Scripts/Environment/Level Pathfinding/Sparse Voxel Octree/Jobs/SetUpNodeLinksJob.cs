@@ -13,15 +13,10 @@ namespace Environment.Level_Pathfinding.Sparse_Voxel_Octree.Jobs
         public void Execute(int index)
         {
             var node = InputNodes[index];
-            var neighborCodes = new FixedList512Bytes<long>();
-
-            for (var i = 0; i < 6; i++)
-            {
-                neighborCodes.Add(-1);
-            }
+            var neighborCodes = new NativeList<ulong>(6, Allocator.Temp);
             
             MortonCodeEncoding.GetNeighborCodes(node.MortonCode, ref neighborCodes);
-            
+
             for (var i = 0; i < 6; i++)
             {
                 var neighborCode = neighborCodes[i];
@@ -33,9 +28,9 @@ namespace Environment.Level_Pathfinding.Sparse_Voxel_Octree.Jobs
                     {
                         continue;
                     }
-                    
+
                     neighborIndex = j;
-                    
+
                     break;
                 }
 
@@ -43,6 +38,7 @@ namespace Environment.Level_Pathfinding.Sparse_Voxel_Octree.Jobs
             }
 
             OutputNodes[index] = node;
+            neighborCodes.Dispose();
         }
     }
 }

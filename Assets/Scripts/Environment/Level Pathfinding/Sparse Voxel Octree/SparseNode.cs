@@ -4,14 +4,14 @@ namespace Environment.Level_Pathfinding.Sparse_Voxel_Octree
 {
     public struct SparseNode
     {
-        public long MortonCode;
+        public ulong MortonCode;
         public int ParentIndex;
         public int FirstChildIndex;
         public FixedList64Bytes<int> NeighborIndices;
         public bool IsLeaf;
         public ulong LeafData;
         
-        public SparseNode(long mortonCode)
+        public SparseNode(ulong mortonCode)
         {
             MortonCode = mortonCode;
             IsLeaf = false;

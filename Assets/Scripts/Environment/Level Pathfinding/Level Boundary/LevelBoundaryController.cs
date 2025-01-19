@@ -95,6 +95,21 @@ namespace Environment.Level_Pathfinding.Level_Boundary
             }
         }
 
+        public Bounds GetWorldBounds()
+        {
+            var radius = LevelBoundaryDictionary.Instance
+                .dictionary[SceneManager.GetActiveScene().name]
+                .zone3Radius;
+            
+            Debug.Log(transform.position);
+            
+            return new Bounds
+            {
+                center = transform.position,
+                extents = new Vector3(radius, radius, radius)
+            };
+        }
+        
         private void OnDrawGizmos()
         {
             if (dataObject == null)

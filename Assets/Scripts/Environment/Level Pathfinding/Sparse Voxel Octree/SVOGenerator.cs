@@ -21,7 +21,7 @@ namespace Environment.Level_Pathfinding.Sparse_Voxel_Octree
         
         private SparseVoxelOctree _svo;
         
-        private void Awake()
+        private void Start()
         {
             if (Instance != null && Instance != this)
             {
@@ -32,14 +32,8 @@ namespace Environment.Level_Pathfinding.Sparse_Voxel_Octree
             
             GenerateSVO();
         }
-
-        [Button("Debug: Generate Instance (first)", enabledMode: EButtonEnableMode.Editor)]
-        private void GenerateInstance()
-        {
-            Awake();
-        }
         
-        [Button("Debug: Generate SVO (second)", enabledMode: EButtonEnableMode.Editor)]
+        [Button("Debug: Generate SVO", enabledMode: EButtonEnableMode.Editor)]
         public void GenerateSVO()
         {
             if (_svo.Levels != null)
@@ -96,7 +90,7 @@ namespace Environment.Level_Pathfinding.Sparse_Voxel_Octree
                 {
                     if (drawLeafNodes && node.IsLeaf)
                     {
-                        DrawNode(node, level, Color.green);
+                        DrawNode(node, level, Color.red);
                     }
                     else if (drawParentNodes && !node.IsLeaf)
                     {

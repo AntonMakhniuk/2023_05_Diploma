@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Unity.Burst;
+﻿using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
@@ -9,7 +8,7 @@ namespace Environment.Level_Pathfinding.Sparse_Voxel_Octree.Jobs
     [BurstCompile]
     public struct GenerateLeafNodesJob : IJob
     {
-        [ReadOnly] public NativeArray<long> ParentMortonCodes;        
+        [ReadOnly] public NativeArray<ulong> ParentMortonCodes;        
         public NativeArray<SparseNode> LeafNodes;
         
         public void Execute()

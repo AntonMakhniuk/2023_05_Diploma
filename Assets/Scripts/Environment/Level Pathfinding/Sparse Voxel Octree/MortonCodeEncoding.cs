@@ -4,76 +4,118 @@ using Unity.Mathematics;
 
 namespace Environment.Level_Pathfinding.Sparse_Voxel_Octree
 {
+    public struct Long3
+    {
+        public long x;
+        public long y;
+        public long z;
+
+        public Long3(long x, long y, long z)
+        {
+            this.x = x;
+            this.y = y;
+            this.z = z;
+        }
+
+        public static Long3 operator >>(Long3 a, int shift)
+        {
+            return new Long3(a.x >> shift, a.y >> shift, a.z >> shift);
+        }
+        
+        public static Long3 operator +(Long3 a, Long3 b)
+        {
+            return new Long3(a.x + b.x, a.y + b.y, a.z + b.z);
+        }
+        
+        public static Long3 operator +(Long3 a, int3 b)
+        {
+            return new Long3(a.x + b.x, a.y + b.y, a.z + b.z);
+        }
+        
+        public static Long3 operator *(Long3 a, int b)
+        {
+            return new Long3(a.x * b, a.y * b, a.z * b);
+        }
+        
+        public static explicit operator float3(Long3 a)
+        {
+            return new float3(a.x, a.y, a.z);
+        }
+    }
+    
     [BurstCompile]
     public static class MortonCodeEncoding
     {
         private const int Offset = 4096;
         
-        public static long Encode3DtoMorton(int x, int y, int z)
+        public static ulong Encode3DtoMorton(long x, long y, long z)
         {
-            return (ExpandCoordinateBits((uint)x + Offset) << 2) 
-                   | (ExpandCoordinateBits((uint)y + Offset) << 1) | ExpandCoordinateBits((uint)z + Offset);
+            return (ExpandCoordinateBits((ulong)(x + Offset)) << 2)
+                   | (ExpandCoordinateBits((ulong)(y + Offset)) << 1)
+                   | ExpandCoordinateBits((ulong)(z + Offset));
         }
         
-        private static long ExpandCoordinateBits(uint coordinate)
+        private static ulong ExpandCoordinateBits(ulong coordinate)
         {
-            ulong newCoord = coordinate;
+            var newCoord = coordinate;
             
-            newCoord &= 0xFFFF;
+            newCoord &= 0x1FFFFF;
             newCoord = (newCoord | (newCoord << 32)) & 0x1F00000000FFFF;
             newCoord = (newCoord | (newCoord << 16)) & 0x1F0000FF0000FF;
             newCoord = (newCoord | (newCoord << 8)) & 0x100F00F00F00F00F;
             newCoord = (newCoord | (newCoord << 4)) & 0x10C30C30C30C30C3;
             newCoord = (newCoord | (newCoord << 2)) & 0x1249249249249249;
             
-            return (long)newCoord;
+            return newCoord;
         }
         
-        public static int3 DecodeMortonTo3D(long mortonCode)
+        public static Long3 DecodeMortonTo3D(ulong mortonCode)
         {
-            return new int3((int)CompactCoordinateBits(mortonCode >> 2) - Offset, 
-                (int)CompactCoordinateBits(mortonCode >> 1) - Offset, 
-                (int)CompactCoordinateBits(mortonCode) - Offset);
+            return new Long3((long)CompactCoordinateBits(mortonCode >> 2) - Offset,
+                (long)CompactCoordinateBits(mortonCode >> 1) - Offset,
+                (long)CompactCoordinateBits(mortonCode) - Offset);
         }
 
-        private static long CompactCoordinateBits(long coordinate)
+        private static ulong CompactCoordinateBits(ulong coordinate)
         {
-            var newCoord = (ulong)coordinate;
+            var newCoord = coordinate;
             
             newCoord &= 0x1249249249249249;
             newCoord = (newCoord | (newCoord >> 2)) & 0x10C30C30C30C30C3;
             newCoord = (newCoord | (newCoord >> 4)) & 0x100F00F00F00F00F;
             newCoord = (newCoord | (newCoord >> 8)) & 0x1F0000FF0000FF;
             newCoord = (newCoord | (newCoord >> 16)) & 0x1F00000000FFFF;
-            newCoord = (newCoord | (newCoord >> 32)) & 0xFFFF;
+            newCoord = (newCoord | (newCoord >> 32)) & 0x1FFFFF;
             
-            return (long)newCoord;
+            return newCoord;
         }
         
-        public static long GetParentMortonCode(long childNodeMortonCode)
+        public static ulong GetParentMortonCode(ulong childNodeMortonCode)
         {
-            var parentCoords = DecodeMortonTo3D(childNodeMortonCode) / 2; 
+            var parentCoords = DecodeMortonTo3D(childNodeMortonCode) >> 1;
             
             return Encode3DtoMorton(parentCoords.x, parentCoords.y, parentCoords.z);
         }
 
-        public static void GetNeighborCodes(long mortonCode, ref FixedList512Bytes<long> neighbors)
+        public static void GetNeighborCodes(ulong mortonCode, ref NativeList<ulong> neighbors)
         {
             var pos = DecodeMortonTo3D(mortonCode);
 
-            neighbors[0] = Encode3DtoMorton(pos.x + 1, pos.y, pos.z);
-            neighbors[1] = Encode3DtoMorton(pos.x - 1, pos.y, pos.z);
-            neighbors[2] = Encode3DtoMorton(pos.x, pos.y + 1, pos.z); 
-            neighbors[3] = Encode3DtoMorton(pos.x, pos.y - 1, pos.z); 
-            neighbors[4] = Encode3DtoMorton(pos.x, pos.y, pos.z + 1); 
-            neighbors[5] = Encode3DtoMorton(pos.x, pos.y, pos.z - 1);
+            neighbors.Clear();
+
+            neighbors.Add(Encode3DtoMorton(pos.x + 1, pos.y, pos.z));
+            neighbors.Add(Encode3DtoMorton(pos.x - 1, pos.y, pos.z));
+            neighbors.Add(Encode3DtoMorton(pos.x, pos.y + 1, pos.z));
+            neighbors.Add(Encode3DtoMorton(pos.x, pos.y - 1, pos.z));
+            neighbors.Add(Encode3DtoMorton(pos.x, pos.y, pos.z + 1));
+            neighbors.Add(Encode3DtoMorton(pos.x, pos.y, pos.z - 1));
         }
 
-        public static float3 DecodeMortonTo3DFloat3(long mortonCode)
+        public static float3 DecodeMortonTo3DFloat3(ulong mortonCode)
         {
-            return new float3(CompactCoordinateBits(mortonCode >> 2) - Offset, 
-                CompactCoordinateBits(mortonCode >> 1) - Offset, 
-                CompactCoordinateBits(mortonCode) - Offset);
+            return new float3((long)CompactCoordinateBits(mortonCode >> 2) - Offset, 
+                (long)CompactCoordinateBits(mortonCode >> 1) - Offset, 
+                (long)CompactCoordinateBits(mortonCode) - Offset);
         }
     }
 }

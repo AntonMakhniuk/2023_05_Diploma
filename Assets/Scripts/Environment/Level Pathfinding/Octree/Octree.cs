@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Scriptable_Object_Templates.Singletons;
+using Environment.Level_Pathfinding.Level_Boundary;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Environment.Level_Pathfinding.Octree
 {
@@ -28,11 +27,7 @@ namespace Environment.Level_Pathfinding.Octree
 
         private void CalculateBounds()
         {
-            var radius = LevelBoundaryDictionary.Instance
-                    .dictionary[SceneManager.GetActiveScene().name]
-                    .zone3Radius;
-            
-            Bounds.extents = new Vector3(radius, radius, radius);
+            Bounds = LevelBoundaryController.Instance.GetWorldBounds();
         }
     }
 }
