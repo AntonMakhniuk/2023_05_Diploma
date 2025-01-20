@@ -1,11 +1,13 @@
 using System.Linq;
 using System.Collections;
+using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
 using Cinemachine;
 using NaughtyAttributes;
 using Player.Movement.Miscellaneous;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.VFX;
 
 namespace Player.Movement.Drone_Movement
 {
@@ -63,10 +65,16 @@ namespace Player.Movement.Drone_Movement
         [SerializeField]
         private CinemachineFreeLook orbitCamera;
 
-        [Foldout("Visual Effects Data")]
-        [SerializeField]
+        [Foldout("Visual Effects Data")] [SerializeField] 
         [SerializedDictionary("Engine Group Type", "Associated Engines")]
         private SerializedDictionary<EngineGroupType, EngineGroup> engineGroupDictionary;
+        [Foldout("Visual Effects Data")] [SerializeField] 
+        [SerializedDictionary("Engine Group Type", "effect duration time")]
+        private float duration;
+        [Foldout("Visual Effects Data")] [SerializeField] 
+        [SerializedDictionary("Engine Group Type", "Engine States")]
+        private Dictionary<EngineGroupType, EngineStateInfo> _engineStates;
+        
 
         private PlayerInputActions _playerInputActions;
         private CinemachineBrain _cinemachineBrain;
@@ -95,6 +103,31 @@ namespace Player.Movement.Drone_Movement
         private static Vector2 ScreenCenter => new(Screen.width * 0.5f, Screen.height * 0.5f);
 
         private ICinemachineCamera _thirdPersonCameraInterface, _orbitCameraInterface;
+        
+        private class EngineStateInfo
+        {
+            public EngineVFXState CurrentState;
+            public float StartTimer;
+        }
+        private enum EngineVFXState
+        {
+            Start,
+            Active,
+            End
+        }
+        
+        private void InitializeEngineStates()
+        {
+            _engineStates = new Dictionary<EngineGroupType, EngineStateInfo>();
+            foreach (var key in engineGroupDictionary.Keys)
+            {
+                _engineStates[key] = new EngineStateInfo
+                {
+                    CurrentState = EngineVFXState.End,
+                    StartTimer = 0f
+                };
+            }
+        }
 
         private void Awake()
         {
@@ -132,6 +165,8 @@ namespace Player.Movement.Drone_Movement
 
             _thirdPersonCameraInterface = thirdPersonCamera.GetComponent<ICinemachineCamera>();
             _orbitCameraInterface = orbitCamera.GetComponent<ICinemachineCamera>();
+            
+            InitializeEngineStates();
         }
 
         private void UpdateDroneDirection(InputAction.CallbackContext _)
@@ -262,68 +297,123 @@ namespace Player.Movement.Drone_Movement
                                                           _rollAmount * Time.fixedDeltaTime));
             }
         }
+        
+        private bool IsInputActiveForEngineType(EngineGroupType engineType)
+        {
+            bool isActive = engineType switch
+            {
+                EngineGroupType.Back => _thrustAmount > 0f,
+                EngineGroupType.Front => _thrustAmount < 0f,
+                EngineGroupType.Top => _pitchAmount < 0f || _rollAmount > 0f,
+                EngineGroupType.Bottom => _pitchAmount > 0f || _rollAmount < 0f,
+                EngineGroupType.Left => _yawAmount > 0f || _rollAmount > 0f,
+                EngineGroupType.Right => _yawAmount < 0f || _rollAmount < 0f,
+                _ => false
+            };
+            
+            return isActive;
+        }
 
         private void UpdateEngineEffects()
         {
-            foreach (var engine in engineGroupDictionary.Values.SelectMany(e => e.engines))
+            foreach (var kvp in _engineStates)
             {
-                engine.Stop();
-            }
+                var engineType = kvp.Key;
+                var stateInfo  = kvp.Value;
+                var engineGroup = engineGroupDictionary[engineType];
 
-            if (_thrustAmount > 0f)
-            {
-                ActivateEngines(engineGroupDictionary[EngineGroupType.Back]);
-            }
-            else if (_thrustAmount < 0f)
-            {
-                ActivateEngines(engineGroupDictionary[EngineGroupType.Front]);
-            }
+                bool inputActive = IsInputActiveForEngineType(engineType); 
 
-            if (_pitchAmount > 0f)
-            {
-                ActivateEngines(engineGroupDictionary[EngineGroupType.Bottom]);
-            }
-            else if (_pitchAmount < 0f)
-            {
-                ActivateEngines(engineGroupDictionary[EngineGroupType.Top]);
-            }
+                switch (stateInfo.CurrentState)
+                {
+                    case EngineVFXState.Start:
+                        stateInfo.StartTimer += Time.deltaTime;
+    
+                        if (inputActive)
+                        {
+                            if (stateInfo.StartTimer >= duration)
+                            {
+                                StopEffects(engineGroup.engineStartEffects, engineGroup);
+                                stateInfo.CurrentState = EngineVFXState.Active;
+                                PlayEffects(engineGroup.engineActiveEffects, engineGroup);
+                            }
+                        }
+                        else
+                        {
+                            StopEffects(engineGroup.engineStartEffects, engineGroup);
+                            stateInfo.StartTimer = 0f;
+                            stateInfo.CurrentState = EngineVFXState.End;
+                            StartCoroutine(EndSequence(engineGroup, stateInfo));
+                        }
+                        break;
 
-            if (_yawAmount > 0f)
-            {
-                ActivateEngines(engineGroupDictionary[EngineGroupType.Left]);
-            }
-            else if (_yawAmount < 0f)
-            {
-                ActivateEngines(engineGroupDictionary[EngineGroupType.Right]);
-            }
 
-            if (_rollAmount > 0f)
-            {
-                ActivateEngines(new[] { engineGroupDictionary[EngineGroupType.Top],
-                    engineGroupDictionary[EngineGroupType.Right] });
-            }
-            else if (_rollAmount < 0f)
-            {
-                ActivateEngines(new[] { engineGroupDictionary[EngineGroupType.Top],
-                    engineGroupDictionary[EngineGroupType.Left] });
+                    case EngineVFXState.Active:
+                        if (!inputActive)
+                        {
+                            StopEffects(engineGroup.engineActiveEffects, engineGroup);
+
+                            stateInfo.CurrentState = EngineVFXState.End;
+                            StartCoroutine(EndSequence(engineGroup, stateInfo));
+                        }
+                        break;
+
+                    case EngineVFXState.End:
+                        if (inputActive)
+                        {
+                            stateInfo.CurrentState = EngineVFXState.Start;
+                            stateInfo.StartTimer = 0f;
+                            PlayEffects(engineGroup.engineStartEffects, engineGroup);
+                        }
+                        break;
+
+                    default:
+                        if (inputActive)
+                        {
+                            stateInfo.CurrentState = EngineVFXState.Start;
+                            stateInfo.StartTimer = 0f;
+                            PlayEffects(engineGroup.engineStartEffects, engineGroup);
+                        }
+                        break;
+
+                }
             }
         }
-
-        private void ActivateEngines(EngineGroup[] engineGroups)
+        
+        private void PlayEffects(IEnumerable<VisualEffect> effects, EngineGroup engineGroup)
         {
-            foreach (var engineGroup in engineGroups)
+            foreach (var effect in effects)
             {
-                ActivateEngines(engineGroup);
+                if (!engineGroup.IsEffectActive(effect))
+                {
+                    effect.Play();
+                    engineGroup.SetEffectActive(effect, true);
+                }
             }
         }
-
-        private void ActivateEngines(EngineGroup engineGroup)
+        
+        private void StopEffects(IEnumerable<VisualEffect> effects, EngineGroup engineGroup)
         {
-            foreach (var engine in engineGroup.engines)
+            foreach (var effect in effects)
             {
-                engine.Play();
-                //engine.SetFloat("duration", +0.5f);
+                if (engineGroup.IsEffectActive(effect))
+                {
+                    effect.Stop();
+                    effect.Reinit();
+                    engineGroup.SetEffectActive(effect, false);
+                }
             }
+        }
+        
+        private IEnumerator EndSequence(EngineGroup engineGroup, EngineStateInfo stateInfo)
+        {
+            PlayEffects(engineGroup.engineEndEffects, engineGroup);
+            
+            yield return new WaitForSeconds(duration);
+            
+            StopEffects(engineGroup.engineEndEffects, engineGroup);
+            
+            stateInfo.CurrentState = EngineVFXState.End;
         }
 
         private void ToggleCameras(InputAction.CallbackContext _)
