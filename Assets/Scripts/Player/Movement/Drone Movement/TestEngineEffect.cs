@@ -272,20 +272,25 @@ namespace Player.Movement.Drone_Movement
                 {
                     case EngineVFXState.Start:
                         stateInfo.StartTimer += Time.deltaTime;
-                        
-                        if (inputActive && stateInfo.StartTimer >= duration)
+    
+                        if (inputActive)
                         {
-                            StopEffects(engineGroup.engineStartEffects, engineGroup);
-                            stateInfo.CurrentState = EngineVFXState.Active;
-                            PlayEffects(engineGroup.engineActiveEffects, engineGroup);
+                            if (stateInfo.StartTimer >= duration)
+                            {
+                                StopEffects(engineGroup.engineStartEffects, engineGroup);
+                                stateInfo.CurrentState = EngineVFXState.Active;
+                                PlayEffects(engineGroup.engineActiveEffects, engineGroup);
+                            }
                         }
-                        else if (!inputActive)
+                        else
                         {
                             StopEffects(engineGroup.engineStartEffects, engineGroup);
+                            stateInfo.StartTimer = 0f;
                             stateInfo.CurrentState = EngineVFXState.End;
                             StartCoroutine(EndSequence(engineGroup, stateInfo));
                         }
                         break;
+
 
                     case EngineVFXState.Active:
                         if (!inputActive)
@@ -338,10 +343,12 @@ namespace Player.Movement.Drone_Movement
                 if (engineGroup.IsEffectActive(effect))
                 {
                     effect.Stop();
+                    effect.Reinit();
                     engineGroup.SetEffectActive(effect, false);
                 }
             }
         }
+
         
         private IEnumerator EndSequence(EngineGroup engineGroup, EngineStateInfo stateInfo)
         {
