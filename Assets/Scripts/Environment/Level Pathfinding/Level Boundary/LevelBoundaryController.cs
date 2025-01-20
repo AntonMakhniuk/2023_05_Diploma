@@ -1,30 +1,26 @@
+using NaughtyAttributes;
 using Player.Movement.Drone_Movement;
+using Scriptable_Object_Templates.Singletons;
+using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 //TODO:Delete when ExecuteAlways when creating build 
-namespace Testing.NewMovement
+namespace Environment.Level_Pathfinding.Level_Boundary
 {
     [ExecuteAlways]
-    public class MapBoundaryController : MonoBehaviour
+    public class LevelBoundaryController : MonoBehaviour
     {
+        public static LevelBoundaryController Instance;
+
+        [Expandable]
+        public LevelBoundaryData dataObject;
+        
         [Header("Drone Setup")]
         [Tooltip("The drone Script to monitor boundaries.")]
         [SerializeField] private DroneController droneController;
         [Tooltip("The drone GameObject to monitor boundaries.")]
         [SerializeField] private Transform droneBody;
-
-        [Header("Zone Radius")]
-        [Tooltip("Radius of the free movement zone.")]
-        [Range(10f, 1500f)]
-        [SerializeField] private float zone1Radius = 50f;
-
-        [Tooltip("Radius of the deceleration zone.")]
-        [Range(10f, 3000f)]
-        [SerializeField] private float zone2Radius = 100f;
-
-        [Tooltip("Radius of the forced alignment zone.")]
-        [Range(10f, 4500f)]
-        [SerializeField] private float zone3Radius = 150f;
 
         [Header("Zone 2 Settings")]
         [Tooltip("Factor to scale thrust in the deceleration zone.")]
@@ -40,14 +36,24 @@ namespace Testing.NewMovement
         [Tooltip("Speed factor for forced alignment and return in Zone 3.")]
         [Range(1f, 20f)]
         [SerializeField] private float forcedReturnSpeed = 10f;
-    
-
+        
         private Rigidbody _droneRigidbody;
-
+        
         private void Awake()
         {
+            Instance = this;
+            
+            Debug.Log(Instance);
+            
+            UpdateLevelData(SceneManager.GetActiveScene().name);
+            
             _droneRigidbody = droneController.GetComponent<Rigidbody>();
             droneBody = droneController.transform;
+        }
+
+        public void UpdateLevelData(string sceneName)
+        {
+            dataObject = LevelBoundaryDictionary.Instance.dictionary[sceneName];
         }
 
         private void FixedUpdate()
@@ -56,13 +62,14 @@ namespace Testing.NewMovement
             float distance = Vector3.Distance(droneBody.position, transform.position);
             Vector3 directionToStation = (transform.position - droneBody.position).normalized;
 
-            if (distance < zone1Radius)
+            if (distance < dataObject.zone1Radius)
             {
                 droneController.SetThrust(1500f); 
             }
-            else if (distance < zone2Radius)
+            else if (distance < dataObject.zone2Radius)
             {
-                float decelerationFactor = Mathf.Clamp01((distance - zone1Radius) / (zone2Radius - zone1Radius));
+                float decelerationFactor = Mathf.Clamp01((distance - dataObject.zone1Radius) /
+                                                         (dataObject.zone2Radius - dataObject.zone1Radius));
             
                 float alignment = Vector3.Dot(droneBody.forward, directionToStation);
                 if (alignment > alignmentValue)
@@ -76,37 +83,52 @@ namespace Testing.NewMovement
             }
             else
             {
-                if (distance >= zone3Radius)
+                if (distance >= dataObject.zone3Radius)
                 {
-                    droneBody.position = transform.position + directionToStation * zone2Radius;
+                    droneBody.position = transform.position + directionToStation * dataObject.zone2Radius;
                 }
                 else
                 {
-                    _droneRigidbody.velocity = Vector3.Lerp(_droneRigidbody.velocity, directionToStation * forcedReturnSpeed, Time.fixedDeltaTime);
+                    _droneRigidbody.velocity = Vector3.Lerp(_droneRigidbody.velocity, 
+                        directionToStation * forcedReturnSpeed, Time.fixedDeltaTime);
                     droneBody.forward = Vector3.Lerp(droneBody.forward, directionToStation, Time.fixedDeltaTime);
                 }
             }
         }
 
+        public Bounds GetWorldBounds()
+        {
+            var radius = LevelBoundaryDictionary.Instance
+                .dictionary[SceneManager.GetActiveScene().name]
+                .zone3Radius;
+            
+            Debug.Log(transform.position);
+            
+            return new Bounds
+            {
+                center = transform.position,
+                extents = new Vector3(radius, radius, radius)
+            };
+        }
+        
         private void OnDrawGizmos()
         {
-            if (!Application.isPlaying)
+            if (dataObject == null)
             {
-                zone2Radius = Mathf.Max(zone2Radius, zone1Radius);
-                zone3Radius = Mathf.Max(zone3Radius, zone2Radius);
+                UpdateLevelData(SceneManager.GetActiveScene().name);
             }
-
+            
             // Zone 1: Free movement
             Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(transform.position, zone1Radius);
+            Gizmos.DrawWireSphere(transform.position, dataObject.zone1Radius);
 
             // Zone 2: Deceleration
             Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(transform.position, zone2Radius);
+            Gizmos.DrawWireSphere(transform.position, dataObject.zone2Radius);
 
             // Zone 3: Forced alignment
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, zone3Radius);
+            Gizmos.DrawWireSphere(transform.position, dataObject.zone3Radius);
         }
     }
 }

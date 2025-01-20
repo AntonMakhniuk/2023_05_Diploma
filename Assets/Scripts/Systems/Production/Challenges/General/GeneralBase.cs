@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
+using Production.Challenges;
 using Production.Crafting;
 using Production.Systems;
 using UnityEngine;
 
-namespace Production.Challenges.General
+namespace Systems.Production.Challenges.General
 {
     public abstract class GeneralBase<TConfig> : MonoBehaviour, IGeneralChallenge where TConfig : GeneralConfigBase
     {

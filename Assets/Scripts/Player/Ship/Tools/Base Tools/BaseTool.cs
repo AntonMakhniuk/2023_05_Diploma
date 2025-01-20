@@ -38,7 +38,7 @@ namespace Player.Ship.Tools.Base_Tools
             _fixedWorkCoroutine = FixedWorkCoroutine();
         }
 
-        // Run akin to an Update, but only when the tool is active
+        // Run akin to Update, but only when the tool is active
         private IEnumerator WorkCoroutine()
         {
             while (true)
@@ -54,7 +54,7 @@ namespace Player.Ship.Tools.Base_Tools
             
         }
         
-        // Run akin to a FixedUpdate, but only when the tool is active
+        // Run akin to FixedUpdate, but only when the tool is active
         private IEnumerator FixedWorkCoroutine()
         {
             while (true)

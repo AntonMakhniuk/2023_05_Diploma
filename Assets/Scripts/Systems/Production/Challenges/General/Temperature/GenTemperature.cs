@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Systems.Production.Challenges.General;
 using UnityEngine;
 
 namespace Production.Challenges.General.Temperature

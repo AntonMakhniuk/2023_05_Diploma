@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using NaughtyAttributes;
 using Systems.Mining.Resource_Nodes.Base;
-using Systems.Mining.Transitions.Transition_Addons;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -50,16 +49,16 @@ namespace Systems.Mining.Addons
 
         public override void ApplyEffect()
         {
-            StartCoroutine(SpawnOreCoroutine());
+            StartCoroutine(SpawnObjectCoroutine());
         }
 
-        private IEnumerator SpawnOreCoroutine()
+        private IEnumerator SpawnObjectCoroutine()
         {
             yield return new WaitForSeconds(spawnDelay);
             
-            var oreNumber = Random.Range(minCount, maxCount + 1);
+            var objectNumber = Random.Range(minCount, maxCount + 1);
             
-            while (oreNumber > 0)
+            while (objectNumber > 0)
             {
                 var spawnPos = _baseSpawnPosition;
                     
@@ -69,7 +68,7 @@ namespace Systems.Mining.Addons
                                    * (Random.value < 0.5f ? -1 : 1);
                 }
                 
-                var ore = Instantiate(objectPrefab, spawnPos, 
+                var spawnedObject = Instantiate(objectPrefab, spawnPos, 
                     Quaternion.Euler(Random.Range(0, 360),
                         Random.Range(0, 360), Random.Range(0, 360)));
 
@@ -77,14 +76,14 @@ namespace Systems.Mining.Addons
                 
                 do
                 {
-                    ore.transform.localScale 
+                    spawnedObject.transform.localScale 
                         *= _nodeScale * Random.Range(objectScaleInRelationToNode.x, objectScaleInRelationToNode.y);
 
                     tryCount++;
                 } 
-                while (ore.transform.localScale.x < minScale && tryCount < MaxScaleTries);
+                while (spawnedObject.transform.localScale.x < minScale && tryCount < MaxScaleTries);
                 
-                oreNumber--;
+                objectNumber--;
             }
             
             base.ApplyEffect();
