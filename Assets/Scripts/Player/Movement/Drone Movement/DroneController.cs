@@ -306,8 +306,8 @@ namespace Player.Movement.Drone_Movement
                 EngineGroupType.Front => _thrustAmount < 0f,
                 EngineGroupType.Top => _pitchAmount < 0f || _rollAmount > 0f,
                 EngineGroupType.Bottom => _pitchAmount > 0f || _rollAmount < 0f,
-                EngineGroupType.Left => _yawAmount > 0f || _rollAmount > 0f,
-                EngineGroupType.Right => _yawAmount < 0f || _rollAmount < 0f,
+                EngineGroupType.Left => _yawAmount > 0f || _rollAmount < 0f,
+                EngineGroupType.Right => _yawAmount < 0f || _rollAmount > 0f,
                 _ => false
             };
             
