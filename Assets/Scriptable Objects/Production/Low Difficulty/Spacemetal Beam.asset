@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49a00b759a874f6f8c1e57e54c34ae0f, type: 3}
   m_Name: Spacemetal Beam
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: eaf99e37ee9a43649935b761e47b93f3, type: 3}
   label: Spacemetal Beam
   difficultyConfig:
     difficulty: 1
     productionLengthInSeconds: 30
     recipeDifficulty: 1
   resources:
-  - resource: {fileID: 11400000, guid: 6a65a2eba87ee994bb5bedf1a8d41a83, type: 2}
+  - resourceData: {fileID: 11400000, guid: 6a65a2eba87ee994bb5bedf1a8d41a83, type: 2}
     quantity: 200
-  - resource: {fileID: 11400000, guid: 33bf864ce9159a346ba6b213131f36db, type: 2}
+  - resourceData: {fileID: 11400000, guid: 33bf864ce9159a346ba6b213131f36db, type: 2}
     quantity: 10
