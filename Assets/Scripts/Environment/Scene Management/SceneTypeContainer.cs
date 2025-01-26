@@ -9,6 +9,6 @@ namespace Environment.Scene_Management
 
     public enum SceneType
     {
-        MainMenu, Overworld, AsteroidField, GlobalMap
+        MainMenu, Overworld, AsteroidField, GlobalMap, AsteroidFieldWithEnemies
     }
 }   
